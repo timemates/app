@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.y9vad9.pomodoro.client.android">
+
+    <application
+            android:allowBackup="true"
+            android:label="Pomodoro"
+            android:supportsRtl="true"
+            android:name="com.y9vad9.pomodoro.client.android.PomodoroApplication"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+    </application>
+</manifest>

@@ -1,0 +1,22 @@
+CREATE TABLE Authorization(
+    id INTEGER AS Int PRIMARY KEY,
+    accessToken TEXT NOT NULL,
+    refreshToken TEXT NOT NULL,
+    userId INTEGER AS Int NOT NULL,
+    expiresAt INTEGER AS Int NOT NULL
+);
+
+CREATE INDEX authorization_id ON Authorization(id);
+
+insert:
+INSERT INTO Authorization (accessToken, refreshToken, userId, expiresAt) VALUES ?;
+
+deleteAll:
+DELETE FROM Authorization WHERE TRUE;
+
+getLast:
+SELECT * FROM Authorization WHERE id=(SELECT max(id) FROM Authorization);
+
+updateAccessToken:
+UPDATE Authorization SET accessToken = :accessToken WHERE id=:id;
+

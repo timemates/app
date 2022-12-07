@@ -1,0 +1,49 @@
+CREATE TABLE LocalTimer (
+  id INTEGER AS Int PRIMARY KEY,
+  name TEXT NOT NULL,
+  creationTime INTEGER AS Long NOT NULL,
+  lastUsedTime INTEGER AS Long NOT NULL,
+  workTime INTEGER AS Long NOT NULL DEFAULT 1500000,
+  restTime INTEGER AS Long NOT NULL DEFAULT 300000,
+  bigRestTime INTEGER AS Long NOT NULL DEFAULT 600000,
+  bigRestPer INTEGER AS Int NOT NULL DEFAULT 4,
+  isBigRestEnabled INTEGER AS Boolean NOT NULL DEFAULT 0,
+  isConfirmationRequired INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+CREATE INDEX local_timers_id ON LocalTimer(id);
+
+selectAll:
+SELECT * FROM LocalTimer ORDER BY lastUsedTime DESC LIMIT :limit OFFSET :offset;
+
+updateLastUsedTime:
+UPDATE LocalTimer SET lastUsedTime=? WHERE id=:id;
+
+insert:
+INSERT INTO LocalTimer (name, creationTime, lastUsedTime,
+ workTime, restTime, bigRestPer, isBigRestEnabled ,isConfirmationRequired) VALUES (
+ :name, :creationTime, :lastUsedTime,
+  :workTime, :restTime, :bigRestPer, :isBigRestEnabled, :isConfirmationRequired
+ );
+
+setWorkTime:
+UPDATE LocalTimer SET workTime=? WHERE id=:id;
+
+setRestTime:
+UPDATE LocalTimer SET restTime=? WHERE id=:id;
+
+setBigRestTime:
+UPDATE LocalTimer SET bigRestTime=? WHERE id=:id;
+
+setBigRestPer:
+UPDATE LocalTimer SET bigRestPer=? WHERE id=:id;
+
+setBigRestEnabled:
+UPDATE LocalTimer SET isBigRestEnabled=? WHERE id=:id;
+
+setConfirmationEnabled:
+UPDATE LocalTimer SET isConfirmationRequired=? WHERE id=:id;
+
+delete:
+DELETE FROM LocalTimer WHERE id=:id;
+

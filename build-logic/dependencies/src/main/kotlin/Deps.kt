@@ -1,15 +1,15 @@
 @file:Suppress("FunctionName", "unused")
 
 object Deps {
-    const val compileSdkVersion = 31
-    const val minSdkVersion = 21
-    
-    private const val kotlinVersion = "1.7.20"
+    const val compileSdkVersion = 33
+    const val minSdkVersion = 24
+
+    private const val kotlinVersion = "1.7.21"
     private const val coroutinesVersion = "1.6.4"
     private const val serializationVersion = "1.4.0"
     private const val nodejsExternalsVersion = "0.0.7"
-    private const val ktorVersion = "2.1.2"
-    private const val ktorOpenapiVersion = "0.2-beta.20"
+    private const val ktorVersion = "2.0.1"
+    private const val ktorOpenapiVersion = "0.3-beta.3"
     private const val exposedVersion = "0.39.2"
     private const val datetimeVersion = "0.3.0"
 
@@ -17,16 +17,16 @@ object Deps {
     private const val slf4jJVersion = "1.7.32"
     private const val logbackVersion = "1.2.6"
     private const val sshVersion = "2.10.1"
-    
+
     private const val materialVersion = "1.5.0-alpha03"
     private const val recyclerViewVersion = "1.3.0-alpha01"
     private const val swipeRefreshLayoutVersion = "1.2.0"
     private const val constraintLayoutVersion = "2.1.0"
-    private const val lifecycleVersion = "2.3.1"
+    private const val lifecycleVersion = "2.5.1"
     private const val glideVersion = "4.12.0"
-    private const val androidAppCompatVersion = "1.3.1"
-    private const val androidComposeVersion = "1.3.0-alpha02"
-    private const val androidGradlePluginVersion = "4.2.2"
+    private const val androidAppCompatVersion = "1.7.0-alpha01"
+    private const val androidComposeVersion = "1.4.0-alpha02"
+    private const val androidGradlePluginVersion = "7.0.4"
 
     private const val kvisionVersion = "5.1.1"
     private const val shadowVer = "7.0.0"
@@ -34,7 +34,35 @@ object Deps {
     private const val kdsVer = "1.1.0"
     private const val scriptKtVer = "0.0.5"
 
+    object Modules {
+        const val UseCases = ":use-cases"
+        const val ViewModels = ":viewmodels"
+        object Features {
+            const val ViewModelMpp = ":features:mpp-viewmodel"
+        }
+        object Adapters {
+            const val Repositories = ":adapters:repositories-integration"
+        }
+        const val Domain = ":domain"
+    }
     object Libs {
+
+        object SQLDelight {
+            const val AndroiDriver = "com.squareup.sqldelight:android-driver:1.5.3"
+        }
+
+        object Google {
+            const val PlayServicesAuth = "com.google.android.gms:play-services-auth:20.4.0"
+        }
+
+        object H2 {
+            const val Database = "com.h2database:h2:2.1.214"
+        }
+
+        object JUnit {
+            const val Kotlin = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+            const val Jupiter = "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+        }
 
         object KotlinGang {
             object KDS {
@@ -95,14 +123,27 @@ object Deps {
             object Client {
                 const val Core = "io.ktor:ktor-client-core:$ktorVersion"
                 const val Cio = "io.ktor:ktor-client-cio:$ktorVersion"
-                const val Serialization = "io.ktor:ktor-client-serialization:$ktorVersion"
+                const val ContentNegotiation = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
+                const val Js = "io.ktor:ktor-client-js:$ktorVersion"
+                const val CallLogging = "io.ktor:ktor-client-logging:$ktorVersion"
+                const val WebSockets = "io.ktor:ktor-client-websockets:$ktorVersion"
+                const val WebSocketsJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
             }
+
             object Server {
                 const val Core = "io.ktor:ktor-server-core:$ktorVersion"
+                const val HostCommonJvm = "io.ktor:ktor-server-host-common-jvm:$ktorVersion"
+                const val StatusPages = "io.ktor:ktor-server-status-pages-jvm:$ktorVersion"
                 const val Cio = "io.ktor:ktor-server-cio:$ktorVersion"
-                const val Serialization = "io.ktor:ktor-serialization:$ktorVersion"
+                const val ContentNegotiation = "io.ktor:ktor-server-content-negotiation:$ktorVersion"
                 const val Openapi = "com.github.papsign:Ktor-OpenAPI-Generator:$ktorOpenapiVersion"
+                const val RequestValidation = "io.ktor:ktor-server-request-validation:$ktorVersion"
+                const val CORS = "io.ktor:ktor-server-cors:$ktorVersion"
+                const val WebSockets = "io.ktor:ktor-server-websockets:$ktorVersion"
+                const val CallLogging = "io.ktor:ktor-server-call-logging-jvm:$ktorVersion"
             }
+
+            const val Json = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
         }
         object Exposed {
             const val Core = "org.jetbrains.exposed:exposed-core:$exposedVersion"
@@ -113,7 +154,7 @@ object Deps {
             const val Jdbc = "org.postgresql:postgresql:$postgresqlVersion"
         }
         object Logback {
-            const val Classic = "ch.qos.logback:logback-classic:$logbackVersion"    
+            const val Classic = "ch.qos.logback:logback-classic:$logbackVersion"
         }
         object Slf4j {
             const val Simple = "org.slf4j:slf4j-simple:$slf4jJVersion"
@@ -131,18 +172,21 @@ object Deps {
                 "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
             const val Lifecycle =
                 "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-            const val LifecycleKtx =
-                "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            const val LifecycleViewModelKtx =
+                "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
 
             object Compose {
                 const val UI = "androidx.compose.ui:ui:$androidComposeVersion"
                 const val UITooling = "androidx.compose.ui:ui-tooling:$androidComposeVersion"
                 const val Foundation = "androidx.compose.foundation:foundation:$androidComposeVersion"
                 const val Material = "androidx.compose.material:material:$androidComposeVersion"
+                const val Material3 = "androidx.compose.material3:material3:1.1.0-alpha02"
                 const val Icons = "androidx.compose.material:material-icons-core:$androidComposeVersion"
                 const val ExtendedIcons = "androidx.compose.material:material-icons-extended:$androidComposeVersion"
                 const val JUnitTests = "androidx.compose.ui:ui-test-junit4:$androidComposeVersion"
-                const val Activity = "androidx.activity:activity-compose:1.4.0-alpha02"
+                const val Activity = "androidx.activity:activity-compose:1.6.1"
+                const val ViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+                const val Navigation = "androidx.navigation:navigation-compose:2.5.3"
             }
         }
         object Bumtech {
@@ -166,9 +210,12 @@ object Deps {
                 const val Js = "k-js"
                 object Android {
                     const val App = "k-android-app"
-                    const val Library = "k-android-library"
+                    const val Library = "k-android-sdk"
                 }
             }
+        }
+        object SQLDelight {
+            const val Id = "com.squareup.sqldelight"
         }
         object Dependencies {
             const val Id = "dependencies"
