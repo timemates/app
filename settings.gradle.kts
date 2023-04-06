@@ -1,12 +1,10 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
         google()
-    }
-
-    plugins {
-        id("com.squareup.sqldelight") version "1.5.3"
     }
 }
 
@@ -15,23 +13,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://jitpack.io")
-        maven("https://maven.y9vad9.com")
     }
 }
 
-rootProject.name = "tomadoro-client"
-
-includeBuild("build-logic/dependencies")
-includeBuild("build-logic/configuration")
-includeBuild("build-logic/service-deploy")
-//includeBuild("buildUtils/library-deploy")
+rootProject.name = "TimeMates"
 
 include(
-    ":viewmodels",
-    ":features:mpp-viewmodel",
-    ":android",
-    ":use-cases",
-    ":domain",
-    ":adapters:repositories-integration"
+    ":ui-system",
+    ":common"
 )
