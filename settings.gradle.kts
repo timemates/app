@@ -17,3 +17,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TimeMates"
+
+include(
+    ":ui-system",
+    ":common"
+)
