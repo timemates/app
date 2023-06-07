@@ -1,8 +1,9 @@
-<center><b><a href="README-uk.md">Читати 🇺🇦 українською</a></b></center>
+<p align="end"><b><a href="README-uk.md">Читати 🇺🇦 українською</a></b></p><br>
+
 
 ![poster](docs/images/en/github_poster.png)
 
-# <center>TimeMates</center>
+# <p align="center">TimeMates</p>
 
 TimeMates is a multiplatform application that was built with Kotlin, Compose,
  Coroutines, and gRPC.
@@ -14,6 +15,6 @@ stay organized, focused, and productive.
 The app allows users to create personalized timers for their tasks,
 so they can stay on track and meet deadlines.
 
-## <center>Our progress</center>
+## <p align="center">Our progress</p>
 If you want to know how we're dealing with TimeMates, you can check [our
 board](https://github.com/orgs/timemates/projects/3/views/2).
