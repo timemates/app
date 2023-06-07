@@ -1,6 +1,3 @@
-<p align="end"><b><a href="README-uk.md">Читати 🇺🇦 українською</a></b></p><br>
-
-
 ![poster](docs/images/en/github_poster.png)
 
 # <p align="center">TimeMates</p>
