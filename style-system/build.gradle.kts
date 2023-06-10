@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.android.library)
 }
 
 kotlin {
@@ -8,12 +9,15 @@ kotlin {
 }
 
 dependencies {
-    commonMainApi(compose.ui)
-    commonMainApi(compose.material)
-    commonMainApi(compose.material3)
-    commonMainApi(compose.animation)
-    commonMainApi(compose.foundation)
-    commonMainApi(compose.uiTooling)
-    commonMainApi(compose.compiler.auto)
-    commonMainApi(compose.preview)
+    commonMainImplementation(compose.ui)
+    commonMainImplementation(compose.material)
+    commonMainImplementation(compose.material3)
+    commonMainImplementation(compose.animation)
+    commonMainImplementation(compose.foundation)
+    commonMainImplementation(compose.materialIconsExtended)
+    commonMainImplementation(compose.preview)
+}
+
+android {
+    compileSdk = 34
 }

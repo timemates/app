@@ -8,5 +8,5 @@ kotlin {
 
 dependencies {
     commonMainApi(libs.timemates.sdk)
-    commonMainApi(libs.timemates.engine.grpc)
+    // commonMainApi(libs.timemates.engine.grpc)
 }

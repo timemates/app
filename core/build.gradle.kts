@@ -7,6 +7,6 @@ kotlin {
 }
 
 dependencies {
-    commonMainImplementation(libs.timemates.sdk)
+    commonMainApi(libs.timemates.sdk)
     commonMainImplementation(libs.kotlinx.coroutines)
 }

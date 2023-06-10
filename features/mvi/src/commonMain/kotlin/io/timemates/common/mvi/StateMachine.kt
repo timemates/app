@@ -1,6 +1,6 @@
 package io.timemates.common.mvi
 
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -21,7 +21,7 @@ public interface StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEf
     /**
      * Represents the channel for emitting UI effects.
      */
-    public val effects: Channel<TEffect>
+    public val effects: ReceiveChannel<TEffect>
 
     /**
      * Dispatches an event to the state machine for processing.

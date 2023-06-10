@@ -8,9 +8,10 @@ jupiter = "5.4.0"
 exposed = "0.41.1"
 kmongo = "4.8.0"
 androidGradlePlugin = "7.3.1"
-androidComposeVersion = "1.5.0-beta01"
+androidComposeVersion = "2.6.1"
 jetbrainsCompose = "1.4.0"
 timeMatesSdk = "0.0.1-alpha"
+ksp = "1.8.20-1.0.11"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -65,3 +66,5 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-application = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 bundled-publish-library = { id = "publish-library", version.require = "SNAPSHOT" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+koin-configuration = { id = "koin-configuration", version.require = "SNAPSHOT" }

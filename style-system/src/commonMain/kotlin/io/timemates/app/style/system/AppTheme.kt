@@ -3,7 +3,6 @@ package io.timemates.app.style.system
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import io.timemates.app.style.system.resources.*
 
