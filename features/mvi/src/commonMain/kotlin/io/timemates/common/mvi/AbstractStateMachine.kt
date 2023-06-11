@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
  */
 public abstract class AbstractStateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>(
     private val reducer: Reducer<TState, TEvent, TEffect>,
+    private val middlewares: List<Middleware<TState, TEffect>>,
 ) : StateMachine<TState, TEvent, TEffect> {
+
     protected abstract fun initDefaultState(): TState
 
     private val _state: MutableStateFlow<TState> by lazy { MutableStateFlow(initDefaultState()) }
@@ -33,14 +35,15 @@ public abstract class AbstractStateMachine<TState : UiState, TEvent : UiEvent, T
      * @param event The event to be processed.
      */
     public final override fun dispatchEvent(event: TEvent) {
-        setState(reducer.reduce(state.value, event, ::sendEffect))
+        val sendEffect: (TEffect) -> Unit = { effect ->
+            middlewares.forEach { middleware -> middleware.onEffect(effect, this, ::setState) }
+            _effects.trySend(effect)
+        }
+
+        setState(reducer.reduce(state.value, event, sendEffect))
     }
 
     private fun setState(state: TState) {
         _state.tryEmit(state)
-    }
-
-    private fun sendEffect(effect: TEffect) {
-        _effects.trySend(effect)
     }
 }

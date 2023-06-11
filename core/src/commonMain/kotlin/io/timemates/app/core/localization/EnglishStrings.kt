@@ -7,4 +7,6 @@ object EnglishStrings : Strings {
     override val email: String = "Email address"
     override val emailSizeIsInvalid: String = "Email address size should be in range of 5 and 200 symbols"
     override val emailIsInvalid: String = "Email address is invalid."
+    override val unknownFailure: String = "Unknown failure happened"
+    override val tooManyAttempts: String = "Too many attempts."
 }

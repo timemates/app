@@ -19,5 +19,5 @@ dependencies {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = libs.versions.android.target.get().toInt()
 }

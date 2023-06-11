@@ -4,6 +4,7 @@ import io.timemates.app.authorization.confirmation.mvi.ConfirmAuthorizationState
 import io.timemates.app.authorization.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.confirmation.mvi.ConfirmAuthorizationStateMachine.State
 import io.timemates.app.core.repositories.AuthorizationRepository
+import io.timemates.app.core.validation.ConfirmationCodeValidator
 import io.timemates.common.mvi.Reducer
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
@@ -16,16 +17,22 @@ import kotlinx.coroutines.launch
 class ConfirmAuthorizationsReducer(
     private val verificationHash: VerificationHash,
     private val authorizationRepository: AuthorizationRepository,
+    private val confirmationCodeValidator: ConfirmationCodeValidator,
     private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
-    override fun reduce(state: State, event: Event, sendEffect: (Effect) -> Unit): State {
+    override fun reduce(
+        state: State,
+        event: Event,
+        sendEffect: (Effect) -> Unit
+    ): State {
         return when (event) {
             Event.OnConfirmClicked -> {
-                if (state.code.length != 6)
-                    state.copy(isCodeSizeInvalid = true)
-                else {
-                    confirm(state.code, sendEffect)
-                    state.copy(isLoading = true)
+                when (confirmationCodeValidator.validate(state.code)) {
+                    ConfirmationCodeValidator.Result.SizeIsInvalid -> state.copy(isCodeSizeInvalid = true)
+                    ConfirmationCodeValidator.Result.Success -> {
+                        confirm(state.code, sendEffect)
+                        state.copy(isLoading = true)
+                    }
                 }
             }
 
@@ -33,7 +40,10 @@ class ConfirmAuthorizationsReducer(
         }
     }
 
-    private fun confirm(code: String, sendEffect: (Effect) -> Unit) {
+    private fun confirm(
+        code: String,
+        sendEffect: (Effect) -> Unit
+    ) {
         coroutineScope.launch {
             authorizationRepository.confirm(verificationHash, ConfirmationCode.createOrThrow(code))
                 .onSuccess {

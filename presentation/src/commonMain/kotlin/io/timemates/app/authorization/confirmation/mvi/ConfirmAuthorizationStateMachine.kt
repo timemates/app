@@ -12,8 +12,9 @@ import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.Authorization
 
 class ConfirmAuthorizationStateMachine constructor(
-    reducer: ConfirmAuthorizationsReducer
-) : AbstractStateMachine<State, Event, Effect>(reducer = reducer) {
+    reducer: ConfirmAuthorizationsReducer,
+    middleware: ConfirmAuthorizationMiddleware,
+) : AbstractStateMachine<State, Event, Effect>(reducer = reducer, middlewares = listOf(middleware)) {
 
     override fun initDefaultState(): State {
         return State()

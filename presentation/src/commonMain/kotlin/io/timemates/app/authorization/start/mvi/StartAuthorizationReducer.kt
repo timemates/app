@@ -1,8 +1,10 @@
 package io.timemates.app.authorization.start.mvi
 
-import io.timemates.app.authorization.start.mvi.StartAuthorizationStateMachine.*
+import io.timemates.app.authorization.start.mvi.StartAuthorizationStateMachine.Effect
+import io.timemates.app.authorization.start.mvi.StartAuthorizationStateMachine.Event
+import io.timemates.app.authorization.start.mvi.StartAuthorizationStateMachine.State
 import io.timemates.app.core.usecases.authorization.AuthorizeByEmailUseCase
-import io.timemates.app.core.usecases.authorization.validators.ValidateEmailUseCase
+import io.timemates.app.core.validation.EmailAddressValidator
 import io.timemates.common.mvi.Reducer
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.exceptions.TooManyRequestsException
@@ -11,7 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class StartAuthorizationReducer(
-    private val validateEmail: ValidateEmailUseCase,
+    private val validateEmail: EmailAddressValidator,
     private val authorizeByEmail: AuthorizeByEmailUseCase,
     private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
@@ -19,11 +21,13 @@ class StartAuthorizationReducer(
         return when (event) {
             is Event.EmailChange -> state.copy(email = event.email)
             Event.OnStartClick -> when (validateEmail.validate(state.email)) {
-                ValidateEmailUseCase.Result.PatternDoesNotMatch ->
+                EmailAddressValidator.Result.PatternDoesNotMatch ->
                     state.copy(isEmailInvalid = true)
-                ValidateEmailUseCase.Result.SizeViolation ->
+
+                EmailAddressValidator.Result.SizeViolation ->
                     state.copy(isEmailLengthSizeInvalid = true)
-                ValidateEmailUseCase.Result.Success -> {
+
+                EmailAddressValidator.Result.Success -> {
                     authorizeWithEmail(state.email, sendEffect)
                     state.copy(isLoading = true)
                 }

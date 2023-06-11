@@ -2,6 +2,7 @@ package io.timemates.common.mvi
 
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * StateMachine is an interface that represents a Model-View-Intent (MVI) architecture
@@ -12,11 +13,11 @@ import kotlinx.coroutines.flow.Flow
  * @param TEvent The type representing events from the UI.
  * @param TEffect The type representing effects to UI.
  */
-public interface StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect> {
+public interface StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect> : StateStore<TState> {
     /**
      * Represents the current state of the UI.
      */
-    public val state: Flow<TState>
+    public override val state: StateFlow<TState>
 
     /**
      * Represents the channel for emitting UI effects.

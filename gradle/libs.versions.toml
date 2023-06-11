@@ -10,8 +10,9 @@ kmongo = "4.8.0"
 androidGradlePlugin = "7.3.1"
 androidComposeVersion = "2.6.1"
 jetbrainsCompose = "1.4.0"
-timeMatesSdk = "0.0.1-alpha"
+timeMatesSdk = "0.0.2-alpha"
 ksp = "1.8.20-1.0.11"
+android-target = "34"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }

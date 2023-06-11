@@ -29,10 +29,15 @@ include(
     ":data:sdk",
     ":data:database",
     ":style-system",
+    ":shared-deps",
 )
 
-include(":features:mvi",)
+include(
+    ":features:mvi",
+)
 
-include(":presentation",)
+include(
+    ":presentation",
+)
 
 include(":platforms:desktop")

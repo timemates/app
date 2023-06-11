@@ -27,7 +27,6 @@ fun ConfirmAuthorizationScreen(stateMachine: ConfirmAuthorizationStateMachine) {
         topBar = {
             TopAppBar(
                 title = LocalStrings.email,
-                trailingButtonIcon = Icons.Rounded.Settings,
             )
         },
     ) {
