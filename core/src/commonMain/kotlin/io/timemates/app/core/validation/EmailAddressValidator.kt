@@ -1,11 +1,8 @@
 package io.timemates.app.core.validation
 
-import org.koin.core.annotation.Singleton
-
 /**
  * A validator for email addresses.
  */
-@Singleton
 class EmailAddressValidator : Validator<String, EmailAddressValidator.Result> {
 
     companion object {

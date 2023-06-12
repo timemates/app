@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 rootProject.name = "timemates-app"
 
 includeBuild("build-plugins/publish-library")
-includeBuild("build-plugins/koin-configuration")
 
 include(
     ":core",
@@ -34,10 +33,14 @@ include(
 
 include(
     ":features:mvi",
+    ":features:mvi:compose",
 )
 
 include(
     ":presentation",
 )
 
-include(":platforms:desktop")
+include(
+    ":platforms:desktop",
+    ":platforms:android",
+)

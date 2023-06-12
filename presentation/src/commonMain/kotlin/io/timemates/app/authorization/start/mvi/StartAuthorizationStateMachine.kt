@@ -8,8 +8,9 @@ import io.timemates.common.mvi.*
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 
 class StartAuthorizationStateMachine(
-    reducer: StartAuthorizationReducer
-) : AbstractStateMachine<State, Event, Effect>(reducer) {
+    reducer: StartAuthorizationReducer,
+    middleware: StartAuthorizationMiddleware,
+) : AbstractStateMachine<State, Event, Effect>(reducer, middlewares = listOf(middleware)) {
     override fun initDefaultState(): State = State()
 
     @Immutable

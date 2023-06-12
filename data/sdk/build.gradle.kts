@@ -4,9 +4,16 @@ plugins {
 
 kotlin {
     jvm()
+
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                //implementation(libs.timemates.engine.grpc)
+            }
+        }
+    }
 }
 
 dependencies {
     commonMainApi(libs.timemates.sdk)
-    // commonMainApi(libs.timemates.engine.grpc)
 }

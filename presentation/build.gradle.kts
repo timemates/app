@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.koin.configuration)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 kotlin {
@@ -17,12 +17,17 @@ dependencies {
 
     commonMainImplementation(libs.kotlinx.coroutines)
 
-    commonMainImplementation(compose.ui)
-    commonMainImplementation(compose.foundation)
-    commonMainImplementation(compose.runtime)
-    commonMainImplementation(compose.material3)
-    commonMainImplementation(compose.materialIconsExtended)
-    commonMainImplementation(compose.uiTooling)
+    commonMainApi(compose.ui)
+    commonMainApi(compose.foundation)
+    commonMainApi(compose.runtime)
+    commonMainApi(compose.material3)
+    commonMainApi(compose.materialIconsExtended)
+    commonMainApi(compose.uiTooling)
+
+    commonMainApi(libs.koin.core)
+
+    commonMainApi(libs.decompose)
+    commonMainApi(libs.decompose.jetbrains.compose)
 }
 
 android {

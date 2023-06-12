@@ -13,6 +13,10 @@ jetbrainsCompose = "1.4.0"
 timeMatesSdk = "0.0.2-alpha"
 ksp = "1.8.20-1.0.11"
 android-target = "34"
+android-min = "24"
+koin = "3.4.2"
+koin-annotations = "1.2.2"
+decompose = "2.0.0-beta-01"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -45,17 +49,25 @@ simple-java-mail = { module = "org.simplejavamail:simple-java-mail", version.req
 
 cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require="0.9.0" }
 
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
-compose-foundation = {  module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.0-alpha03" }
-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidComposeVersion" }
-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
+androidx-compose-foundation = {  module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.2.0-alpha02" }
+androidx-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
+androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha05" }
+androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
 compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.28.0" }
 
 timemates-sdk = { module = "com.github.timemates:sdk", version.ref = "timeMatesSdk" }
 timemates-engine-grpc = { module = "com.github.timemates:grpc-engine", version.ref = "timeMatesSdk" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
+koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotations" }
+
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require= "1.7.0-alpha02" }
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-jetbrains-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -69,3 +81,4 @@ bundled-publish-library = { id = "publish-library", version.require = "SNAPSHOT"
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 koin-configuration = { id = "koin-configuration", version.require = "SNAPSHOT" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

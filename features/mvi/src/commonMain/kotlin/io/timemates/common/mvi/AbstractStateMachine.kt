@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
  */
 public abstract class AbstractStateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>(
     private val reducer: Reducer<TState, TEvent, TEffect>,
-    private val middlewares: List<Middleware<TState, TEffect>>,
+    private val middlewares: List<Middleware<TState, TEffect>> = emptyList(),
 ) : StateMachine<TState, TEvent, TEffect> {
 
     protected abstract fun initDefaultState(): TState

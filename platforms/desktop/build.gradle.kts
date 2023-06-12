@@ -1,14 +1,12 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose.multiplatform)
-}
-
-kotlin {
-    jvm()
+    application
 }
 
 dependencies {
-    commonMainImplementation(compose.desktop.currentOs)
-    commonMainImplementation(compose.runtime)
-    commonMainImplementation(compose.compiler.auto)
+    implementation(compose.desktop.currentOs)
+    implementation(compose.runtime)
+
+    implementation(projects.presentation)
 }

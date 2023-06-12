@@ -1,15 +1,14 @@
 package io.timemates.app.core.validation
 
-import org.koin.core.annotation.Singleton
+import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 
 /**
  * A validator for confirmation codes.
  */
-@Singleton
 class ConfirmationCodeValidator : Validator<String, ConfirmationCodeValidator.Result> {
 
     companion object {
-        const val SIZE = 6
+        const val SIZE = ConfirmationCode.SIZE
     }
 
     /**
