@@ -5,6 +5,12 @@ interface Strings {
 
     val start: String
 
+    val nextStep: String
+
+    val authorization: String
+
+    val authorizationDescription: String
+
     val confirmation: String
 
     val email: String

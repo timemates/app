@@ -9,7 +9,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         google()
         mavenCentral()
@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 rootProject.name = "timemates-app"
 
 includeBuild("build-plugins/publish-library")
+includeBuild("build-plugins/configurations")
 
 include(
     ":core",
@@ -28,19 +29,30 @@ include(
     ":data:sdk",
     ":data:database",
     ":style-system",
-    ":shared-deps",
 )
 
 include(
-    ":features:mvi",
-    ":features:mvi:compose",
+    ":foundation:mvi",
+    ":foundation:mvi:koin-compose",
+    ":foundation:viewmodel",
+    ":foundation:random",
 )
 
 include(
-    ":presentation",
+    ":ui-core",
+    ":navigation",
 )
 
 include(
     ":platforms:desktop",
     ":platforms:android",
+)
+
+include(
+    ":feature:authorization:domain",
+    ":feature:authorization:presentation",
+    ":feature:authorization:data:sdk",
+    ":feature:authorization:data:database",
+    ":feature:authorization:data",
+    ":feature:authorization:dependencies",
 )

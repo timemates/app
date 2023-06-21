@@ -9,12 +9,14 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.min.get().toInt()
     }
+
+    namespace = "io.timemates.app"
 }
 
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.activity)
 
-    implementation(projects.presentation)
-    implementation(projects.sharedDeps)
+    implementation(projects.navigation)
+    implementation(projects.uiCore)
 }

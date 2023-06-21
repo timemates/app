@@ -8,5 +8,14 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.runtime)
 
-    implementation(projects.presentation)
+    implementation(projects.uiCore)
+
+
+    implementation(projects.feature.authorization.dependencies)
+    implementation(projects.navigation)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
