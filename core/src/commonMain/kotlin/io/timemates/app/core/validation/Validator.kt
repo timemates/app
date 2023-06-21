@@ -16,3 +16,10 @@ interface Validator<TInput, TResult> {
      */
     fun validate(input: TInput): TResult
 }
+
+/**
+ * Throws [IllegalStateException] with message that contains name of
+ * the type recognized from [T].
+ */
+fun unknownValidationFailure(failure: Throwable): Nothing =
+    error("Unknown failure type ${failure::class.qualifiedName}")
