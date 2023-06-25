@@ -1,7 +1,7 @@
 package io.timemates.app.authorization.dependencies.screens
 
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
-import io.timemates.app.authorization.repositories.AuthorizationRepository
+import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationReducer
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
@@ -18,8 +18,8 @@ class StartAuthorizationModule {
     fun emailValidator(): EmailAddressValidator = EmailAddressValidator()
 
     @Singleton
-    fun authByEmailUseCase(authorizationRepository: AuthorizationRepository): AuthorizeByEmailUseCase =
-        AuthorizeByEmailUseCase(authorizationRepository)
+    fun authByEmailUseCase(authorizationsRepository: AuthorizationsRepository): AuthorizeByEmailUseCase =
+        AuthorizeByEmailUseCase(authorizationsRepository)
 
     @Singleton
     fun reducer(

@@ -7,9 +7,9 @@ import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
 import io.timemates.sdk.authorization.sessions.types.Authorization
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 import io.timemates.sdk.users.profile.types.value.EmailAddress
-import io.timemates.app.authorization.repositories.AuthorizationRepository as AuthorizationRepositoryContract
+import io.timemates.app.authorization.repositories.AuthorizationsRepository as AuthorizationRepositoryContract
 
-class AuthorizationRepository(
+class AuthorizationsRepository(
     private val emailAuthApi: EmailAuthorizationApi,
     private val sessionsApi: AuthorizedSessionsApi,
     private val store: AuthorizationStore,

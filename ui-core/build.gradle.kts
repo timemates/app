@@ -1,5 +1,6 @@
 plugins {
     id(libs.plugins.configurations.compose.multiplatform.get().pluginId)
+    id(libs.plugins.configurations.unit.tests.mockable.get().pluginId)
     alias(libs.plugins.kotlin.parcelize)
 }
 

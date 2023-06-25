@@ -21,7 +21,7 @@ android {
 
 sqldelight {
     databases {
-        create("TimeMates") {
+        create("TimeMatesAuthorizations") {
             generateAsync.set(true)
             packageName.set("io.timemates.data.database")
         }

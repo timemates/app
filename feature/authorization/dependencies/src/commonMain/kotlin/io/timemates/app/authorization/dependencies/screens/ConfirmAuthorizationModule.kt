@@ -1,7 +1,7 @@
 package io.timemates.app.authorization.dependencies.screens
 
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
-import io.timemates.app.authorization.repositories.AuthorizationRepository
+import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationMiddleware
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
@@ -26,7 +26,7 @@ class ConfirmAuthorizationModule {
     fun stateMachine(
         verificationHash: VerificationHash,
         middleware: ConfirmAuthorizationMiddleware,
-        authorizationsRepository: AuthorizationRepository,
+        authorizationsRepository: AuthorizationsRepository,
         confirmationCodeValidator: ConfirmationCodeValidator,
     ): ConfirmAuthorizationStateMachine {
         return ConfirmAuthorizationStateMachine(

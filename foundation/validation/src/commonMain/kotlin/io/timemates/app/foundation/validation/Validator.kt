@@ -1,4 +1,4 @@
-package io.timemates.app.core.validation
+package io.timemates.app.foundation.validation
 
 /**
  * A generic interface for validators.
@@ -19,7 +19,10 @@ interface Validator<TInput, TResult> {
 
 /**
  * Throws [IllegalStateException] with message that contains name of
- * the type recognized from [T].
+ * the type recognized from [failure].
+ *
+ * Should be used in cases when some kind of throwable cannot be correctly
+ * interpreted by validator.
  */
 fun unknownValidationFailure(failure: Throwable): Nothing =
     error("Unknown failure type ${failure::class.qualifiedName}")

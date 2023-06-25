@@ -10,3 +10,5 @@ dependencyResolutionManagement {
         }
     }
 }
+
+rootProject.name = "configurations"

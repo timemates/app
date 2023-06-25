@@ -9,7 +9,7 @@ import io.timemates.sdk.users.profile.types.value.EmailAddress
 /**
  * Interface defining the contract for an authorization repository.
  */
-interface AuthorizationRepository {
+interface AuthorizationsRepository {
     /**
      * Retrieves the current authorization details if authorized.
      *

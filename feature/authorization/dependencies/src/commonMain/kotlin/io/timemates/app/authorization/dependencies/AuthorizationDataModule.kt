@@ -1,6 +1,6 @@
 package io.timemates.app.authorization.dependencies
 
-import io.timemates.app.authorization.repositories.AuthorizationRepository
+import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.Authorization
@@ -12,8 +12,8 @@ import org.koin.core.annotation.Singleton
 @Module
 class AuthorizationDataModule {
     @Singleton
-    fun authorizationRepository(): AuthorizationRepository {
-        return object : AuthorizationRepository {
+    fun authorizationRepository(): AuthorizationsRepository {
+        return object : AuthorizationsRepository {
             override suspend fun getCurrentAuthorization(): Authorization? {
                 TODO("Not yet implemented")
             }

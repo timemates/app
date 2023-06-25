@@ -1,6 +1,6 @@
 package io.timemates.app.authorization.ui.confirmation.mvi
 
-import io.timemates.app.authorization.repositories.AuthorizationRepository
+import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class ConfirmAuthorizationsReducer(
     private val verificationHash: VerificationHash,
-    private val authorizationRepository: AuthorizationRepository,
+    private val authorizationsRepository: AuthorizationsRepository,
     private val confirmationCodeValidator: ConfirmationCodeValidator,
     private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
@@ -53,7 +53,7 @@ class ConfirmAuthorizationsReducer(
         sendEffect: (Effect) -> Unit
     ) {
         coroutineScope.launch {
-            authorizationRepository.confirm(verificationHash, ConfirmationCode.createOrThrow(code))
+            authorizationsRepository.confirm(verificationHash, ConfirmationCode.createOrThrow(code))
                 .onSuccess {
                     if (it.isNewAccount)
                         sendEffect(Effect.NavigateToCreateAccount(verificationHash))

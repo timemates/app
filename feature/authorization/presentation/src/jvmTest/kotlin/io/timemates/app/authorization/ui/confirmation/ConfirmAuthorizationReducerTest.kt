@@ -2,7 +2,7 @@ package io.timemates.app.authorization.ui.confirmation
 
 import io.mockk.every
 import io.mockk.mockk
-import io.timemates.app.authorization.repositories.AuthorizationRepository
+import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
@@ -17,14 +17,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class ConfirmAuthorizationsReducerTest {
-    private val authorizationRepository: AuthorizationRepository = mockk()
+class ConfirmAuthorizationReducerTest {
+    private val authorizationsRepository: AuthorizationsRepository = mockk()
     private val confirmationCodeValidator: ConfirmationCodeValidator = mockk()
     private val coroutineScope = TestScope()
     private val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
     private val reducer = ConfirmAuthorizationsReducer(
         verificationHash,
-        authorizationRepository,
+        authorizationsRepository,
         confirmationCodeValidator,
         coroutineScope,
     )

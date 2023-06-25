@@ -2,6 +2,7 @@ package io.timemates.app.foundation.random
 
 import kotlin.random.Random
 
+// source-characters for [nextString]
 private val alphabet: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
 /**

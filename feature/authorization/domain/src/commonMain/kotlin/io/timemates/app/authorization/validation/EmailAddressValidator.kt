@@ -1,7 +1,7 @@
 package io.timemates.app.authorization.validation
 
-import io.timemates.app.core.validation.Validator
-import io.timemates.app.core.validation.unknownValidationFailure
+import io.timemates.app.foundation.validation.Validator
+import io.timemates.app.foundation.validation.unknownValidationFailure
 import io.timemates.sdk.common.constructor.CreationFailure
 import io.timemates.sdk.users.profile.types.value.EmailAddress
 
