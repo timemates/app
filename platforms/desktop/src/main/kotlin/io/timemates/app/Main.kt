@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import app.cash.sqldelight.db.SqlDriver
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
@@ -30,12 +31,19 @@ import io.timemates.app.authorization.dependencies.screens.StartAuthorizationMod
 import io.timemates.app.navigation.LocalComponentContext
 import io.timemates.app.navigation.TimeMatesAppEntry
 import io.timemates.app.tray.TimeMatesTray
+import io.timemates.data.database.TimeMatesAuthorizations
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import org.koin.ksp.generated.module
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
     val koin = startKoin {
+        module {
+            single<SqlDriver> {
+                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+            }
+        }
         modules(
             AuthorizationDataModule().module,
             ConfirmAuthorizationModule().module,

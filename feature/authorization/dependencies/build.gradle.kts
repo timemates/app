@@ -20,5 +20,7 @@ dependencies {
     commonMainImplementation(libs.timemates.sdk)
     commonMainImplementation(projects.feature.authorization.domain)
     commonMainImplementation(projects.feature.authorization.presentation)
+    commonMainImplementation(projects.feature.authorization.data)
+    commonMainImplementation(projects.feature.authorization.data.database)
     commonMainImplementation(projects.core)
 }

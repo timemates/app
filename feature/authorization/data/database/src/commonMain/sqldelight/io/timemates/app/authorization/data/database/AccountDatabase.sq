@@ -1,0 +1,47 @@
+CREATE TABLE Authorization (
+    id INTEGER PRIMARY KEY NOT NULL,
+    accessHashValue TEXT NOT NULL,
+    accessHashExpiresAt INTEGER NOT NULL,
+    refreshHashValue TEXT NOT NULL,
+    refreshHashExpiresAt INTEGER NOT NULL,
+    generationTime INTEGER NOT NULL,
+    metadataClientId INTEGER,
+    metadataClientVersion TEXT,
+    metadataClientIpAddress TEXT,
+    isCurrent INTEGER AS kotlin.Boolean NOT NULL
+);
+
+update:
+UPDATE Authorization
+SET accessHashValue = :accessHashValue,
+    accessHashExpiresAt = :accessHashExpiresAt,
+    refreshHashValue = :refreshHashValue,
+    refreshHashExpiresAt = :refreshHashExpiresAt,
+    generationTime = :generationTime,
+    metadataClientId = :metadataClientId,
+    metadataClientVersion = :metadataClientVersion,
+    metadataClientIpAddress = :metadataClientIpAddress
+WHERE id = :authorizationId;
+
+setCurrent:
+UPDATE Authorization
+SET isCurrent = TRUE
+WHERE id = :authorizationId;
+
+delete:
+DELETE FROM Authorization
+WHERE id = :authorizationId;
+
+get:
+SELECT *
+FROM Authorization
+WHERE id IN (:idList);
+
+getCurrent:
+SELECT *
+FROM Authorization
+WHERE isCurrent;
+
+add:
+INSERT INTO Authorization (id, accessHashValue, accessHashExpiresAt, refreshHashValue, refreshHashExpiresAt, generationTime, metadataClientId, metadataClientVersion, metadataClientIpAddress, isCurrent)
+VALUES (:id, :accessHashValue, :accessHashExpiresAt, :refreshHashValue, :refreshHashExpiresAt, :generationTime, :metadataClientId, :metadataClientVersion, :metadataClientIpAddress, TRUE);

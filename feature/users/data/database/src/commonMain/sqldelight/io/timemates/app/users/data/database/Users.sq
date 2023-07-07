@@ -1,0 +1,28 @@
+CREATE TABLE Users (
+    id INTEGE PRIMARY KEY,
+    name TEXT,
+    description TEXT,
+    avatarFileId INTEGER,
+    emailAddress TEXT
+);
+
+update:
+UPDATE Users
+SET name = :name,
+    description = :description,
+    avatarFileId = :avatarFileId,
+    emailAddress = :emailAddress
+WHERE id = :updatingUserId;
+
+delete:
+DELETE FROM Users
+WHERE id = ?;
+
+get:
+SELECT *
+FROM Users
+WHERE id IN (?);
+
+
+
+

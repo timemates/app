@@ -6,6 +6,7 @@ plugins {
 dependencies {
     commonMainApi(libs.timemates.sdk)
     commonMainImplementation(libs.kotlinx.coroutines)
+    commonMainApi(libs.kotlinx.datetime)
 
     commonTestImplementation(projects.foundation.random)
     commonMainApi(projects.foundation.validation)

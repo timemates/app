@@ -1,16 +1,16 @@
 [versions]
 kotlin = "1.8.20"
 kotlinx-coroutines = "1.7.1"
-kotlinx-serialization = "1.4.1"
+kotlinx-serialization = "1.5.0"
 ktor = "2.0.1"
 kafka = "3.3.1"
-jupiter = "5.4.0"
+jupiter = "5.8.2"
 exposed = "0.41.1"
 kmongo = "4.8.0"
 androidGradlePlugin = "8.0.2"
 androidComposeVersion = "2.6.1"
-jetbrainsCompose = "1.4.0"
-timeMatesSdk = "0.0.2-alpha"
+jetbrainsCompose = "1.4.1"
+timeMatesSdk = "0.0.3-alpha"
 ksp = "1.8.20-1.0.11"
 android-target = "33"
 android-min = "24"
@@ -23,6 +23,7 @@ moko-resources = "0.23.0"
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.require = "0.4.0" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
@@ -82,6 +83,7 @@ ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
+sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

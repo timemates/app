@@ -22,7 +22,7 @@ fun <T> Result<Result<T>>.flatten(): Result<T> {
             if (value.isSuccess) {
                 Result.success(value.getOrThrow())
             } else {
-                Result.failure(exceptionOrThrow())
+                Result.failure(value.exceptionOrThrow())
             }
         }
     }

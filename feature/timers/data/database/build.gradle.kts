@@ -16,12 +16,12 @@ android {
         minSdk = libs.versions.android.min.get().toInt()
     }
 
-    namespace = "io.timemates.app.authorization.data.database"
+    namespace = "io.timemates.app.data.database"
 }
 
 sqldelight {
     databases {
-        create("TimeMatesAuthorizations") {
+        create("TimeMatesUsers") {
             generateAsync.set(true)
             packageName.set("io.timemates.data.database")
         }

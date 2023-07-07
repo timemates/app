@@ -45,12 +45,13 @@ class ConfirmAuthorizationsReducer(
             }
 
             is Event.CodeChange -> state.copy(code = event.code)
+            Event.OnConfirmClicked -> state
         }
     }
 
     private fun confirm(
         code: String,
-        sendEffect: (Effect) -> Unit
+        sendEffect: (Effect) -> Unit,
     ) {
         coroutineScope.launch {
             authorizationsRepository.confirm(verificationHash, ConfirmationCode.createOrThrow(code))

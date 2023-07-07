@@ -1,34 +1,42 @@
 package io.timemates.app.authorization.dependencies
 
+import app.cash.sqldelight.db.SqlDriver
+import io.timemates.app.authorization.data.DatabaseAccessHashProvider
+import io.timemates.app.authorization.data.DbAuthorizationMapper
+import io.timemates.app.authorization.data.database.AccountDatabaseQueries
 import io.timemates.app.authorization.repositories.AuthorizationsRepository
-import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.users.profile.types.value.EmailAddress
+import io.timemates.data.database.TimeMatesAuthorizations
+import io.timemates.sdk.authorization.email.EmailAuthorizationApi
+import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
+import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import io.timemates.sdk.common.providers.AccessHashProvider
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton
+import io.timemates.app.authorization.data.AuthorizationsRepository as AuthorizationsRepositoryImpl
 
 @Module
 class AuthorizationDataModule {
     @Singleton
-    fun authorizationRepository(): AuthorizationsRepository {
-        return object : AuthorizationsRepository {
-            override suspend fun getCurrentAuthorization(): Authorization? {
-                TODO("Not yet implemented")
-            }
+    fun accountsDatabase(sqlDriver: SqlDriver): TimeMatesAuthorizations {
+        return TimeMatesAuthorizations(sqlDriver)
+    }
 
-            override suspend fun tryAuthorization(): Result<Authorization> {
-                TODO("Not yet implemented")
-            }
+    @Singleton
+    fun accessHashProvider(dbAuthorizations: TimeMatesAuthorizations): AccessHashProvider {
+        return DatabaseAccessHashProvider(dbAuthorizations.accountDatabaseQueries)
+    }
 
-            override suspend fun authorize(emailAddress: EmailAddress): Result<VerificationHash> {
-                TODO("Not yet implemented")
-            }
-
-            override suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Response> {
-                TODO("Not yet implemented")
-            }
-        }
+    @Singleton
+    fun authorizationRepository(
+        requestsEngine: TimeMatesRequestsEngine,
+        accessHashProvider: AccessHashProvider,
+        dbAuthorizations: TimeMatesAuthorizations,
+    ): AuthorizationsRepository {
+        return AuthorizationsRepositoryImpl(
+            emailAuthApi = EmailAuthorizationApi(requestsEngine),
+            sessionsApi = AuthorizedSessionsApi(requestsEngine, accessHashProvider),
+            localQueries = dbAuthorizations.accountDatabaseQueries,
+            mapper = DbAuthorizationMapper(),
+        )
     }
 }

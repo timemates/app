@@ -10,8 +10,10 @@ dependencies {
 
     implementation(projects.uiCore)
 
+    implementation(libs.sqldelight.jvm.driver)
 
     implementation(projects.feature.authorization.dependencies)
+    implementation(projects.feature.authorization.data.database)
     implementation(projects.navigation)
 }
 
