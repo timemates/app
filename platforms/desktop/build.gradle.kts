@@ -10,8 +10,9 @@ dependencies {
 
     implementation(projects.uiCore)
 
-    implementation(libs.sqldelight.jvm.driver)
+    //implementation(libs.sqldelight.jvm.driver)
 
+    implementation(libs.timemates.engine.grpc)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
     implementation(projects.navigation)

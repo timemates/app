@@ -6,18 +6,22 @@ plugins {
 version = "SNAPSHOT"
 
 kotlin {
-    jvm {
-        jvmToolchain(11)
-    }
-
+    jvm()
     android()
+
+    jvmToolchain(19)
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         namespace = "io.timemates.app"
+    }
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_19
+        sourceCompatibility = JavaVersion.VERSION_19
     }
 }
 

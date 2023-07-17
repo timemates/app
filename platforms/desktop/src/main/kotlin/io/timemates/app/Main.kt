@@ -40,9 +40,9 @@ import org.koin.ksp.generated.module
 fun main() {
     val koin = startKoin {
         module {
-            single<SqlDriver> {
-                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-            }
+//            single<SqlDriver> {
+//                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+//            }
         }
         modules(
             AuthorizationDataModule().module,

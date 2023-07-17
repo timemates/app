@@ -4,11 +4,20 @@ plugins {
     id("com.android.library")
 }
 
+kotlin {
+    jvmToolchain(19)
+}
+
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         namespace = "io.timemates.app.ui"
+    }
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_19
+        sourceCompatibility = JavaVersion.VERSION_19
     }
 }
 

@@ -10,15 +10,16 @@ kmongo = "4.8.0"
 androidGradlePlugin = "8.0.2"
 androidComposeVersion = "2.6.1"
 jetbrainsCompose = "1.4.1"
-timeMatesSdk = "0.0.3-alpha"
+timeMatesSdk = "dev-5dbff90eb39a6a96bac01a81380d511dda140cad"
 ksp = "1.8.20-1.0.11"
-android-target = "33"
+android-target = "34"
 android-min = "24"
 koin = "3.4.2"
 koin-annotations = "1.2.2"
 decompose = "2.0.0-beta-01"
 sqldelight = "2.0.0-alpha05"
 moko-resources = "0.23.0"
+jna = "5.13.0"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -63,8 +64,9 @@ compose-accompanist-systemUiController = { module = "com.google.accompanist:acco
 
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.1" }
 
-timemates-sdk = { module = "com.github.timemates:sdk", version.ref = "timeMatesSdk" }
-timemates-engine-grpc = { module = "com.github.timemates:grpc-engine", version.ref = "timeMatesSdk" }
+timemates-sdk = { module = "io.timemates:sdk", version.ref = "timeMatesSdk" }
+timemates-engine-grpc = { module = "io.timemates:grpc-engine", version.ref = "timeMatesSdk" }
+timemates-engine-grpc-android = { module = "io.timemates:grpc-engine-android", version.ref = "timeMatesSdk" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
@@ -84,6 +86,10 @@ ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -104,4 +110,5 @@ configurations-compose-multiplatform = { id = "compose-multiplatform-convention"
 configurations-koin-annotations = { id = "koin-dependencies-convention", version.require = "SNAPSHOT" }
 configurations-unit-tests = { id = "unit-tests-convention", version.require = "SNAPSHOT" }
 configurations-unit-tests-mockable = { id = "unit-tests-with-mockk-convention", version.require = "SNAPSHOT" }
+configurations-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
 moko-multiplatform-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }

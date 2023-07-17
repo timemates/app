@@ -10,23 +10,26 @@ import io.timemates.sdk.authorization.email.EmailAuthorizationApi
 import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import io.timemates.sdk.common.providers.AccessHashProvider
+import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Singleton
 import io.timemates.app.authorization.data.AuthorizationsRepository as AuthorizationsRepositoryImpl
 
 @Module
 class AuthorizationDataModule {
-    @Singleton
-    fun accountsDatabase(sqlDriver: SqlDriver): TimeMatesAuthorizations {
+
+    @Factory
+    fun accountsDatabase(@Named("authorization") sqlDriver: SqlDriver): TimeMatesAuthorizations {
         return TimeMatesAuthorizations(sqlDriver)
     }
 
-    @Singleton
+    @Factory
     fun accessHashProvider(dbAuthorizations: TimeMatesAuthorizations): AccessHashProvider {
         return DatabaseAccessHashProvider(dbAuthorizations.accountDatabaseQueries)
     }
 
-    @Singleton
+    @Factory
     fun authorizationRepository(
         requestsEngine: TimeMatesRequestsEngine,
         accessHashProvider: AccessHashProvider,

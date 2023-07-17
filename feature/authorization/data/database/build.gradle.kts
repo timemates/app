@@ -1,21 +1,9 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    id(libs.plugins.configurations.multiplatform.library.get().pluginId)
     alias(libs.plugins.cashapp.sqldelight)
-    alias(libs.plugins.android.library)
-}
-
-kotlin {
-    jvm()
-    android()
 }
 
 android {
-    compileSdk = libs.versions.android.target.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.min.get().toInt()
-    }
-
     namespace = "io.timemates.app.authorization.data.database"
 }
 

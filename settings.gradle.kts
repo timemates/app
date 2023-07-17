@@ -14,7 +14,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://jitpack.io")
-        maven("https://maven.y9vad9.com")
+        maven("https://maven.timemates.io")
     }
 }
 
@@ -38,6 +38,7 @@ include(
     ":foundation:random",
     ":foundation:validation",
     ":foundation:stdlib-ext",
+    ":foundation:system-tray",
 )
 
 include(

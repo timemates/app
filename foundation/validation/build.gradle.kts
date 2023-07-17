@@ -1,3 +1,3 @@
 plugins {
-    id(libs.plugins.configurations.compose.multiplatform.get().pluginId)
+    id(libs.plugins.configurations.multiplatform.library.get().pluginId)
 }

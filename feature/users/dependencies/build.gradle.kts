@@ -18,7 +18,9 @@ kotlin {
 dependencies {
     commonMainImplementation(libs.kotlinx.coroutines)
     commonMainImplementation(libs.timemates.sdk)
+
     commonMainImplementation(projects.feature.users.domain)
     commonMainImplementation(projects.feature.users.presentation)
+    commonMainImplementation(projects.uiCore)
     commonMainImplementation(projects.core)
 }

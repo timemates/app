@@ -22,11 +22,5 @@ dependencies {
 }
 
 android {
-    compileSdk = libs.versions.android.target.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.min.get().toInt()
-    }
-
     namespace = "io.timemates.app.core.ui"
 }
