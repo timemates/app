@@ -21,10 +21,13 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import io.timemates.api.grpc.GrpcTimeMatesRequestsEngine
+import io.timemates.api.grpc.factory.DefaultGrpcEngineBuilder
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
@@ -32,19 +35,28 @@ import io.timemates.app.navigation.LocalComponentContext
 import io.timemates.app.navigation.TimeMatesAppEntry
 import io.timemates.app.tray.TimeMatesTray
 import io.timemates.data.database.TimeMatesAuthorizations
+import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
     val koin = startKoin {
-        module {
-//            single<SqlDriver> {
-//                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-//            }
+        val platformModule = module {
+            single<SqlDriver>(qualifier = qualifier("authorization")) {
+                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+            }
+
+            single<TimeMatesRequestsEngine> {
+                GrpcTimeMatesRequestsEngine(
+                    grpcEngineBuilder = DefaultGrpcEngineBuilder()
+                )
+            }
         }
         modules(
+            platformModule,
             AuthorizationDataModule().module,
             ConfirmAuthorizationModule().module,
             StartAuthorizationModule().module,
