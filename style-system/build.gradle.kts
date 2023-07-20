@@ -9,13 +9,13 @@ kotlin {
 }
 
 dependencies {
-    commonMainImplementation(compose.ui)
+    commonMainApi(compose.ui)
     commonMainImplementation(compose.material)
-    commonMainImplementation(compose.material3)
-    commonMainImplementation(compose.animation)
-    commonMainImplementation(compose.foundation)
-    commonMainImplementation(compose.materialIconsExtended)
-    commonMainImplementation(compose.preview)
+    commonMainApi(compose.material3)
+    commonMainApi(compose.animation)
+    commonMainApi(compose.foundation)
+    commonMainApi(compose.materialIconsExtended)
+    commonMainApi(compose.preview)
 
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resources.compose)

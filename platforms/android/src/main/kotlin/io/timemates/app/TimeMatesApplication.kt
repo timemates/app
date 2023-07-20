@@ -21,7 +21,7 @@ class TimeMatesApplication : Application() {
         super.onCreate()
 
         startKoin {
-            module {
+            val platformModule = module {
                 single<TimeMatesRequestsEngine> {
                     GrpcTimeMatesRequestsEngine(
                         grpcEngineBuilder = AndroidGrpcEngineBuilder(applicationContext)
@@ -34,6 +34,7 @@ class TimeMatesApplication : Application() {
             }
 
             modules(
+                platformModule,
                 AuthorizationDataModule().module,
                 ConfirmAuthorizationModule().module,
                 StartAuthorizationModule().module,
