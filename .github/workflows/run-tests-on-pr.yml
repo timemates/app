@@ -2,7 +2,7 @@ name: Run tests on PR
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
   release:
     types: [ published ]
   workflow_dispatch:

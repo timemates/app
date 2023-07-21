@@ -10,7 +10,7 @@ dependencies {
 
     implementation(projects.uiCore)
 
-    //implementation(libs.sqldelight.jvm.driver)
+    implementation(libs.sqldelight.jvm.driver)
 
     implementation(libs.timemates.engine.grpc)
     implementation(projects.feature.authorization.dependencies)
@@ -19,6 +19,6 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_19
+    targetCompatibility = JavaVersion.VERSION_19
 }

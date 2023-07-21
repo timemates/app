@@ -5,10 +5,10 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(projects.styleSystem)
+    commonMainApi(projects.styleSystem)
     commonMainApi(projects.foundation.mvi)
-    commonMainImplementation(projects.foundation.mvi.koinCompose)
-    commonMainImplementation(projects.core)
+    commonMainApi(projects.foundation.mvi.koinCompose)
+    commonMainApi(projects.core)
 
     commonMainImplementation(libs.kotlinx.coroutines)
 

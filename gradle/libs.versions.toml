@@ -9,6 +9,7 @@ exposed = "0.41.1"
 kmongo = "4.8.0"
 androidGradlePlugin = "8.0.2"
 androidComposeVersion = "2.6.1"
+jetpackComposeCompilerVersion = "1.4.6"
 jetbrainsCompose = "1.4.1"
 timeMatesSdk = "dev-5dbff90eb39a6a96bac01a81380d511dda140cad"
 ksp = "1.8.20-1.0.11"
@@ -58,7 +59,7 @@ androidx-compose-foundation = { module = "androidx.compose.foundation:foundation
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.2.0-alpha02" }
 androidx-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
 androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
-androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha05" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha06" }
 androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
 compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.28.0" }
 
@@ -85,10 +86,12 @@ ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
-sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
+grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.require = "1.56.1" }
 
 
 [plugins]

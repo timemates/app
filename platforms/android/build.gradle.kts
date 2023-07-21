@@ -8,6 +8,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.min.get().toInt()
+        targetSdk = libs.versions.android.target.get().toInt()
     }
 
     compileOptions {
@@ -17,8 +18,17 @@ android {
 
     packaging {
         resources {
-            excludes.add("META-INF/*")
+            excludes.add("META-INF/INDEX.LIST")
+            excludes.add("META-INF/io.netty.versions.properties")
         }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.jetpackComposeCompilerVersion.get()
     }
 
     namespace = "io.timemates.app"
@@ -33,13 +43,16 @@ dependencies {
     implementation(libs.timemates.engine.grpc)
     implementation(libs.timemates.engine.grpc.android)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.compose.activity)
 
     implementation(libs.sqldelight.android.driver)
 
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
 
+    implementation(libs.grpc.okhttp)
+
+    implementation(libs.androidx.compose.activity)
     implementation(projects.navigation)
+    implementation(projects.styleSystem)
     implementation(projects.uiCore)
 }

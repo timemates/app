@@ -9,6 +9,7 @@ import io.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import io.timemates.app.authorization.validation.EmailAddressValidator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton
 
@@ -17,11 +18,11 @@ class StartAuthorizationModule {
     @Singleton
     fun emailValidator(): EmailAddressValidator = EmailAddressValidator()
 
-    @Singleton
+    @Factory
     fun authByEmailUseCase(authorizationsRepository: AuthorizationsRepository): AuthorizeByEmailUseCase =
         AuthorizeByEmailUseCase(authorizationsRepository)
 
-    @Singleton
+    @Factory
     fun reducer(
         emailAddressValidator: EmailAddressValidator,
         authorizeByEmailUseCase: AuthorizeByEmailUseCase,
@@ -36,7 +37,7 @@ class StartAuthorizationModule {
     @Singleton
     fun middleware(): StartAuthorizationMiddleware = StartAuthorizationMiddleware()
 
-    @Singleton
+    @Factory
     fun stateMachine(
         reducer: StartAuthorizationReducer,
         middleware: StartAuthorizationMiddleware,

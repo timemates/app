@@ -8,6 +8,10 @@ repositories {
     gradlePluginPortal()
 }
 
+kotlin {
+    jvmToolchain(19)
+}
+
 dependencies {
     api(libs.kotlin.plugin)
     api(libs.android.gradle.plugin)

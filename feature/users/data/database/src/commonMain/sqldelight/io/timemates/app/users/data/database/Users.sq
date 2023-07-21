@@ -1,5 +1,5 @@
 CREATE TABLE Users (
-    id INTEGE PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name TEXT,
     description TEXT,
     avatarFileId INTEGER,
