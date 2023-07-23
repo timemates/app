@@ -19,6 +19,8 @@ dependencies {
 
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resources.compose)
+
+    commonMainCompileOnly(compose.desktop.currentOs)
 }
 
 android {

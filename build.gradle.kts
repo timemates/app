@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.cashapp.sqldelight) apply false
     alias(libs.plugins.compose.multiplatform) apply false
     id(libs.plugins.configurations.multiplatform.library.get().pluginId) apply false
+    
 }
 
 allprojects {

@@ -14,15 +14,20 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun Button(
+    primary: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    colors: ButtonColors =
+        ButtonDefaults.buttonColors(
+            if (primary) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.secondary
+        ),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
@@ -37,3 +42,4 @@ fun Button(
         content = content,
     )
 }
+
