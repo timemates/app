@@ -17,6 +17,8 @@ dependencies {
     commonMainApi(compose.materialIconsExtended)
     commonMainApi(compose.preview)
 
+    commonMainCompileOnly(compose.uiTooling)
+
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resources.compose)
 }
