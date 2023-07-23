@@ -1,19 +1,31 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.compose.multiplatform)
+    id(libs.plugins.configurations.compose.multiplatform.get().pluginId)
+    alias(libs.plugins.moko.multiplatform.resources)
 }
 
 kotlin {
     jvm()
+    android()
 }
 
 dependencies {
     commonMainApi(compose.ui)
-    commonMainApi(compose.material)
+    commonMainImplementation(compose.material)
     commonMainApi(compose.material3)
     commonMainApi(compose.animation)
     commonMainApi(compose.foundation)
-    commonMainApi(compose.uiTooling)
-    commonMainApi(compose.compiler.auto)
+    commonMainApi(compose.materialIconsExtended)
     commonMainApi(compose.preview)
+
+    commonMainImplementation(libs.moko.resources)
+    commonMainImplementation(libs.moko.resources.compose)
+}
+
+android {
+    namespace = "io.timemates.app.style.system"
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "io.timemates.app.style.system"
+    multiplatformResourcesClassName = "Resources"
 }

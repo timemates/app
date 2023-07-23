@@ -1,20 +1,31 @@
 [versions]
 kotlin = "1.8.20"
 kotlinx-coroutines = "1.7.1"
-kotlinx-serialization = "1.4.1"
+kotlinx-serialization = "1.5.0"
 ktor = "2.0.1"
 kafka = "3.3.1"
-jupiter = "5.4.0"
+jupiter = "5.8.2"
 exposed = "0.41.1"
 kmongo = "4.8.0"
-androidGradlePlugin = "7.3.1"
-androidComposeVersion = "1.5.0-beta01"
-jetbrainsCompose = "1.4.0"
-timeMatesSdk = "0.0.1-alpha"
+androidGradlePlugin = "8.0.2"
+androidComposeVersion = "2.6.1"
+jetpackComposeCompilerVersion = "1.4.6"
+jetbrainsCompose = "1.4.1"
+timeMatesSdk = "dev-5dbff90eb39a6a96bac01a81380d511dda140cad"
+ksp = "1.8.20-1.0.11"
+android-target = "34"
+android-min = "24"
+koin = "3.4.2"
+koin-annotations = "1.2.2"
+decompose = "2.0.0-beta-01"
+sqldelight = "2.0.0-alpha05"
+moko-resources = "0.23.0"
+jna = "5.13.0"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.require = "0.4.0" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
@@ -43,17 +54,45 @@ simple-java-mail = { module = "org.simplejavamail:simple-java-mail", version.req
 
 cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require="0.9.0" }
 
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
-compose-foundation = {  module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.0-alpha03" }
-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidComposeVersion" }
-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.2.0-alpha02" }
+androidx-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
+androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha06" }
+androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
 compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.28.0" }
 
-timemates-sdk = { module = "com.github.timemates:sdk", version.ref = "timeMatesSdk" }
-timemates-engine-grpc = { module = "com.github.timemates:grpc-engine", version.ref = "timeMatesSdk" }
+androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.1" }
+
+timemates-sdk = { module = "io.timemates:sdk", version.ref = "timeMatesSdk" }
+timemates-engine-grpc = { module = "io.timemates:grpc-engine", version.ref = "timeMatesSdk" }
+timemates-engine-grpc-android = { module = "io.timemates:grpc-engine-android", version.ref = "timeMatesSdk" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
+koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotations" }
+
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha02" }
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-jetbrains-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.require = "3.4.5" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.require = "1.0.3" }
+
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+compose-multiplatform-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrainsCompose" }
+ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
+moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
+sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
+grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.require = "1.56.1" }
+
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -65,3 +104,14 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-application = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 bundled-publish-library = { id = "publish-library", version.require = "SNAPSHOT" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+koin-configuration = { id = "koin-configuration", version.require = "SNAPSHOT" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+cashapp-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+configurations-multiplatform-library = { id = "multiplatform-library-convention", version.require = "SNAPSHOT" }
+configurations-compose-multiplatform = { id = "compose-multiplatform-convention", version.require = "SNAPSHOT" }
+configurations-koin-annotations = { id = "koin-dependencies-convention", version.require = "SNAPSHOT" }
+configurations-unit-tests = { id = "unit-tests-convention", version.require = "SNAPSHOT" }
+configurations-unit-tests-mockable = { id = "unit-tests-with-mockk-convention", version.require = "SNAPSHOT" }
+configurations-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
+moko-multiplatform-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
