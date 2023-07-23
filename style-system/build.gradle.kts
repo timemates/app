@@ -6,6 +6,20 @@ plugins {
 kotlin {
     jvm()
     android()
+
+    sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/moko/commonMain")
+        }
+
+        val androidMain by getting {
+            kotlin.srcDir("build/generated/moko/androidMain")
+        }
+
+        val jvmMain by getting {
+            kotlin.srcDir("build/generated/moko/jvmMain")
+        }
+    }
 }
 
 dependencies {
