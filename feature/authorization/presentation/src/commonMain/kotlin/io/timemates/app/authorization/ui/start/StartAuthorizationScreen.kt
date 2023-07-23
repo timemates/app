@@ -95,6 +95,7 @@ fun StartAuthorizationScreen(
             }
 
             Button(
+                primary = true,
                 modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
                 onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
             ) {
