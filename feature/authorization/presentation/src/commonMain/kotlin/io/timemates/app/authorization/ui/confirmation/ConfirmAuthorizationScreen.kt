@@ -48,6 +48,7 @@ fun ConfirmAuthorizationScreen(stateMachine: ConfirmAuthorizationStateMachine) {
             Spacer(Modifier.weight(1f))
 
             Button(
+                primary = true,
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { stateMachine.dispatchEvent(Event.OnConfirmClicked) },
             ) {
