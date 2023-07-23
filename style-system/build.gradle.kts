@@ -6,6 +6,12 @@ plugins {
 kotlin {
     jvm()
     android()
+
+    sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/moko/commonMain")
+        }
+    }
 }
 
 dependencies {
@@ -16,6 +22,8 @@ dependencies {
     commonMainImplementation(compose.foundation)
     commonMainImplementation(compose.materialIconsExtended)
     commonMainImplementation(compose.preview)
+
+    commonMainCompileOnly(compose.uiTooling)
 
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resources.compose)

@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import io.timemates.app.style.system.theme.AppTheme
 
 @Composable
 fun Button(
@@ -20,14 +21,14 @@ fun Button(
     enabled: Boolean = true,
     colors: ButtonColors =
         ButtonDefaults.buttonColors(
-            if (primary) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.secondary
+            containerColor = if (primary) AppTheme.colors.primary else AppTheme.colors.secondary,
+            contentColor = if (primary) AppTheme.colors.onPrimary else AppTheme.colors.onSecondary,
         ),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
