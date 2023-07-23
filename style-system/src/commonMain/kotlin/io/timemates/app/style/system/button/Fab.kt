@@ -1,14 +1,10 @@
 package io.timemates.app.style.system.button
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -38,17 +34,4 @@ fun FloatingActionButton(
         elevation = elevation,
         content = content,
     )
-}
-
-@Preview
-@Composable
-private fun Test() {
-    AppTheme(false) {
-        FloatingActionButton(
-            onClick = {},
-            content = {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
-            },
-        )
-    }
 }

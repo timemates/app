@@ -15,9 +15,6 @@ dependencies {
     commonMainApi(compose.animation)
     commonMainApi(compose.foundation)
     commonMainApi(compose.materialIconsExtended)
-    commonMainApi(compose.preview)
-
-    commonMainImplementation(compose.preview)
 
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resources.compose)

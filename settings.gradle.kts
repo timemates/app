@@ -29,6 +29,7 @@ include(
     ":data:sdk",
     ":data:database",
     ":style-system",
+    ":style-system:preview",
 )
 
 include(
