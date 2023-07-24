@@ -5,8 +5,8 @@ plugins {
 
 dependencies {
     commonMainImplementation(libs.timemates.sdk)
-    commonMainImplementation(libs.decompose)
-    commonMainImplementation(libs.decompose.jetbrains.compose)
+    commonMainApi(libs.decompose)
+    commonMainApi(libs.decompose.jetbrains.compose)
     commonMainImplementation(libs.koin.core)
 
     commonMainImplementation(projects.styleSystem)
