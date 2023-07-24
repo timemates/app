@@ -24,12 +24,14 @@ includeBuild("build-plugins/publish-library")
 includeBuild("build-plugins/configurations")
 
 include(
-    ":core",
+    ":style-system",
+    ":style-system:preview",
+)
+
+include(
     ":data",
     ":data:sdk",
     ":data:database",
-    ":style-system",
-    ":style-system:preview",
 )
 
 include(
@@ -43,13 +45,17 @@ include(
 )
 
 include(
-    ":ui-core",
     ":navigation",
 )
 
 include(
     ":platforms:desktop",
     ":platforms:android",
+)
+
+include(
+    ":feature:common:domain",
+    ":feature:common:presentation",
 )
 
 include(

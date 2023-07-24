@@ -10,5 +10,4 @@ dependencies {
 
     commonTestImplementation(projects.foundation.random)
     commonMainApi(projects.foundation.validation)
-    commonMainApi(projects.core)
 }

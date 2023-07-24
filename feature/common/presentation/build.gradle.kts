@@ -8,7 +8,7 @@ dependencies {
     commonMainApi(projects.styleSystem)
     commonMainApi(projects.foundation.mvi)
     commonMainApi(projects.foundation.mvi.koinCompose)
-    commonMainApi(projects.core)
+    commonMainApi(projects.feature.common.domain)
 
     commonMainImplementation(libs.kotlinx.coroutines)
 

@@ -8,10 +8,11 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.runtime)
 
-    implementation(projects.uiCore)
+    implementation(libs.koin.core)
 
     implementation(libs.sqldelight.jvm.driver)
 
+    implementation(libs.timemates.sdk)
     implementation(libs.timemates.engine.grpc)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)

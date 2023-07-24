@@ -21,6 +21,5 @@ dependencies {
 
     commonMainImplementation(projects.feature.users.domain)
     commonMainImplementation(projects.feature.users.presentation)
-    commonMainImplementation(projects.uiCore)
-    commonMainImplementation(projects.core)
+    commonMainImplementation(projects.feature.common.domain)
 }

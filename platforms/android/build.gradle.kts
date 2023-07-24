@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.timemates.sdk)
     implementation(libs.timemates.engine.grpc)
     implementation(libs.timemates.engine.grpc.android)
+    implementation(libs.koin.core)
     implementation(libs.androidx.appcompat)
 
     implementation(libs.sqldelight.android.driver)
@@ -54,5 +55,4 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(projects.navigation)
     implementation(projects.styleSystem)
-    implementation(projects.uiCore)
 }
