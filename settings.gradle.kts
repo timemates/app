@@ -56,6 +56,11 @@ include(
 )
 
 include(
+    ":feature:common:domain",
+    ":feature:common:presentation",
+)
+
+include(
     ":feature:authorization:domain",
     ":feature:authorization:presentation",
     ":feature:authorization:data:sdk",
