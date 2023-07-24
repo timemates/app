@@ -39,6 +39,7 @@ include(
     ":foundation:validation",
     ":foundation:stdlib-ext",
     ":foundation:system-tray",
+    ":foundation:shimmer-compose",
 )
 
 include(
