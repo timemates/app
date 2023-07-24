@@ -31,11 +31,12 @@ import io.timemates.api.grpc.factory.DefaultGrpcEngineBuilder
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
+import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.navigation.LocalComponentContext
 import io.timemates.app.navigation.TimeMatesAppEntry
 import io.timemates.app.tray.TimeMatesTray
-import io.timemates.data.database.TimeMatesAuthorizations
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import kotlinx.coroutines.channels.Channel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
@@ -43,6 +44,8 @@ import org.koin.ksp.generated.module
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
+    val authorizationFailedChannel: Channel<Unit> = Channel()
+
     val koin = startKoin {
         val platformModule = module {
             single<SqlDriver>(qualifier = qualifier("authorization")) {
@@ -53,6 +56,13 @@ fun main() {
                 GrpcTimeMatesRequestsEngine(
                     grpcEngineBuilder = DefaultGrpcEngineBuilder()
                 )
+            }
+
+            single<OnAuthorizationFailedHandler> {
+                OnAuthorizationFailedHandler { exception ->
+                    exception.printStackTrace()
+                    authorizationFailedChannel.trySend(Unit)
+                }
             }
         }
         modules(
@@ -100,7 +110,9 @@ fun main() {
             ) {
 
                 Box(modifier = Modifier.fillMaxSize().clip(MaterialTheme.shapes.small)) {
-                    TimeMatesAppEntry(isDarkTheme = false)
+                    TimeMatesAppEntry(
+                        navigateToAuthorization = authorizationFailedChannel,
+                    )
                 }
             }
         }

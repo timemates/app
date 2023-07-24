@@ -1,6 +1,7 @@
 package io.timemates.app.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
@@ -10,18 +11,29 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.push
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
+import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.core.parameter.parametersOf
 
 @Composable
 fun TimeMatesAppEntry(
     initialScreen: Screen = Screen.StartAuthorization,
-    isDarkTheme: Boolean = false
+    isDarkTheme: Boolean = false,
+    navigateToAuthorization: ReceiveChannel<Unit>,
 ) = AppTheme(isDarkTheme) {
     val navigation = remember { StackNavigation<Screen>() }
+
+    LaunchedEffect(Unit) {
+        navigateToAuthorization.receiveAsFlow().collectLatest {
+            navigation.push(Screen.StartAuthorization)
+        }
+    }
 
     ChildStack(
         source = navigation,
