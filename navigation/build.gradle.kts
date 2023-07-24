@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    commonMainImplementation(libs.timemates.sdk)
     commonMainImplementation(libs.decompose)
     commonMainImplementation(libs.decompose.jetbrains.compose)
     commonMainImplementation(libs.koin.core)
@@ -11,7 +12,6 @@ dependencies {
     commonMainImplementation(projects.styleSystem)
     commonMainImplementation(projects.foundation.mvi)
     commonMainImplementation(projects.foundation.mvi.koinCompose)
-    commonMainImplementation(projects.core)
 
     commonMainImplementation(libs.kotlinx.coroutines)
 

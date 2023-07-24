@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(projects.uiCore)
+    commonMainImplementation(projects.feature.common.presentation)
     commonMainImplementation(libs.timemates.sdk)
     commonMainImplementation(projects.foundation.mvi)
     commonMainImplementation(projects.styleSystem)

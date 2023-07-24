@@ -54,5 +54,4 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(projects.navigation)
     implementation(projects.styleSystem)
-    implementation(projects.uiCore)
 }

@@ -24,12 +24,15 @@ includeBuild("build-plugins/publish-library")
 includeBuild("build-plugins/configurations")
 
 include(
+    ":style-system",
+    ":style-system:preview",
+)
+
+include(
     ":core",
     ":data",
     ":data:sdk",
     ":data:database",
-    ":style-system",
-    ":style-system:preview",
 )
 
 include(
