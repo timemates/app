@@ -29,7 +29,6 @@ include(
 )
 
 include(
-    ":core",
     ":data",
     ":data:sdk",
     ":data:database",
@@ -46,7 +45,6 @@ include(
 )
 
 include(
-    ":ui-core",
     ":navigation",
 )
 
