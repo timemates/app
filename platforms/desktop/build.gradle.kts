@@ -17,6 +17,8 @@ dependencies {
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
     implementation(projects.navigation)
+
+    implementation(projects.styleSystem)
 }
 
 java {
