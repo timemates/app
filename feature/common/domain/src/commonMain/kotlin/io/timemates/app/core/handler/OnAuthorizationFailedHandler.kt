@@ -8,7 +8,7 @@ import io.timemates.sdk.common.exceptions.UnauthorizedException
  * This interface is used when a user's authorization has been terminated. It is typically employed in middlewares
  * between the reducer and the state machine.
  */
-interface OnAuthorizationFailedHandler {
+fun interface OnAuthorizationFailedHandler {
     /**
      * Called when an authorization failure occurs.
      *

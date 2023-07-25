@@ -11,12 +11,13 @@ import io.timemates.app.navigation.TimeMatesAppEntry
 class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val componentContent = defaultComponentContext()
 
         setContent {
             CompositionLocalProvider(LocalComponentContext provides componentContent) {
-                TimeMatesAppEntry()
+                TimeMatesAppEntry(
+                    navigateToAuthorization = TimeMatesApplication.AUTH_FAILED_CHANNEL,
+                )
             }
         }
     }
