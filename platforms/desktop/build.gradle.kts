@@ -12,6 +12,8 @@ dependencies {
 
     implementation(libs.sqldelight.jvm.driver)
 
+    implementation(projects.feature.common.domain)
+
     implementation(libs.timemates.sdk)
     implementation(libs.timemates.engine.grpc)
     implementation(projects.feature.authorization.dependencies)

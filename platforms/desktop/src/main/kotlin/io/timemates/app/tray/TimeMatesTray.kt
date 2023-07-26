@@ -28,7 +28,7 @@ internal object TimeMatesTray {
             onClick(x, y)
         })
 
-        trayIcon.addActionListener { }
+        trayIcon.addActionListener {}
 
         systemTray.add(trayIcon)
 
