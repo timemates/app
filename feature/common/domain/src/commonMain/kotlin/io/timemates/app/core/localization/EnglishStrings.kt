@@ -16,4 +16,5 @@ object EnglishStrings : Strings {
     override val emailIsInvalid: String = "Email address is invalid."
     override val unknownFailure: String = "Unknown failure happened"
     override val tooManyAttempts: String = "Too many attempts."
+    override val dismiss: String = "Dismiss"
 }

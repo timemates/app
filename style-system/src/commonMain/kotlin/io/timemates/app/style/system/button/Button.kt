@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import io.timemates.app.style.system.theme.AppTheme
 
 @Composable
@@ -32,7 +34,7 @@ fun Button(
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.height(42.dp),
         enabled = enabled,
         shape = MaterialTheme.shapes.small,
         colors = colors,

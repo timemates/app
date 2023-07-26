@@ -25,7 +25,7 @@ class AuthorizationsRepository(
 
     override suspend fun tryAuthorization(): Result<Authorization> {
         // TODO
-        throw UnsupportedException("Try authorization is not supported on server yet.")
+        return Result.failure(UnsupportedException("Try authorization is not supported on server yet."))
     }
 
     override suspend fun authorize(emailAddress: EmailAddress): Result<VerificationHash> {

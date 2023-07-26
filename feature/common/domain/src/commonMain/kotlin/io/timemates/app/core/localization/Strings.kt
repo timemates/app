@@ -22,4 +22,6 @@ interface Strings {
     val unknownFailure: String
 
     val tooManyAttempts: String
+
+    val dismiss: String
 }

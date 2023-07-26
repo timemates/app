@@ -16,4 +16,5 @@ object UkrainianStrings : Strings {
     override val emailIsInvalid: String = "Ваша електронна пошта неправильна."
     override val unknownFailure: String = "Сталась невідома помилка"
     override val tooManyAttempts: String = "Занадто багато спроб"
+    override val dismiss: String = "Прибрати"
 }

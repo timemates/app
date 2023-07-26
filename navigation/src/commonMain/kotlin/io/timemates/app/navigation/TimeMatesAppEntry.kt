@@ -8,6 +8,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
@@ -43,7 +44,8 @@ fun TimeMatesAppEntry(
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
                 stateMachine = stateMachine {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-                }
+                },
+                onBack = { navigation.pop() }
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
