@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.*
 import io.timemates.app.localization.LocalStrings
+import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.channels.consumeEach
@@ -59,24 +60,15 @@ fun StartAuthorizationScreen(
             }
         }
     }
-    Scaffold {
-        Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Scaffold(
+        topBar = { AppBar(title = LocalStrings.current.authorization) }
+    ) { rootPadding ->
+        Box(modifier = Modifier.fillMaxSize().padding(rootPadding).padding(16.dp)) {
             Column(
-                modifier = Modifier.align(Alignment.Center).padding(bottom = ButtonDefaults.MinHeight),
+                modifier = Modifier.padding(bottom = ButtonDefaults.MinHeight),
                 verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    text = LocalStrings.current.authorization,
-                    style = MaterialTheme.typography.displaySmall,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Text(
-                    modifier = Modifier.alpha(0.6f),
-                    text = LocalStrings.current.authorizationDescription,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center,
-                )
                 val supportText = when {
                     state.isEmailInvalid -> LocalStrings.current.emailIsInvalid
                     state.isEmailLengthSizeInvalid -> LocalStrings.current.emailSizeIsInvalid

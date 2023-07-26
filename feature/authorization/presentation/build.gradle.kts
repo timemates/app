@@ -10,6 +10,8 @@ dependencies {
     commonMainImplementation(projects.styleSystem)
     commonMainImplementation(projects.feature.authorization.domain)
 
+    commonMainImplementation(projects.styleSystem)
+
     commonTestImplementation(projects.foundation.random)
 }
 

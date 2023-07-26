@@ -11,7 +11,6 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.push
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
-import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
