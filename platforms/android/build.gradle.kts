@@ -47,6 +47,8 @@ dependencies {
 
     implementation(libs.sqldelight.android.driver)
 
+    implementation(projects.feature.common.domain)
+
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
 
