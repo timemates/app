@@ -9,5 +9,6 @@ dependencies {
     commonMainApi(libs.kotlinx.datetime)
 
     commonTestImplementation(projects.foundation.random)
+    commonMainImplementation(projects.foundation.stdlibExt)
     commonMainApi(projects.foundation.validation)
 }

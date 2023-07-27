@@ -5,7 +5,7 @@ CREATE TABLE Authorization (
     refreshHashValue TEXT NOT NULL,
     refreshHashExpiresAt INTEGER NOT NULL,
     generationTime INTEGER NOT NULL,
-    metadataClientId INTEGER,
+    metadataClientName TEXT,
     metadataClientVersion TEXT,
     metadataClientIpAddress TEXT,
     isCurrent INTEGER AS kotlin.Boolean NOT NULL
@@ -18,7 +18,7 @@ SET accessHashValue = :accessHashValue,
     refreshHashValue = :refreshHashValue,
     refreshHashExpiresAt = :refreshHashExpiresAt,
     generationTime = :generationTime,
-    metadataClientId = :metadataClientId,
+    metadataClientName = :metadataClientName,
     metadataClientVersion = :metadataClientVersion,
     metadataClientIpAddress = :metadataClientIpAddress
 WHERE id = :authorizationId;
@@ -43,5 +43,5 @@ FROM Authorization
 WHERE isCurrent;
 
 add:
-INSERT INTO Authorization (id, accessHashValue, accessHashExpiresAt, refreshHashValue, refreshHashExpiresAt, generationTime, metadataClientId, metadataClientVersion, metadataClientIpAddress, isCurrent)
-VALUES (:id, :accessHashValue, :accessHashExpiresAt, :refreshHashValue, :refreshHashExpiresAt, :generationTime, :metadataClientId, :metadataClientVersion, :metadataClientIpAddress, TRUE);
+INSERT INTO Authorization (id, accessHashValue, accessHashExpiresAt, refreshHashValue, refreshHashExpiresAt, generationTime, metadataClientName, metadataClientVersion, metadataClientIpAddress, isCurrent)
+VALUES (:id, :accessHashValue, :accessHashExpiresAt, :refreshHashValue, :refreshHashExpiresAt, :generationTime, :metadataClientName, :metadataClientVersion, :metadataClientIpAddress, TRUE);

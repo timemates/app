@@ -8,5 +8,14 @@ sealed class Screen : Parcelable {
     object StartAuthorization : Screen()
 
     @Parcelize
+    data class AfterStart(val verificationHash: String) : Screen()
+
+    @Parcelize
     data class ConfirmAuthorization(val verificationHash: String) : Screen()
+
+    @Parcelize
+    data class NewAccountInfo(val verificationHash: String) : Screen()
+
+    @Parcelize
+    data class NewAccount(val verificationHash: String) : Screen()
 }

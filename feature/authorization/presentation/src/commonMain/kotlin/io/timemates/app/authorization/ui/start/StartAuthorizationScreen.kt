@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -59,7 +62,7 @@ fun StartAuthorizationScreen(
                 is Effect.NavigateToConfirmation -> onNavigateToConfirmation(effect.verificationHash)
                 Effect.TooManyAttempts -> {
                     snackbarData.showSnackbar(
-                        message = strings.unknownFailure,
+                        message = strings.tooManyAttempts,
                         actionLabel = strings.dismiss,
                         duration = SnackbarDuration.Long,
                     )
@@ -88,12 +91,14 @@ fun StartAuthorizationScreen(
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
                     value = state.email,
                     onValueChange = { stateMachine.dispatchEvent(Event.EmailChange(it)) },
                     label = { Text(LocalStrings.current.email) },
                     isError = state.isEmailInvalid || state.isEmailLengthSizeInvalid,
                     supportingText = { if (supportText != null) Text(supportText) },
-                    readOnly = state.isLoading,
+                    enabled = !state.isLoading,
+                    singleLine = true,
                 )
             }
 
