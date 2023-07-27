@@ -14,4 +14,4 @@ so they can stay on track and meet deadlines.
 
 ## <p align="center">Our progress</p>
 If you want to know how we're dealing with TimeMates, you can check [our
-board](https://github.com/orgs/timemates/projects/3/views/2).
+board](https://github.com/orgs/timemates/projects/7).
