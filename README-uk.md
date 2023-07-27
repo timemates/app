@@ -10,4 +10,4 @@ Coroutines та gRPC. Він призначений для покращення 
 щоб вони могли залишатися в ритмі та виконувати терміни.
 
 ## <p align="center">Наш прогрес</p>
-Якщо ви хочете дізнатися, як ми працюємо з TimeMates, ви можете переглянути [нашу дошку](https://github.com/orgs/timemates/projects/3/views/2).
+Якщо ви хочете дізнатися, як ми працюємо з TimeMates, ви можете переглянути [нашу дошку](https://github.com/orgs/timemates/projects/7).
