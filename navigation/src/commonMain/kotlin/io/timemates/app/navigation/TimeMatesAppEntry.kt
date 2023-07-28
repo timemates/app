@@ -8,8 +8,13 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
+import io.timemates.app.authorization.ui.afterstart.AfterStartScreen
+import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
+import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
@@ -43,13 +48,56 @@ fun TimeMatesAppEntry(
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
                 stateMachine = stateMachine {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                onBack = { navigation.pop() },
+                navigateToConfiguring = {
+                    navigation.push(Screen.NewAccountInfo(it))
+                },
+                navigateToHome = {
+                    // TODO when home is ready
                 }
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
                 stateMachine = stateMachine(),
                 onNavigateToConfirmation = {
-                    navigation.push(Screen.ConfirmAuthorization(it.string))
+                    navigation.push(Screen.AfterStart(it.string))
+                },
+            )
+
+            is Screen.AfterStart -> AfterStartScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                navigateToConfirmation = {
+                    navigation.push(Screen.ConfirmAuthorization(screen.verificationHash))
+                },
+                navigateToStart = {
+                    navigation.pop()
+                },
+            )
+
+            is Screen.NewAccountInfo -> NewAccountInfoScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                navigateToConfigure = {
+                    navigation.push(Screen.NewAccount(screen.verificationHash))
+                },
+                navigateToStart = {
+                    navigation.popTo(0)
+                }
+            )
+
+            is Screen.NewAccount -> ConfigureAccountScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                onBack = {
+                    navigation.popTo(0)
+                },
+                navigateToHome = {
+                    // TODO navigation to home when home is ready
                 }
             )
         }

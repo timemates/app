@@ -18,7 +18,12 @@ class StartAuthorizationReducer(
 ) : Reducer<State, Event, Effect> {
     override fun reduce(state: State, event: Event, sendEffect: (Effect) -> Unit): State {
         return when (event) {
-            is Event.EmailChange -> state.copy(email = event.email)
+            is Event.EmailChange -> state.copy(
+                email = event.email,
+                isEmailInvalid = false,
+                isEmailLengthSizeInvalid = false
+            )
+
             Event.OnStartClick -> when (validateEmail.validate(state.email)) {
                 EmailAddressValidator.Result.PatternDoesNotMatch ->
                     state.copy(isEmailInvalid = true)

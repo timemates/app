@@ -40,6 +40,8 @@ class ConfirmAuthorizationStateMachine(
     sealed class Effect : UiEffect {
         object TooManyAttempts : Effect()
 
+        object AttemptIsFailed : Effect()
+
         data class Failure(val throwable: Throwable) : Effect()
 
         data class NavigateToCreateAccount(
@@ -47,7 +49,7 @@ class ConfirmAuthorizationStateMachine(
         ) : Effect()
 
         data class NavigateToHome(
-            val authorization: Authorization
+            val authorization: Authorization,
         ) : Effect()
     }
 }

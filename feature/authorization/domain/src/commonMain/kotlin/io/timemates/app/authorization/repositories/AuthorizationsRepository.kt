@@ -1,10 +1,13 @@
 package io.timemates.app.authorization.repositories
 
+import io.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
 import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.Authorization
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 import io.timemates.sdk.users.profile.types.value.EmailAddress
+import io.timemates.sdk.users.profile.types.value.UserDescription
+import io.timemates.sdk.users.profile.types.value.UserName
 
 /**
  * Interface defining the contract for an authorization repository.
@@ -43,4 +46,20 @@ interface AuthorizationsRepository {
      *         with the response from the confirmation as the successful result.
      */
     suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Response>
+
+    /**
+     * Creates a new user account with the given verification hash, user name, and user description.
+     *
+     * @param verificationHash The verification hash used to confirm the user's account.
+     * @param userName The user's name for the new account.
+     * @param userDescription The description or additional information for the new account.
+     * @return A [Result] object representing the result of the account creation process.
+     *         It contains either a [ConfigureNewAccountRequest.Result.Success] with the successful result
+     *         or a [ConfigureNewAccountRequest.Result.Failure] with the error information.
+     */
+    suspend fun createNewAccount(
+        verificationHash: VerificationHash,
+        userName: UserName,
+        userDescription: UserDescription,
+    ): Result<ConfigureNewAccountRequest.Result>
 }

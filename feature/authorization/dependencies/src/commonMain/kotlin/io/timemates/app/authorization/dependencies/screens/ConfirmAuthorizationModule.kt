@@ -5,6 +5,7 @@ import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationMiddleware
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
+import io.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
 import io.timemates.app.authorization.validation.ConfirmationCodeValidator
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.CoroutineScope
@@ -23,16 +24,21 @@ class ConfirmAuthorizationModule {
     fun middleware(): ConfirmAuthorizationMiddleware = ConfirmAuthorizationMiddleware()
 
     @Factory
+    fun confirmAuthorizationUseCase(
+        authorizationsRepository: AuthorizationsRepository
+    ): ConfirmEmailAuthorizationUseCase = ConfirmEmailAuthorizationUseCase(authorizationsRepository)
+
+    @Factory
     fun stateMachine(
         verificationHash: VerificationHash,
         middleware: ConfirmAuthorizationMiddleware,
-        authorizationsRepository: AuthorizationsRepository,
+        confirmEmailAuthorizationUseCase: ConfirmEmailAuthorizationUseCase,
         confirmationCodeValidator: ConfirmationCodeValidator,
     ): ConfirmAuthorizationStateMachine {
         return ConfirmAuthorizationStateMachine(
             reducer = ConfirmAuthorizationsReducer(
                 verificationHash,
-                authorizationsRepository,
+                confirmEmailAuthorizationUseCase,
                 confirmationCodeValidator,
                 CoroutineScope(Dispatchers.IO),
             ),

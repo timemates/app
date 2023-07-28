@@ -6,6 +6,7 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import io.timemates.android.grpc.AndroidGrpcEngineBuilder
 import io.timemates.api.grpc.GrpcTimeMatesRequestsEngine
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
+import io.timemates.app.authorization.dependencies.screens.AfterStartModule
 import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
@@ -51,6 +52,7 @@ class TimeMatesApplication : Application() {
                 AuthorizationDataModule().module,
                 ConfirmAuthorizationModule().module,
                 StartAuthorizationModule().module,
+                AfterStartModule().module,
             )
         }
     }

@@ -6,25 +6,31 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.*
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
 import io.timemates.app.localization.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
@@ -38,30 +44,38 @@ fun StartAuthorizationScreen(
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
     val state by stateMachine.state.collectAsState()
-    val (isSnackBarShown, setIsSnackBarShown) = remember { mutableStateOf(false) }
-    val (snackbarText, setSnackbarText) = remember { mutableStateOf("") }
+    val snackbarData = remember { SnackbarHostState() }
 
     val strings = LocalStrings.current
-
 
     LaunchedEffect(true) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure -> {
-                    setIsSnackBarShown(true)
-                    setSnackbarText(strings.unknownFailure)
+                    snackbarData.showSnackbar(
+                        message = strings.unknownFailure,
+                        actionLabel = strings.dismiss,
+                        duration = SnackbarDuration.Long,
+                    )
                 }
 
                 is Effect.NavigateToConfirmation -> onNavigateToConfirmation(effect.verificationHash)
                 Effect.TooManyAttempts -> {
-                    setIsSnackBarShown(true)
-                    setSnackbarText(strings.tooManyAttempts)
+                    snackbarData.showSnackbar(
+                        message = strings.tooManyAttempts,
+                        actionLabel = strings.dismiss,
+                        duration = SnackbarDuration.Long,
+                    )
                 }
             }
         }
     }
     Scaffold(
-        topBar = { AppBar(title = LocalStrings.current.authorization) }
+        topBar = {
+            AppBar(
+                title = LocalStrings.current.authorization
+            )
+        },
     ) { rootPadding ->
         Box(modifier = Modifier.fillMaxSize().padding(rootPadding).padding(16.dp)) {
             Column(
@@ -77,21 +91,43 @@ fun StartAuthorizationScreen(
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
                     value = state.email,
                     onValueChange = { stateMachine.dispatchEvent(Event.EmailChange(it)) },
                     label = { Text(LocalStrings.current.email) },
                     isError = state.isEmailInvalid || state.isEmailLengthSizeInvalid,
                     supportingText = { if (supportText != null) Text(supportText) },
-                    readOnly = state.isLoading,
+                    enabled = !state.isLoading,
+                    singleLine = true,
                 )
             }
 
-            Button(
-                primary = true,
-                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-                onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
+
+            Column(
+                modifier = Modifier.fillMaxWidth().align(Alignment.BottomEnd),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text(text = LocalStrings.current.start)
+                SnackbarHost(
+                    hostState = snackbarData,
+                ) {
+                    Snackbar(it)
+                }
+
+                Button(
+                    enabled = !state.isLoading,
+                    primary = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
+                ) {
+                    if (state.isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 3.dp
+                        )
+                    } else {
+                        Text(text = LocalStrings.current.start)
+                    }
+                }
             }
         }
     }

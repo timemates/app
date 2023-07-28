@@ -27,7 +27,7 @@ public abstract class AbstractStateMachine<TState : UiState, TEvent : UiEvent, T
     /**
      * Represents the channel for emitting UI effects.
      */
-    public final override val effects: ReceiveChannel<TEffect> = _effects
+    public final override val effects: ReceiveChannel<TEffect> by ::_effects
 
     /**
      * Processes an event from UI.

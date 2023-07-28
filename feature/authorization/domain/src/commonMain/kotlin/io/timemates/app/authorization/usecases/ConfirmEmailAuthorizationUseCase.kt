@@ -4,6 +4,7 @@ import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.Authorization
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import io.timemates.sdk.common.exceptions.InvalidArgumentException
 import io.timemates.sdk.common.exceptions.TooManyRequestsException
 
 class ConfirmEmailAuthorizationUseCase(
@@ -18,6 +19,7 @@ class ConfirmEmailAuthorizationUseCase(
             .getOrElse { exception ->
                 when (exception) {
                     is TooManyRequestsException -> Result.AttemptsExceeded
+                    is InvalidArgumentException -> Result.InvalidCode
                     else -> Result.Failure(exception)
                 }
             }
@@ -30,6 +32,8 @@ class ConfirmEmailAuthorizationUseCase(
         ) : Result()
 
         object AttemptsExceeded : Result()
+
+        object InvalidCode : Result()
 
         data class Failure(val exception: Throwable) : Result()
     }
