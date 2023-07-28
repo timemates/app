@@ -8,7 +8,8 @@ Thank you for considering supporting the development of TimeMates! Your contribu
 
 If you'd like to make a direct donation to support TimeMates, you can send TON (Free TON) to the following wallet address:
 
-TON Wallet: `EQAZ03bJ7cSdTNaDIFV_AE3N3-1wkQWzxcsTgSKf2n1rA_Q1`
+- TON Wallet: `EQAZ03bJ7cSdTNaDIFV_AE3N3-1wkQWzxcsTgSKf2n1rA_Q1`
+- Patreon: https://www.patreon.com/TimeMates
 
 Your donation will be used to maintain existing infrastructure, cover hosting costs, and further development efforts to make TimeMates even better.
 
