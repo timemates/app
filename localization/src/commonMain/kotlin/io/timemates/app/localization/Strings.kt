@@ -1,4 +1,4 @@
-package io.timemates.app.core.localization
+package io.timemates.app.localization
 
 interface Strings {
     val appName: String

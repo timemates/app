@@ -1,4 +1,4 @@
-package io.timemates.app.core.localization
+package io.timemates.app.localization
 
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 import io.timemates.sdk.users.profile.types.value.UserDescription
