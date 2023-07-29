@@ -9,6 +9,8 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.min.get().toInt()
         targetSdk = libs.versions.android.target.get().toInt()
+
+        multiDexEnabled = true
     }
 
     compileOptions {
@@ -54,6 +56,8 @@ dependencies {
     implementation(libs.timemates.engine.grpc.android)
     implementation(libs.koin.core)
     implementation(libs.androidx.appcompat)
+
+    implementation(libs.android.multidex)
 
     implementation(libs.sqldelight.android.driver)
 

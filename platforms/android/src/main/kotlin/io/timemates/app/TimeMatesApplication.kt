@@ -19,6 +19,8 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
+import androidx.multidex.MultiDexApplication
+import androidx.multidex.MultiDex
 
 class TimeMatesApplication : Application() {
 
@@ -26,8 +28,9 @@ class TimeMatesApplication : Application() {
         internal val AUTH_FAILED_CHANNEL: Channel<Unit> = Channel()
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
 
         startKoin {
             val platformModule = module {

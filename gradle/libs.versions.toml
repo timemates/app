@@ -90,6 +90,7 @@ sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+android-multidex = { module = "androidx.multidex:multidex", version.require = "2.0.1" }
 
 grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.require = "1.56.1" }
 
