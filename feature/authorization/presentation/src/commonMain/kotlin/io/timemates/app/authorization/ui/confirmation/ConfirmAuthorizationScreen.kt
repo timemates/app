@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
-import io.timemates.app.localization.LocalStrings
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
 import kotlinx.coroutines.channels.consumeEach

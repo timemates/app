@@ -18,6 +18,7 @@ dependencies {
     commonMainApi(libs.koin.core)
 
     commonMainApi(projects.localization)
+    commonMainApi(projects.localization.compose)
 
     commonMainApi(libs.decompose)
     commonMainApi(libs.decompose.jetbrains.compose)

@@ -24,10 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
-import io.timemates.app.localization.LocalStrings
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
-import io.timemates.app.style.system.images.IconPicture
+import io.timemates.app.style.system.images.CircleIcon
 import kotlinx.coroutines.channels.consumeEach
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,7 +74,7 @@ fun AfterStartScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                IconPicture(
+                CircleIcon(
                     painter = Icons.Outlined.Email,
                 )
 

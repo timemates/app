@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
-import io.timemates.app.localization.LocalStrings
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
 import io.timemates.sdk.authorization.email.types.value.VerificationHash

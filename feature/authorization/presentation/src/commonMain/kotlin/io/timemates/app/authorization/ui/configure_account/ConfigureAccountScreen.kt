@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
-import io.timemates.app.localization.LocalStrings
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
 import io.timemates.sdk.users.profile.types.value.UserDescription
