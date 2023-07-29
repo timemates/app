@@ -64,13 +64,13 @@ fun ButtonWithProgress(
     border: BorderStroke? = null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
-    androidx.compose.material3.Button(
+    Button(
+        primary = primary,
         onClick = onClick,
         modifier = modifier.height(42.dp),
         enabled = enabled,
-        shape = MaterialTheme.shapes.small,
         colors = colors,
         elevation = elevation,
         border = border,
