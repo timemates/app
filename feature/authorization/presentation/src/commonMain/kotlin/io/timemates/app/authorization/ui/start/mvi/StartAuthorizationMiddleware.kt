@@ -24,7 +24,7 @@ class StartAuthorizationMiddleware : Middleware<State, Effect> {
      */
     override fun onEffect(effect: Effect, store: StateStore<State>): State {
         return when (effect) {
-            is Effect.Failure, Effect.TooManyAttempts ->
+            is Effect.Failure, Effect.TooManyAttempts, is Effect.NavigateToConfirmation ->
                 store.state.value.copy(isLoading = false)
 
             else -> store.state.value

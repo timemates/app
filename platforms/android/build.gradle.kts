@@ -54,6 +54,8 @@ dependencies {
 
     implementation(libs.grpc.okhttp)
 
+    implementation(libs.compose.accompanist.systemUiController)
+
     implementation(libs.androidx.compose.activity)
     implementation(projects.navigation)
     implementation(projects.styleSystem)

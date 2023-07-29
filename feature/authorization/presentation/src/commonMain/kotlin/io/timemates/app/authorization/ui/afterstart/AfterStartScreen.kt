@@ -22,8 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine
-import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Event
+import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
+import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
 import io.timemates.app.localization.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
@@ -33,17 +33,17 @@ import kotlinx.coroutines.channels.consumeEach
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AfterStartScreen(
-    stateMachine: NewAccountInfoStateMachine,
+    stateMachine: AfterStartStateMachine,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
-                is NewAccountInfoStateMachine.Effect.NavigateToAccountConfiguring ->
+                is AfterStartStateMachine.Effect.NavigateToConfirmation ->
                     navigateToConfirmation(effect.verificationHash.string)
 
-                NewAccountInfoStateMachine.Effect.NavigateToStart ->
+                AfterStartStateMachine.Effect.OnChangeEmailClicked ->
                     navigateToStart()
             }
         }
@@ -54,7 +54,7 @@ fun AfterStartScreen(
             AppBar(
                 navigationIcon = {
                     IconButton(
-                        onClick = { stateMachine.dispatchEvent(Event.OnBackClicked) },
+                        onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
                     ) {
                         Icon(Icons.Rounded.ArrowBack, contentDescription = null)
                     }
@@ -96,7 +96,7 @@ fun AfterStartScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = false,
-                onClick = { stateMachine.dispatchEvent(Event.OnBackClicked) },
+                onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
             ) {
                 Text(LocalStrings.current.changeEmail)
             }

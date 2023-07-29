@@ -61,7 +61,7 @@ androidx-compose-icons = { module = "androidx.compose.material:material-icons-co
 androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
 androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha06" }
 androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
-compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.28.0" }
+compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.31.6-rc" }
 
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.1" }
 
