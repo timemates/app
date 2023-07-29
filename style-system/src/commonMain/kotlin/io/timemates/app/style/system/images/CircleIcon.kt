@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.style.system.theme.AppTheme
 
 @Composable
-fun IconPicture(
+fun CircleIcon(
     modifier: Modifier = Modifier,
     painter: ImageVector,
     contentDescription: String? = null,

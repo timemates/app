@@ -25,6 +25,7 @@ includeBuild("build-plugins/configurations")
 
 include(
     ":localization",
+    ":localization:compose",
 )
 
 include(

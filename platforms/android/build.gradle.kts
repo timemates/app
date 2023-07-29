@@ -16,6 +16,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_19
     }
 
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+
+            proguardFile(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+            )
+        }
+    }
+
     packaging {
         resources {
             excludes.add("META-INF/INDEX.LIST")

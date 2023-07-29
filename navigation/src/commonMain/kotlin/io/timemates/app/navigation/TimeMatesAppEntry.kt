@@ -57,7 +57,7 @@ fun TimeMatesAppEntry(
                 },
                 navigateToHome = {
                     // TODO when home is ready
-                }
+                },
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
