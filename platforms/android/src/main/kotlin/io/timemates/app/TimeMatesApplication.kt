@@ -23,7 +23,7 @@ import androidx.multidex.MultiDexApplication
 import androidx.multidex.MultiDex
 import android.content.Context
 
-class TimeMatesApplication : Application() {
+class TimeMatesApplication : MultiDexApplication() {
 
     companion object {
         internal val AUTH_FAILED_CHANNEL: Channel<Unit> = Channel()
