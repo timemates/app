@@ -5,9 +5,11 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -21,6 +23,7 @@ fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    isLoading: Boolean,
     colors: ButtonColors =
         ButtonDefaults.buttonColors(
             containerColor = if (primary) AppTheme.colors.primary else AppTheme.colors.secondary,
@@ -30,7 +33,7 @@ fun Button(
     border: BorderStroke? = null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
@@ -42,7 +45,16 @@ fun Button(
         border = border,
         contentPadding = contentPadding,
         interactionSource = interactionSource,
-        content = content,
+        content = {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    strokeWidth = 3.dp
+                )
+            } else {
+                content()
+            }
+        },
     )
 }
 
