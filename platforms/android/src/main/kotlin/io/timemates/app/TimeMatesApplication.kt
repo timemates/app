@@ -21,6 +21,7 @@ import org.koin.dsl.module
 import org.koin.ksp.generated.module
 import androidx.multidex.MultiDexApplication
 import androidx.multidex.MultiDex
+import android.content.Context
 
 class TimeMatesApplication : Application() {
 
