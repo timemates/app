@@ -52,6 +52,8 @@ fun StartAuthorizationScreen(
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure -> {
+                    effect.throwable.printStackTrace()
+
                     snackbarData.showSnackbar(
                         message = strings.unknownFailure,
                         actionLabel = strings.dismiss,

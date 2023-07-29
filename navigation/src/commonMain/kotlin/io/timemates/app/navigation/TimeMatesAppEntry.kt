@@ -11,6 +11,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.replaceAll
 import io.timemates.app.authorization.ui.afterstart.AfterStartScreen
 import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
@@ -21,20 +22,21 @@ import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.core.parameter.parametersOf
 
 @Composable
 fun TimeMatesAppEntry(
+    navigation: StackNavigation<Screen> = remember { StackNavigation() },
     initialScreen: Screen = Screen.StartAuthorization,
     isDarkTheme: Boolean = false,
     navigateToAuthorization: ReceiveChannel<Unit>,
 ) = AppTheme(isDarkTheme) {
-    val navigation = remember { StackNavigation<Screen>() }
 
     LaunchedEffect(Unit) {
-        navigateToAuthorization.receiveAsFlow().collectLatest {
+        navigateToAuthorization.consumeEach {
             navigation.push(Screen.StartAuthorization)
         }
     }
@@ -51,7 +53,7 @@ fun TimeMatesAppEntry(
                 },
                 onBack = { navigation.pop() },
                 navigateToConfiguring = {
-                    navigation.push(Screen.NewAccountInfo(it))
+                    navigation.replaceAll(Screen.StartAuthorization, Screen.NewAccountInfo(it))
                 },
                 navigateToHome = {
                     // TODO when home is ready

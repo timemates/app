@@ -7,7 +7,9 @@ import io.timemates.android.grpc.AndroidGrpcEngineBuilder
 import io.timemates.api.grpc.GrpcTimeMatesRequestsEngine
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.AfterStartModule
+import io.timemates.app.authorization.dependencies.screens.ConfigureAccountModule
 import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
+import io.timemates.app.authorization.dependencies.screens.NewAccountInfoModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.data.database.TimeMatesAuthorizations
@@ -53,6 +55,8 @@ class TimeMatesApplication : Application() {
                 ConfirmAuthorizationModule().module,
                 StartAuthorizationModule().module,
                 AfterStartModule().module,
+                NewAccountInfoModule().module,
+                ConfigureAccountModule().module,
             )
         }
     }

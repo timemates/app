@@ -13,10 +13,12 @@ import io.timemates.app.foundation.mvi.StateStore
 class ConfirmAuthorizationMiddleware : Middleware<State, Effect> {
     override fun onEffect(effect: Effect, store: StateStore<State>): State {
         return when (effect) {
-            is Effect.Failure, Effect.TooManyAttempts, Effect.AttemptIsFailed ->
-                store.state.value.copy(isLoading = false)
-
-            else -> store.state.value
+            is Effect.Failure,
+            Effect.TooManyAttempts,
+            Effect.AttemptIsFailed,
+            is Effect.NavigateToCreateAccount,
+            is Effect.NavigateToHome
+            -> store.state.value.copy(isLoading = false)
         }
     }
 }
