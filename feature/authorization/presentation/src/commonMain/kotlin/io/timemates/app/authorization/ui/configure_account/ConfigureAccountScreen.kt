@@ -35,6 +35,7 @@ import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountS
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
+import io.timemates.app.style.system.button.ButtonWithProgress
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.channels.consumeEach
@@ -147,20 +148,14 @@ fun ConfigureAccountScreen(
                 ) {
                     Snackbar(it)
                 }
-                Button(
+                ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { stateMachine.dispatchEvent(Event.OnDoneClicked) },
                     enabled = !state.isLoading,
+                    isLoading = state.isLoading
                 ) {
-                    if (state.isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            strokeWidth = 3.dp
-                        )
-                    } else {
-                        Text(text = LocalStrings.current.done)
-                    }
+                    Text(text = LocalStrings.current.done)
                 }
             }
         }

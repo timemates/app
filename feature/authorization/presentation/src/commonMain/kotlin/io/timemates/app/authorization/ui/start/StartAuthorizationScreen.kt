@@ -34,6 +34,7 @@ import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachin
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
+import io.timemates.app.style.system.button.ButtonWithProgress
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.channels.consumeEach
 
@@ -115,20 +116,14 @@ fun StartAuthorizationScreen(
                     Snackbar(it)
                 }
 
-                Button(
+                ButtonWithProgress(
                     enabled = !state.isLoading,
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
+                    isLoading = state.isLoading
                 ) {
-                    if (state.isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            strokeWidth = 3.dp
-                        )
-                    } else {
-                        Text(text = LocalStrings.current.start)
-                    }
+                    Text(text = LocalStrings.current.start)
                 }
             }
         }

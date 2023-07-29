@@ -23,6 +23,37 @@ fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    colors: ButtonColors =
+        ButtonDefaults.buttonColors(
+            containerColor = if (primary) AppTheme.colors.primary else AppTheme.colors.secondary,
+            contentColor = if (primary) AppTheme.colors.onPrimary else AppTheme.colors.onSecondary,
+        ),
+    elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
+    border: BorderStroke? = null,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: @Composable RowScope.() -> Unit
+) {
+    androidx.compose.material3.Button(
+        onClick = onClick,
+        modifier = modifier.height(42.dp),
+        enabled = enabled,
+        shape = MaterialTheme.shapes.small,
+        colors = colors,
+        elevation = elevation,
+        border = border,
+        contentPadding = contentPadding,
+        interactionSource = interactionSource,
+        content = content
+    )
+}
+
+@Composable
+fun ButtonWithProgress(
+    primary: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     isLoading: Boolean,
     colors: ButtonColors =
         ButtonDefaults.buttonColors(
