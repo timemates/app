@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
  * @param TEffect The type representing effects to UI.
  */
 public interface StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect> : StateStore<TState> {
-
     /**
      * Represents the current state of the UI.
      */

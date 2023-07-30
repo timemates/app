@@ -6,6 +6,7 @@ import io.timemates.app.authorization.repositories.AuthorizationsRepository
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
+import io.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
 import io.timemates.app.authorization.validation.ConfirmationCodeValidator
 import io.timemates.app.foundation.random.nextString
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
@@ -20,11 +21,12 @@ import kotlin.test.assertTrue
 class ConfirmAuthorizationReducerTest {
     private val authorizationsRepository: AuthorizationsRepository = mockk()
     private val confirmationCodeValidator: ConfirmationCodeValidator = mockk()
+    private val confirmEmailAuthorizationUseCase: ConfirmEmailAuthorizationUseCase = mockk()
     private val coroutineScope = TestScope()
     private val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
     private val reducer = ConfirmAuthorizationsReducer(
         verificationHash,
-        authorizationsRepository,
+        confirmEmailAuthorizationUseCase,
         confirmationCodeValidator,
         coroutineScope,
     )
@@ -32,7 +34,7 @@ class ConfirmAuthorizationReducerTest {
     @Test
     fun `reducing Event OnConfirmClicked with valid code should update state and invoke confirm`() {
         // GIVEN
-        val state = State(code = "123456", isLoading = false)
+        val state = State(code = "12345678", isLoading = false)
         every { confirmationCodeValidator.validate(any()) } returns
             ConfirmationCodeValidator.Result.Success
 
@@ -43,7 +45,7 @@ class ConfirmAuthorizationReducerTest {
         assertTrue(nextState.isLoading)
         assertFalse(nextState.isCodeInvalid)
         assertFalse(nextState.isCodeSizeInvalid)
-        assertEquals("123456", nextState.code)
+        assertEquals("12345678", nextState.code)
     }
 
     @Test
