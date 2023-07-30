@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +29,7 @@ import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationSt
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
-import io.timemates.app.style.system.button.Button
+import io.timemates.app.style.system.button.ButtonWithProgress
 import kotlinx.coroutines.channels.consumeEach
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,20 +110,14 @@ fun ConfirmAuthorizationScreen(
                     Snackbar(it)
                 }
 
-                Button(
+                ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { stateMachine.dispatchEvent(Event.OnConfirmClicked) },
                     enabled = !state.isLoading,
+                    isLoading = state.isLoading
                 ) {
-                    if (state.isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            strokeWidth = 3.dp
-                        )
-                    } else {
-                        Text(text = LocalStrings.current.nextStep)
-                    }
+                    Text(text = LocalStrings.current.nextStep)
                 }
             }
         }
