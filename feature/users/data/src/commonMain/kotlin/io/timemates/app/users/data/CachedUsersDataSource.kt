@@ -13,6 +13,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CachedUsersDataSource(
     private val cachedUsersQueries: CachedUsersQueries,
@@ -20,16 +21,14 @@ class CachedUsersDataSource(
 ) {
     init {
         // TODO: Move it to other place
-        coroutineScope.launch {
-            clear()
-        }
+        coroutineScope.launch { clear() }
     }
 
-    private suspend fun clear() {
+    private suspend fun clear() = withContext(Dispatchers.IO) {
         cachedUsersQueries.clear()
     }
 
-    suspend fun saveUser(user: User) {
+    suspend fun saveUser(user: User) = withContext(Dispatchers.IO) {
         cachedUsersQueries.insert(
             id = user.id.long,
             name = user.name.string,
@@ -39,16 +38,16 @@ class CachedUsersDataSource(
         )
     }
 
-    suspend fun saveUsers(users: List<User>) {
+    suspend fun saveUsers(users: List<User>) = withContext(Dispatchers.IO) {
         users.forEach { saveUser(it) }
     }
 
-    suspend fun isHaveUser(id: UserId): Boolean {
-        return cachedUsersQueries.get(id.long).executeAsOneOrNull() != null
+    suspend fun isHaveUser(id: UserId): Boolean = withContext(Dispatchers.IO) {
+        cachedUsersQueries.get(id.long).executeAsOneOrNull() != null
     }
 
     suspend fun getUser(id: UserId): User? {
-        val it = cachedUsersQueries.get(id.long).executeAsOneOrNull() ?: return null
+        val it = withContext(Dispatchers.IO) { cachedUsersQueries.get(id.long).executeAsOneOrNull() } ?: return null
 
         val name = UserName.createOrNull(it.name) ?: return null
         val description = UserDescription.createOrNull(it.description) ?: return null
@@ -64,7 +63,7 @@ class CachedUsersDataSource(
         )
     }
 
-    suspend fun getUsers(ids: List<UserId>): List<User> {
-        return ids.mapNotNull { getUser(it) }
+    suspend fun getUsers(ids: List<UserId>): List<User> = withContext(Dispatchers.IO) {
+        ids.mapNotNull { getUser(it) }
     }
 }
