@@ -50,9 +50,9 @@ class CachedUsersDataSource(
     suspend fun getUser(id: UserId): User? {
         val it = cachedUsersQueries.get(id.long).executeAsOneOrNull() ?: return null
 
-        val name = UserName.createOrNull(it.name ?: return null) ?: return null
-        val description = UserDescription.createOrNull(it.description ?: return null) ?: return null
-        val avatarFileId = FileId.createOrNull(it.avatarFileId ?: return null) ?: return null
+        val name = UserName.createOrNull(it.name) ?: return null
+        val description = UserDescription.createOrNull(it.description) ?: return null
+        val avatarFileId = FileId.createOrNull(it.avatarFileId) ?: return null
         val emailAddress = it.emailAddress?.let { emailAddress -> EmailAddress.createOrNull(emailAddress) }
 
         return User(

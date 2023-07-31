@@ -1,8 +1,8 @@
 CREATE TABLE CachedUsers (
     id INTEGER PRIMARY KEY,
-    name TEXT,
-    description TEXT,
-    avatarFileId TEXT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    avatarFileId TEXT NOT NULL,
     emailAddress TEXT
 );
 
