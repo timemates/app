@@ -16,7 +16,7 @@ class UsersRepository(
     private val coroutineScope: CoroutineScope
 ): UserRepositoryContract {
     override suspend fun getUser(id: UserId): Flow<Result<User>> = flow {
-        // Emit local saved data (is have)
+        // Emit local saved data (if have)
         if(cachedUsersDataSource.isHaveUser(id))
             cachedUsersDataSource.getUser(id)?.let { emit(Result.success(it)) }
 
@@ -36,7 +36,7 @@ class UsersRepository(
     }
 
     override suspend fun getUsers(ids: List<UserId>): Flow<Result<List<User>>> = flow {
-        // Emit local saved data (is have)
+        // Emit local saved data (if have)
         val cachedUsers = cachedUsersDataSource.getUsers(ids)
         if(cachedUsers.isNotEmpty())
             emit(Result.success(cachedUsers))
