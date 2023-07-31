@@ -5,13 +5,15 @@ import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
 import io.timemates.sdk.users.profile.types.value.UserName
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import io.timemates.app.users.repositories.UsersRepository as UserRepositoryContract
 
 class UsersRepository(
     private val userApi: UserApi,
-    private val cachedUsersDataSource: CachedUsersDataSource
+    private val cachedUsersDataSource: CachedUsersDataSource,
+    private val coroutineScope: CoroutineScope
 ): UserRepositoryContract {
     override suspend fun getUser(id: UserId): Flow<Result<User>> = flow {
         // Emit local saved data (is have)

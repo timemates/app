@@ -9,15 +9,18 @@ import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CachedUsersDataSource(
-    private val cachedUsersQueries: CachedUsersQueries
+    private val cachedUsersQueries: CachedUsersQueries,
+    private val coroutineScope: CoroutineScope
 ) {
     init {
         // TODO: Move it to other place
-        CoroutineScope(Dispatchers.Default).launch {
+        coroutineScope.launch {
             clear()
         }
     }
