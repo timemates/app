@@ -17,18 +17,10 @@ class TimersDataModule {
         tokenProvider: AccessHashProvider,
     ): TimersApi = TimersApi(grpcEngine, tokenProvider)
 
-    // TODO remove when `timersSessionsApi` is added to `TimersApi`
-    @Factory
-    fun timersSessionsApi(
-        grpcEngine: TimeMatesRequestsEngine,
-        tokenProvider: AccessHashProvider,
-    ): TimersSessionsApi = TimersSessionsApi(grpcEngine, tokenProvider)
-
     @Factory
     fun timersRepository(
         timersApi: TimersApi,
-        timersSessionsApi: TimersSessionsApi,
     ): TimersRepository = TimersRepositoryImpl (
-        timersApi, timersApi.members.invites, timersSessionsApi, timersApi.members,
+        timersApi, timersApi.members.invites, timersApi.sessions, timersApi.members,
     )
 }
