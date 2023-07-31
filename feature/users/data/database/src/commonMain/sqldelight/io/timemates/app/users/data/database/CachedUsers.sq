@@ -1,0 +1,25 @@
+CREATE TABLE CachedUsers (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    description TEXT,
+    avatarFileId TEXT,
+    emailAddress TEXT
+);
+
+insert:
+INSERT INTO CachedUsers (id, name, description, avatarFileId, emailAddress)
+VALUES (?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM CachedUsers
+WHERE id = ?;
+
+get:
+SELECT *
+FROM CachedUsers
+WHERE id IN (?);
+
+clear:
+DELETE FROM CachedUsers;
+
+
