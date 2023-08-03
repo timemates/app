@@ -1,4 +1,4 @@
-package com.cinematica.preview.style.appbar
+package com.timemates.app.preview.style.appbar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

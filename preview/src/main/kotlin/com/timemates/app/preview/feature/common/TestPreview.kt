@@ -1,4 +1,4 @@
-package com.cinematica.preview.feature.common
+package com.timemates.app.preview.feature.common
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
