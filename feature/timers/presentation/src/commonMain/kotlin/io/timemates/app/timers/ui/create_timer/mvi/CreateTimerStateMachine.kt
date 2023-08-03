@@ -36,6 +36,8 @@ class CreateTimerStateMachine(
 
         data class RestTimeChange(val restTime: String) : Event()
 
+        object OnBackClick : Event()
+
         object OnCreateClick : Event()
     }
 

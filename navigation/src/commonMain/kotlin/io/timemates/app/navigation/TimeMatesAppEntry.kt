@@ -104,7 +104,11 @@ fun TimeMatesAppEntry(
                 }
             )
 
-            is Screen.CreateTimer -> CreateTimerScreen()
+            is Screen.CreateTimer -> CreateTimerScreen(
+                stateMachine = stateMachine {
+                    parametersOf()
+                },
+            )
         }
     }
 }
