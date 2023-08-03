@@ -52,4 +52,6 @@ interface Strings {
     val nameIsInvalid: String
 
     val aboutYouSizeIsInvalid: String
+
+    val addTimer: String
 }

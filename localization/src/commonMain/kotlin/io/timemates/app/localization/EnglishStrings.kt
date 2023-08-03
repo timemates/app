@@ -35,4 +35,5 @@ object EnglishStrings : Strings {
     override val nameSizeIsInvalid: String = "Name size should be in range of ${UserName.SIZE_RANGE.first} to ${UserName.SIZE_RANGE.last} symbols."
     override val nameIsInvalid: String = "Name consists from illegal characters."
     override val aboutYouSizeIsInvalid: String = "User description should be in range of ${UserDescription.SIZE_RANGE.first} and ${UserDescription.SIZE_RANGE.last} symbols."
+    override val addTimer: String = "Add timer"
 }

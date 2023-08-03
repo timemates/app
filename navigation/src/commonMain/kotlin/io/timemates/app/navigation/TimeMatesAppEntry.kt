@@ -19,6 +19,7 @@ import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
+import io.timemates.app.timers.ui.create_timer.CreateTimerScreen
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -30,14 +31,14 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun TimeMatesAppEntry(
     navigation: StackNavigation<Screen> = remember { StackNavigation() },
-    initialScreen: Screen = Screen.StartAuthorization,
+    initialScreen: Screen = Screen.CreateTimer,
     isDarkTheme: Boolean = false,
     navigateToAuthorization: ReceiveChannel<Unit>,
 ) = AppTheme(isDarkTheme) {
 
     LaunchedEffect(Unit) {
         navigateToAuthorization.consumeEach {
-            navigation.push(Screen.StartAuthorization)
+            navigation.push(Screen.CreateTimer)
         }
     }
 
@@ -102,6 +103,8 @@ fun TimeMatesAppEntry(
                     // TODO navigation to home when home is ready
                 }
             )
+
+            is Screen.CreateTimer -> CreateTimerScreen()
         }
     }
 }
