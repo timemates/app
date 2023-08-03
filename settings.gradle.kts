@@ -48,8 +48,7 @@ include(
 )
 
 include(
-    ":preview:feature",
-    ":preview:style-system",
+    ":preview",
 )
 
 include(

@@ -1,4 +1,4 @@
-package io.timemates.preview.style.system.button
+package com.cinematica.preview.style.button
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add

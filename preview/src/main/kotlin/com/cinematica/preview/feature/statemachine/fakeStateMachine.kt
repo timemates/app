@@ -1,4 +1,4 @@
-package io.timemates.preview.statemachine
+package com.cinematica.preview.feature.statemachine
 
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect

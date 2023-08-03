@@ -1,3 +1,11 @@
+import org.gradle.api.JavaVersion
+import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.debugImplementation
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.implementation
+import org.gradle.kotlin.dsl.libs
+import org.gradle.kotlin.dsl.projects
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -14,15 +22,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_19
         targetCompatibility = JavaVersion.VERSION_19
@@ -38,8 +37,15 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    implementation(projects.styleSystem)
+
     debugImplementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.preview)
+    implementation(libs.androidx.compose.material3)
 
+    implementation(projects.localization)
+    implementation(projects.localization.compose)
+
+    implementation(projects.feature.authorization.presentation)
     implementation(projects.styleSystem)
 }
