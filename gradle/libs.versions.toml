@@ -8,9 +8,9 @@ jupiter = "5.8.2"
 exposed = "0.41.1"
 kmongo = "4.8.0"
 androidGradlePlugin = "8.0.2"
-androidComposeVersion = "2.6.1"
-jetpackComposeCompilerVersion = "1.4.6"
-jetbrainsCompose = "1.4.3"
+androidComposeVersion = "1.5.0-beta03"
+jetpackComposeCompilerVersion = "1.5.0"
+jetbrainsCompose = "1.5.0-beta01"
 timeMatesSdk = "dev-3d2e9b7d5ed0a69ac897a7b819787c0e2823d48f"
 ksp = "1.8.20-1.0.11"
 android-target = "34"
@@ -61,7 +61,7 @@ cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require
 
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.2.0-alpha02" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.1" }
 androidx-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
 androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
 androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha06" }
@@ -105,7 +105,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
+mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.5" }
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

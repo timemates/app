@@ -14,15 +14,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_19
         targetCompatibility = JavaVersion.VERSION_19
@@ -30,7 +21,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.jetpackComposeCompilerVersion.get()
     }
-    buildFeatures.compose = true
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -38,7 +31,14 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    implementation(projects.styleSystem)
+
     debugImplementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.preview)
     implementation(libs.androidx.compose.material3)
+
+    implementation(projects.localization)
+    implementation(projects.localization.compose)
+
+    implementation(projects.feature.authorization.presentation)
 }

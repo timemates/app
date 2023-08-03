@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.ButtonWithProgress
@@ -38,7 +40,7 @@ import kotlinx.coroutines.channels.consumeEach
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartAuthorizationScreen(
-    stateMachine: StartAuthorizationStateMachine,
+    stateMachine: StateMachine<State, Event, Effect>,
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
     val state by stateMachine.state.collectAsState()
