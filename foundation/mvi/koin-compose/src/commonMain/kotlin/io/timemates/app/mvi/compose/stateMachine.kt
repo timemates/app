@@ -2,6 +2,7 @@ package io.timemates.app.mvi.compose
 
 import androidx.compose.runtime.Composable
 import io.timemates.app.foundation.mvi.AbstractStateMachine
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState
@@ -18,9 +19,6 @@ import org.koin.core.parameter.ParametersDefinition
  * @return The created instance of the state machine.
  */
 @Composable
-expect inline fun <reified TSM : AbstractStateMachine<TState, TEvent, TEffect>,
-    TState : UiState,
-    TEvent : UiEvent,
-    TEffect : UiEffect> stateMachine(
+expect inline fun <TState : UiState, TEvent : UiEvent, TEffect : UiEffect> stateMachine(
     noinline parameters: ParametersDefinition? = null,
-): TSM
+): StateMachine<TState, TEvent, TEffect>

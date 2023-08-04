@@ -1,11 +1,3 @@
-import org.gradle.api.JavaVersion
-import org.gradle.kotlin.dsl.android
-import org.gradle.kotlin.dsl.debugImplementation
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.implementation
-import org.gradle.kotlin.dsl.libs
-import org.gradle.kotlin.dsl.projects
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -29,7 +21,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.jetpackComposeCompilerVersion.get()
     }
-    buildFeatures.compose = true
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -47,5 +41,4 @@ dependencies {
     implementation(projects.localization.compose)
 
     implementation(projects.feature.authorization.presentation)
-    implementation(projects.styleSystem)
 }
