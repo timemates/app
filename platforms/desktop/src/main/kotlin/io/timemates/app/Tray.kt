@@ -3,6 +3,7 @@ package io.timemates.app
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.platform.LocalDensity
@@ -22,11 +23,11 @@ import java.awt.event.MouseEvent
  */
 @Composable
 fun AppTray(
-    image: VectorPainter,
+    image: ImageBitmap,
     onClick: (x: Int, y: Int) -> Unit,
 ) {
     val systemTray = remember { SystemTray.getSystemTray() }
-    val trayIconImage = image.toAwtImage(LocalDensity.current, LayoutDirection.Ltr)
+    val trayIconImage = image.toAwtImage()
 
     val calculateWindowX: (Int) -> Int = { trayCenterX ->
         val windowWidth = AppConstants.APP_WIDTH

@@ -11,6 +11,8 @@ import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationM
 import io.timemates.app.authorization.dependencies.screens.NewAccountInfoModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
+import io.timemates.app.users.data.database.TimeMatesUsers
+import io.timemates.data.database.TimeMatesAuthorizations
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import kotlinx.coroutines.channels.Channel
 import org.koin.core.context.startKoin
@@ -29,7 +31,7 @@ fun initializeDependencies(
     startKoin {
         val platformModule = module {
             single<SqlDriver>(qualifier = qualifier("authorization")) {
-                JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+                createDatabase()
             }
 
             single<TimeMatesRequestsEngine> {

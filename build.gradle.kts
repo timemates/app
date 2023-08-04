@@ -15,7 +15,7 @@ plugins {
 allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "19"
+            jvmTarget = "17"
             apiVersion = "1.9"
             languageVersion = "1.9"
         }

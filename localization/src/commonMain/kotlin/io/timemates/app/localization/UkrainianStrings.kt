@@ -17,7 +17,7 @@ object UkrainianStrings : Strings {
     override val confirmationDescription: String = "Ми щойно надіслали лист із кодом підтвердження на вашу електронну адресу. Ми робимо це, щоб підтвердити, що ви є власником цієї електронної адреси."
     override val confirmation: String = "Підтвердження"
     override val confirmationCode: String = "Код підтвердження"
-    override val email: String = "Email address"
+    override val email: String = "Електронна пошта"
     override val changeEmail: String = "Змінити пошту"
     override val emailSizeIsInvalid: String = "Розмір електронної пошти має бути від 5 до 200 символів"
     override val emailIsInvalid: String = "Ваша електронна пошта неправильна."

@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.navigation.LocalComponentContext
 import io.timemates.app.navigation.TimeMatesAppEntry
 import kotlinx.coroutines.channels.Channel
@@ -40,7 +42,8 @@ fun startUi(authorizationFailedChannel: Channel<Unit>) {
             isMinimized = true,
             size = DpSize(AppConstants.APP_WIDTH.dp, AppConstants.APP_HEIGHT.dp),
         )
-        val trayIcon = rememberVectorPainter(Icons.Outlined.Timer)
+        val trayIcon =
+            loadImageBitmap({}::class.java.getResourceAsStream("/images/ic_app_transparent.png")!!)
 
         AppTray(
             trayIcon,
@@ -51,7 +54,10 @@ fun startUi(authorizationFailedChannel: Channel<Unit>) {
             }
         )
 
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+        CompositionLocalProvider(
+            LocalComponentContext provides rootComponentContext,
+            LocalStrings provides getStringsFromSystemLocale(),
+        ) {
             LifecycleController(lifecycle, windowState)
 
             Window(

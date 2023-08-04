@@ -5,6 +5,15 @@ plugins {
 group = "publish-library"
 version = "SNAPSHOT"
 
+kotlin {
+    jvmToolchain(17)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 repositories {
     gradlePluginPortal()
     mavenCentral()

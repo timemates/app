@@ -10,17 +10,18 @@ kmongo = "4.8.0"
 androidGradlePlugin = "8.0.2"
 androidComposeVersion = "2.6.1"
 jetpackComposeCompilerVersion = "1.4.6"
-jetbrainsCompose = "1.4.1"
-timeMatesSdk = "dev-3d2e9b7d5ed0a69ac897a7b819787c0e2823d48f"
+jetbrainsCompose = "1.4.3"
+timeMatesSdk = "dev-ede0c538935ec8f2c452d7cfb4d6747a1a1c81c7"
 ksp = "1.8.20-1.0.11"
 android-target = "34"
 android-min = "24"
 koin = "3.4.2"
 koin-annotations = "1.2.2"
 decompose = "2.0.0-beta-01"
-sqldelight = "2.0.0-alpha05"
+sqldelight = "2.0.0"
 moko-resources = "0.23.0"
 jna = "5.13.0"
+graalvm = "0.9.23"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -88,12 +89,16 @@ moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-re
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-runtime-jvm = { module = "com.squareup.sqldelight:runtime-jvm", version.require = "1.5.5" }
 jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 android-multidex = { module = "androidx.multidex:multidex", version.require = "2.0.1" }
 
 grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.require = "1.56.1" }
 
+graalvm-svm-image = { module = "org.graalvm.nativeimage:svm-driver", version.require = "22.0.0.2" }
+graalvm-xerial-sqlite = { module = "org.xerial:sqlite-jdbc", version.require = "3.42.0.0" }
+tink = { module = "com.google.crypto.tink:tink", version.require = "1.10.0" }
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -116,3 +121,4 @@ configurations-unit-tests = { id = "unit-tests-convention", version.require = "S
 configurations-unit-tests-mockable = { id = "unit-tests-with-mockk-convention", version.require = "SNAPSHOT" }
 configurations-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
 moko-multiplatform-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
+graalvm-native-image = { id = "org.graalvm.buildtools.native", version.ref = "graalvm" }
