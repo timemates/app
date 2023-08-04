@@ -17,6 +17,7 @@ import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScree
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash

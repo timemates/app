@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
-import io.timemates.app.foundation.mvi.AbstractStateMachine
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState
@@ -14,7 +14,7 @@ import io.timemates.sdk.authorization.sessions.types.Authorization
 class ConfirmAuthorizationStateMachine(
     reducer: ConfirmAuthorizationsReducer,
     middleware: ConfirmAuthorizationMiddleware,
-) : AbstractStateMachine<State, Event, Effect>(
+) : StateMachine<State, Event, Effect>(
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {

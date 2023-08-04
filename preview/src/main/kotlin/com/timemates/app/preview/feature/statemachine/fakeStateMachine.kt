@@ -1,6 +1,5 @@
 package com.timemates.app.preview.feature.statemachine
 
-import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
-import io.timemates.app.foundation.mvi.AbstractStateMachine
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState
@@ -13,7 +13,7 @@ import io.timemates.sdk.authorization.email.types.value.VerificationHash
 class StartAuthorizationStateMachine(
     reducer: StartAuthorizationReducer,
     middleware: StartAuthorizationMiddleware,
-) : AbstractStateMachine<State, Event, Effect>(reducer, middlewares = listOf(middleware)) {
+) : StateMachine<State, Event, Effect>(reducer, middlewares = listOf(middleware)) {
 
     override fun initDefaultState(): State = State()
 

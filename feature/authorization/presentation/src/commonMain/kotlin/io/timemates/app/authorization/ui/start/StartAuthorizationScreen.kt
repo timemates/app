@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State

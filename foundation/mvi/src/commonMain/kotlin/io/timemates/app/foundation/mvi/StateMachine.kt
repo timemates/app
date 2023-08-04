@@ -1,32 +1,46 @@
 package io.timemates.app.foundation.mvi
 
+import io.timemates.androidx.viewmodel.ViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-/**
- * StateMachine is an interface that represents a Model-View-Intent (MVI) architecture
- * and provides a way to manage the state of the UI,
- * handle events, and produce effects.
- *
- * @param TState The type representing the UI state.
- * @param TEvent The type representing events from the UI.
- * @param TEffect The type representing effects to UI.
- */
-public interface StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect> : StateStore<TState> {
+public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>(
+    private val reducer: Reducer<TState, TEvent, TEffect>,
+    private val middlewares: List<Middleware<TState, TEffect>> = emptyList(),
+) : ViewModel(), StateStore<TState> {
+
+    protected abstract fun initDefaultState(): TState
+
+    private val _state: MutableStateFlow<TState> by lazy { MutableStateFlow(initDefaultState()) }
+    private val _effects: Channel<TEffect> = Channel(Channel.UNLIMITED)
+
     /**
      * Represents the current state of the UI.
      */
-    public override val state: StateFlow<TState>
+    public final override val state: StateFlow<TState> by ::_state
 
     /**
      * Represents the channel for emitting UI effects.
      */
-    public val effects: ReceiveChannel<TEffect>
+    public val effects: ReceiveChannel<TEffect> by ::_effects
 
     /**
-     * Dispatches an event to the state machine for processing.
+     * Processes an event from UI.
      *
      * @param event The event to be processed.
      */
-    public fun dispatchEvent(event: TEvent)
+    public fun dispatchEvent(event: TEvent) {
+        val sendEffect: (TEffect) -> Unit = { effect ->
+            middlewares.forEach { middleware -> setState(middleware.onEffect(effect, this)) }
+            _effects.trySend(effect)
+        }
+
+        setState(reducer.reduce(state.value, event, sendEffect))
+    }
+
+    private fun setState(state: TState) {
+        _state.tryEmit(state)
+    }
 }
