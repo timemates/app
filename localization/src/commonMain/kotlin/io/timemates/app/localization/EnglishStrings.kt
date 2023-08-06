@@ -1,6 +1,8 @@
 package io.timemates.app.localization
 
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import io.timemates.sdk.timers.types.value.TimerDescription
+import io.timemates.sdk.timers.types.value.TimerName
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 
@@ -35,4 +37,16 @@ object EnglishStrings : Strings {
     override val nameSizeIsInvalid: String = "Name size should be in range of ${UserName.SIZE_RANGE.first} to ${UserName.SIZE_RANGE.last} symbols."
     override val nameIsInvalid: String = "Name consists from illegal characters."
     override val aboutYouSizeIsInvalid: String = "User description should be in range of ${UserDescription.SIZE_RANGE.first} and ${UserDescription.SIZE_RANGE.last} symbols."
+    override val timerSettings: String = "Edit timer"
+    override val description: String = "Description"
+    override val name: String = "Name"
+    override val workTime: String = "Work time (min)"
+    override val restTime: String = "Rest time (min)"
+    override val every: String = "Every"
+    override val minutes: String = "Minutes"
+    override val advancedRestSettingsDescription: String = "Enable big rest time (extended rest every\n" +
+        "X rounds)."
+    override val publicManageTimerStateDescription: String = "Everyone can manage timer state"
+    override val timerNameSizeIsInvalid: String = "Name size should be in range of ${TimerName.SIZE_RANGE.first} to ${TimerName.SIZE_RANGE.last} symbols."
+    override val timerDescriptionSizeIsInvalid: String = "Timer description should be in range of ${TimerDescription.SIZE_RANGE.first} and ${TimerDescription.SIZE_RANGE.last} symbols."
 }

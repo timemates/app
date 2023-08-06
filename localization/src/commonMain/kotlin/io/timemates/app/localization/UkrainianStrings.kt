@@ -1,6 +1,8 @@
 package io.timemates.app.localization
 
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import io.timemates.sdk.timers.types.value.TimerDescription
+import io.timemates.sdk.timers.types.value.TimerName
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 
@@ -35,4 +37,16 @@ object UkrainianStrings : Strings {
     override val nameSizeIsInvalid: String = "Ім'я має бути в межах ${UserName.SIZE_RANGE.first} й ${UserName.SIZE_RANGE.last} символів."
     override val nameIsInvalid: String = "Ім'я містить заборонені символи."
     override val aboutYouSizeIsInvalid: String = "Опис має бути в межах ${UserDescription.SIZE_RANGE.first} й ${UserDescription.SIZE_RANGE.last} символів."
+    override val timerSettings: String = "Редагувати таймер"
+    override val description: String = "Описання"
+    override val name: String = "Найменування"
+    override val workTime: String = "Час роботи (хв)"
+    override val restTime: String = "Час відпочинку (хв)"
+    override val every: String = "Кожні"
+    override val minutes: String = "Хвилин"
+    override val advancedRestSettingsDescription: String = "Увімкніть великий час відпочинку (подовжений відпочинок кожні\n" +
+        "X раундів)."
+    override val publicManageTimerStateDescription: String = "Кожен може керувати станом таймера"
+    override val timerNameSizeIsInvalid: String = "Ім'я має бути в межах ${TimerName.SIZE_RANGE.first} й ${TimerName.SIZE_RANGE.last} символів."
+    override val timerDescriptionSizeIsInvalid: String = "Опис має бути в межах ${TimerDescription.SIZE_RANGE.first} й ${TimerDescription.SIZE_RANGE.last} символів."
 }
