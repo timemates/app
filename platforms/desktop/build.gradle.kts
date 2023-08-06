@@ -16,9 +16,15 @@ dependencies {
 
     implementation(libs.timemates.sdk)
     implementation(libs.timemates.engine.grpc)
+    
+    implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
+
     implementation(projects.navigation)
+
+
+    implementation(projects.foundation.time)
 
     implementation(projects.styleSystem)
 }

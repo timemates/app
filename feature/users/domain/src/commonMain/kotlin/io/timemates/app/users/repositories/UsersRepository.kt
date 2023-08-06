@@ -1,6 +1,7 @@
 package io.timemates.app.users.repositories
 
 import io.timemates.sdk.common.constructor.createOrThrow
+import io.timemates.sdk.common.types.Empty
 import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
@@ -34,5 +35,5 @@ interface UsersRepository {
      * @param name The new name for the user.
      * @param description The new description for the user.
      */
-    suspend fun editUser(name: UserName?, description: UserDescription?): Result<Unit>
+    suspend fun editUser(name: UserName?, description: UserDescription?): Result<Empty>
 }

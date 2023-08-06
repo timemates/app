@@ -19,7 +19,12 @@ dependencies {
     commonMainImplementation(libs.kotlinx.coroutines)
     commonMainImplementation(libs.timemates.sdk)
 
+    commonMainImplementation(projects.feature.users.data)
+
+    commonMainImplementation(projects.foundation.time)
+
     commonMainImplementation(projects.feature.users.domain)
+    commonMainImplementation(projects.feature.users.data.database)
     commonMainImplementation(projects.feature.users.presentation)
     commonMainImplementation(projects.feature.common.domain)
 }

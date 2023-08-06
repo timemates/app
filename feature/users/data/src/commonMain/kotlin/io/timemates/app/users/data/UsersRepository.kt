@@ -1,5 +1,7 @@
 package io.timemates.app.users.data
 
+import io.timemates.app.foundation.time.TimeProvider
+import io.timemates.sdk.common.types.Empty
 import io.timemates.sdk.users.UserApi
 import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserDescription
@@ -8,13 +10,22 @@ import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import io.timemates.app.users.repositories.UsersRepository as UserRepositoryContract
 
 class UsersRepository(
     private val userApi: UserApi,
     private val cachedUsersDataSource: CachedUsersDataSource,
-    private val coroutineScope: CoroutineScope
+    private val timeProvider: TimeProvider,
+    private val coroutineScope: CoroutineScope,
 ): UserRepositoryContract {
+
+    init {
+        coroutineScope.launch {
+            cachedUsersDataSource.clear(timeProvider.provide().toEpochMilliseconds())
+        }
+    }
+
     override suspend fun getUser(id: UserId): Flow<Result<User>> = flow {
         // Emit local saved data (if have)
         if(cachedUsersDataSource.isHaveUser(id))
@@ -31,7 +42,7 @@ class UsersRepository(
             .getOrElse { throwable -> Result.failure(throwable) }
             .let {
                 emit(it)
-                it.onSuccess { user -> cachedUsersDataSource.saveUser(user) }
+                it.onSuccess { user -> cachedUsersDataSource.saveUser(user, timeProvider.provide().toEpochMilliseconds()) }
             }
     }
 
@@ -52,13 +63,11 @@ class UsersRepository(
             .getOrElse { throwable -> Result.failure(throwable) }
             .let {
                 emit(it)
-                it.onSuccess { users -> cachedUsersDataSource.saveUsers(users) }
+                it.onSuccess { users -> cachedUsersDataSource.saveUsers(users, timeProvider.provide().toEpochMilliseconds()) }
             }
     }
 
-    override suspend fun editUser(name: UserName?, description: UserDescription?): Result<Unit> {
+    override suspend fun editUser(name: UserName?, description: UserDescription?): Result<Empty> {
         return userApi.profile.editProfile(name, description)
-            .map { Result.success(Unit) }
-            .getOrElse { throwable -> Result.failure(throwable) }
     }
 }
