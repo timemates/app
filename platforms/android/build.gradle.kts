@@ -63,12 +63,15 @@ dependencies {
 
     implementation(projects.feature.common.domain)
 
+    implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
 
     implementation(libs.grpc.okhttp)
 
     implementation(libs.compose.accompanist.systemUiController)
+
+    implementation(projects.foundation.time)
 
     implementation(libs.androidx.compose.activity)
     implementation(projects.navigation)

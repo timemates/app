@@ -1,0 +1,27 @@
+CREATE TABLE CachedUsers (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    avatarFileId TEXT,
+    gravatarId TEXT,
+    emailAddress TEXT,
+    lastQueryTime INTEGER NOT NULL
+);
+
+insert:
+INSERT INTO CachedUsers (id, name, description, avatarFileId, gravatarId, emailAddress, lastQueryTime)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM CachedUsers
+WHERE id = ?;
+
+get:
+SELECT *
+FROM CachedUsers
+WHERE id IN (?);
+
+clear:
+DELETE FROM CachedUsers WHERE lastQueryTime < ?;
+
+
