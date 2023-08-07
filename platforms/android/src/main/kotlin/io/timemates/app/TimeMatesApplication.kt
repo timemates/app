@@ -22,6 +22,9 @@ import org.koin.ksp.generated.module
 import androidx.multidex.MultiDexApplication
 import androidx.multidex.MultiDex
 import android.content.Context
+import io.timemates.app.foundation.time.SystemUTCTimeProvider
+import io.timemates.app.foundation.time.TimeProvider
+import io.timemates.app.users.data.database.TimeMatesUsers
 
 class TimeMatesApplication : MultiDexApplication() {
 
@@ -50,6 +53,14 @@ class TimeMatesApplication : MultiDexApplication() {
 
                 single<SqlDriver>(qualifier = qualifier("authorization")) {
                     AndroidSqliteDriver(TimeMatesAuthorizations.Schema, applicationContext)
+                }
+
+                single<SqlDriver>(qualifier = qualifier("users")) {
+                    AndroidSqliteDriver(TimeMatesUsers.Schema, applicationContext)
+                }
+
+                single<TimeProvider> {
+                    SystemUTCTimeProvider()
                 }
             }
 

@@ -41,6 +41,7 @@ include(
     ":foundation:stdlib-ext",
     ":foundation:system-tray",
     ":foundation:shimmer-compose",
+    ":foundation:time",
 )
 
 include(

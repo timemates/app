@@ -4,6 +4,8 @@ import io.timemates.app.users.repositories.UsersRepository
 import io.timemates.sdk.common.exceptions.NotFoundException
 import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserId
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Use case class for retrieving a user by ID.
@@ -19,14 +21,16 @@ class GetUsersUseCase(
      * @param userId The ID of the user to retrieve.
      * @return The result of the operation.
      */
-    suspend fun execute(userIds: List<UserId>): Result {
+    suspend fun execute(userIds: List<UserId>): Flow<Result> {
         return repository.getUsers(userIds)
-            .map { Result.Success(it) }
-            .getOrElse { exception: Throwable ->
-                when (exception) {
-                    is NotFoundException -> Result.NotFound
-                    else -> Result.Failure(exception)
-                }
+            .map { result ->
+                result.map { Result.Success(it) }
+                    .getOrElse { exception: Throwable ->
+                        when (exception) {
+                            is NotFoundException -> Result.NotFound
+                            else -> Result.Failure(exception)
+                        }
+                    }
             }
     }
 
