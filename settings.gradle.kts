@@ -30,7 +30,6 @@ include(
 
 include(
     ":style-system",
-    ":style-system:preview",
 )
 
 include(
@@ -47,6 +46,10 @@ include(
 
 include(
     ":navigation",
+)
+
+include(
+    ":preview",
 )
 
 include(

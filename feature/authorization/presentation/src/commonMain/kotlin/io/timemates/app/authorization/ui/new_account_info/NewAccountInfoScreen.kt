@@ -22,8 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine
+import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Effect
 import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Event
+import io.timemates.app.foundation.mvi.EmptyState
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
@@ -33,17 +35,17 @@ import kotlinx.coroutines.channels.consumeEach
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewAccountInfoScreen(
-    stateMachine: NewAccountInfoStateMachine,
+    stateMachine: StateMachine<EmptyState, Event, Effect>,
     navigateToConfigure: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
-                is NewAccountInfoStateMachine.Effect.NavigateToAccountConfiguring ->
+                is Effect.NavigateToAccountConfiguring ->
                     navigateToConfigure(effect.verificationHash.string)
 
-                NewAccountInfoStateMachine.Effect.NavigateToStart ->
+                Effect.NavigateToStart ->
                     navigateToStart()
             }
         }

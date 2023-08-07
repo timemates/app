@@ -24,6 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
+import io.timemates.app.foundation.mvi.EmptyState
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
@@ -33,7 +35,7 @@ import kotlinx.coroutines.channels.consumeEach
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AfterStartScreen(
-    stateMachine: AfterStartStateMachine,
+    stateMachine: StateMachine<EmptyState, Event, AfterStartStateMachine.Effect>,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {

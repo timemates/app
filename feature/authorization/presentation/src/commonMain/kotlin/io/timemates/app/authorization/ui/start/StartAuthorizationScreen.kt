@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -26,19 +25,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.ButtonWithProgress
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.channels.consumeEach
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartAuthorizationScreen(
-    stateMachine: StartAuthorizationStateMachine,
+    stateMachine: StateMachine<State, Event, Effect>,
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
     val state by stateMachine.state.collectAsState()
