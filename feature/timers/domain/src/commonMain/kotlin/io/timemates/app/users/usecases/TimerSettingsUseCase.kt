@@ -6,7 +6,7 @@ import io.timemates.sdk.timers.types.value.TimerDescription
 import io.timemates.sdk.timers.types.value.TimerId
 import io.timemates.sdk.timers.types.value.TimerName
 
-class EditTimerUseCase(
+class TimerSettingsUseCase(
     private val timers: TimersRepository,
 ) {
     suspend fun execute(

@@ -4,7 +4,7 @@ import io.timemates.app.foundation.mvi.Reducer
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Effect
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
-import io.timemates.app.users.usecases.EditTimerUseCase
+import io.timemates.app.users.usecases.TimerSettingsUseCase
 import io.timemates.app.users.validation.TimerDescriptionValidator
 import io.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class TimerSettingsReducer(
     private val timerId: TimerId,
-    private val editTimerUseCase: EditTimerUseCase,
+    private val timerSettingsUseCase: TimerSettingsUseCase,
     private val timerNameValidator: TimerNameValidator,
     private val timerDescriptionValidator: TimerDescriptionValidator,
     private val coroutineScope: CoroutineScope,
@@ -102,11 +102,11 @@ class TimerSettingsReducer(
         sendEffect: (Effect) -> Unit,
     ) {
         coroutineScope.launch {
-            when(val result = editTimerUseCase.execute(timerId, newName, newDescription, settings)) {
-                is EditTimerUseCase.Result.Failure ->
+            when(val result = timerSettingsUseCase.execute(timerId, newName, newDescription, settings)) {
+                is TimerSettingsUseCase.Result.Failure ->
                     sendEffect(Effect.Failure(result.exception))
 
-               is EditTimerUseCase.Result.Success ->
+               is TimerSettingsUseCase.Result.Success ->
                    sendEffect(Effect.Success)
             }
         }
