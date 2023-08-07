@@ -42,7 +42,6 @@ import io.timemates.app.style.system.text_field.SizedOutlinedTextField
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
-import io.timemates.app.users.usecases.EditTimerUseCase
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.value.Count
 import io.timemates.sdk.timers.types.value.TimerDescription

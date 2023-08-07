@@ -12,7 +12,6 @@ import io.timemates.sdk.timers.types.TimerSettings
 import io.timemates.sdk.timers.types.value.TimerDescription
 import io.timemates.sdk.timers.types.value.TimerId
 import io.timemates.sdk.timers.types.value.TimerName
-import io.timemates.sdk.users.profile.types.value.UserDescription
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
