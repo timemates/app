@@ -8,12 +8,17 @@ import io.timemates.app.users.usecases.EditTimerUseCase
 import io.timemates.app.users.validation.TimerDescriptionValidator
 import io.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
+import io.timemates.sdk.timers.types.TimerSettings
+import io.timemates.sdk.timers.types.value.TimerDescription
+import io.timemates.sdk.timers.types.value.TimerId
 import io.timemates.sdk.timers.types.value.TimerName
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 class TimerSettingsReducer(
+    private val timerId: TimerId,
     private val editTimerUseCase: EditTimerUseCase,
     private val timerNameValidator: TimerNameValidator,
     private val timerDescriptionValidator: TimerDescriptionValidator,
@@ -37,8 +42,25 @@ class TimerSettingsReducer(
                     is TimerDescriptionValidator.Result.SizeViolation ->
                         return state.copy(isDescriptionSizeInvalid = true)
 
-                    else -> UserDescription.createOrThrow(state.description)
+                    else -> TimerDescription.createOrThrow(state.description)
                 }
+
+                editTimer(
+                    timerId = timerId,
+                    newName = name,
+                    newDescription = description,
+                    settings = TimerSettings.Patch(
+                        workTime = state.workTime,
+                        restTime = state.restTime,
+                        bigRestEnabled = state.bigRestEnabled,
+                        bigRestPer = state.bigRestPer,
+                        bigRestTime = state.bigRestTime,
+                        isEveryoneCanPause = state.isEveryoneCanPause,
+                        isConfirmationRequired = state.isConfirmationRequired,
+                    ),
+                    sendEffect = sendEffect,
+                )
+
                 return state.copy(isLoading = true)
             }
 
@@ -56,11 +78,38 @@ class TimerSettingsReducer(
             is Event.RestTimeIsChanged ->
                 state.copy(workTime = event.restTime)
 
-            is Event.PeriodIsChanged ->
-                state.copy(period = event.period, isPeriodSizeInvalid = false)
+            is Event.BigRestModeIsChanged ->
+                state.copy(bigRestEnabled = event.bigRestEnabled)
 
-            is Event.PauseTimeIsChanged ->
-                state.copy(pauseTime = event.pauseTime, isPauseTimeSizeInvalid = false)
+            is Event.BigRestPerIsChanged ->
+                state.copy(bigRestPer = event.bigRestPer)
+
+            is Event.BigRestTimeIsChanged ->
+                state.copy(bigRestTime = event.bigRestTime)
+
+            is Event.TimerPauseControlAccessIsChanged ->
+                state.copy(isEveryoneCanPause = event.isEveryoneCanPause)
+
+            is Event.ConfirmationRequirementChanged ->
+                state.copy(isConfirmationRequired = event.isConfirmationRequired)
+        }
+    }
+
+    private fun editTimer(
+        timerId: TimerId,
+        newName: TimerName,
+        newDescription: TimerDescription,
+        settings: TimerSettings.Patch?,
+        sendEffect: (Effect) -> Unit,
+    ) {
+        coroutineScope.launch {
+            when(val result = editTimerUseCase.execute(timerId, newName, newDescription, settings)) {
+                is EditTimerUseCase.Result.Failure ->
+                    sendEffect(Effect.Failure(result.exception))
+
+               is EditTimerUseCase.Result.Success ->
+                   sendEffect(Effect.Success)
+            }
         }
     }
 }

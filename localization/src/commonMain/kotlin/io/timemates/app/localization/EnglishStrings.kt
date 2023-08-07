@@ -44,9 +44,10 @@ object EnglishStrings : Strings {
     override val restTime: String = "Rest time (min)"
     override val every: String = "Every"
     override val minutes: String = "Minutes"
-    override val advancedRestSettingsDescription: String = "Enable big rest time (extended rest every\n" +
-        "X rounds)."
+    override val advancedRestSettingsDescription: String = "Enable big rest time (extended rest every X rounds)."
     override val publicManageTimerStateDescription: String = "Everyone can manage timer state"
+    override val confirmationRequiredDescription: String = "Always require confirmation before round start"
     override val timerNameSizeIsInvalid: String = "Name size should be in range of ${TimerName.SIZE_RANGE.first} to ${TimerName.SIZE_RANGE.last} symbols."
     override val timerDescriptionSizeIsInvalid: String = "Timer description should be in range of ${TimerDescription.SIZE_RANGE.first} and ${TimerDescription.SIZE_RANGE.last} symbols."
+    override val save: String = "Save"
 }

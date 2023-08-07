@@ -44,9 +44,10 @@ object UkrainianStrings : Strings {
     override val restTime: String = "Час відпочинку (хв)"
     override val every: String = "Кожні"
     override val minutes: String = "Хвилин"
-    override val advancedRestSettingsDescription: String = "Увімкніть великий час відпочинку (подовжений відпочинок кожні\n" +
-        "X раундів)."
+    override val advancedRestSettingsDescription: String = "Увімкніть великий час відпочинку (подовжений відпочинок кожні X раундів)."
     override val publicManageTimerStateDescription: String = "Кожен може керувати станом таймера"
+    override val confirmationRequiredDescription: String = "Завжди вимагати підтвердження перед початком раунду"
     override val timerNameSizeIsInvalid: String = "Ім'я має бути в межах ${TimerName.SIZE_RANGE.first} й ${TimerName.SIZE_RANGE.last} символів."
     override val timerDescriptionSizeIsInvalid: String = "Опис має бути в межах ${TimerDescription.SIZE_RANGE.first} й ${TimerDescription.SIZE_RANGE.last} символів."
+    override val save: String = "Зберегти"
 }

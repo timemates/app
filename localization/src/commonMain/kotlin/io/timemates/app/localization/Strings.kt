@@ -71,7 +71,11 @@ interface Strings {
 
     val publicManageTimerStateDescription: String
 
+    val confirmationRequiredDescription: String
+
     val timerNameSizeIsInvalid: String
 
     val timerDescriptionSizeIsInvalid: String
+
+    val save: String
 }

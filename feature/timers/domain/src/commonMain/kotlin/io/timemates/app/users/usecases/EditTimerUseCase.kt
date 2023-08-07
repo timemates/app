@@ -28,8 +28,6 @@ class EditTimerUseCase(
     sealed class Result {
         object Success : Result()
 
-        object NotFound : Result()
-
         data class Failure(val exception: Throwable) : Result()
     }
 }
