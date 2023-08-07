@@ -1,5 +1,3 @@
-import org.koin.dsl.module
-
 plugins {
     id(libs.plugins.configurations.koin.annotations.get().pluginId)
 }
