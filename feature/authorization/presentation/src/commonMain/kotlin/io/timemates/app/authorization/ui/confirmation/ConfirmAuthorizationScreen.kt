@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -25,17 +24,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
+import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
+import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.ButtonWithProgress
 import kotlinx.coroutines.channels.consumeEach
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfirmAuthorizationScreen(
-    stateMachine: ConfirmAuthorizationStateMachine,
+    stateMachine: StateMachine<State, Event, Effect>,
     onBack: () -> Unit,
     navigateToConfiguring: (String) -> Unit,
     navigateToHome: () -> Unit,
@@ -48,19 +48,19 @@ fun ConfirmAuthorizationScreen(
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
-                is ConfirmAuthorizationStateMachine.Effect.Failure ->
+                is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
 
-                is ConfirmAuthorizationStateMachine.Effect.NavigateToCreateAccount ->
+                is Effect.NavigateToCreateAccount ->
                     navigateToConfiguring(effect.verificationHash.string)
 
-                is ConfirmAuthorizationStateMachine.Effect.NavigateToHome ->
+                is Effect.NavigateToHome ->
                     navigateToHome()
 
-                ConfirmAuthorizationStateMachine.Effect.TooManyAttempts ->
+                Effect.TooManyAttempts ->
                     snackbarData.showSnackbar(message = strings.tooManyAttempts)
 
-                ConfirmAuthorizationStateMachine.Effect.AttemptIsFailed ->
+                Effect.AttemptIsFailed ->
                     snackbarData.showSnackbar(message = strings.confirmationAttemptFailed)
             }
         }

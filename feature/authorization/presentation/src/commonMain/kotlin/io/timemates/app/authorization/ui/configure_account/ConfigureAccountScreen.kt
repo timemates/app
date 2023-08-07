@@ -28,8 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.ButtonWithProgress
@@ -40,7 +42,7 @@ import kotlinx.coroutines.channels.consumeEach
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfigureAccountScreen(
-    stateMachine: ConfigureAccountStateMachine,
+    stateMachine: StateMachine<State, Event, Effect>,
     navigateToHome: () -> Unit,
     onBack: () -> Unit,
 ) {
@@ -55,10 +57,11 @@ fun ConfigureAccountScreen(
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
-                is ConfigureAccountStateMachine.Effect.Failure ->
+                is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
-                is ConfigureAccountStateMachine.Effect.NavigateToHomePage -> navigateToHome()
-                ConfigureAccountStateMachine.Effect.NavigateToStart -> onBack()
+
+                is Effect.NavigateToHomePage -> navigateToHome()
+                Effect.NavigateToStart -> onBack()
             }
         }
     }
