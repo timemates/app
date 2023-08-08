@@ -17,15 +17,12 @@ import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScree
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -48,18 +45,18 @@ fun TimeMatesAppEntry(
         animation = stackAnimation(fade() + scale()),
     ) { screen ->
         when (screen) {
-//            is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
-//                stateMachine = stateMachine {
-//                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-//                },
-//                onBack = { navigation.pop() },
-//                navigateToConfiguring = {
-//                    navigation.replaceAll(Screen.StartAuthorization, Screen.NewAccountInfo(it))
-//                },
-//                navigateToHome = {
-//                    // TODO when home is ready
-//                },
-//            )
+            is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                onBack = { navigation.pop() },
+                navigateToConfiguring = {
+                    navigation.replaceAll(Screen.StartAuthorization, Screen.NewAccountInfo(it))
+                },
+                navigateToHome = {
+                    // TODO when home is ready
+                },
+            )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
                 stateMachine = stateMachine(),
@@ -68,43 +65,41 @@ fun TimeMatesAppEntry(
                 },
             )
 
-//            is Screen.AfterStart -> AfterStartScreen(
-//                stateMachine = stateMachine {
-//                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-//                },
-//                navigateToConfirmation = {
-//                    navigation.push(Screen.ConfirmAuthorization(screen.verificationHash))
-//                },
-//                navigateToStart = {
-//                    navigation.pop()
-//                },
-//            )
-//
-//            is Screen.NewAccountInfo -> NewAccountInfoScreen(
-//                stateMachine = stateMachine {
-//                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-//                },
-//                navigateToConfigure = {
-//                    navigation.push(Screen.NewAccount(screen.verificationHash))
-//                },
-//                navigateToStart = {
-//                    navigation.popTo(0)
-//                }
-//            )
-//
-//            is Screen.NewAccount -> ConfigureAccountScreen(
-//                stateMachine = stateMachine {
-//                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-//                },
-//                onBack = {
-//                    navigation.popTo(0)
-//                },
-//                navigateToHome = {
-//                    // TODO navigation to home when home is ready
-//                }
-//            )
-            else -> { //todo commented screens }
-            }
+            is Screen.AfterStart -> AfterStartScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                navigateToConfirmation = {
+                    navigation.push(Screen.ConfirmAuthorization(screen.verificationHash))
+                },
+                navigateToStart = {
+                    navigation.pop()
+                },
+            )
+
+            is Screen.NewAccountInfo -> NewAccountInfoScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                navigateToConfigure = {
+                    navigation.push(Screen.NewAccount(screen.verificationHash))
+                },
+                navigateToStart = {
+                    navigation.popTo(0)
+                }
+            )
+
+            is Screen.NewAccount -> ConfigureAccountScreen(
+                stateMachine = stateMachine {
+                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
+                },
+                onBack = {
+                    navigation.popTo(0)
+                },
+                navigateToHome = {
+                    // TODO navigation to home when home is ready
+                }
+            )
         }
     }
 }
