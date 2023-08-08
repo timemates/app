@@ -5,5 +5,6 @@ plugins {
 dependencies {
     commonMainImplementation(projects.feature.authorization.domain)
     commonMainImplementation(projects.feature.authorization.data.database)
-    commonMainImplementation(projects.feature.authorization.data.sdk)
+
+    commonMainImplementation(libs.timemates.sdk)
 }
