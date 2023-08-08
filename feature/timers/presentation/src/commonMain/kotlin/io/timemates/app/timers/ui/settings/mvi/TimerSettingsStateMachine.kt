@@ -1,7 +1,7 @@
 package io.timemates.app.timers.ui.settings.mvi
 
 import androidx.compose.runtime.Immutable
-import io.timemates.app.foundation.mvi.AbstractStateMachine
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState
@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.minutes
 class TimerSettingsStateMachine(
     reducer: TimerSettingsReducer,
     middleware: TimerSettingsMiddleware,
-) : AbstractStateMachine<State, Event, Effect>(
+) : StateMachine<State, Event, Effect>(
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
