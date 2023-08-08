@@ -4,15 +4,10 @@ import io.mockk.every
 import io.mockk.mockk
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountMiddleware
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.foundation.mvi.StateStore
-import io.timemates.app.foundation.random.nextString
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test
-import kotlin.random.Random
 
 class ConfigureAccountMiddlewareTest {
     private val stateStore: StateStore<ConfigureAccountStateMachine.State> = mockk()
