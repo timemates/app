@@ -11,16 +11,14 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
-        google()
         mavenCentral()
-        maven("https://jitpack.io")
+        google()
         maven("https://maven.timemates.io")
     }
 }
 
 rootProject.name = "timemates-app"
 
-includeBuild("build-plugins/publish-library")
 includeBuild("build-plugins/configurations")
 
 include(
@@ -65,7 +63,6 @@ include(
 include(
     ":feature:authorization:domain",
     ":feature:authorization:presentation",
-    ":feature:authorization:data:sdk",
     ":feature:authorization:data:database",
     ":feature:authorization:data",
     ":feature:authorization:dependencies",
@@ -74,7 +71,6 @@ include(
 include(
     ":feature:users:domain",
     ":feature:users:presentation",
-    ":feature:users:data:sdk",
     ":feature:users:data:database",
     ":feature:users:data",
     ":feature:users:dependencies",
@@ -83,7 +79,6 @@ include(
 include(
     ":feature:timers:domain",
     ":feature:timers:presentation",
-    ":feature:timers:data:sdk",
     ":feature:timers:data:database",
     ":feature:timers:data",
     ":feature:timers:dependencies",
