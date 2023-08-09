@@ -10,6 +10,7 @@ dependencies {
     commonMainImplementation(projects.styleSystem)
     commonMainImplementation(projects.feature.timers.domain)
 
+    commonMainImplementation(projects.foundation.mvi)
     commonTestImplementation(projects.foundation.random)
 }
 
