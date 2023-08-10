@@ -16,8 +16,6 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "19"
-
-            freeCompilerArgs = listOf("-Xextended-compiler-checks")
         }
     }
 }
