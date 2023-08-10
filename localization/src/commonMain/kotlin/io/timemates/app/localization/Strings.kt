@@ -52,4 +52,30 @@ interface Strings {
     val nameIsInvalid: String
 
     val aboutYouSizeIsInvalid: String
+
+    val timerSettings: String
+
+    val description: String
+
+    val name: String
+
+    val workTime: String
+
+    val restTime: String
+
+    val every: String
+
+    val minutes: String
+
+    val advancedRestSettingsDescription: String
+
+    val publicManageTimerStateDescription: String
+
+    val confirmationRequiredDescription: String
+
+    val timerNameSizeIsInvalid: String
+
+    val timerDescriptionSizeIsInvalid: String
+
+    val save: String
 }

@@ -30,6 +30,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.timemates.sdk)
 
     implementation(projects.styleSystem)
 
@@ -41,4 +42,5 @@ dependencies {
     implementation(projects.localization.compose)
 
     implementation(projects.feature.authorization.presentation)
+    implementation(projects.feature.timers.presentation)
 }
