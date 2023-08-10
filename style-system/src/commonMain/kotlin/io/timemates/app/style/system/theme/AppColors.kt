@@ -22,6 +22,7 @@ data class AppColors(
     val onPrimary: Color,
     val secondary: Color,
     val onSecondary: Color,
+    val secondaryVariant: Color,
     val background: Color,
     val onBackground: Color,
     val surface: Color,
@@ -44,6 +45,7 @@ fun lightColors(): AppColors {
         onBackground = Color(0xFF212121),
         surface = Color(0xFFF5F5F5),
         surfaceVariant = Color(0xFFB1B1B1),
+        secondaryVariant = Color(0xFFB1B1B1),
     )
 }
 

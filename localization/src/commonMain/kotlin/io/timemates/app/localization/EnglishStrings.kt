@@ -35,4 +35,7 @@ object EnglishStrings : Strings {
     override val nameSizeIsInvalid: String = "Name size should be in range of ${UserName.SIZE_RANGE.first} to ${UserName.SIZE_RANGE.last} symbols."
     override val nameIsInvalid: String = "Name consists from illegal characters."
     override val aboutYouSizeIsInvalid: String = "User description should be in range of ${UserDescription.SIZE_RANGE.first} and ${UserDescription.SIZE_RANGE.last} symbols."
+    override val welcome: String = "Welcome to TimeMates"
+    override val welcomeDescription: String = "Unlock Your Productivity: Seamlessly Organize Tasks, Collaborate Effortlessly, and Achieve your Goals."
+    override val letsStart: String = "Let’s start"
 }

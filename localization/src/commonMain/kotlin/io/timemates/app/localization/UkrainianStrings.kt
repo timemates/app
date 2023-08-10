@@ -35,4 +35,7 @@ object UkrainianStrings : Strings {
     override val nameSizeIsInvalid: String = "Ім'я має бути в межах ${UserName.SIZE_RANGE.first} й ${UserName.SIZE_RANGE.last} символів."
     override val nameIsInvalid: String = "Ім'я містить заборонені символи."
     override val aboutYouSizeIsInvalid: String = "Опис має бути в межах ${UserDescription.SIZE_RANGE.first} й ${UserDescription.SIZE_RANGE.last} символів."
+    override val welcome: String = "Ласкаво просимо до TimeMates"
+    override val welcomeDescription: String = "Розкрийте Свою Продуктивність: Легко Організовуйте Завдання, Співпрацюйте Без Зусиль і Досягніть своїх Цілей."
+    override val letsStart: String = "Давайте розпочнемо"
 }

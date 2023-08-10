@@ -15,6 +15,7 @@ import com.arkivanov.decompose.router.stack.replaceAll
 import io.timemates.app.authorization.ui.afterstart.AfterStartScreen
 import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
+import io.timemates.app.authorization.ui.initial_authorization.InitialAuthorizationScreen
 import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
 import io.timemates.app.mvi.compose.stateMachine
@@ -28,14 +29,14 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun TimeMatesAppEntry(
     navigation: StackNavigation<Screen> = remember { StackNavigation() },
-    initialScreen: Screen = Screen.StartAuthorization,
+    initialScreen: Screen = Screen.InitialAuthorizationScreen,
     isDarkTheme: Boolean = false,
     navigateToAuthorization: ReceiveChannel<Unit>,
 ) = AppTheme(isDarkTheme) {
 
     LaunchedEffect(Unit) {
         navigateToAuthorization.consumeEach {
-            navigation.push(Screen.StartAuthorization)
+            navigation.push(Screen.InitialAuthorizationScreen)
         }
     }
 
@@ -56,6 +57,13 @@ fun TimeMatesAppEntry(
                 navigateToHome = {
                     // TODO when home is ready
                 },
+            )
+
+            Screen.InitialAuthorizationScreen -> InitialAuthorizationScreen(
+                stateMachine = stateMachine(),
+                navigateToStartAuthorization = {
+                    navigation.push(Screen.StartAuthorization)
+                }
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(

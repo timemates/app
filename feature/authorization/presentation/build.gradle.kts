@@ -7,11 +7,13 @@ dependencies {
     commonMainImplementation(projects.feature.common.presentation)
     commonMainImplementation(libs.timemates.sdk)
     commonMainApi(projects.foundation.mvi)
-    commonMainImplementation(projects.styleSystem)
     commonMainImplementation(projects.feature.authorization.domain)
 
     commonMainImplementation(projects.styleSystem)
 
     commonTestImplementation(projects.foundation.random)
+
+    commonMainImplementation(libs.moko.resources.compose)
+    commonMainImplementation(libs.moko.resources)
 }
 

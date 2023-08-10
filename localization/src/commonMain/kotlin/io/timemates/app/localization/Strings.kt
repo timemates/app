@@ -52,4 +52,10 @@ interface Strings {
     val nameIsInvalid: String
 
     val aboutYouSizeIsInvalid: String
+
+    val welcome: String
+
+    val welcomeDescription: String
+
+    val letsStart: String
 }
