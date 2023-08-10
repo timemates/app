@@ -6,11 +6,9 @@ plugins {
 dependencies {
     commonMainImplementation(projects.feature.common.presentation)
     commonMainImplementation(libs.timemates.sdk)
-    commonMainImplementation(projects.foundation.mvi)
     commonMainImplementation(projects.styleSystem)
     commonMainImplementation(projects.feature.timers.domain)
 
-    commonMainImplementation(projects.foundation.mvi)
     commonTestImplementation(projects.foundation.random)
 }
 
