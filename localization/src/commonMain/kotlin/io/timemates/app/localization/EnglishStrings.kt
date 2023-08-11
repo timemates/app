@@ -50,4 +50,7 @@ object EnglishStrings : Strings {
     override val timerNameSizeIsInvalid: String = "Name size should be in range of ${TimerName.SIZE_RANGE.first} to ${TimerName.SIZE_RANGE.last} symbols."
     override val timerDescriptionSizeIsInvalid: String = "Timer description should be in range of ${TimerDescription.SIZE_RANGE.first} and ${TimerDescription.SIZE_RANGE.last} symbols."
     override val save: String = "Save"
+    override val welcome: String = "Welcome to TimeMates"
+    override val welcomeDescription: String = "Unlock Your Productivity: Seamlessly Organize Tasks, Collaborate Effortlessly, and Achieve your Goals."
+    override val letsStart: String = "Let’s start"
 }

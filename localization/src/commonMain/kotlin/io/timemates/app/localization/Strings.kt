@@ -78,4 +78,10 @@ interface Strings {
     val timerDescriptionSizeIsInvalid: String
 
     val save: String
+    
+    val welcome: String
+
+    val welcomeDescription: String
+
+    val letsStart: String
 }

@@ -5,6 +5,9 @@ import com.arkivanov.essenty.parcelable.Parcelize
 
 sealed class Screen : Parcelable {
     @Parcelize
+    object InitialAuthorizationScreen : Screen()
+
+    @Parcelize
     object StartAuthorization : Screen()
 
     @Parcelize

@@ -50,4 +50,7 @@ object UkrainianStrings : Strings {
     override val timerNameSizeIsInvalid: String = "Ім'я має бути в межах ${TimerName.SIZE_RANGE.first} й ${TimerName.SIZE_RANGE.last} символів."
     override val timerDescriptionSizeIsInvalid: String = "Опис має бути в межах ${TimerDescription.SIZE_RANGE.first} й ${TimerDescription.SIZE_RANGE.last} символів."
     override val save: String = "Зберегти"
+    override val welcome: String = "Ласкаво просимо до TimeMates"
+    override val welcomeDescription: String = "Розкрийте Свою Продуктивність: Легко Організовуйте Завдання, Співпрацюйте Без Зусиль і Досягніть своїх Цілей."
+    override val letsStart: String = "Давайте розпочнемо"
 }
