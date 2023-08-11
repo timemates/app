@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,25 +18,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import dev.icerock.moko.resources.compose.fontFamilyResource
+import dev.icerock.moko.resources.compose.painterResource
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
 import io.timemates.app.foundation.mvi.EmptyState
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
+import io.timemates.app.style.system.Resources
 import io.timemates.app.style.system.appbar.AppBar
 import io.timemates.app.style.system.button.Button
-import io.timemates.app.style.system.images.CircleIcon
+import io.timemates.app.style.system.theme.AppTheme
 import kotlinx.coroutines.channels.consumeEach
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AfterStartScreen(
     stateMachine: StateMachine<EmptyState, Event, AfterStartStateMachine.Effect>,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
+    val painter: Painter = painterResource(Resources.images.confirm_authorization_info_image)
+
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
@@ -76,22 +79,29 @@ fun AfterStartScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                CircleIcon(
-                    painter = Icons.Outlined.Email,
+                Icon(
+                    modifier = Modifier,
+                    painter = painter,
+                    contentDescription = null,
                 )
 
                 Spacer(Modifier.height(8.dp))
 
                 Text(
                     text = LocalStrings.current.confirmation,
-                    style = MaterialTheme.typography.displaySmall,
+                    modifier = Modifier,
+                    fontFamily = fontFamilyResource(Resources.fonts.Inter.black),
+                    style = MaterialTheme.typography.titleLarge,
                 )
 
+                Spacer(Modifier.height(16.dp))
+
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp),
                     text = LocalStrings.current.confirmationDescription,
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    color = AppTheme.colors.secondaryVariant,
+                    style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodySmall,
                 )
             }
 
