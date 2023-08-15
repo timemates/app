@@ -53,4 +53,5 @@ object EnglishStrings : Strings {
     override val welcome: String = "Welcome to TimeMates"
     override val welcomeDescription: String = "Unlock Your Productivity: Seamlessly Organize Tasks, Collaborate Effortlessly, and Achieve your Goals."
     override val letsStart: String = "Let’s start"
+    override val timerCreation: String = "Add timer"
 }
