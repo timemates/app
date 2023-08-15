@@ -1,18 +1,13 @@
 package io.timemates.app.timers.dependencies.screens
 
 import io.timemates.app.timers.dependencies.TimersDataModule
-import io.timemates.app.timers.ui.settings.mvi.TimerSettingsMiddleware
-import io.timemates.app.timers.ui.settings.mvi.TimerSettingsReducer
-import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationMiddleware
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationReducer
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
 import io.timemates.app.users.repositories.TimersRepository
 import io.timemates.app.users.usecases.TimerCreationUseCase
-import io.timemates.app.users.usecases.TimerSettingsUseCase
 import io.timemates.app.users.validation.TimerDescriptionValidator
 import io.timemates.app.users.validation.TimerNameValidator
-import io.timemates.sdk.timers.types.value.TimerId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.annotation.Factory
