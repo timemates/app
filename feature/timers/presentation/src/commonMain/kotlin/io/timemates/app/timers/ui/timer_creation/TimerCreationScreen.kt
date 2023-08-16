@@ -52,7 +52,7 @@ import kotlin.time.DurationUnit
 
 @Composable
 fun TimerCreationScreen(
-    stateMachine: StateMachine<State, Event,Effect>,
+    stateMachine: StateMachine<State, Event, Effect>,
     navigateToTimersScreen: () -> Unit,
 ) {
     val state by stateMachine.state.collectAsState()
