@@ -84,4 +84,6 @@ interface Strings {
     val welcomeDescription: String
 
     val letsStart: String
+
+    val timerCreation: String
 }

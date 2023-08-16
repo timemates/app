@@ -28,7 +28,7 @@ interface TimersRepository {
     suspend fun createTimer(
         name: TimerName,
         description: TimerDescription,
-        settings: TimerSettings
+        settings: TimerSettings,
     ): Result<TimerId>
 
     suspend fun kickMember(timerId: TimerId, userId: UserId): Result<Empty>
