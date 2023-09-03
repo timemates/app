@@ -1,15 +1,14 @@
 package io.timemates.app.style.system.item
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -25,19 +24,19 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.timers.types.Timer
-import io.timemates.sdk.timers.types.Timer.State.Paused
 import io.timemates.sdk.timers.types.Timer.State.ConfirmationWaiting
 import io.timemates.sdk.timers.types.Timer.State.Inactive
-import io.timemates.sdk.timers.types.Timer.State.Running
+import io.timemates.sdk.timers.types.Timer.State.Paused
 import io.timemates.sdk.timers.types.Timer.State.Rest
+import io.timemates.sdk.timers.types.Timer.State.Running
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
-import io.timemates.app.localization.compose.LocalStrings
 
 @Composable
 fun TimerItem(

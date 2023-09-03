@@ -13,7 +13,6 @@ import io.timemates.app.authorization.dependencies.screens.StartAuthorizationMod
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.foundation.time.SystemUTCTimeProvider
 import io.timemates.app.foundation.time.TimeProvider
-import io.timemates.app.timers.dependencies.TimersDataModule
 import io.timemates.app.timers.dependencies.screens.TimerCreationModule
 import io.timemates.app.timers.dependencies.screens.TimerSettingsModule
 import io.timemates.app.timers.dependencies.screens.TimersListModule
