@@ -21,4 +21,13 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     data class NewAccount(val verificationHash: String) : Screen()
+
+    @Parcelize
+    data class TimersList(val verificationHash: String) : Screen()
+
+    @Parcelize
+    data class TimerCreation(val verificationHash: String) : Screen()
+
+    @Parcelize
+    data class TimerSettings(val verificationHash: String) : Screen()
 }

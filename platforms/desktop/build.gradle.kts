@@ -23,8 +23,10 @@ dependencies {
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
 
-    implementation(projects.navigation)
+    implementation(projects.feature.timers.data.database)
+    implementation(projects.feature.timers.dependencies)
 
+    implementation(projects.navigation)
 
     implementation(projects.foundation.time)
 

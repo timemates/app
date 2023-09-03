@@ -27,6 +27,17 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
+import androidx.multidex.MultiDexApplication
+import androidx.multidex.MultiDex
+import android.content.Context
+import io.timemates.app.authorization.dependencies.screens.InitialAuthorizationModule
+import io.timemates.app.foundation.time.SystemUTCTimeProvider
+import io.timemates.app.foundation.time.TimeProvider
+import io.timemates.app.timers.dependencies.TimersDataModule
+import io.timemates.app.timers.dependencies.screens.TimerCreationModule
+import io.timemates.app.timers.dependencies.screens.TimerSettingsModule
+import io.timemates.app.timers.dependencies.screens.TimersListModule
+import io.timemates.app.users.data.database.TimeMatesUsers
 
 class TimeMatesApplication : MultiDexApplication() {
 
@@ -81,6 +92,9 @@ class TimeMatesApplication : MultiDexApplication() {
                 AfterStartModule().module,
                 NewAccountInfoModule().module,
                 ConfigureAccountModule().module,
+                TimersListModule().module,
+                TimerCreationModule().module,
+                TimerSettingsModule().module,
             )
         }
     }

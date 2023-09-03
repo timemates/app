@@ -13,6 +13,10 @@ import io.timemates.app.authorization.dependencies.screens.StartAuthorizationMod
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.foundation.time.SystemUTCTimeProvider
 import io.timemates.app.foundation.time.TimeProvider
+import io.timemates.app.timers.dependencies.TimersDataModule
+import io.timemates.app.timers.dependencies.screens.TimerCreationModule
+import io.timemates.app.timers.dependencies.screens.TimerSettingsModule
+import io.timemates.app.timers.dependencies.screens.TimersListModule
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -69,6 +73,9 @@ fun initializeDependencies(
             AfterStartModule().module,
             NewAccountInfoModule().module,
             ConfigureAccountModule().module,
+            TimersListModule().module,
+            TimerCreationModule().module,
+            TimerSettingsModule().module,
         )
     }
 }

@@ -54,4 +54,12 @@ object UkrainianStrings : Strings {
     override val welcomeDescription: String = "Розкрийте Свою Продуктивність: Легко Організовуйте Завдання, Співпрацюйте Без Зусиль і Досягніть своїх Цілей."
     override val letsStart: String = "Розпочнімо"
     override val timerCreation: String = "Додати таймер"
+    override val noTimers: String = "У вас ще немає таймерів."
+    override val confirmationWaitingTimerDescription: String = "Очікування підтвердження."
+    override fun inactiveTimerDescription(daysSincePaused: Int): String {
+        return if (daysSincePaused == 0) "Остання активність була сьогодні" else "Остання активність була $daysSincePaused дні тому"
+    }
+    override fun runningTimerDescription(people: Int): String {
+        return if (people == 0) "Ви використовуєте цей таймер." else "Ви та ще $people людини використовуєте цей таймер."
+    }
 }

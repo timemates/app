@@ -11,5 +11,8 @@ dependencies {
     commonMainImplementation(projects.feature.timers.domain)
 
     commonTestImplementation(projects.foundation.random)
+
+    commonMainImplementation(libs.moko.resources.compose)
+    commonMainImplementation(libs.moko.resources)
 }
 

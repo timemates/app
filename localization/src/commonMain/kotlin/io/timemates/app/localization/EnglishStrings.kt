@@ -54,4 +54,12 @@ object EnglishStrings : Strings {
     override val welcomeDescription: String = "Unlock Your Productivity: Seamlessly Organize Tasks, Collaborate Effortlessly, and Achieve your Goals."
     override val letsStart: String = "Let’s start"
     override val timerCreation: String = "Add timer"
+    override val noTimers: String = "You don't have any timers yet."
+    override val confirmationWaitingTimerDescription: String = "Waiting for confirmation."
+    override fun inactiveTimerDescription(daysSincePaused: Int): String {
+        return if (daysSincePaused == 0) "Last activity was today" else "Last activity was $daysSincePaused days ago"
+    }
+    override fun runningTimerDescription(people: Int): String {
+        return if (people == 0) "You are using this timer." else "You and $people other people are using this timer."
+    }
 }
