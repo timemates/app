@@ -13,11 +13,17 @@ import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
 import io.timemates.app.authorization.ui.afterstart.AfterStartScreen
+import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
 import io.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
+import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
 import io.timemates.app.authorization.ui.initial_authorization.InitialAuthorizationScreen
+import io.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine
 import io.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
+import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
+import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
@@ -47,7 +53,7 @@ fun TimeMatesAppEntry(
     ) { screen ->
         when (screen) {
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
-                stateMachine = stateMachine {
+                stateMachine = stateMachine<_, _, _, ConfirmAuthorizationStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = { navigation.pop() },
@@ -60,21 +66,21 @@ fun TimeMatesAppEntry(
             )
 
             Screen.InitialAuthorizationScreen -> InitialAuthorizationScreen(
-                stateMachine = stateMachine(),
+                stateMachine = stateMachine<_, _, _, InitialAuthorizationStateMachine>(),
                 navigateToStartAuthorization = {
                     navigation.push(Screen.StartAuthorization)
                 }
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
-                stateMachine = stateMachine(),
+                stateMachine = stateMachine<_, _, _, StartAuthorizationStateMachine>(),
                 onNavigateToConfirmation = {
                     navigation.push(Screen.AfterStart(it.string))
                 },
             )
 
             is Screen.AfterStart -> AfterStartScreen(
-                stateMachine = stateMachine {
+                stateMachine = stateMachine<_, _, _, AfterStartStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfirmation = {
@@ -86,7 +92,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccountInfo -> NewAccountInfoScreen(
-                stateMachine = stateMachine {
+                stateMachine = stateMachine<_, _, _, NewAccountInfoStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfigure = {
@@ -98,7 +104,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccount -> ConfigureAccountScreen(
-                stateMachine = stateMachine {
+                stateMachine = stateMachine<_, _, _, ConfigureAccountStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = {
