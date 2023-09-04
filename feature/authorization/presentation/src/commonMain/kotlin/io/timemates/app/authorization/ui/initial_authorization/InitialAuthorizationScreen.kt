@@ -69,6 +69,7 @@ fun InitialAuthorizationScreen(
                     text = LocalStrings.current.welcome,
                     modifier = Modifier,
                     fontFamily = fontFamilyResource(Resources.fonts.Inter.black),
+                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
 
