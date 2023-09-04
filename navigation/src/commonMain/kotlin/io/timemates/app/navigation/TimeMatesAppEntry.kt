@@ -53,7 +53,7 @@ fun TimeMatesAppEntry(
     ) { screen ->
         when (screen) {
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
-                stateMachine = stateMachine<_, _, _, ConfirmAuthorizationStateMachine> {
+                stateMachine = stateMachine<ConfirmAuthorizationStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = { navigation.pop() },
@@ -66,21 +66,21 @@ fun TimeMatesAppEntry(
             )
 
             Screen.InitialAuthorizationScreen -> InitialAuthorizationScreen(
-                stateMachine = stateMachine<_, _, _, InitialAuthorizationStateMachine>(),
+                stateMachine = stateMachine<InitialAuthorizationStateMachine>(),
                 navigateToStartAuthorization = {
                     navigation.push(Screen.StartAuthorization)
                 }
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
-                stateMachine = stateMachine<_, _, _, StartAuthorizationStateMachine>(),
+                stateMachine = stateMachine<StartAuthorizationStateMachine>(),
                 onNavigateToConfirmation = {
                     navigation.push(Screen.AfterStart(it.string))
                 },
             )
 
             is Screen.AfterStart -> AfterStartScreen(
-                stateMachine = stateMachine<_, _, _, AfterStartStateMachine> {
+                stateMachine = stateMachine<AfterStartStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfirmation = {
@@ -92,7 +92,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccountInfo -> NewAccountInfoScreen(
-                stateMachine = stateMachine<_, _, _, NewAccountInfoStateMachine> {
+                stateMachine = stateMachine<NewAccountInfoStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfigure = {
@@ -104,7 +104,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccount -> ConfigureAccountScreen(
-                stateMachine = stateMachine<_, _, _, ConfigureAccountStateMachine> {
+                stateMachine = stateMachine<ConfigureAccountStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = {

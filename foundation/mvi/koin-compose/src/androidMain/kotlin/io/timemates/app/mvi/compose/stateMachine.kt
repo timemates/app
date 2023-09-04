@@ -27,7 +27,7 @@ import org.koin.core.scope.Scope
  * @return The created instance of the state machine.
  */
 @Composable
-actual inline fun <TState : UiState, TEvent : UiEvent, TEffect : UiEffect, reified TSM : StateMachine<TState, TEvent, TEffect>> stateMachine(
+actual inline fun <reified TSM : StateMachine<*, *, *>> stateMachine(
     noinline parameters: ParametersDefinition?,
 ) = koinVM<TSM>(parameters = parameters)
 
