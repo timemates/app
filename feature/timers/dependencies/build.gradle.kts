@@ -6,7 +6,7 @@ kotlin {
     jvm {
         jvmToolchain(11)
     }
-    android()
+    androidTarget()
 
     sourceSets {
         val jvmMain by getting {

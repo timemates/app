@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
     jvm()
-    android()
+    androidTarget()
 
     sourceSets {
         val androidMain by getting {
