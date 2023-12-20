@@ -3,7 +3,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/timemates/app)
 # TimeMates App
 TimeMates is a multiplatform application that is built with Kotlin, Compose,
- Coroutines, and RSocket (via [rsproto](https://github.com/timemates/rsproto).
+ Coroutines, and RSocket (via [rsproto](https://github.com/timemates/rsproto)).
 It is designed to help teams enhance their productivity by providing customizable timers,
  notes, and seamless integrations with other platforms like GitHub in the future.
 
