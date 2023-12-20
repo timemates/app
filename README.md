@@ -1,9 +1,9 @@
-![poster](docs/images/en/github_poster.png)
-
-<h1 align="center">TimeMates</h1>
-
-TimeMates is a multiplatform application that was built with Kotlin, Compose,
- Coroutines, and gRPC.
+![Latest GitHub release](https://img.shields.io/github/v/release/timemates/sdk?include_prereleases)
+![GitHub](https://img.shields.io/github/license/timemates/sdk)
+![GitHub issues](https://img.shields.io/github/issues/timemates/sdk)
+# TimeMates App
+TimeMates is a multiplatform application that is built with Kotlin, Compose,
+ Coroutines, and RSocket (via [rsproto](https://github.com/timemates/rsproto).
 It is designed to help teams enhance their productivity by providing customizable timers,
  notes, and seamless integrations with other platforms like GitHub in the future.
 
@@ -12,6 +12,6 @@ stay organized, focused, and productive.
 The app allows users to create personalized timers for their tasks,
 so they can stay on track and meet deadlines.
 
-<h2 align="center">Our progress</h1>
+## Our progress
 If you want to know how we're dealing with TimeMates, you can check [our
 board](https://github.com/orgs/timemates/projects/7).
