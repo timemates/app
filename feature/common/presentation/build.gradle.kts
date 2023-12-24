@@ -13,7 +13,6 @@ dependencies {
     commonMainImplementation(libs.kotlinx.coroutines)
 
     commonMainApi(compose.materialIconsExtended)
-    commonMainApi(compose.uiTooling)
 
     commonMainApi(libs.koin.core)
 

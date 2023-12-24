@@ -21,8 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.compose.fontFamilyResource
-import dev.icerock.moko.resources.compose.painterResource
+import io.github.skeptick.libres.compose.painterResource
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
 import io.timemates.app.foundation.mvi.EmptyState
@@ -40,7 +39,7 @@ fun AfterStartScreen(
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
-    val painter: Painter = painterResource(Resources.images.confirm_authorization_info_image)
+    val painter: Painter = Resources.image.confirm_authorization_info_image.painterResource()
 
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
@@ -90,7 +89,6 @@ fun AfterStartScreen(
                 Text(
                     text = LocalStrings.current.confirmation,
                     modifier = Modifier,
-                    fontFamily = fontFamilyResource(Resources.fonts.Inter.black),
                     style = MaterialTheme.typography.titleLarge,
                 )
 

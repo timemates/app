@@ -19,7 +19,7 @@ class TimersDataModule {
     @Factory
     fun timersRepository(
         timersApi: TimersApi,
-    ): TimersRepository = TimersRepositoryImpl (
+    ): TimersRepository = TimersRepositoryImpl(
         timersApi, timersApi.members.invites, timersApi.sessions, timersApi.members,
     )
 }

@@ -5,7 +5,6 @@ import io.mockk.mockk
 import io.timemates.app.foundation.mvi.StateStore
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsMiddleware
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
-import io.timemates.sdk.timers.types.Timer
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test
 

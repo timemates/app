@@ -12,8 +12,5 @@ dependencies {
     commonMainImplementation(projects.styleSystem)
 
     commonTestImplementation(projects.foundation.random)
-
-    commonMainImplementation(libs.moko.resources.compose)
-    commonMainImplementation(libs.moko.resources)
 }
 

@@ -22,30 +22,30 @@ class ConfigureAccountMiddlewareTest {
 
         // WHEN
         effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
-                // THEN
-                .forEach { (effect, state) ->
-                    assert(!state.isLoading) {
-                        "${effect::class.simpleName} effect does not change loading status to false."
-                    }
+            // THEN
+            .forEach { (effect, state) ->
+                assert(!state.isLoading) {
+                    "${effect::class.simpleName} effect does not change loading status to false."
                 }
+            }
     }
 
     @Test
     fun `effects not produced by network operations should not remove loading status`() {
         // GIVEN
         val effects = listOf(
-                ConfigureAccountStateMachine.Effect.NavigateToStart,
-                ConfigureAccountStateMachine.Effect.NavigateToHomePage(authorization)
+            ConfigureAccountStateMachine.Effect.NavigateToStart,
+            ConfigureAccountStateMachine.Effect.NavigateToHomePage(authorization)
         )
         every { stateStore.state } returns MutableStateFlow(ConfigureAccountStateMachine.State(isLoading = true))
 
         // WHEN
         effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
-                // THEN
-                .forEach { (effect, state) ->
-                    assert(state.isLoading) {
-                        "${effect::class.simpleName} effect changes loading status regardless it shouldn't"
-                    }
+            // THEN
+            .forEach { (effect, state) ->
+                assert(state.isLoading) {
+                    "${effect::class.simpleName} effect changes loading status regardless it shouldn't"
                 }
+            }
     }
 }

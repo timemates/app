@@ -9,7 +9,7 @@ import io.timemates.app.foundation.mvi.UiEvent
 
 class InitialAuthorizationStateMachine(
     reducer: InitialAuthorizationReducer,
-): StateMachine<EmptyState, Event, Effect>(
+) : StateMachine<EmptyState, Event, Effect>(
     reducer = reducer,
     middlewares = emptyList(),
 ) {

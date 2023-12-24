@@ -65,7 +65,7 @@ fun TimerCreationScreen(
 
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
-            when(effect) {
+            when (effect) {
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
 

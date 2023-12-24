@@ -2,8 +2,8 @@ package io.timemates.app.authorization.ui.new_account_info.mvi
 
 import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Effect
 import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Event
-import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.EmptyState
+import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.sdk.authorization.email.types.value.VerificationHash

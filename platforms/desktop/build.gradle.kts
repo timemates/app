@@ -15,7 +15,9 @@ dependencies {
     implementation(projects.feature.common.domain)
 
     implementation(libs.timemates.sdk)
-    implementation(libs.timemates.engine.grpc)
+    implementation(libs.timemates.engine.rsocket)
+
+    implementation(libs.ktor.client.cio)
     
     implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)

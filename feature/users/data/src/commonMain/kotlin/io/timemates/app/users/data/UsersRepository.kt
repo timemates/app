@@ -18,7 +18,7 @@ class UsersRepository(
     private val cachedUsersDataSource: CachedUsersDataSource,
     private val timeProvider: TimeProvider,
     private val coroutineScope: CoroutineScope,
-): UserRepositoryContract {
+) : UserRepositoryContract {
 
     init {
         coroutineScope.launch {
@@ -28,13 +28,13 @@ class UsersRepository(
 
     override suspend fun getUser(id: UserId): Flow<Result<User>> = flow {
         // Emit local saved data (if have)
-        if(cachedUsersDataSource.isHaveUser(id))
+        if (cachedUsersDataSource.isHaveUser(id))
             cachedUsersDataSource.getUser(id)?.let { emit(Result.success(it)) }
 
         // Load actual data
         userApi.profile.getProfiles(listOf(id))
             .map { users ->
-                if(users.isEmpty())
+                if (users.isEmpty())
                     Result.success(users.first())
                 else
                     Result.success(users.first())
@@ -49,13 +49,13 @@ class UsersRepository(
     override suspend fun getUsers(ids: List<UserId>): Flow<Result<List<User>>> = flow {
         // Emit local saved data (if have)
         val cachedUsers = cachedUsersDataSource.getUsers(ids)
-        if(cachedUsers.isNotEmpty())
+        if (cachedUsers.isNotEmpty())
             emit(Result.success(cachedUsers))
 
         // Load actual data
         userApi.profile.getProfiles(ids)
             .map { users ->
-                if(users.isEmpty())
+                if (users.isEmpty())
                     Result.success(users)
                 else
                     Result.success(users)

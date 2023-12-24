@@ -2,8 +2,7 @@ package io.timemates.app
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import io.timemates.api.grpc.GrpcTimeMatesRequestsEngine
-import io.timemates.api.grpc.factory.DefaultGrpcEngineBuilder
+import io.timemates.api.rsocket.RSocketTimeMatesRequestsEngine
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.AfterStartModule
 import io.timemates.app.authorization.dependencies.screens.ConfigureAccountModule
@@ -15,6 +14,8 @@ import io.timemates.app.core.handler.OnAuthorizationFailedHandler
 import io.timemates.app.foundation.time.SystemUTCTimeProvider
 import io.timemates.app.foundation.time.TimeProvider
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.qualifier
@@ -42,8 +43,9 @@ fun initializeDependencies(
             }
 
             single<TimeMatesRequestsEngine> {
-                GrpcTimeMatesRequestsEngine(
-                    grpcEngineBuilder = DefaultGrpcEngineBuilder()
+                RSocketTimeMatesRequestsEngine(
+                    endpoint = "wss://api.timemates.io/rsocket",
+                    coroutineScope = CoroutineScope(Dispatchers.IO),
                 )
             }
 

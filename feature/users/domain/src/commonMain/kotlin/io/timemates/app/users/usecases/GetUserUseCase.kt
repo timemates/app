@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
  * @param repository The repository for user operations.
  */
 class GetUserUseCase(
-    private val repository: UsersRepository
+    private val repository: UsersRepository,
 ) {
     /**
      * Executes the use case to retrieve a user with the specified ID.

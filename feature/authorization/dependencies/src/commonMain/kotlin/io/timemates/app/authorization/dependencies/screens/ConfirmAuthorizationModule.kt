@@ -25,7 +25,7 @@ class ConfirmAuthorizationModule {
 
     @Factory
     fun confirmAuthorizationUseCase(
-        authorizationsRepository: AuthorizationsRepository
+        authorizationsRepository: AuthorizationsRepository,
     ): ConfirmEmailAuthorizationUseCase = ConfirmEmailAuthorizationUseCase(authorizationsRepository)
 
     @Factory

@@ -7,7 +7,11 @@ import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
 import io.timemates.sdk.authorization.sessions.types.Authorization
+import io.timemates.sdk.authorization.sessions.types.value.ApplicationName
+import io.timemates.sdk.authorization.sessions.types.value.ClientIpAddress
+import io.timemates.sdk.authorization.sessions.types.value.ClientVersion
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.exceptions.UnsupportedException
 import io.timemates.sdk.users.profile.types.value.EmailAddress
 import io.timemates.sdk.users.profile.types.value.UserDescription
@@ -31,10 +35,10 @@ class AuthorizationsRepository(
     }
 
     override suspend fun authorize(emailAddress: EmailAddress): Result<VerificationHash> {
-        return emailAuthApi.authorize(emailAddress)
+        return emailAuthApi.authorize(emailAddress, Authorization.Metadata(appName, appVersion, ClientIpAddress.createOrThrow("UNDEFINED")))
     }
 
-    override suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Response> {
+    override suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Result> {
         return emailAuthApi.confirm(verificationHash, code)
     }
 
@@ -53,9 +57,10 @@ class AuthorizationsRepository(
                         refreshHashValue = refreshHash!!.value.string,
                         refreshHashExpiresAt = refreshHash!!.expiresAt.toEpochMilliseconds(),
                         generationTime = generationTime.toEpochMilliseconds(),
-                        metadataClientName = metadata?.clientName?.string,
+                        metadataClientName = metadata?.applicationName?.string,
                         metadataClientIpAddress = metadata?.clientIpAddress?.string,
-                        metadataClientVersion = metadata?.clientVersion?.string
+                        metadataClientVersion = metadata?.clientVersion!!.double,
+                        userId = userId.long,
                     )
                 }
             }
@@ -64,3 +69,6 @@ class AuthorizationsRepository(
 
 
 }
+
+private val appName = ApplicationName.createOrThrow("TimeMates App")
+private val appVersion = ClientVersion.createOrThrow(1.0)

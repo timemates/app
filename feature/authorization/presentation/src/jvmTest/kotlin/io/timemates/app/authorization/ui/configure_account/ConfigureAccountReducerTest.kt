@@ -3,16 +3,13 @@ package io.timemates.app.authorization.ui.configure_account
 import io.mockk.every
 import io.mockk.mockk
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountReducer
-import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
-import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
 import io.timemates.app.authorization.usecases.CreateNewAccountUseCase
 import io.timemates.app.authorization.validation.UserDescriptionValidator
 import io.timemates.app.authorization.validation.UserNameValidator
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.test.TestScope
-import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
-import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
-import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -39,23 +36,23 @@ class ConfigureAccountReducerTest {
     fun `OnDoneClicked with valid name should set appropriate state`() {
         // GIVEN
         every { userNameValidator.validate(any()) } returns
-                UserNameValidator.Result.Success
+            UserNameValidator.Result.Success
         every { userDescriptionValidator.validate(any()) } returns
-                UserDescriptionValidator.Result.Success
+            UserDescriptionValidator.Result.Success
 
         // WHEN
         val result = reducer.reduce(State(name = validName, aboutYou = validDescription), Event.OnDoneClicked) {}
 
         // THEN
         assertEquals(
-                expected = State(
-                        name = validName,
-                        aboutYou = validDescription,
-                        isNameSizeInvalid = false,
-                        isAboutYouSizeInvalid = false,
-                        isLoading = true
-                ),
-                actual = result
+            expected = State(
+                name = validName,
+                aboutYou = validDescription,
+                isNameSizeInvalid = false,
+                isAboutYouSizeInvalid = false,
+                isLoading = true
+            ),
+            actual = result
         )
     }
 
@@ -63,23 +60,23 @@ class ConfigureAccountReducerTest {
     fun `OnDoneClicked with valid description should set appropriate state`() {
         // GIVEN
         every { userNameValidator.validate(any()) } returns
-                UserNameValidator.Result.Success
+            UserNameValidator.Result.Success
         every { userDescriptionValidator.validate(any()) } returns
-                UserDescriptionValidator.Result.Success
+            UserDescriptionValidator.Result.Success
 
         // WHEN
         val result = reducer.reduce(State(name = validName, aboutYou = validDescription), Event.OnDoneClicked) {}
 
         // THEN
         assertEquals(
-                expected = State(
-                        name = validName,
-                        aboutYou = validDescription,
-                        isNameSizeInvalid = false,
-                        isAboutYouSizeInvalid = false,
-                        isLoading = true
-                ),
-                actual = result
+            expected = State(
+                name = validName,
+                aboutYou = validDescription,
+                isNameSizeInvalid = false,
+                isAboutYouSizeInvalid = false,
+                isLoading = true
+            ),
+            actual = result
         )
     }
 
@@ -87,9 +84,9 @@ class ConfigureAccountReducerTest {
     fun `OnDoneClicked with invalid name should set appropriate state`() {
         // GIVEN
         every { userNameValidator.validate(any()) } returns
-                UserNameValidator.Result.SizeViolation
+            UserNameValidator.Result.SizeViolation
         every { userDescriptionValidator.validate(any()) } returns
-                UserDescriptionValidator.Result.Success
+            UserDescriptionValidator.Result.Success
 
         // WHEN
         val result = reducer.reduce(State(name = invalidName, aboutYou = validDescription), Event.OnDoneClicked) {}
@@ -111,9 +108,9 @@ class ConfigureAccountReducerTest {
     fun `OnDoneClicked with invalid description should set appropriate state`() {
         // GIVEN
         every { userNameValidator.validate(any()) } returns
-                UserNameValidator.Result.Success
+            UserNameValidator.Result.Success
         every { userDescriptionValidator.validate(any()) } returns
-                UserDescriptionValidator.Result.SizeViolation
+            UserDescriptionValidator.Result.SizeViolation
 
         // WHEN
         val result = reducer.reduce(State(name = validName, aboutYou = invalidDescription), Event.OnDoneClicked) {}

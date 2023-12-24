@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
     jvm()
-    android()
+    androidTarget()
 
     sourceSets {
         val androidMain by getting {
@@ -26,11 +26,5 @@ dependencies {
 }
 
 android {
-    compileSdk = libs.versions.android.target.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.min.get().toInt()
-    }
-
     namespace = "io.timemates.app.mvi.compose"
 }

@@ -7,7 +7,7 @@ version = "SNAPSHOT"
 
 kotlin {
     jvm()
-    android()
+    androidTarget()
 
     jvmToolchain(19)
 }
