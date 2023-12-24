@@ -7,7 +7,7 @@ import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
 
 class TimerSettingsMiddleware : Middleware<State, Effect> {
     override fun onEffect(effect: Effect, store: StateStore<State>): State {
-        return when(effect) {
+        return when (effect) {
             is Effect.Failure ->
                 store.state.value.copy(isLoading = false)
 

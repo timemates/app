@@ -64,8 +64,7 @@ class TimerSettingsReducer(
             }
 
 
-
-            is Event.NameIsChanged  ->
+            is Event.NameIsChanged ->
                 state.copy(name = event.name, isNameSizeInvalid = false)
 
             is Event.DescriptionIsChanged ->
@@ -102,12 +101,12 @@ class TimerSettingsReducer(
         sendEffect: (Effect) -> Unit,
     ) {
         coroutineScope.launch {
-            when(val result = timerSettingsUseCase.execute(timerId, newName, newDescription, settings)) {
+            when (val result = timerSettingsUseCase.execute(timerId, newName, newDescription, settings)) {
                 is TimerSettingsUseCase.Result.Failure ->
                     sendEffect(Effect.Failure(result.exception))
 
-               is TimerSettingsUseCase.Result.Success ->
-                   sendEffect(Effect.Success)
+                is TimerSettingsUseCase.Result.Success ->
+                    sendEffect(Effect.Success)
             }
         }
     }

@@ -41,7 +41,7 @@ class StartAuthorizationReducer(
 
     private fun authorizeWithEmail(
         email: String,
-        sendEffect: (Effect) -> Unit
+        sendEffect: (Effect) -> Unit,
     ) {
         coroutineScope.launch {
             when (val result = authorizeByEmail.execute(EmailAddress.createOrThrow(email))) {

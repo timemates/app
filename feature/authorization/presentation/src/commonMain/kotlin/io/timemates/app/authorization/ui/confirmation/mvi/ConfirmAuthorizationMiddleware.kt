@@ -17,7 +17,7 @@ class ConfirmAuthorizationMiddleware : Middleware<State, Effect> {
             Effect.TooManyAttempts,
             Effect.AttemptIsFailed,
             is Effect.NavigateToCreateAccount,
-            is Effect.NavigateToHome
+            is Effect.NavigateToHome,
             -> store.state.value.copy(isLoading = false)
         }
     }

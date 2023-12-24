@@ -59,7 +59,7 @@ class TimerCreationReducer(
                 return state.copy(isLoading = true)
             }
 
-            is Event.NameIsChanged  ->
+            is Event.NameIsChanged ->
                 state.copy(name = event.name, isNameSizeInvalid = false)
 
             is Event.DescriptionIsChanged ->

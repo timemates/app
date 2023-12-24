@@ -1,30 +1,30 @@
 [versions]
-kotlin = "1.9.10"
+kotlin = "1.9.21"
 kotlinx-coroutines = "1.7.3"
-kotlinx-serialization = "1.5.0"
-ktor = "2.0.1"
+kotlinx-serialization = "1.6.0"
+ktor = "2.3.7"
 jupiter = "5.8.2"
 exposed = "0.41.1"
 kmongo = "4.8.0"
-androidGradlePlugin = "8.1.2"
+androidGradlePlugin = "8.2.0"
 androidComposeVersion = "2.6.2"
-jetpackComposeCompilerVersion = "1.5.3"
-jetbrainsCompose = "1.5.2"
-timeMatesSdk = "dev-ede0c538935ec8f2c452d7cfb4d6747a1a1c81c7"
-ksp = "1.9.10-1.0.13"
+jetpackComposeCompilerVersion = "1.5.6"
+jetbrainsCompose = "1.5.11"
+timeMatesSdk = "dev-adc3f9431bfb5f0e14e030d1ae6c8a7db0f6a1e2"
+ksp = "1.9.21-1.0.16"
 android-target = "34"
 android-min = "24"
-koin = "3.4.2"
-koin-annotations = "1.2.2"
-decompose = "2.0.0-beta-01"
-sqldelight = "2.0.0"
+koin = "3.5.3"
+koin-annotations = "1.3.0"
+decompose = "2.2.1"
+sqldelight = "2.0.1"
 moko-resources = "0.23.0"
 jna = "5.13.0"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
-material = "1.9.0"
+material = "1.11.0"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -40,6 +40,8 @@ ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version.require = "1.3.5" }
 
@@ -60,26 +62,25 @@ cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require
 
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.1" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.2" }
 androidx-compose-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidComposeVersion" }
 androidx-compose-extendedIcons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidComposeVersion" }
-androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.0-alpha06" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.require = "1.8.2" }
 androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
-androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "jetbrainsCompose" }
-androidx-compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.require = "jetbrainsCompose" }
+androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.require = "1.5.4" }
+androidx-compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.require = "1.5.4" }
 compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.31.6-rc" }
 
-androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.1" }
+androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.2" }
 
 timemates-sdk = { module = "io.timemates:sdk", version.ref = "timeMatesSdk" }
-timemates-engine-grpc = { module = "io.timemates:grpc-engine", version.ref = "timeMatesSdk" }
-timemates-engine-grpc-android = { module = "io.timemates:grpc-engine-android", version.ref = "timeMatesSdk" }
+timemates-engine-rsocket = { module = "io.timemates:rsocket-engine", version.ref = "timeMatesSdk" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
 koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotations" }
 
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha02" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha03" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-jetbrains-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.require = "3.4.5" }
@@ -106,6 +107,8 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.5" }
 
+libres-compose = { module = "io.github.skeptick.libres:libres-compose", version.require = "1.2.2" }
+
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -127,3 +130,4 @@ configurations-unit-tests = { id = "unit-tests-convention", version.require = "S
 configurations-unit-tests-mockable = { id = "unit-tests-with-mockk-convention", version.require = "SNAPSHOT" }
 configurations-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
 moko-multiplatform-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
+libres = { id = "io.github.skeptick.libres", version.require = "1.2.2" }

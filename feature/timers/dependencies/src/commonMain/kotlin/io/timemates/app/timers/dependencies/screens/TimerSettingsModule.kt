@@ -39,7 +39,7 @@ class TimerSettingsModule {
         timerNameValidator: TimerNameValidator,
         timerDescriptionValidator: TimerDescriptionValidator,
         middleware: TimerSettingsMiddleware,
-        ): TimerSettingsStateMachine {
+    ): TimerSettingsStateMachine {
         return TimerSettingsStateMachine(
             reducer = TimerSettingsReducer(
                 timerId = timerId,

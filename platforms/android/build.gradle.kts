@@ -52,12 +52,13 @@ kotlin {
 
 dependencies {
     implementation(libs.timemates.sdk)
-    implementation(libs.timemates.engine.grpc)
-    implementation(libs.timemates.engine.grpc.android)
+    implementation(libs.timemates.engine.rsocket)
     implementation(libs.koin.core)
     implementation(libs.androidx.appcompat)
 
     implementation(libs.android.multidex)
+
+    implementation(libs.ktor.client.cio)
 
     implementation(libs.sqldelight.android.driver)
 
@@ -66,8 +67,6 @@ dependencies {
     implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
-
-    implementation(libs.grpc.okhttp)
 
     implementation(libs.compose.accompanist.systemUiController)
 

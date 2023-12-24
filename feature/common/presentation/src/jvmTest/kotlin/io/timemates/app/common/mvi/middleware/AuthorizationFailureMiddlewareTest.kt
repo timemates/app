@@ -23,7 +23,7 @@ class AuthorizationFailureMiddlewareTest {
 
     private sealed class TestEffect : UiEffect {
         data class AuthorizationFailure(
-            override val exception: UnauthorizedException
+            override val exception: UnauthorizedException,
         ) : TestEffect(), AuthorizationFailureEffect
 
         data object AnyOther : TestEffect()

@@ -18,8 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.compose.fontFamilyResource
-import dev.icerock.moko.resources.compose.painterResource
+import io.github.skeptick.libres.compose.painterResource
 import io.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Event
 import io.timemates.app.foundation.mvi.EmptyState
@@ -35,10 +34,10 @@ fun InitialAuthorizationScreen(
     stateMachine: StateMachine<EmptyState, Event, Effect>,
     navigateToStartAuthorization: () -> Unit,
 ) {
-    val painter: Painter = painterResource(Resources.images.initial_screen_image)
+    val painter: Painter = Resources.image.initial_screen_image.painterResource()
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach {  effect ->
+        stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.NavigateToStart ->
                     navigateToStartAuthorization()
@@ -68,7 +67,6 @@ fun InitialAuthorizationScreen(
                 Text(
                     text = LocalStrings.current.welcome,
                     modifier = Modifier,
-                    fontFamily = fontFamilyResource(Resources.fonts.Inter.black),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )

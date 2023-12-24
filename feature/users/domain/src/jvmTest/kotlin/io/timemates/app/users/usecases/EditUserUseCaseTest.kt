@@ -5,6 +5,7 @@ import io.mockk.mockk
 import io.timemates.app.users.repositories.AuthorizationsRepository
 import io.timemates.app.users.repositories.UsersRepository
 import io.timemates.sdk.common.constructor.createOrThrow
+import io.timemates.sdk.common.types.Empty
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
 import io.timemates.sdk.users.profile.types.value.UserName
@@ -25,7 +26,7 @@ class EditUserUseCaseTest {
         val name = UserName.createOrThrow("John Doe")
         val description = UserDescription.createOrThrow("Some description")
         coEvery { authorizations.getMe() } returns Result.success(userId)
-        coEvery { repository.editUser(name, description) } returns Result.success(Unit)
+        coEvery { repository.editUser(name, description) } returns Result.success(Empty)
 
         // WHEN
         val result = runBlocking { useCase.execute(name, description) }

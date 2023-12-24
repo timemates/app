@@ -1,13 +1,11 @@
 package io.timemates.app.users.repositories
 
-import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.Empty
 import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 
 /**
  * Interface representing a repository for user-related operations.

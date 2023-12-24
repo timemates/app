@@ -39,7 +39,7 @@ class AuthorizeByEmailUseCaseTest {
     fun `execute with TooManyRequestsException should return TooManyRequests`() {
         // GIVEN
         val emailAddress = EmailAddress.createOrThrow("test@example.com")
-        val exception = TooManyRequestsException("Too many requests")
+        val exception = TooManyRequestsException("Too many requests", cause = null)
         coEvery { authorizationsRepository.authorize(emailAddress) } returns Result.failure(exception)
 
         // WHEN

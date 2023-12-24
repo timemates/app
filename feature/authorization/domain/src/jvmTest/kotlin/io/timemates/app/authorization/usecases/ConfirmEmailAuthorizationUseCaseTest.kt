@@ -30,7 +30,7 @@ class ConfirmEmailAuthorizationUseCaseTest {
         val isNewAccount = false
         coEvery { authorizationsRepository.confirm(verificationHash, confirmationCode) } returns
             Result.success(
-                ConfirmAuthorizationRequest.Response(
+                ConfirmAuthorizationRequest.Result(
                     isNewAccount, authorization,
                 )
             )
@@ -47,7 +47,7 @@ class ConfirmEmailAuthorizationUseCaseTest {
         // GIVEN
         val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
         val confirmationCode = ConfirmationCode.createOrThrow("123456")
-        val exception = TooManyRequestsException("Too many requests")
+        val exception = TooManyRequestsException("Too many requests", cause = null)
         coEvery { authorizationsRepository.confirm(verificationHash, confirmationCode) } returns Result.failure(exception)
 
         // WHEN

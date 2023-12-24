@@ -3,8 +3,8 @@ package io.timemates.app.timers.ui.settings
 import io.mockk.every
 import io.mockk.mockk
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsReducer
-import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
+import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
 import io.timemates.app.users.usecases.TimerSettingsUseCase
 import io.timemates.app.users.validation.TimerDescriptionValidator
 import io.timemates.app.users.validation.TimerNameValidator

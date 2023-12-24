@@ -3,10 +3,10 @@ package io.timemates.app
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import io.timemates.android.grpc.AndroidGrpcEngineBuilder
-import io.timemates.api.grpc.GrpcTimeMatesRequestsEngine
+import io.timemates.api.rsocket.RSocketTimeMatesRequestsEngine
 import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.AfterStartModule
 import io.timemates.app.authorization.dependencies.screens.ConfigureAccountModule
@@ -19,6 +19,8 @@ import io.timemates.app.foundation.time.TimeProvider
 import io.timemates.app.users.data.database.TimeMatesUsers
 import io.timemates.data.database.TimeMatesAuthorizations
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.qualifier
@@ -38,9 +40,7 @@ class TimeMatesApplication : MultiDexApplication() {
         startKoin {
             val platformModule = module {
                 single<TimeMatesRequestsEngine> {
-                    GrpcTimeMatesRequestsEngine(
-                        grpcEngineBuilder = AndroidGrpcEngineBuilder(applicationContext)
-                    )
+                    RSocketTimeMatesRequestsEngine(coroutineScope = CoroutineScope(Dispatchers.IO))
                 }
 
                 single<OnAuthorizationFailedHandler> {
@@ -51,11 +51,19 @@ class TimeMatesApplication : MultiDexApplication() {
                 }
 
                 single<SqlDriver>(qualifier = qualifier("authorization")) {
-                    AndroidSqliteDriver(TimeMatesAuthorizations.Schema, applicationContext, "authorizations.db")
+                    AndroidSqliteDriver(
+                        schema = TimeMatesAuthorizations.Schema.synchronous(),
+                        context = applicationContext,
+                        name = "authorizations.db",
+                    )
                 }
 
                 single<SqlDriver>(qualifier = qualifier("users")) {
-                    AndroidSqliteDriver(TimeMatesUsers.Schema, applicationContext, "users.db")
+                    AndroidSqliteDriver(
+                        schema = TimeMatesUsers.Schema.synchronous(),
+                        context = applicationContext,
+                        name = "users.db",
+                    )
                 }
 
                 single<TimeProvider> {

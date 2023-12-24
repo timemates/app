@@ -8,11 +8,11 @@ import io.timemates.sdk.common.exceptions.InvalidArgumentException
 import io.timemates.sdk.common.exceptions.TooManyRequestsException
 
 class ConfirmEmailAuthorizationUseCase(
-    private val authorizations: AuthorizationsRepository
+    private val authorizations: AuthorizationsRepository,
 ) {
     suspend fun execute(
         verificationHash: VerificationHash,
-        code: ConfirmationCode
+        code: ConfirmationCode,
     ): Result {
         return authorizations.confirm(verificationHash, code)
             .map { result -> Result.Success(result.authorization, result.isNewAccount) }

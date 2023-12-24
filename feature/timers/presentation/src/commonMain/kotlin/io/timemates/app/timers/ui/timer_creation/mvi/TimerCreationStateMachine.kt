@@ -5,13 +5,13 @@ import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
 import io.timemates.app.foundation.mvi.UiState
+import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Effect
+import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Event
+import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.value.Count
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
-import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
-import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Event
-import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Effect
 
 class TimerCreationStateMachine(
     reducer: TimerCreationReducer,

@@ -47,7 +47,6 @@ internal fun AppBarText(
         text = title,
         modifier = modifier,
         fontSize = 24.sp,
-        fontFamily = AppTheme.fonts.Inter,
         fontWeight = FontWeight.ExtraBold,
         color = AppTheme.colors.primary,
     )

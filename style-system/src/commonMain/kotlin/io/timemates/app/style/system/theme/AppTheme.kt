@@ -20,16 +20,6 @@ object AppTheme {
     val colors: AppColors
         @[Composable ReadOnlyComposable]
         get() = LocalAppColors.current
-
-    /**
-     * The [AppFonts] instance representing the fonts that used in app.
-     * The fonts read from the [LocalAppFonts].
-     *
-     * @see LocalAppFonts
-     */
-    val fonts: AppFonts
-        @[Composable ReadOnlyComposable]
-        get() = LocalAppFonts.current
 }
 
 
@@ -46,7 +36,6 @@ fun AppTheme(
 
     CompositionLocalProvider(
         LocalAppColors provides lightColors(),
-        LocalAppFonts provides appFonts(),
     ) {
         MaterialTheme(colorScheme = colors) {
             Surface {

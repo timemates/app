@@ -5,12 +5,13 @@ import io.mockk.mockk
 import io.timemates.app.users.repositories.UsersRepository
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.exceptions.NotFoundException
-import io.timemates.sdk.files.types.value.FileId
 import io.timemates.sdk.users.profile.types.User
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserId
 import io.timemates.sdk.users.profile.types.value.UserName
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,58 +21,60 @@ class GetUserUseCaseTest {
     private val useCase = GetUserUseCase(repository)
 
     @Test
-    fun `execute with valid userId should return Success result`() {
+    fun `execute with valid userId should return Success result`(): Unit = runTest {
         // GIVEN
         val userId = UserId.createOrThrow(1)
         val user = User(
             id = userId,
             name = UserName.createOrThrow("John"),
             description = UserDescription.createOrThrow("Description"),
-            avatarFileId = FileId.createOrThrow("..."),
+            avatar = null,
             emailAddress = null,
         )
-        coEvery { repository.getUser(userId) } returns Result.success(user)
+        coEvery { repository.getUser(userId) } returns flowOf(Result.success(user))
 
         // WHEN
-        val result = runBlocking { useCase.execute(userId) }
+        val result = useCase.execute(userId)
 
         // THEN
         assertEquals(
             expected = GetUserUseCase.Result.Success(user),
-            actual = result,
+            actual = result.first(),
         )
     }
 
     @Test
-    fun `execute with NotFoundException should return NotFound result`() {
+    fun `execute with NotFoundException should return NotFound result`(): Unit = runTest {
         // GIVEN
         val userId = UserId.createOrThrow(1)
-        coEvery { repository.getUser(userId) } returns Result.failure(NotFoundException("User not found"))
+        coEvery { repository.getUser(userId) } returns flowOf(Result.failure(NotFoundException("User not found")))
 
         // WHEN
-        val result = runBlocking { useCase.execute(userId) }
+        val result = useCase.execute(userId)
 
         // THEN
-        assertEquals(
-            expected = GetUserUseCase.Result.NotFound,
-            actual = result,
-        )
+        runTest {
+            assertEquals(
+                expected = GetUserUseCase.Result.NotFound,
+                actual = result.first(),
+            )
+        }
     }
 
     @Test
-    fun `execute with other exceptions should return Failure result`() {
+    fun `execute with other exceptions should return Failure result`(): Unit = runTest {
         // GIVEN
         val userId = UserId.createOrThrow(1)
         val exception = Exception("Failed to retrieve user")
-        coEvery { repository.getUser(userId) } returns Result.failure(exception)
+        coEvery { repository.getUser(userId) } returns flowOf(Result.failure(exception))
 
         // WHEN
-        val result = runBlocking { useCase.execute(userId) }
+        val result = useCase.execute(userId)
 
         // THEN
         assertEquals(
             expected = GetUserUseCase.Result.Failure(exception),
-            actual = result,
+            actual = result.first(),
         )
     }
 }

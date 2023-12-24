@@ -65,9 +65,10 @@ fun TimerSettingsScreen(
 
     LaunchedEffect(Unit) {
         stateMachine.effects.consumeEach { effect ->
-            when(effect) {
+            when (effect) {
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
+
                 Effect.Success -> saveChanges()
                 Effect.NavigateToTimersScreen -> navigateToTimersScreen()
             }

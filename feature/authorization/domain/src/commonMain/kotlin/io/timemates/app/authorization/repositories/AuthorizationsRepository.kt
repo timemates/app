@@ -45,7 +45,7 @@ interface AuthorizationsRepository {
      * @return A [Result] indicating the success or failure of the confirmation request,
      *         with the response from the confirmation as the successful result.
      */
-    suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Response>
+    suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Result>
 
     /**
      * Creates a new user account with the given verification hash, user name, and user description.
