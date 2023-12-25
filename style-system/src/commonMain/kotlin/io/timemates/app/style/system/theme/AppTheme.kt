@@ -20,6 +20,10 @@ object AppTheme {
     val colors: AppColors
         @[Composable ReadOnlyComposable]
         get() = LocalAppColors.current
+
+    val typography: AppTypography
+        @[Composable ReadOnlyComposable]
+        get() = LocalAppTypography.current
 }
 
 
@@ -36,6 +40,7 @@ fun AppTheme(
 
     CompositionLocalProvider(
         LocalAppColors provides lightColors(),
+        LocalAppTypography provides appTypography(),
     ) {
         MaterialTheme(colorScheme = colors) {
             Surface {

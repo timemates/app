@@ -11,6 +11,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -44,8 +45,11 @@ fun Button(
         border = border,
         contentPadding = contentPadding,
         interactionSource = interactionSource,
-        content = content
-    )
+    ) {
+        ProvideTextStyle(AppTheme.typography.labelSuperLarge) {
+            content()
+        }
+    }
 }
 
 @Composable
