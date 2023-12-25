@@ -52,6 +52,6 @@ object UkrainianStrings : Strings {
     override val save: String = "Зберегти"
     override val welcome: String = "Ласкаво просимо до TimeMates"
     override val welcomeDescription: String = "Розкрийте Свою Продуктивність: Легко Організовуйте Завдання, Співпрацюйте Без Зусиль і Досягніть своїх Цілей."
-    override val letsStart: String = "Давайте розпочнемо"
+    override val letsStart: String = "Розпочнімо"
     override val timerCreation: String = "Додати таймер"
 }
