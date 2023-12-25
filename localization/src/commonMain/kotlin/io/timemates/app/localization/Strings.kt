@@ -86,4 +86,12 @@ interface Strings {
     val letsStart: String
 
     val timerCreation: String
+
+    val noTimers: String
+
+    val confirmationWaitingTimerDescription: String
+
+    fun inactiveTimerDescription(daysSincePaused: Int): String
+
+    fun runningTimerDescription(people: Int): String
 }

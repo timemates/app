@@ -16,4 +16,5 @@ dependencies {
     commonMainImplementation(libs.kotlinx.coroutines)
 
     commonMainImplementation(projects.feature.authorization.presentation)
+    commonMainImplementation(projects.feature.timers.presentation)
 }

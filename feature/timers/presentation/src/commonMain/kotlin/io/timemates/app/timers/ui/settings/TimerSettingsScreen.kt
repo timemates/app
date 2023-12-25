@@ -52,7 +52,6 @@ import kotlin.time.DurationUnit
 @Composable
 fun TimerSettingsScreen(
     stateMachine: StateMachine<State, Event, Effect>,
-    saveChanges: () -> Unit,
     navigateToTimersScreen: () -> Unit,
 ) {
     val state by stateMachine.state.collectAsState()
@@ -69,8 +68,7 @@ fun TimerSettingsScreen(
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
 
-                Effect.Success -> saveChanges()
-                Effect.NavigateToTimersScreen -> navigateToTimersScreen()
+                Effect.NavigateToTimersScreen, Effect.Success -> navigateToTimersScreen()
             }
         }
     }

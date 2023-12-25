@@ -69,6 +69,9 @@ dependencies {
     implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
+
+    implementation(projects.feature.timers.data.database)
+    implementation(projects.feature.timers.dependencies)
     implementation(projects.feature.timers.data.database)
 
     implementation(libs.compose.accompanist.systemUiController)

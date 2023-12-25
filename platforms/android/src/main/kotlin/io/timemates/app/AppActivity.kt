@@ -2,8 +2,6 @@ package io.timemates.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -20,7 +18,6 @@ import io.timemates.app.navigation.LocalComponentContext
 import io.timemates.app.navigation.Screen
 import io.timemates.app.navigation.TimeMatesAppEntry
 import io.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.Channel
 
 class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

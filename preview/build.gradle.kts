@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.timemates.sdk)
+    implementation(libs.kotlinx.datetime)
 
     implementation(projects.styleSystem)
 
