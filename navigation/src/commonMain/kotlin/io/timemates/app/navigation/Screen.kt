@@ -5,10 +5,14 @@ import com.arkivanov.essenty.parcelable.Parcelize
 
 sealed class Screen : Parcelable {
     @Parcelize
-    object InitialAuthorizationScreen : Screen()
+    data object InitialAuthorizationScreen : Screen() {
+        private fun readResolve(): Any = InitialAuthorizationScreen
+    }
 
     @Parcelize
-    object StartAuthorization : Screen()
+    data object StartAuthorization : Screen() {
+        private fun readResolve(): Any = StartAuthorization
+    }
 
     @Parcelize
     data class AfterStart(val verificationHash: String) : Screen()
@@ -23,11 +27,17 @@ sealed class Screen : Parcelable {
     data class NewAccount(val verificationHash: String) : Screen()
 
     @Parcelize
-    data class TimersList(val verificationHash: String) : Screen()
+    data object TimersList : Screen() {
+        private fun readResolve(): Any = TimersList
+    }
 
     @Parcelize
-    data class TimerCreation(val verificationHash: String) : Screen()
+    data object TimerCreation : Screen() {
+        private fun readResolve(): Any = TimerCreation
+    }
 
     @Parcelize
-    data class TimerSettings(val verificationHash: String) : Screen()
+    data object TimerSettings : Screen() {
+        private fun readResolve(): Any = TimerSettings
+    }
 }

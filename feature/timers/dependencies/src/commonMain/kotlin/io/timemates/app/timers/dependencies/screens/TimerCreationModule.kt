@@ -18,7 +18,7 @@ import org.koin.core.annotation.Singleton
 class TimerCreationModule {
 
     @Singleton
-    fun timerCreationMiddleware(): TimerCreationModule = TimerCreationModule()
+    fun timerCreationMiddleware(): TimerCreationMiddleware = TimerCreationMiddleware()
 
     @Factory
     fun timerCreationUseCase(

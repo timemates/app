@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import io.timemates.app.style.system.item.ShimmerTimerItem
+import io.timemates.app.timers.ui.PlaceholderTimerItem
 import io.timemates.app.style.system.theme.AppTheme
 
 @Preview
@@ -83,7 +83,7 @@ private fun Test() {
 
             Spacer(modifier = Modifier.padding(16.dp))
 
-            ShimmerTimerItem()
+            PlaceholderTimerItem()
         }
     }
 }

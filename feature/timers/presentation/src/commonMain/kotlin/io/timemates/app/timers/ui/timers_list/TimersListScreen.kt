@@ -31,12 +31,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
+import io.github.skeptick.libres.compose.painterResource
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.Resources
 import io.timemates.app.style.system.appbar.AppBar
-import io.timemates.app.style.system.item.ShimmerTimerItem
-import io.timemates.app.style.system.item.TimerItem
+import io.timemates.app.timers.ui.PlaceholderTimerItem
+import io.timemates.app.timers.ui.TimerItem
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
 import io.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Event
@@ -56,7 +57,7 @@ fun TimersListScreen(
     val snackbarData = remember { SnackbarHostState() }
     val timersListState = rememberLazyListState()
 
-    val painter: Painter = painterResource(Resources.images.empty_list_image)
+    val painter: Painter = Resources.image.empty_list_image.painterResource()
 
     val strings = LocalStrings.current
 
@@ -147,7 +148,7 @@ fun TimersListScreen(
 
                 if (state.isLoading) {
                     item {
-                        ShimmerTimerItem()
+                        PlaceholderTimerItem()
                     }
                 }
 

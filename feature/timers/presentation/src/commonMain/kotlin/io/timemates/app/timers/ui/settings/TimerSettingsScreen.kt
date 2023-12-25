@@ -68,8 +68,7 @@ fun TimerSettingsScreen(
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = strings.unknownFailure)
 
-                Effect.Success -> saveChanges()
-                Effect.NavigateToTimersScreen -> navigateToTimersScreen()
+                Effect.NavigateToTimersScreen, Effect.Success -> navigateToTimersScreen()
             }
         }
     }

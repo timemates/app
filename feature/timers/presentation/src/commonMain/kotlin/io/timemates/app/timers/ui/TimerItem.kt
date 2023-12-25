@@ -1,4 +1,4 @@
-package io.timemates.app.style.system.item
+package io.timemates.app.timers.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -95,7 +95,7 @@ fun TimerItem(
 
 @Stable
 @Composable
-fun timerItemSubtext(timer: Timer): String {
+private fun timerItemSubtext(timer: Timer): String {
     return when(timer.state) {
         is Running, is Rest  -> LocalStrings.current.runningTimerDescription(timer.membersCount.int)
         is Paused, is Inactive -> LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
@@ -104,13 +104,13 @@ fun timerItemSubtext(timer: Timer): String {
 }
 
 @Stable
-fun daysSinceInactive(pausedInstant: Instant): Int {
+private fun daysSinceInactive(pausedInstant: Instant): Int {
     val currentInstant = Clock.System.now()
     return (currentInstant.toLocalDateTime(TimeZone.UTC).date.minus(pausedInstant.toLocalDateTime(TimeZone.UTC).date)).days
 }
 
 @Composable
-fun OnlineIndicator(
+private fun OnlineIndicator(
     modifier: Modifier = Modifier,
     isOnline: Boolean,
     indicatorSize: Dp = 6.dp,

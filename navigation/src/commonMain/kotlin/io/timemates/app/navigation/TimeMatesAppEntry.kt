@@ -28,7 +28,10 @@ import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachin
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.app.timers.ui.settings.TimerSettingsScreen
+import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
 import io.timemates.app.timers.ui.timer_creation.TimerCreationScreen
+import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
+import io.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -64,7 +67,7 @@ fun TimeMatesAppEntry(
                     navigation.replaceAll(Screen.StartAuthorization, Screen.NewAccountInfo(it))
                 },
                 navigateToHome = {
-                    // TODO when home is ready
+                    navigation.push(Screen.TimersList)
                 },
             )
 
@@ -114,19 +117,17 @@ fun TimeMatesAppEntry(
                     navigation.popTo(0)
                 },
                 navigateToHome = {
-                    navigation.push(Screen.TimersList(screen.verificationHash))
+                    navigation.push(Screen.TimersList)
                 },
             )
 
             is Screen.TimersList -> TimersListScreen(
-                stateMachine = stateMachine {
-                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-                },
+                stateMachine = stateMachine<TimersListStateMachine>(),
                 navigateToSetting = {
-                    navigation.push(Screen.TimerSettings(screen.verificationHash))
+                    navigation.push(Screen.TimerSettings)
                 },
                 navigateToTimerCreationScreen = {
-                    navigation.push(Screen.TimerCreation(screen.verificationHash))
+                    navigation.push(Screen.TimerCreation)
                 },
                 navigateToTimer = {
                     //TODO when timer screen will be ready
@@ -134,20 +135,16 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.TimerCreation -> TimerCreationScreen(
-                stateMachine = stateMachine {
-                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-                },
+                stateMachine = stateMachine<TimerCreationStateMachine>(),
                 navigateToTimersScreen = {
-                    navigation.push(Screen.TimersList(screen.verificationHash))
+                    navigation.push(Screen.TimersList)
                 },
             )
 
             is Screen.TimerSettings -> TimerSettingsScreen(
-                stateMachine = stateMachine {
-                    parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
-                },
+                stateMachine = stateMachine<TimerSettingsStateMachine>(),
                 navigateToTimersScreen = {
-                    navigation.push(Screen.TimersList(screen.verificationHash))
+                    // TODO when timer screen is ready
                 },
             )
         }

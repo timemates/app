@@ -14,5 +14,7 @@ dependencies {
 
     commonMainImplementation(libs.moko.resources.compose)
     commonMainImplementation(libs.moko.resources)
+
+    commonMainImplementation(libs.kotlinx.datetime)
 }
 

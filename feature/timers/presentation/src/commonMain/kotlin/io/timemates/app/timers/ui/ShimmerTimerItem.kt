@@ -1,4 +1,4 @@
-package io.timemates.app.style.system.item
+package io.timemates.app.timers.ui
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.style.system.theme.AppTheme
 
 @Composable
-fun ShimmerTimerItem(){
+fun PlaceholderTimerItem(){
     OutlinedCard(
         modifier = Modifier.fillMaxWidth(),
         border = BorderStroke(1.dp, AppTheme.colors.secondary),
@@ -74,7 +74,7 @@ fun ShimmerTimerItem(){
     }
 }
 
-fun Modifier.shimmerEffect(): Modifier = composed {
+private fun Modifier.shimmerEffect(): Modifier = composed {
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
