@@ -11,6 +11,7 @@ import io.timemates.app.authorization.dependencies.AuthorizationDataModule
 import io.timemates.app.authorization.dependencies.screens.AfterStartModule
 import io.timemates.app.authorization.dependencies.screens.ConfigureAccountModule
 import io.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
+import io.timemates.app.authorization.dependencies.screens.InitialAuthorizationModule
 import io.timemates.app.authorization.dependencies.screens.NewAccountInfoModule
 import io.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
 import io.timemates.app.core.handler.OnAuthorizationFailedHandler
@@ -73,6 +74,7 @@ class TimeMatesApplication : MultiDexApplication() {
 
             modules(
                 platformModule,
+                InitialAuthorizationModule().module,
                 AuthorizationDataModule().module,
                 ConfirmAuthorizationModule().module,
                 StartAuthorizationModule().module,

@@ -5,8 +5,8 @@ plugins {
 
 version = "SNAPSHOT"
 
-val koinVersion = "3.4.2"
-val koinAnnotationsVersion = "1.2.2"
+val koinVersion = "3.5.3"
+val koinAnnotationsVersion = "1.3.0"
 
 dependencies {
     commonMainImplementation("io.insert-koin:koin-core:$koinVersion")

@@ -84,6 +84,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require 
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-jetbrains-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.require = "3.4.5" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.require = "1.0.3" }
 
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

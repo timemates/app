@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.timemates.sdk)
     implementation(libs.timemates.engine.rsocket)
     implementation(libs.koin.core)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.android)
     implementation(libs.androidx.appcompat)
 
     implementation(libs.android.multidex)
@@ -67,6 +69,7 @@ dependencies {
     implementation(projects.feature.users.data.database)
     implementation(projects.feature.authorization.dependencies)
     implementation(projects.feature.authorization.data.database)
+    implementation(projects.feature.timers.data.database)
 
     implementation(libs.compose.accompanist.systemUiController)
 
