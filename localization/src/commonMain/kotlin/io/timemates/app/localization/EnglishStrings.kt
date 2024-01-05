@@ -56,6 +56,17 @@ object EnglishStrings : Strings {
     override val timerCreation: String = "Add timer"
     override val noTimers: String = "You don't have any timers yet."
     override val confirmationWaitingTimerDescription: String = "Waiting for confirmation."
+    override val alreadyExists: String = "It already exists or functionality isn't supposed to be used twice."
+    override val invalidArgument: String = "Invalid input information."
+    override val notFound: String = "Entity is not found."
+    override val unauthorized: String = "Your authorized was whether terminated or expired, please relogin."
+    override val unavailable: String = "Service is not available at the moment, please try again later."
+    override val unsupported: String = "This functionality is not yet supported."
+
+    override fun internalError(message: String): String {
+        return "Internal server failure has happened, details: $message"
+    }
+
     override fun inactiveTimerDescription(daysSincePaused: Int): String {
         return if (daysSincePaused == 0) "Last activity was today" else "Last activity was $daysSincePaused days ago"
     }

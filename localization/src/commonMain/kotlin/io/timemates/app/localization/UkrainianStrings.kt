@@ -44,7 +44,7 @@ object UkrainianStrings : Strings {
     override val restTime: String = "Час відпочинку (хв)"
     override val every: String = "Кожні"
     override val minutes: String = "Хвилин"
-    override val advancedRestSettingsDescription: String = "Увімкніть великий час відпочинку (подовжений відпочинок кожні X раундів)."
+    override val advancedRestSettingsDescription: String = "Увімкнути подовжений відпочинок (кожні X раундів)."
     override val publicManageTimerStateDescription: String = "Кожен може керувати станом таймера"
     override val confirmationRequiredDescription: String = "Завжди вимагати підтвердження перед початком раунду"
     override val timerNameSizeIsInvalid: String = "Ім'я має бути в межах ${TimerName.SIZE_RANGE.first} й ${TimerName.SIZE_RANGE.last} символів."
@@ -56,6 +56,17 @@ object UkrainianStrings : Strings {
     override val timerCreation: String = "Додати таймер"
     override val noTimers: String = "У вас ще немає таймерів."
     override val confirmationWaitingTimerDescription: String = "Очікування підтвердження."
+    override val alreadyExists: String = "Сущність вже існує або функціональність не передбачає повторного використання."
+    override val invalidArgument: String = "Неправильні дані."
+    override val notFound: String = "Не знайдено."
+    override val unauthorized: String = "Ваша авторизація була видалена або закінчився строк її дії."
+    override val unavailable: String = "Сервіс недоступний, спробуйте будь-ласка пізніше."
+    override val unsupported: String = "Дана функціональність ще не підтримується на сервері або клієнті, зв'яжіться з розробником."
+
+    override fun internalError(message: String): String {
+        return "Внутрішня помилка серверу, деталі: $message."
+    }
+
     override fun inactiveTimerDescription(daysSincePaused: Int): String {
         return if (daysSincePaused == 0) "Остання активність була сьогодні" else "Остання активність була $daysSincePaused дні тому"
     }

@@ -1,5 +1,7 @@
 package io.timemates.app.localization
 
+import androidx.compose.runtime.Stable
+
 interface Strings {
     val appName: String
 
@@ -91,7 +93,24 @@ interface Strings {
 
     val confirmationWaitingTimerDescription: String
 
+    val alreadyExists: String
+
+    val invalidArgument: String
+
+    val notFound: String
+
+    val unauthorized: String
+
+    val unavailable: String
+
+    val unsupported: String
+
+    @Stable
+    fun internalError(message: String): String
+
+    @Stable
     fun inactiveTimerDescription(daysSincePaused: Int): String
 
+    @Stable
     fun runningTimerDescription(people: Int): String
 }
