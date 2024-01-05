@@ -10,8 +10,6 @@ dependencies {
 
     implementation(libs.koin.core)
 
-    implementation(libs.sqldelight.jvm.driver)
-
     implementation(projects.feature.common.domain)
 
     implementation(libs.timemates.sdk)
@@ -31,6 +29,8 @@ dependencies {
     implementation(projects.foundation.time)
 
     implementation(projects.styleSystem)
+
+    implementation(projects.platforms.common)
 }
 
 java {
