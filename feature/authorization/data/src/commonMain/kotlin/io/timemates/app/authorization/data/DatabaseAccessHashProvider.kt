@@ -7,7 +7,7 @@ import io.timemates.sdk.common.providers.AccessHashProvider
 
 class DatabaseAccessHashProvider(private val localQueries: AccountDatabaseQueries) : AccessHashProvider {
     override suspend fun getOrNull(): AccessHash? {
-        // TODO renew maybe or dedicated functionality for it
+        // TODO cache in memory
         return localQueries.getCurrent().executeAsOneOrNull()
             ?.let { AccessHash.createOrThrow(it.accessHashValue) }
     }
