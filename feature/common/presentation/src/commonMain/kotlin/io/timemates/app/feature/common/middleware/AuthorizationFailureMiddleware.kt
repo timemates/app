@@ -1,6 +1,6 @@
-package io.timemates.app.common.mvi.middleware
+package io.timemates.app.feature.common.middleware
 
-import io.timemates.app.core.handler.OnAuthorizationFailedHandler
+import io.timemates.app.feature.common.handler.OnAuthorizationFailedHandler
 import io.timemates.app.foundation.mvi.Middleware
 import io.timemates.app.foundation.mvi.StateStore
 import io.timemates.app.foundation.mvi.UiEffect

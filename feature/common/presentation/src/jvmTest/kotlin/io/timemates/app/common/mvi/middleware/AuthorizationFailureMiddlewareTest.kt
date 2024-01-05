@@ -3,8 +3,9 @@ package io.timemates.app.common.mvi.middleware
 import io.mockk.clearAllMocks
 import io.mockk.mockk
 import io.mockk.verify
-import io.timemates.app.common.mvi.middleware.AuthorizationFailureMiddleware.AuthorizationFailureEffect
-import io.timemates.app.core.handler.OnAuthorizationFailedHandler
+import io.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware.AuthorizationFailureEffect
+import io.timemates.app.feature.common.handler.OnAuthorizationFailedHandler
+import io.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware
 import io.timemates.app.foundation.mvi.StateStore
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiState
