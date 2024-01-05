@@ -43,7 +43,6 @@ class TimerCreationModule {
                 timerCreationUseCase = timerCreationUseCase,
                 timerNameValidator = timerNameValidator,
                 timerDescriptionValidator = timerDescriptionValidator,
-                coroutineScope = CoroutineScope(Dispatchers.IO),
             ),
             middleware = middleware,
         )

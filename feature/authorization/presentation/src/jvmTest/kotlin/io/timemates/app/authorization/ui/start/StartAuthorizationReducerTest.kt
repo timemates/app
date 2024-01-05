@@ -7,6 +7,8 @@ import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachin
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
 import io.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import io.timemates.app.authorization.validation.EmailAddressValidator
+import io.timemates.app.foundation.mvi.reduce
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,11 +17,11 @@ class StartAuthorizationReducerTest {
     private val authorizeByEmailUseCase: AuthorizeByEmailUseCase = mockk()
     private val emailAddressValidator: EmailAddressValidator = mockk()
     private val email = "..." // doesn't matter, as we mock validator
+    private val coroutineScope = TestScope()
 
     private val reducer = StartAuthorizationReducer(
         emailAddressValidator,
         authorizeByEmailUseCase,
-        TestScope(),
     )
 
     @Test
@@ -29,7 +31,7 @@ class StartAuthorizationReducerTest {
             EmailAddressValidator.Result.PatternDoesNotMatch
 
         // WHEN
-        val result = reducer.reduce(State(email = email), Event.OnStartClick) {}
+        val result = reducer.reduce(State(email = email), Event.OnStartClick, coroutineScope) {}
 
         // THEN
         assertEquals(
@@ -50,7 +52,7 @@ class StartAuthorizationReducerTest {
             EmailAddressValidator.Result.SizeViolation
 
         // WHEN
-        val result = reducer.reduce(State(email = email), Event.OnStartClick) {}
+        val result = reducer.reduce(State(email = email), Event.OnStartClick, coroutineScope) {}
 
         // THEN
         assertEquals(
@@ -71,7 +73,7 @@ class StartAuthorizationReducerTest {
             EmailAddressValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(State(email = email, isEmailInvalid = true), Event.OnStartClick) {}
+        val result = reducer.reduce(State(email = email, isEmailInvalid = true), Event.OnStartClick, coroutineScope) {}
 
         // THEN
         assertEquals(

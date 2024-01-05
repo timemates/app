@@ -46,7 +46,6 @@ class ConfigureAccountModule {
                 createNewAccountUseCase = createNewAccountUseCase,
                 userNameValidator = userNameValidator,
                 userDescriptionValidator = userDescriptionValidator,
-                CoroutineScope(Dispatchers.IO),
             ),
             configureAccountMiddleware,
         )

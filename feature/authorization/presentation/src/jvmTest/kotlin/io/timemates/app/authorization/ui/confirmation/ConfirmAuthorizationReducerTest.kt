@@ -8,9 +8,11 @@ import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationSt
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
 import io.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
 import io.timemates.app.authorization.validation.ConfirmationCodeValidator
+import io.timemates.app.foundation.mvi.reduce
 import io.timemates.app.foundation.random.nextString
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
 import kotlin.random.Random
@@ -28,7 +30,6 @@ class ConfirmAuthorizationReducerTest {
         verificationHash,
         confirmEmailAuthorizationUseCase,
         confirmationCodeValidator,
-        coroutineScope,
     )
 
     @Test
@@ -39,7 +40,7 @@ class ConfirmAuthorizationReducerTest {
             ConfirmationCodeValidator.Result.Success
 
         // WHEN
-        val nextState = reducer.reduce(state, Event.OnConfirmClicked) {}
+        val nextState = reducer.reduce(state, Event.OnConfirmClicked, coroutineScope) {}
 
         // THEN
         assertTrue(nextState.isLoading)
@@ -56,7 +57,7 @@ class ConfirmAuthorizationReducerTest {
             ConfirmationCodeValidator.Result.SizeIsInvalid
 
         // WHEN
-        val nextState = reducer.reduce(state, Event.OnConfirmClicked) {}
+        val nextState = reducer.reduce(state, Event.OnConfirmClicked, coroutineScope) {}
 
         // THEN
         assertFalse(nextState.isLoading)
@@ -72,7 +73,7 @@ class ConfirmAuthorizationReducerTest {
         val event = Event.CodeChange("654321")
 
         // WHEN
-        val nextState = reducer.reduce(state, event) {}
+        val nextState = reducer.reduce(state, event, coroutineScope) {}
 
         // THEN
         assertEquals("654321", nextState.code)
@@ -89,7 +90,7 @@ class ConfirmAuthorizationReducerTest {
             ConfirmationCodeValidator.Result.PatternFailure
 
         // WHEN
-        val nextState = reducer.reduce(state, Event.OnConfirmClicked) {}
+        val nextState = reducer.reduce(state, Event.OnConfirmClicked, coroutineScope) {}
 
         // THEN
         assertFalse(nextState.isLoading)

@@ -40,7 +40,6 @@ class ConfirmAuthorizationModule {
                 verificationHash,
                 confirmEmailAuthorizationUseCase,
                 confirmationCodeValidator,
-                CoroutineScope(Dispatchers.IO),
             ),
             middleware = middleware,
         )

@@ -1,6 +1,7 @@
 package io.timemates.app.timers.ui.timer_creation.mvi
 
 import io.timemates.app.foundation.mvi.Reducer
+import io.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Effect
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Event
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
@@ -18,13 +19,8 @@ class TimerCreationReducer(
     private val timerCreationUseCase: TimerCreationUseCase,
     private val timerNameValidator: TimerNameValidator,
     private val timerDescriptionValidator: TimerDescriptionValidator,
-    private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
-    override fun reduce(
-        state: State,
-        event: Event,
-        sendEffect: (Effect) -> Unit,
-    ): State {
+    override fun ReducerScope<Effect>.reduce(state: State, event: Event): State {
         return when (event) {
             Event.OnDoneClicked -> {
                 val name = when (timerNameValidator.validate(state.name)) {
@@ -54,6 +50,7 @@ class TimerCreationReducer(
                         state.isConfirmationRequired,
                     ),
                     sendEffect = sendEffect,
+                    coroutineScope = machineScope,
                 )
 
                 return state.copy(isLoading = true)
@@ -93,9 +90,10 @@ class TimerCreationReducer(
         description: TimerDescription,
         settings: TimerSettings,
         sendEffect: (Effect) -> Unit,
+        coroutineScope: CoroutineScope,
     ) {
         coroutineScope.launch {
-            when (val result = timerCreationUseCase.execute(name, description, settings)) {
+            when (val result = timerCreationUseCase.execute(name, description, settings).also { println(it) }) {
                 is TimerCreationUseCase.Result.Failure ->
                     sendEffect(Effect.Failure(result.exception))
 
