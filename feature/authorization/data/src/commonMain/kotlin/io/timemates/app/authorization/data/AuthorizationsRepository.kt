@@ -39,7 +39,23 @@ class AuthorizationsRepository(
     }
 
     override suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Result> {
-        return emailAuthApi.confirm(verificationHash, code)
+        return emailAuthApi.confirm(verificationHash, code).onSuccess {
+            if(!it.isNewAccount) {
+                val auth = it.authorization!!
+                localQueries.add(
+                    userId = auth.userId.long,
+                    accessHashValue = auth.accessHash!!.value.string,
+                    accessHashExpiresAt = auth.accessHash!!.expiresAt.toEpochMilliseconds(),
+                    refreshHashValue = auth.refreshHash!!.value.string,
+                    refreshHashExpiresAt = auth.refreshHash!!.expiresAt.toEpochMilliseconds(),
+                    generationTime = auth.generationTime.toEpochMilliseconds(),
+                    metadataClientName = auth.metadata?.applicationName?.string,
+                    metadataClientIpAddress = auth.metadata?.clientIpAddress?.string,
+                    metadataClientVersion = auth.metadata?.clientVersion?.double ?: 1.0,
+                    id = null,
+                )
+            }
+        }
     }
 
     override suspend fun createNewAccount(
