@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -45,24 +46,24 @@ fun TimerItem(
 ) {
     OutlinedCard(
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                onClick = onClick
-            ),
+            .fillMaxWidth(),
         border = BorderStroke(1.dp, AppTheme.colors.secondary),
+        colors = CardDefaults.outlinedCardColors(containerColor = AppTheme.colors.background),
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().clickable(
+                onClick = onClick
+            ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
-                modifier = Modifier.padding(12.dp),
+                modifier = Modifier.padding(12.dp).weight(1f),
             ) {
                 Row(
                     modifier = Modifier,
                 ) {
                     Text(
-                        text = timer.description.string,
+                        text = timer.name.string,
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium,
                     )
@@ -78,13 +79,12 @@ fun TimerItem(
                 )
             }
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.padding(12.dp),
             ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowForward,
                     contentDescription = "Navigate To Timer",
                     modifier = Modifier
-                        .padding(12.dp)
                         .align(Alignment.CenterEnd),
                     tint = Color.Gray,
                 )

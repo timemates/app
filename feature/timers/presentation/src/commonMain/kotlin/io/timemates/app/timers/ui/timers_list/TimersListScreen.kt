@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
 import io.github.skeptick.libres.compose.painterResource
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.Resources
@@ -61,15 +62,23 @@ fun TimersListScreen(
 
     val strings = LocalStrings.current
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(true) {
         stateMachine.dispatchEvent(Event.Load)
 
         stateMachine.effects.consumeEach { effect ->
-            when(effect) {
+            when (effect) {
                 is Effect.Failure ->
-                    snackbarData.showSnackbar(message = strings.unknownFailure)
+                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
 
                 else -> {}
+            }
+        }
+    }
+
+    if(state.hasMoreItems) {
+        LaunchedEffect(timersListState.layoutInfo.visibleItemsInfo.lastOrNull()) {
+            if (timersListState.isScrolledToTheEnd()) {
+                stateMachine.dispatchEvent(Event.Load)
             }
         }
     }
@@ -85,7 +94,8 @@ fun TimersListScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Settings,
-                            contentDescription = null,)
+                            contentDescription = null,
+                        )
                     }
                 },
                 modifier = Modifier,
@@ -115,14 +125,14 @@ fun TimersListScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Icon(
-                        modifier = Modifier,
-                        painter = painter,
-                        contentDescription = null,
-                        tint = AppTheme.colors.secondaryVariant,
-                    )
-
-                    Spacer(Modifier.height(8.dp))
+//                    Icon(
+//                        modifier = Modifier,
+//                        painter = painter,
+//                        contentDescription = null,
+//                        tint = AppTheme.colors.secondaryVariant,
+//                    )
+//
+//                    Spacer(Modifier.height(8.dp))
 
                     Text(
                         text = LocalStrings.current.noTimers,
@@ -133,27 +143,31 @@ fun TimersListScreen(
                 }
             }
         } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = timersListState,
-                contentPadding = rootPaddings,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(state.timersList) {timer ->
-                    TimerItem(
-                        timer = timer,
-                        onClick = { navigateToTimer(timer.timerId) }
-                    )
-                }
+            Column(modifier = Modifier.fillMaxSize()) {
+                Spacer(Modifier.height(16.dp))
 
-                if (state.isLoading) {
-                    item {
-                        PlaceholderTimerItem()
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
+                    state = timersListState,
+                    contentPadding = rootPaddings,
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    items(state.timersList) { timer ->
+                        TimerItem(
+                            timer = timer,
+                            onClick = { navigateToTimer(timer.timerId) }
+                        )
                     }
-                }
 
-                if (timersListState.isScrolledToTheEnd()) {
-                    stateMachine.dispatchEvent(Event.Load)
+                    if (state.isLoading) {
+                        items(5) {
+                            PlaceholderTimerItem()
+                        }
+                    }
+
+                    item {
+                        Spacer(Modifier.height(16.dp))
+                    }
                 }
             }
         }

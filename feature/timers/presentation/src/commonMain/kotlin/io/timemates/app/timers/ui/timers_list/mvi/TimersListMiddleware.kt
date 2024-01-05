@@ -17,7 +17,7 @@ class TimersListMiddleware : Middleware<State, Effect> {
             }
 
             is Effect.LoadTimers -> {
-                store.state.value.copy(timersList = store.state.value.timersList + effect.timersList, isLoading = false)
+                store.state.value.copy(timersList = (store.state.value.timersList + effect.timersList).distinct(), isLoading = false)
             }
         }
     }
