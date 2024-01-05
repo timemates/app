@@ -14,14 +14,10 @@ class ConfigureAccountStateMachine(
     reducer: ConfigureAccountReducer,
     middleware: ConfigureAccountMiddleware,
 ) : StateMachine<State, Event, Effect>(
+    initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
-
-    override fun initDefaultState(): State {
-        return State()
-    }
-
     @Immutable
     data class State(
         val name: String = "",

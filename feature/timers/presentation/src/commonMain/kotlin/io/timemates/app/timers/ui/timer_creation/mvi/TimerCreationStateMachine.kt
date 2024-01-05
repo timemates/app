@@ -17,12 +17,10 @@ class TimerCreationStateMachine(
     reducer: TimerCreationReducer,
     middleware: TimerCreationMiddleware,
 ) : StateMachine<State, Event, Effect>(
+    initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
-    override fun initDefaultState(): State {
-        return State()
-    }
 
     @Immutable
     data class State(
@@ -65,6 +63,6 @@ class TimerCreationStateMachine(
     sealed class Effect : UiEffect {
         data class Failure(val throwable: Throwable) : Effect()
 
-        object NavigateToTimersScreen : Effect()
+        data object NavigateToTimersScreen : Effect()
     }
 }

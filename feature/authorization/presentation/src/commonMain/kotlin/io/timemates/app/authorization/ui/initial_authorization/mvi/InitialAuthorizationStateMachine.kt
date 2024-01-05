@@ -10,12 +10,11 @@ import io.timemates.app.foundation.mvi.UiEvent
 class InitialAuthorizationStateMachine(
     reducer: InitialAuthorizationReducer,
 ) : StateMachine<EmptyState, Event, Effect>(
+    initState = EmptyState,
     reducer = reducer,
     middlewares = emptyList(),
 ) {
-    override fun initDefaultState(): EmptyState = EmptyState
-
-    sealed class Effect : UiEffect {
+   sealed class Effect : UiEffect {
         object NavigateToStart : Effect()
     }
 

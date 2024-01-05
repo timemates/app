@@ -14,13 +14,10 @@ class TimersListStateMachine(
     reducer: TimersListReducer,
     middleware: TimersListMiddleware,
 ) : StateMachine<State, Event, Effect>(
+    initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
-    override fun initDefaultState(): State {
-        return State()
-    }
-
     @Immutable
     data class State(
         val timersList: List<Timer> = emptyList(),
@@ -30,7 +27,7 @@ class TimersListStateMachine(
     ): UiState
 
     sealed class Event : UiEvent {
-        object Load : Event()
+        data object Load : Event()
     }
 
     sealed class Effect : UiEffect {
@@ -38,6 +35,6 @@ class TimersListStateMachine(
 
         data class LoadTimers(val timersList: List<Timer>) : Effect()
 
-        object NoMoreTimers : Effect()
+        data object NoMoreTimers : Effect()
     }
 }

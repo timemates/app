@@ -11,20 +11,19 @@ import io.timemates.sdk.authorization.email.types.value.VerificationHash
 class NewAccountInfoStateMachine(
     reducer: NewAccountInfoReducer,
 ) : StateMachine<EmptyState, Event, Effect>(
+    initState = EmptyState,
     reducer = reducer,
     middlewares = emptyList(),
 ) {
     sealed class Effect : UiEffect {
         data class NavigateToAccountConfiguring(val verificationHash: VerificationHash) : Effect()
 
-        object NavigateToStart : Effect()
+        data object NavigateToStart : Effect()
     }
 
     sealed class Event : UiEvent {
-        object NextClicked : Event()
+        data object NextClicked : Event()
 
-        object OnBackClicked : Event()
+        data object OnBackClicked : Event()
     }
-
-    override fun initDefaultState(): EmptyState = EmptyState
 }

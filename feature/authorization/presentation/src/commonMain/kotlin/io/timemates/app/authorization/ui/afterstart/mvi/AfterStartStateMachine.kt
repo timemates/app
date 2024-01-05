@@ -11,6 +11,7 @@ import io.timemates.sdk.authorization.email.types.value.VerificationHash
 class AfterStartStateMachine(
     reducer: AfterStartReducer,
 ) : StateMachine<EmptyState, Event, Effect>(
+    initState = EmptyState,
     reducer = reducer,
     middlewares = emptyList(),
 ) {
@@ -25,6 +26,4 @@ class AfterStartStateMachine(
 
         object OnChangeEmailClicked : Event()
     }
-
-    override fun initDefaultState(): EmptyState = EmptyState
 }

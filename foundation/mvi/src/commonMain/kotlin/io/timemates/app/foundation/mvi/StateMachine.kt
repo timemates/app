@@ -7,13 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>(
+    protected val initState: TState,
     private val reducer: Reducer<TState, TEvent, TEffect>,
     private val middlewares: List<Middleware<TState, TEffect>> = emptyList(),
 ) : ViewModel(), StateStore<TState> {
-
-    protected abstract fun initDefaultState(): TState
-
-    private val _state: MutableStateFlow<TState> by lazy { MutableStateFlow(initDefaultState()) }
+    private val _state: MutableStateFlow<TState> by lazy { MutableStateFlow(initState) }
     private val _effects: Channel<TEffect> = Channel(Channel.UNLIMITED)
 
     /**
@@ -26,18 +24,22 @@ public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect :
      */
     public val effects: ReceiveChannel<TEffect> by ::_effects
 
+    private val sendEffect: (TEffect) -> Unit = { effect ->
+        middlewares.forEach { middleware -> setState(middleware.onEffect(effect, this)) }
+        _effects.trySend(effect)
+    }
+
+    private val reducerScope = ReducerScope(sendEffect, coroutineScope)
+
     /**
      * Processes an event from UI.
      *
      * @param event The event to be processed.
      */
     public fun dispatchEvent(event: TEvent) {
-        val sendEffect: (TEffect) -> Unit = { effect ->
-            middlewares.forEach { middleware -> setState(middleware.onEffect(effect, this)) }
-            _effects.trySend(effect)
+        with(reducer) {
+            setState(reducerScope.reduce(state.value, event))
         }
-
-        setState(reducer.reduce(state.value, event, sendEffect))
     }
 
     private fun setState(state: TState) {

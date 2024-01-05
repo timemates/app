@@ -15,14 +15,10 @@ class ConfirmAuthorizationStateMachine(
     reducer: ConfirmAuthorizationsReducer,
     middleware: ConfirmAuthorizationMiddleware,
 ) : StateMachine<State, Event, Effect>(
+    initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
-
-    override fun initDefaultState(): State {
-        return State()
-    }
-
     @Immutable
     data class State(
         val code: String = "",
@@ -34,13 +30,13 @@ class ConfirmAuthorizationStateMachine(
     sealed class Event : UiEvent {
         data class CodeChange(val code: String) : Event()
 
-        object OnConfirmClicked : Event()
+        data object OnConfirmClicked : Event()
     }
 
     sealed class Effect : UiEffect {
-        object TooManyAttempts : Effect()
+        data object TooManyAttempts : Effect()
 
-        object AttemptIsFailed : Effect()
+        data object AttemptIsFailed : Effect()
 
         data class Failure(val throwable: Throwable) : Effect()
 
