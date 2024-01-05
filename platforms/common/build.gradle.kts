@@ -31,8 +31,8 @@ dependencies {
     jvmMainApi(libs.sqldelight.jvm.driver)
     androidMainApi(libs.sqldelight.android.driver)
 
-    commonMainImplementation(projects.navigation)
-    commonMainImplementation(projects.styleSystem)
+    commonMainApi(projects.navigation)
+    commonMainApi(projects.styleSystem)
 
     commonMainImplementation(projects.foundation.mvi)
     commonMainImplementation(projects.foundation.mvi.koinCompose)

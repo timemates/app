@@ -24,8 +24,6 @@ dependencies {
     implementation(projects.feature.timers.data.database)
     implementation(projects.feature.timers.dependencies)
 
-    implementation(projects.navigation)
-
     implementation(projects.foundation.time)
 
     implementation(projects.styleSystem)
