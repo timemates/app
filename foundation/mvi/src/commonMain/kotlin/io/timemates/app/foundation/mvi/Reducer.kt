@@ -1,5 +1,7 @@
 package io.timemates.app.foundation.mvi
 
+import kotlinx.coroutines.CoroutineScope
+
 /**
  * A reducer is responsible for updating the state based on events and triggering effects.
  *
@@ -7,7 +9,7 @@ package io.timemates.app.foundation.mvi
  * @param TEvent The type representing events from the UI.
  * @param TEffect The type representing effects to the UI.
  */
-public interface Reducer<TState, TEvent, TEffect> {
+public interface Reducer<TState : UiState, TEvent : UiEvent, TEffect : UiEffect> {
 
     /**
      * Reduces the current state based on the given event and triggers effects, if necessary.
@@ -21,9 +23,28 @@ public interface Reducer<TState, TEvent, TEffect> {
      *                   infinite loops or unexpected behaviors.
      * @return The new state after processing the event.
      */
-    public fun reduce(
+    public fun ReducerScope<TEffect>.reduce(
         state: TState,
         event: TEvent,
-        sendEffect: (TEffect) -> Unit,
     ): TState
 }
+
+public fun <TState : UiState, TEvent : UiEvent, TEffect : UiEffect> Reducer<TState, TEvent, TEffect>.reduce(
+    state: TState,
+    event: TEvent,
+    machineScope: CoroutineScope,
+    sendEffect: (TEffect) -> Unit,
+): TState {
+    return ReducerScope(sendEffect, machineScope).reduce(state, event)
+}
+
+/**
+ * Reducer's Scope with additional functionality and information.
+ *
+ * @param sendEffect sends effect to the UI. It also can be received by a [Middleware].
+ * @param machineScope CoroutineScope that is linked to the StateMachine.
+ */
+public data class ReducerScope<TEffect : UiEffect>(
+    val sendEffect: (TEffect) -> Unit,
+    val machineScope: CoroutineScope,
+)
