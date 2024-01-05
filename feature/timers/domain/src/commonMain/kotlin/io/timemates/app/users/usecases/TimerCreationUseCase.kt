@@ -21,6 +21,6 @@ class TimerCreationUseCase(
     sealed class Result {
         data class Failure(val exception: Throwable) : Result()
 
-        object Success : Result()
+        data object Success : Result()
     }
 }
