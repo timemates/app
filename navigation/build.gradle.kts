@@ -17,4 +17,7 @@ dependencies {
 
     commonMainImplementation(projects.feature.authorization.presentation)
     commonMainImplementation(projects.feature.timers.presentation)
+
+    commonMainImplementation(projects.feature.system.domain)
+    commonMainImplementation(projects.feature.system.presentation)
 }
