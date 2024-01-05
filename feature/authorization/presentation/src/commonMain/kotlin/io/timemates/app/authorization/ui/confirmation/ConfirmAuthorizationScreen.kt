@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
@@ -49,7 +50,7 @@ fun ConfirmAuthorizationScreen(
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
-                    snackbarData.showSnackbar(message = strings.unknownFailure)
+                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
 
                 is Effect.NavigateToCreateAccount ->
                     navigateToConfiguring(effect.verificationHash.string)

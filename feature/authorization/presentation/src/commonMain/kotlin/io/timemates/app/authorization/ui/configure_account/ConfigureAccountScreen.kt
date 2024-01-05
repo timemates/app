@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
@@ -58,7 +59,7 @@ fun ConfigureAccountScreen(
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
-                    snackbarData.showSnackbar(message = strings.unknownFailure)
+                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
 
                 is Effect.NavigateToHomePage -> navigateToHome()
                 Effect.NavigateToStart -> onBack()
