@@ -25,6 +25,8 @@ import io.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStat
 import io.timemates.app.authorization.ui.start.StartAuthorizationScreen
 import io.timemates.app.timers.ui.timers_list.TimersListScreen
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
+import io.timemates.app.feature.common.startup.StartupScreen
+import io.timemates.app.feature.common.startup.mvi.StartupStateMachine
 import io.timemates.app.mvi.compose.stateMachine
 import io.timemates.app.style.system.theme.AppTheme
 import io.timemates.app.timers.ui.settings.TimerSettingsScreen
@@ -58,6 +60,12 @@ fun TimeMatesAppEntry(
         animation = stackAnimation(fade() + scale()),
     ) { screen ->
         when (screen) {
+            is Screen.Startup -> StartupScreen(
+                stateMachine = stateMachine<StartupStateMachine>(),
+                navigateToAuth = { navigation.push(Screen.InitialAuthorizationScreen) },
+                navigateToHome = { navigation.push(Screen.TimersList) },
+            )
+
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
                 stateMachine = stateMachine<ConfirmAuthorizationStateMachine> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))

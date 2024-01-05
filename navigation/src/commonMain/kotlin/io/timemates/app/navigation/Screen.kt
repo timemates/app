@@ -4,6 +4,12 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
 sealed class Screen : Parcelable {
+
+    @Parcelize
+    data object Startup : Screen() {
+        private fun readResolve(): Any = Startup
+    }
+
     @Parcelize
     data object InitialAuthorizationScreen : Screen() {
         private fun readResolve(): Any = InitialAuthorizationScreen
