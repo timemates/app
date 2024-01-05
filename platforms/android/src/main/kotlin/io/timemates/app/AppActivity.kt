@@ -44,7 +44,7 @@ class AppActivity : ComponentActivity() {
 
                         TimeMatesAppEntry(
                             navigation = navigation,
-                            navigateToAuthorization = TimeMatesApplication.AUTH_FAILED_CHANNEL,
+                            navigateToAuthorization = TimeMatesApplication.onAuthFailedChannel,
                         )
                     }
                 }

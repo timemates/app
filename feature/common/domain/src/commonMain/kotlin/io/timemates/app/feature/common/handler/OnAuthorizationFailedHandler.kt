@@ -1,4 +1,4 @@
-package io.timemates.app.core.handler
+package io.timemates.app.feature.common.handler
 
 import io.timemates.sdk.common.exceptions.UnauthorizedException
 

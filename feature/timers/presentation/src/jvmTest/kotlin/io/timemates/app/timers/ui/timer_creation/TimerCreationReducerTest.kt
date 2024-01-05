@@ -2,6 +2,7 @@ package io.timemates.app.timers.ui.timer_creation
 
 import io.mockk.every
 import io.mockk.mockk
+import io.timemates.app.foundation.mvi.reduce
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationReducer
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
 import io.timemates.app.users.usecases.TimerCreationUseCase
@@ -9,6 +10,7 @@ import io.timemates.app.users.validation.TimerDescriptionValidator
 import io.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.value.Count
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -31,12 +33,12 @@ class TimerCreationReducerTest {
     private val bigRestTime: Duration = 6.minutes
     private val isEveryoneCanPause: Boolean = true
     private val isConfirmationRequired: Boolean = false
+    private val scope = TestScope()
 
     private val reducer = TimerCreationReducer(
         timerCreationUseCase = timerCreationUseCase,
         timerNameValidator = timerNameValidator,
         timerDescriptionValidator = timerDescriptionValidator,
-        coroutineScope = TestScope(),
     )
 
     @Test
@@ -48,7 +50,11 @@ class TimerCreationReducerTest {
             TimerDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(TimerCreationStateMachine.State(name = validName, description = validDescription), TimerCreationStateMachine.Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            state = TimerCreationStateMachine.State(name = validName, description = validDescription),
+            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            machineScope = scope,
+        ) {}
 
         // THEN
         assertEquals(
@@ -72,7 +78,11 @@ class TimerCreationReducerTest {
             TimerDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(TimerCreationStateMachine.State(name = validName, description = validDescription), TimerCreationStateMachine.Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            TimerCreationStateMachine.State(name = validName, description = validDescription),
+            TimerCreationStateMachine.Event.OnDoneClicked,
+            scope,
+        ) {}
 
         // THEN
         assertEquals(
@@ -96,7 +106,11 @@ class TimerCreationReducerTest {
             TimerDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(TimerCreationStateMachine.State(name = invalidName, description = validDescription), TimerCreationStateMachine.Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            state = TimerCreationStateMachine.State(name = invalidName, description = validDescription),
+            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            machineScope = scope,
+        ) {}
 
         // THEN
         assertEquals(
@@ -120,7 +134,11 @@ class TimerCreationReducerTest {
             TimerDescriptionValidator.Result.SizeViolation
 
         // WHEN
-        val result = reducer.reduce(TimerCreationStateMachine.State(name = validName, description = invalidDescription), TimerCreationStateMachine.Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            state = TimerCreationStateMachine.State(name = validName, description = invalidDescription),
+            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            machineScope = scope,
+        ) {}
 
         // THEN
         assertEquals(
@@ -144,17 +162,21 @@ class TimerCreationReducerTest {
             TimerDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(TimerCreationStateMachine.State(
-            name = validName,
-            description = validDescription,
-            workTime = workTime,
-            restTime = restTime,
-            bigRestEnabled = bigRestEnabled,
-            bigRestPer = bigRestPer,
-            bigRestTime = bigRestTime,
-            isEveryoneCanPause = isEveryoneCanPause,
-            isConfirmationRequired = isConfirmationRequired
-        ), TimerCreationStateMachine.Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            state = TimerCreationStateMachine.State(
+                name = validName,
+                description = validDescription,
+                workTime = workTime,
+                restTime = restTime,
+                bigRestEnabled = bigRestEnabled,
+                bigRestPer = bigRestPer,
+                bigRestTime = bigRestTime,
+                isEveryoneCanPause = isEveryoneCanPause,
+                isConfirmationRequired = isConfirmationRequired
+            ),
+            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            machineScope = scope,
+        ) {}
 
         // THEN
         assertEquals(

@@ -31,7 +31,6 @@ class TimersListModule {
         return TimersListStateMachine(
             reducer = TimersListReducer(
                 getUserTimersUseCase = getUserTimersUseCase,
-                coroutineScope = CoroutineScope(Dispatchers.IO),
             ),
             middleware = timersListMiddleware,
         )

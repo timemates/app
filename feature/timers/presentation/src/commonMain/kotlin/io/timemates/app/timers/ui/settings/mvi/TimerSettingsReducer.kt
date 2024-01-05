@@ -1,6 +1,7 @@
 package io.timemates.app.timers.ui.settings.mvi
 
 import io.timemates.app.foundation.mvi.Reducer
+import io.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Effect
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
 import io.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
@@ -21,13 +22,8 @@ class TimerSettingsReducer(
     private val timerSettingsUseCase: TimerSettingsUseCase,
     private val timerNameValidator: TimerNameValidator,
     private val timerDescriptionValidator: TimerDescriptionValidator,
-    private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
-    override fun reduce(
-        state: State,
-        event: Event,
-        sendEffect: (Effect) -> Unit,
-    ): State {
+    override fun ReducerScope<Effect>.reduce(state: State, event: Event): State {
         return when (event) {
             Event.OnDoneClicked -> {
                 val name = when (timerNameValidator.validate(state.name)) {
@@ -58,6 +54,7 @@ class TimerSettingsReducer(
                         isConfirmationRequired = state.isConfirmationRequired,
                     ),
                     sendEffect = sendEffect,
+                    coroutineScope = machineScope,
                 )
 
                 return state.copy(isLoading = true)
@@ -99,6 +96,7 @@ class TimerSettingsReducer(
         newDescription: TimerDescription,
         settings: TimerSettings.Patch?,
         sendEffect: (Effect) -> Unit,
+        coroutineScope: CoroutineScope,
     ) {
         coroutineScope.launch {
             when (val result = timerSettingsUseCase.execute(timerId, newName, newDescription, settings)) {

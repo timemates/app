@@ -6,6 +6,7 @@ import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachin
 import io.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import io.timemates.app.authorization.validation.EmailAddressValidator
 import io.timemates.app.foundation.mvi.Reducer
+import io.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.users.profile.types.value.EmailAddress
 import kotlinx.coroutines.CoroutineScope
@@ -14,9 +15,8 @@ import kotlinx.coroutines.launch
 class StartAuthorizationReducer(
     private val validateEmail: EmailAddressValidator,
     private val authorizeByEmail: AuthorizeByEmailUseCase,
-    private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
-    override fun reduce(state: State, event: Event, sendEffect: (Effect) -> Unit): State {
+    override fun ReducerScope<Effect>.reduce(state: State, event: Event): State {
         return when (event) {
             is Event.EmailChange -> state.copy(
                 email = event.email,
@@ -32,7 +32,7 @@ class StartAuthorizationReducer(
                     state.copy(isEmailLengthSizeInvalid = true)
 
                 EmailAddressValidator.Result.Success -> {
-                    authorizeWithEmail(state.email, sendEffect)
+                    authorizeWithEmail(state.email, sendEffect, machineScope)
                     state.copy(isLoading = true, isEmailInvalid = false)
                 }
             }
@@ -42,8 +42,9 @@ class StartAuthorizationReducer(
     private fun authorizeWithEmail(
         email: String,
         sendEffect: (Effect) -> Unit,
+        scope: CoroutineScope,
     ) {
-        coroutineScope.launch {
+        scope.launch {
             when (val result = authorizeByEmail.execute(EmailAddress.createOrThrow(email))) {
                 is AuthorizeByEmailUseCase.Result.Success ->
                     sendEffect(Effect.NavigateToConfirmation(result.verificationHash))

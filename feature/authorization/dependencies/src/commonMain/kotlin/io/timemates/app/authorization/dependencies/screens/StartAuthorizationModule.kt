@@ -30,7 +30,6 @@ class StartAuthorizationModule {
         return StartAuthorizationReducer(
             validateEmail = emailAddressValidator,
             authorizeByEmail = authorizeByEmailUseCase,
-            coroutineScope = CoroutineScope(Dispatchers.Default),
         )
     }
 

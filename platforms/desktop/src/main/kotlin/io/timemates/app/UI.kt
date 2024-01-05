@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -21,12 +20,13 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import io.timemates.app.navigation.LocalComponentContext
-import io.timemates.app.navigation.TimeMatesAppEntry
+import io.timemates.app.common.App
+import io.timemates.app.style.system.theme.AppTheme
+import io.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.channels.Channel
 
 @OptIn(ExperimentalDecomposeApi::class)
-fun startUi(authorizationFailedChannel: Channel<Unit>) {
+fun startUi(authorizationFailedChannel: Channel<UnauthorizedException>) {
     val lifecycle = LifecycleRegistry()
     val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
 
@@ -47,24 +47,23 @@ fun startUi(authorizationFailedChannel: Channel<Unit>) {
                 setIsAppVisible(!isAppVisible)
             }
         )
+        LifecycleController(lifecycle, windowState)
 
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
-            LifecycleController(lifecycle, windowState)
-
-            Window(
-                onCloseRequest = ::exitApplication,
-                state = windowState,
-                title = "TimeMates",
-                resizable = false,
-                undecorated = true,
-                transparent = true,
-                visible = isAppVisible,
-            ) {
-                window.isAlwaysOnTop = true
-
-                Box(modifier = Modifier.fillMaxSize().clip(MaterialTheme.shapes.small)) {
-                    TimeMatesAppEntry(
-                        navigateToAuthorization = authorizationFailedChannel,
+        Window(
+            onCloseRequest = ::exitApplication,
+            state = windowState,
+            title = "TimeMates",
+            resizable = false,
+            undecorated = true,
+            transparent = true,
+            visible = isAppVisible,
+        ) {
+            window.isAlwaysOnTop = true
+            Box(modifier = Modifier.fillMaxSize().clip(MaterialTheme.shapes.small)) {
+                AppTheme(useDarkTheme = false) {
+                    App(
+                        componentContext = rootComponentContext,
+                        authorizationFailedChannel,
                     )
                 }
             }

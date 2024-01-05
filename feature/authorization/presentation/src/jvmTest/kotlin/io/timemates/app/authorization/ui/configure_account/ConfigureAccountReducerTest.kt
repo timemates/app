@@ -2,13 +2,17 @@ package io.timemates.app.authorization.ui.configure_account
 
 import io.mockk.every
 import io.mockk.mockk
+import io.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountReducer
+import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
 import io.timemates.app.authorization.usecases.CreateNewAccountUseCase
 import io.timemates.app.authorization.validation.UserDescriptionValidator
 import io.timemates.app.authorization.validation.UserNameValidator
+import io.timemates.app.foundation.mvi.reduce
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -23,13 +27,14 @@ class ConfigureAccountReducerTest {
     private val validDescription = "Kotlin developer"
     private val invalidName = "ko"
     private val invalidDescription = ""
+    private val coroutineScope = TestScope()
+    private val sendEffect: (ConfigureAccountStateMachine.Effect) -> Unit = mockk(relaxed = true)
 
     private val reducer = ConfigureAccountReducer(
         verificationHash,
         createNewAccountUseCase,
         userNameValidator,
         userDescriptionValidator,
-        TestScope(),
     )
 
     @Test
@@ -41,7 +46,12 @@ class ConfigureAccountReducerTest {
             UserDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(State(name = validName, aboutYou = validDescription), Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            State(name = validName, aboutYou = validDescription),
+            Event.OnDoneClicked,
+            coroutineScope,
+            sendEffect,
+        )
 
         // THEN
         assertEquals(
@@ -65,7 +75,12 @@ class ConfigureAccountReducerTest {
             UserDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(State(name = validName, aboutYou = validDescription), Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            State(name = validName, aboutYou = validDescription),
+            Event.OnDoneClicked,
+            coroutineScope,
+            sendEffect,
+        )
 
         // THEN
         assertEquals(
@@ -89,7 +104,12 @@ class ConfigureAccountReducerTest {
             UserDescriptionValidator.Result.Success
 
         // WHEN
-        val result = reducer.reduce(State(name = invalidName, aboutYou = validDescription), Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            State(name = invalidName, aboutYou = validDescription),
+            Event.OnDoneClicked,
+            coroutineScope,
+            sendEffect,
+        )
 
         // THEN
         assertEquals(
@@ -113,7 +133,12 @@ class ConfigureAccountReducerTest {
             UserDescriptionValidator.Result.SizeViolation
 
         // WHEN
-        val result = reducer.reduce(State(name = validName, aboutYou = invalidDescription), Event.OnDoneClicked) {}
+        val result = reducer.reduce(
+            state = State(name = validName, aboutYou = invalidDescription),
+            event = Event.OnDoneClicked,
+            machineScope = coroutineScope,
+            sendEffect = sendEffect,
+        )
 
         // THEN
         assertEquals(

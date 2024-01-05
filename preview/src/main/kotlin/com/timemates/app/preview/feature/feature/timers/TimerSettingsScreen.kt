@@ -13,7 +13,6 @@ internal fun TimerSettingsScreenPreview() {
     AppTheme {
         TimerSettingsScreen(
             stateMachine = fakeStateMachine(State()),
-            saveChanges = {},
             navigateToTimersScreen = {},
         )
     }

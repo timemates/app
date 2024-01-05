@@ -25,7 +25,7 @@ class ConfirmEmailAuthorizationUseCaseTest {
     fun `execute with valid verification hash and confirmation code should return Success result`() {
         // GIVEN
         val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
-        val confirmationCode = ConfirmationCode.createOrThrow("123456")
+        val confirmationCode = ConfirmationCode.createOrThrow("12345678")
         val authorization: Authorization = mockk()
         val isNewAccount = false
         coEvery { authorizationsRepository.confirm(verificationHash, confirmationCode) } returns
@@ -46,7 +46,7 @@ class ConfirmEmailAuthorizationUseCaseTest {
     fun `execute with TooManyRequestsException should return AttemptsExceeded result`() {
         // GIVEN
         val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
-        val confirmationCode = ConfirmationCode.createOrThrow("123456")
+        val confirmationCode = ConfirmationCode.createOrThrow("12345678")
         val exception = TooManyRequestsException("Too many requests", cause = null)
         coEvery { authorizationsRepository.confirm(verificationHash, confirmationCode) } returns Result.failure(exception)
 
@@ -61,7 +61,7 @@ class ConfirmEmailAuthorizationUseCaseTest {
     fun `execute with other exceptions should return Failure result`() {
         // GIVEN
         val verificationHash = VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
-        val confirmationCode = ConfirmationCode.createOrThrow("123456")
+        val confirmationCode = ConfirmationCode.createOrThrow("12345678")
         val exception = InternalServerError("Some error", cause = null)
         coEvery { authorizationsRepository.confirm(verificationHash, confirmationCode) } returns Result.failure(exception)
 

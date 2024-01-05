@@ -18,6 +18,7 @@ import org.koin.core.annotation.Named
 class UsersDataModule {
     @Factory
     fun usersDatabase(@Named("users") sqlDriver: SqlDriver): TimeMatesUsers {
+        TimeMatesUsers.Schema.create(sqlDriver)
         return TimeMatesUsers(sqlDriver)
     }
 

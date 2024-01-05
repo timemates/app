@@ -13,10 +13,11 @@ import io.timemates.sdk.authorization.email.types.value.VerificationHash
 class StartAuthorizationStateMachine(
     reducer: StartAuthorizationReducer,
     middleware: StartAuthorizationMiddleware,
-) : StateMachine<State, Event, Effect>(reducer, middlewares = listOf(middleware)) {
-
-    override fun initDefaultState(): State = State()
-
+) : StateMachine<State, Event, Effect>(
+    initState = State(),
+    reducer = reducer,
+    middlewares = listOf(middleware)
+) {
     @Immutable
     data class State(
         val email: String = "",
@@ -28,11 +29,11 @@ class StartAuthorizationStateMachine(
     sealed class Event : UiEvent {
         data class EmailChange(val email: String) : Event()
 
-        object OnStartClick : Event()
+        data object OnStartClick : Event()
     }
 
     sealed class Effect : UiEffect {
-        object TooManyAttempts : Effect()
+        data object TooManyAttempts : Effect()
 
         data class Failure(val throwable: Throwable) : Effect()
 

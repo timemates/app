@@ -10,7 +10,7 @@ androidGradlePlugin = "8.2.0"
 androidComposeVersion = "2.6.2"
 jetpackComposeCompilerVersion = "1.5.6"
 jetbrainsCompose = "1.5.11"
-timeMatesSdk = "dev-adc3f9431bfb5f0e14e030d1ae6c8a7db0f6a1e2"
+timeMatesSdk = "dev-3f196ca76a515a6944539fafe8d7a0f3c8b2f54c"
 ksp = "1.9.21-1.0.16"
 android-target = "34"
 android-min = "24"
@@ -96,6 +96,7 @@ moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-re
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 android-multidex = { module = "androidx.multidex:multidex", version.require = "2.0.1" }

@@ -10,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
 import io.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
@@ -39,7 +39,6 @@ import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.channels.consumeEach
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfigureAccountScreen(
     stateMachine: StateMachine<State, Event, Effect>,
@@ -58,7 +57,7 @@ fun ConfigureAccountScreen(
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
-                    snackbarData.showSnackbar(message = strings.unknownFailure)
+                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
 
                 is Effect.NavigateToHomePage -> navigateToHome()
                 Effect.NavigateToStart -> onBack()

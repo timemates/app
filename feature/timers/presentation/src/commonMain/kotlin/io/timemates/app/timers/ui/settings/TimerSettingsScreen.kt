@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
@@ -66,7 +67,7 @@ fun TimerSettingsScreen(
         stateMachine.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
-                    snackbarData.showSnackbar(message = strings.unknownFailure)
+                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
 
                 Effect.NavigateToTimersScreen, Effect.Success -> navigateToTimersScreen()
             }

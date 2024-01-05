@@ -53,11 +53,19 @@ include(
 include(
     ":platforms:desktop",
     ":platforms:android",
+    ":platforms:common",
 )
 
 include(
     ":feature:common:domain",
     ":feature:common:presentation",
+)
+
+include(
+    ":feature:system:domain",
+    ":feature:system:presentation",
+    ":feature:system:adapters",
+    ":feature:system:dependencies",
 )
 
 include(

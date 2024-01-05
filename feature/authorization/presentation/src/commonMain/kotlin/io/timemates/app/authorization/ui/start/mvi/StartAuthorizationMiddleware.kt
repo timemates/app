@@ -26,8 +26,6 @@ class StartAuthorizationMiddleware : Middleware<State, Effect> {
         return when (effect) {
             is Effect.Failure, Effect.TooManyAttempts, is Effect.NavigateToConfirmation ->
                 store.state.value.copy(isLoading = false)
-
-            else -> store.state.value
         }
     }
 }

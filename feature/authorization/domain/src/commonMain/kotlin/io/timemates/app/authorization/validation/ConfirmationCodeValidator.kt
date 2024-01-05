@@ -20,7 +20,8 @@ class ConfirmationCodeValidator : Validator<String, ConfirmationCodeValidator.Re
             .map { Result.Success }
             .getOrElse {
                 when (it) {
-                    is CreationFailure.SizeExactFailure -> Result.SizeIsInvalid
+                    is CreationFailure.SizeExactFailure, is CreationFailure.BlankValueFailure ->
+                        Result.SizeIsInvalid
                     is CreationFailure.PatternFailure -> Result.PatternFailure
                     else -> unknownValidationFailure(it)
                 }

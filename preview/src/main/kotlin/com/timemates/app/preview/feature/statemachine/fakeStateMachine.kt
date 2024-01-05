@@ -1,6 +1,7 @@
 package com.timemates.app.preview.feature.statemachine
 
 import io.timemates.app.foundation.mvi.Reducer
+import io.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.foundation.mvi.UiEffect
 import io.timemates.app.foundation.mvi.UiEvent
@@ -10,14 +11,10 @@ internal fun <TState : UiState, TEvent : UiEvent, TEffect : UiEffect> fakeStateM
     state: TState,
 ): StateMachine<TState, TEvent, TEffect> {
     val reducer = object : Reducer<TState, TEvent, TEffect> {
-        override fun reduce(state: TState, event: TEvent, sendEffect: (TEffect) -> Unit): TState {
+        override fun ReducerScope<TEffect>.reduce(state: TState, event: TEvent): TState {
             return state
         }
     }
 
-    return object : StateMachine<TState, TEvent, TEffect>(reducer, listOf()) {
-        override fun initDefaultState(): TState {
-            return state
-        }
-    }
+    return object : StateMachine<TState, TEvent, TEffect>(state, reducer, listOf()) {}
 }

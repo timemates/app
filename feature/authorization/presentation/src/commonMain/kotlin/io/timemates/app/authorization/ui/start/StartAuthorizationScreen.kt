@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
 import io.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import io.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.localization.compose.LocalStrings
 import io.timemates.app.style.system.appbar.AppBar
@@ -52,7 +53,7 @@ fun StartAuthorizationScreen(
                     effect.throwable.printStackTrace()
 
                     snackbarData.showSnackbar(
-                        message = strings.unknownFailure,
+                        message = effect.throwable.getDefaultDisplayMessage(strings),
                         actionLabel = strings.dismiss,
                         duration = SnackbarDuration.Long,
                     )

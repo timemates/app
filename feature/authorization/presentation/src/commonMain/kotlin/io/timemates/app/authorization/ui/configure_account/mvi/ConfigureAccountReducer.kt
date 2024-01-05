@@ -7,6 +7,7 @@ import io.timemates.app.authorization.usecases.CreateNewAccountUseCase
 import io.timemates.app.authorization.validation.UserDescriptionValidator
 import io.timemates.app.authorization.validation.UserNameValidator
 import io.timemates.app.foundation.mvi.Reducer
+import io.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.users.profile.types.value.UserDescription
@@ -19,13 +20,8 @@ class ConfigureAccountReducer(
     private val createNewAccountUseCase: CreateNewAccountUseCase,
     private val userNameValidator: UserNameValidator,
     private val userDescriptionValidator: UserDescriptionValidator,
-    private val coroutineScope: CoroutineScope,
 ) : Reducer<State, Event, Effect> {
-    override fun reduce(
-        state: State,
-        event: Event,
-        sendEffect: (Effect) -> Unit,
-    ): State {
+    override fun ReducerScope<Effect>.reduce(state: State, event: Event): State {
         return when (event) {
             Event.OnDoneClicked -> {
                 val name = when (userNameValidator.validate(state.name)) {
@@ -41,7 +37,7 @@ class ConfigureAccountReducer(
                     else -> UserDescription.createOrThrow(state.aboutYou)
                 }
 
-                completeRegistration(name, description, sendEffect)
+                completeRegistration(name, description, sendEffect, machineScope)
                 return state.copy(isLoading = true)
             }
 
@@ -57,8 +53,9 @@ class ConfigureAccountReducer(
         name: UserName,
         description: UserDescription,
         sendEffect: (Effect) -> Unit,
+        scope: CoroutineScope,
     ) {
-        coroutineScope.launch {
+        scope.launch {
             when (val result = createNewAccountUseCase.execute(verificationHash, name, description)) {
                 is CreateNewAccountUseCase.Result.Failure ->
                     sendEffect(Effect.Failure(result.exception))
