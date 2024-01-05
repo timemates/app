@@ -10,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -40,7 +39,6 @@ import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.channels.consumeEach
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfigureAccountScreen(
     stateMachine: StateMachine<State, Event, Effect>,
