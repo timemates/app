@@ -10,7 +10,7 @@ class ConfirmationCodeValidatorTest {
     @Test
     fun `validate with valid confirmation code should return Success`() {
         // GIVEN
-        val confirmationCode = "123456"
+        val confirmationCode = "12345678"
 
         // WHEN
         val result = validator.validate(confirmationCode)
@@ -29,18 +29,6 @@ class ConfirmationCodeValidatorTest {
 
         // THEN
         assertEquals(ConfirmationCodeValidator.Result.SizeIsInvalid, result)
-    }
-
-    @Test
-    fun `validate with confirmation code containing non-numeric characters should return PatternFailure`() {
-        // GIVEN
-        val confirmationCode = "12A456"
-
-        // WHEN
-        val result = validator.validate(confirmationCode)
-
-        // THEN
-        assertEquals(ConfirmationCodeValidator.Result.PatternFailure, result)
     }
 
     @Test

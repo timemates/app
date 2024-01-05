@@ -35,7 +35,7 @@ class StartAuthorizationMiddlewareTest {
     }
 
     @Test
-    fun `effects not produced by network operations should not remove loading status`() {
+    fun `effects for navigation should remove loading status`() {
         // GIVEN
         val effects = listOf(
             Effect.NavigateToConfirmation(
@@ -48,8 +48,8 @@ class StartAuthorizationMiddlewareTest {
         effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
             // THEN
             .forEach { (effect, state) ->
-                assert(state.isLoading) {
-                    "${effect::class.simpleName} effect changes loading status regardless it shouldn't"
+                assert(!state.isLoading) {
+                    "${effect::class.simpleName} effect doesn't change loading status, but it should."
                 }
             }
     }

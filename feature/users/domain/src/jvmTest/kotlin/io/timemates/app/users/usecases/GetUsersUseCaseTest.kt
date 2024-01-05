@@ -46,12 +46,11 @@ class GetUsersUseCaseTest {
         val result = useCase.execute(userIds)
 
         // THEN
-        runTest {
-            assertEquals(
-                expected = GetUsersUseCase.Result.Success(users),
-                actual = result.first(),
-            )
-        }
+        assertEquals(
+            expected = GetUsersUseCase.Result.Success(users),
+            actual = result.first(),
+        )
+
     }
 
     @Test

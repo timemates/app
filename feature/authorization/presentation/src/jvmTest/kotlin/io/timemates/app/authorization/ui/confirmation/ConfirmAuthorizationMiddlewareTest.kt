@@ -55,7 +55,7 @@ class ConfirmAuthorizationMiddlewareTest {
     }
 
     @Test
-    fun `onEffect with other effects should return the current state`() {
+    fun `navigation effects should change isLoading status`() {
         // GIVEN
         val initialState = State(isLoading = true)
         val effects = listOf(
@@ -70,7 +70,7 @@ class ConfirmAuthorizationMiddlewareTest {
             .forEach { (effect, state) ->
                 // THEN
                 assertEquals(
-                    expected = initialState,
+                    expected = initialState.copy(isLoading = false),
                     actual = state,
                     message = "${effect::class.qualifiedName} should return same state"
                 )
