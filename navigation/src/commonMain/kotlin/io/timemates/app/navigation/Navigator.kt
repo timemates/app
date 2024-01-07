@@ -31,7 +31,6 @@ inline fun <reified C : Screen> ChildStack(
     noinline initialStack: () -> List<C>,
     modifier: Modifier = Modifier,
     key: String = "DefaultChildStack",
-    handleBackButton: Boolean = false,
     animation: StackAnimation<C, ComponentContext>? = null,
     noinline content: @Composable (C) -> Unit,
 ) {
