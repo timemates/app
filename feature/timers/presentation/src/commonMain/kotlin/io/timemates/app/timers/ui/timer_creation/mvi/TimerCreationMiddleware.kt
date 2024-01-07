@@ -6,12 +6,12 @@ import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.E
 import io.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
 
 class TimerCreationMiddleware : Middleware<State, Effect> {
-    override fun onEffect(effect: Effect, store: StateStore<State>): State {
+    override fun onEffect(effect: Effect, state: State): State {
         return when (effect) {
             is Effect.Failure ->
-                store.state.value.copy(isLoading = false)
+                state.copy(isLoading = false)
 
-            else -> store.state.value
+            else -> state
         }
     }
 }

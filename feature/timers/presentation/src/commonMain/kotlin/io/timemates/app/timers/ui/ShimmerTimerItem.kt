@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,7 +38,8 @@ fun PlaceholderTimerItem(){
     OutlinedCard(
         modifier = Modifier.fillMaxWidth(),
         border = BorderStroke(1.dp, AppTheme.colors.secondary),
-    ) {
+        colors = CardDefaults.outlinedCardColors(containerColor = AppTheme.colors.background),
+        ) {
         Row(
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,

@@ -22,7 +22,7 @@ class TimersListReducer (
         when(event) {
             is Event.Load -> {
                 getUserTimers(sendEffect, machineScope)
-                return state.copy(isLoading = true)
+                return state.copy(isLoading = pagesIterator == null || pagesIterator?.hasNext() == true)
             }
         }
     }
@@ -51,7 +51,6 @@ class TimersListReducer (
                         sendEffect(Effect.Failure(currentResult.exceptionOrNull()!!))
                     }
             } else {
-                println("sent")
                 sendEffect(Effect.NoMoreTimers)
             }
         }

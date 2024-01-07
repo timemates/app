@@ -11,14 +11,14 @@ import io.timemates.app.foundation.mvi.StateStore
  * the loading state from the UI.
  */
 class ConfirmAuthorizationMiddleware : Middleware<State, Effect> {
-    override fun onEffect(effect: Effect, store: StateStore<State>): State {
+    override fun onEffect(effect: Effect, state: State): State {
         return when (effect) {
             is Effect.Failure,
             Effect.TooManyAttempts,
             Effect.AttemptIsFailed,
             is Effect.NavigateToCreateAccount,
             is Effect.NavigateToHome,
-            -> store.state.value.copy(isLoading = false)
+            -> state.copy(isLoading = false)
         }
     }
 }

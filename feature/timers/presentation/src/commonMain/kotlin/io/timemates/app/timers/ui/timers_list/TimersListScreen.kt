@@ -125,14 +125,6 @@ fun TimersListScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-//                    Icon(
-//                        modifier = Modifier,
-//                        painter = painter,
-//                        contentDescription = null,
-//                        tint = AppTheme.colors.secondaryVariant,
-//                    )
-//
-//                    Spacer(Modifier.height(8.dp))
 
                     Text(
                         text = LocalStrings.current.noTimers,

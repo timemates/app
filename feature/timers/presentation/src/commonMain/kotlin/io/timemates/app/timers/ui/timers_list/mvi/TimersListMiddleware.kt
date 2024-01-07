@@ -6,18 +6,20 @@ import io.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
 import io.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
 
 class TimersListMiddleware : Middleware<State, Effect> {
-    override fun onEffect(effect: Effect, store: StateStore<State>): State {
+    override fun onEffect(effect: Effect, state: State): State {
         return when(effect) {
             is Effect.Failure -> {
-                store.state.value.copy(isLoading = false, isError = true)
+                state.copy(isLoading = false, isError = true)
             }
 
             is Effect.NoMoreTimers -> {
-                store.state.value.copy(hasMoreItems = false, isLoading = false)
+                println(state)
+                println("NO MORE ITEMS")
+                state.copy(hasMoreItems = false, isLoading = false)
             }
 
             is Effect.LoadTimers -> {
-                store.state.value.copy(timersList = (store.state.value.timersList + effect.timersList).distinct(), isLoading = false)
+                state.copy(timersList = (state.timersList + effect.timersList).distinct())
             }
         }
     }

@@ -12,8 +12,8 @@ public interface Middleware<TState : UiState, TEffect : UiEffect> {
      * Handles the given effect and performs any necessary side effects.
      *
      * @param effect The effect to handle.
-     * @param store The state store containing the current state.
+     * @param state The current state.
      */
-    public fun onEffect(effect: TEffect, store: StateStore<TState>): TState
+    public fun onEffect(effect: TEffect, state: TState): TState
 }
 

@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>(
     protected val initState: TState,
@@ -25,7 +26,8 @@ public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect :
     public val effects: ReceiveChannel<TEffect> by ::_effects
 
     private val sendEffect: (TEffect) -> Unit = { effect ->
-        middlewares.forEach { middleware -> setState(middleware.onEffect(effect, this)) }
+        println(effect)
+        middlewares.forEach { middleware -> updateState { middleware.onEffect(effect, it) } }
         _effects.trySend(effect)
     }
 
@@ -38,11 +40,11 @@ public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect :
      */
     public fun dispatchEvent(event: TEvent) {
         with(reducer) {
-            setState(reducerScope.reduce(state.value, event))
+            updateState { reducerScope.reduce(it, event) }
         }
     }
 
-    private fun setState(state: TState) {
-        _state.tryEmit(state)
+    private fun updateState(action: (TState) -> TState) {
+        _state.update { action(it) }
     }
 }

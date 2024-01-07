@@ -36,10 +36,10 @@ class AuthorizationFailureMiddleware<TState : UiState, TEffect : UiEffect>(
      * @param store The state store to access the current state.
      * @return The updated UI state after handling the effect.
      */
-    override fun onEffect(effect: TEffect, store: StateStore<TState>): TState {
+    override fun onEffect(effect: TEffect, state: TState): TState {
         if (effect is AuthorizationFailureEffect)
             onAuthorizationFailed.onFailed(effect.exception)
 
-        return store.state.value
+        return state
     }
 }

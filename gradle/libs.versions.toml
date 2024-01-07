@@ -20,7 +20,7 @@ jetpackComposeCompilerVersion = "1.5.6"
 jetbrainsCompose = "1.5.11"
 material = "1.11.0"
 
-timeMatesSdk = "dev-3f196ca76a515a6944539fafe8d7a0f3c8b2f54c"
+timeMatesSdk = "dev-8d542c313773fbda8127ed8e1dc2d20a70107b19"
 
 ksp = "1.9.21-1.0.16"
 
