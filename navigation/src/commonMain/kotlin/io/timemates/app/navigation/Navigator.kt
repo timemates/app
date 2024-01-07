@@ -40,7 +40,6 @@ inline fun <reified C : Screen> ChildStack(
             source = source,
             initialStack = initialStack,
             key = key,
-            handleBackButton = handleBackButton,
         ),
         modifier = modifier,
         animation = animation,
