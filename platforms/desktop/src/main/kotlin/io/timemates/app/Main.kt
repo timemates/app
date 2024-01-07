@@ -3,6 +3,7 @@ package io.timemates.app
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.timemates.app.common.initializeAppDependencies
 import io.timemates.app.foundation.time.SystemUTCTimeProvider
+import io.timemates.credentials.DesktopCredentialsStorage
 import io.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.channels.Channel
 import kotlin.io.path.pathString
@@ -20,6 +21,7 @@ fun main() {
         authorizationFailedChannel,
         driver,
         driver,
+        DesktopCredentialsStorage(),
     )
     startUi(authorizationFailedChannel)
 }
