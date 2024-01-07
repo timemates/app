@@ -7,7 +7,7 @@ kotlin {
     androidTarget()
 
     sourceSets {
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.androidx.compose.viewmodel)
                 implementation(libs.koin.androidx.compose)

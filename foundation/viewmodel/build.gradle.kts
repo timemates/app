@@ -7,8 +7,8 @@ kotlin {
     androidTarget()
 
     sourceSets {
-        val jvmMain by getting
-        val androidMain by getting {
+        jvmMain
+        androidMain {
             dependencies {
                 api(libs.androidx.lifecycle)
             }
