@@ -9,7 +9,7 @@ kotlin {
     androidTarget()
 
     sourceSets {
-        val jvmMain by getting {
+        jvmMain {
             kotlin.srcDir("build/generated/ksp/jvm/jvmMain/kotlin")
         }
     }

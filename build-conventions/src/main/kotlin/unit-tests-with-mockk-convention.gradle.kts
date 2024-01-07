@@ -18,7 +18,7 @@ val mockkVersion = "1.13.5"
 
 kotlin {
     sourceSets {
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation("io.mockk:mockk:$mockkVersion")
             }

@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "timemates-app"
 
-includeBuild("build-plugins/configurations")
+includeBuild("build-conventions")
 
 include(
     ":localization",

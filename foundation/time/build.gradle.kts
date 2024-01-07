@@ -4,10 +4,8 @@ plugins {
 
 kotlin {
     sourceSets {
-        val jvmMain by getting
-
-        val androidMain by getting {
-            dependsOn(jvmMain)
+        androidMain {
+            dependsOn(jvmMain.get())
         }
     }
 }

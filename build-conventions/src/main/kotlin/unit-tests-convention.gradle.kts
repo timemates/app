@@ -7,7 +7,7 @@ val coroutinesVersion = "1.7.1"
 
 kotlin {
     sourceSets {
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
                 implementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
