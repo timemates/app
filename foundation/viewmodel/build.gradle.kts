@@ -7,7 +7,6 @@ kotlin {
     androidTarget()
 
     sourceSets {
-        jvmMain
         androidMain {
             dependencies {
                 api(libs.androidx.lifecycle)

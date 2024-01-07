@@ -1,38 +1,53 @@
 [versions]
+# Kotlin
 kotlin = "1.9.21"
 kotlinx-coroutines = "1.7.3"
 kotlinx-serialization = "1.6.0"
+
+# Libraries
 ktor = "2.3.7"
+
+# Testing
 jupiter = "5.8.2"
-exposed = "0.41.1"
-kmongo = "4.8.0"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
+
+# UI
 androidGradlePlugin = "8.2.0"
 androidComposeVersion = "2.6.2"
 jetpackComposeCompilerVersion = "1.5.6"
 jetbrainsCompose = "1.5.11"
+material = "1.11.0"
+
 timeMatesSdk = "dev-3f196ca76a515a6944539fafe8d7a0f3c8b2f54c"
+
 ksp = "1.9.21-1.0.16"
-android-target = "34"
-android-min = "24"
+
+
+# Koin
 koin = "3.5.3"
 koin-annotations = "1.3.0"
+
 decompose = "2.2.1"
 sqldelight = "2.0.1"
 moko-resources = "0.23.0"
 jna = "5.13.0"
 core-ktx = "1.12.0"
-junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
-material = "1.11.0"
 credentials = "1.0.0"
 securityCryptoKtx = "1.1.0-alpha06"
 
+# Build constants
+android-target = "34"
+android-min = "24"
+
 [libraries]
+# KotlinX libraries
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.require = "0.4.0" }
 
+# Ktor
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
@@ -45,23 +60,13 @@ ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = 
 
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
+# Logging
 logback-classic = { module = "ch.qos.logback:logback-classic", version.require = "1.3.5" }
 
-litote-kmongo-async = { module = "org.litote.kmongo:kmongo-async", version.ref = "kmongo" }
-litote-kmongo-coroutines = { module = "org.litote.kmongo:kmongo-coroutine", version.ref="kmongo" }
-
-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter" }
-
-h2-database = { module = "com.h2database:h2", version.require = "2.1.214" }
-
-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
-
-simple-java-mail = { module = "org.simplejavamail:simple-java-mail", version.require = "7.6.0" }
-
+# Cache4k
 cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require="0.9.0" }
 
+# AndroidX Compose
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidComposeVersion" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidComposeVersion" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.require = "1.1.2" }
@@ -71,70 +76,115 @@ androidx-compose-activity = { module = "androidx.activity:activity-compose", ver
 androidx-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidComposeVersion" }
 androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.require = "1.5.4" }
 androidx-compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.require = "1.5.4" }
+
 compose-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.require = "0.31.6-rc" }
 
+# AndroidX (other)
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.6.2" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha03" }
 
+# TimeMates SDK
 timemates-sdk = { module = "io.timemates:sdk", version.ref = "timeMatesSdk" }
 timemates-engine-rsocket = { module = "io.timemates:rsocket-engine", version.ref = "timeMatesSdk" }
 timemates-credentials-manager = { module = "io.timemates.credentials:credentials-manager", version.ref = "credentials" }
 timemates-credentials-manager-android = { module = "io.timemates.credentials:credentials-manager-android", version.ref = "credentials" }
 
+# Koin
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
 koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotations" }
 
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha03" }
+# Decompose
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-jetbrains-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.require = "3.4.5" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.require = "1.0.3" }
 
+# Kotlin Plugin
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+# Android Gradle Plugin
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+
+# Compose Multiplatform Plugin
 compose-multiplatform-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrainsCompose" }
+
+# KSP Plugin
 ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 
+# Moko Resources
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
+
+# SQLDelight
 sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+
+# JNA
 jna-core = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
+# Android Multidex
 android-multidex = { module = "androidx.multidex:multidex", version.require = "2.0.1" }
 
-grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.require = "1.56.1" }
+# Core KTX
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+
+# JUnit
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+# Testing
+junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.5" }
 
+
+# Material
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# Compose resources
 libres-compose = { module = "io.github.skeptick.libres:libres-compose", version.require = "1.2.2" }
-androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 
 [plugins]
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-android-application = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-bundled-publish-library = { id = "publish-library", version.require = "SNAPSHOT" }
-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-koin-configuration = { id = "koin-configuration", version.require = "SNAPSHOT" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-cashapp-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+# Build conventions
 configurations-multiplatform-library = { id = "multiplatform-library-convention", version.require = "SNAPSHOT" }
 configurations-compose-multiplatform = { id = "compose-multiplatform-convention", version.require = "SNAPSHOT" }
 configurations-koin-annotations = { id = "koin-dependencies-convention", version.require = "SNAPSHOT" }
 configurations-unit-tests = { id = "unit-tests-convention", version.require = "SNAPSHOT" }
 configurations-unit-tests-mockable = { id = "unit-tests-with-mockk-convention", version.require = "SNAPSHOT" }
 configurations-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
-moko-multiplatform-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
+
+# Serialization Plugin
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# JVM Plugin
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+# Multiplatform Plugin
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+# JS Plugin
+kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
+
+# Android Plugin
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# Android Library Plugin
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+
+# Android Application Plugin
+android-application = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+
+# Compose Multiplatform Plugin
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
+
+# Code-generation
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+cashapp-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 libres = { id = "io.github.skeptick.libres", version.require = "1.2.2" }
