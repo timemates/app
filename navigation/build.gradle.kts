@@ -1,6 +1,6 @@
 plugins {
     id(libs.plugins.configurations.compose.multiplatform.get().pluginId)
-    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 dependencies {
@@ -20,4 +20,6 @@ dependencies {
 
     commonMainImplementation(projects.feature.system.domain)
     commonMainImplementation(projects.feature.system.presentation)
+
+    commonMainImplementation(libs.kotlinx.serialization)
 }

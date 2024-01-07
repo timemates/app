@@ -20,10 +20,8 @@ class TimeMatesApplication : MultiDexApplication() {
         internal val onAuthFailedChannel: Channel<UnauthorizedException> = Channel()
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-
+    override fun onCreate() {
+        super.onCreate()
         val (authDriver, usersDriver) = listOf(
             "authorization" to TimeMatesAuthorizations.Schema,
             "users" to TimeMatesUsers.Schema,
@@ -44,5 +42,10 @@ class TimeMatesApplication : MultiDexApplication() {
             usersDriver,
             credentialsStorage,
         )
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 }

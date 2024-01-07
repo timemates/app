@@ -2,47 +2,49 @@ package io.timemates.app.navigation
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import kotlinx.serialization.Serializable
 
-sealed class Screen : Parcelable {
+@Serializable
+sealed class Screen {
 
-    @Parcelize
+    @Serializable
     data object Startup : Screen() {
         private fun readResolve(): Any = Startup
     }
 
-    @Parcelize
+    @Serializable
     data object InitialAuthorizationScreen : Screen() {
         private fun readResolve(): Any = InitialAuthorizationScreen
     }
 
-    @Parcelize
+    @Serializable
     data object StartAuthorization : Screen() {
         private fun readResolve(): Any = StartAuthorization
     }
 
-    @Parcelize
+    @Serializable
     data class AfterStart(val verificationHash: String) : Screen()
 
-    @Parcelize
+    @Serializable
     data class ConfirmAuthorization(val verificationHash: String) : Screen()
 
-    @Parcelize
+    @Serializable
     data class NewAccountInfo(val verificationHash: String) : Screen()
 
-    @Parcelize
+    @Serializable
     data class NewAccount(val verificationHash: String) : Screen()
 
-    @Parcelize
+    @Serializable
     data object TimersList : Screen() {
         private fun readResolve(): Any = TimersList
     }
 
-    @Parcelize
+    @Serializable
     data object TimerCreation : Screen() {
         private fun readResolve(): Any = TimerCreation
     }
 
-    @Parcelize
+    @Serializable
     data object TimerSettings : Screen() {
         private fun readResolve(): Any = TimerSettings
     }
