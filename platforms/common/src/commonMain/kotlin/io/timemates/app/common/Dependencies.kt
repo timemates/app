@@ -17,6 +17,7 @@ import io.timemates.app.foundation.time.TimeProvider
 import io.timemates.app.timers.dependencies.screens.TimerCreationModule
 import io.timemates.app.timers.dependencies.screens.TimerSettingsModule
 import io.timemates.app.timers.dependencies.screens.TimersListModule
+import io.timemates.credentials.CredentialsStorage
 import io.timemates.data.database.TimeMatesAuthorizations
 import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import io.timemates.sdk.common.exceptions.UnauthorizedException
@@ -47,23 +48,20 @@ fun initializeAppDependencies(
     onAuthFailed: Channel<UnauthorizedException>,
     authDriver: SqlDriver,
     usersDriver: SqlDriver,
+    credentialsStorage: CredentialsStorage,
 ) {
     runBlocking {
         // we ignore errors here as we assume that there can be failures
         // according to the already existing table
         try {
             TimeMatesAuthorizations.Schema.awaitCreate(authDriver)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        } catch (_: Exception) {}
     }
 
     startKoin {
         val appModule = module {
             single<TimeMatesRequestsEngine> {
-                RSocketTimeMatesRequestsEngine(coroutineScope = CoroutineScope(Dispatchers.IO)) {
-
-                }
+                RSocketTimeMatesRequestsEngine(coroutineScope = CoroutineScope(Dispatchers.IO))
             }
 
             single<SqlDriver>(qualifier("authorization")) {
@@ -75,6 +73,10 @@ fun initializeAppDependencies(
 
             single<TimeProvider> {
                 timeProvider
+            }
+
+            single<CredentialsStorage> {
+                credentialsStorage
             }
 
             single<OnAuthorizationFailedHandler> { _ ->

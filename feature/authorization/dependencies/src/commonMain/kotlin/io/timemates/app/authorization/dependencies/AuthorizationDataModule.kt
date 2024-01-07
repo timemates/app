@@ -4,6 +4,7 @@ import app.cash.sqldelight.db.SqlDriver
 import io.timemates.app.authorization.data.DatabaseAccessHashProvider
 import io.timemates.app.authorization.data.DbAuthorizationMapper
 import io.timemates.app.authorization.repositories.AuthorizationsRepository
+import io.timemates.credentials.CredentialsStorage
 import io.timemates.data.database.TimeMatesAuthorizations
 import io.timemates.sdk.authorization.email.EmailAuthorizationApi
 import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
@@ -23,8 +24,11 @@ class AuthorizationDataModule {
     }
 
     @Factory
-    fun accessHashProvider(dbAuthorizations: TimeMatesAuthorizations): AccessHashProvider {
-        return DatabaseAccessHashProvider(dbAuthorizations.accountDatabaseQueries)
+    fun accessHashProvider(
+        dbAuthorizations: TimeMatesAuthorizations,
+        credentialsStorage: CredentialsStorage,
+    ): AccessHashProvider {
+        return DatabaseAccessHashProvider(dbAuthorizations.accountDatabaseQueries, credentialsStorage)
     }
 
     @Factory
@@ -32,12 +36,14 @@ class AuthorizationDataModule {
         requestsEngine: TimeMatesRequestsEngine,
         accessHashProvider: AccessHashProvider,
         dbAuthorizations: TimeMatesAuthorizations,
+        credentialsStorage: CredentialsStorage,
     ): AuthorizationsRepository {
         return AuthorizationsRepositoryImpl(
             emailAuthApi = EmailAuthorizationApi(requestsEngine),
             sessionsApi = AuthorizedSessionsApi(requestsEngine, accessHashProvider),
             localQueries = dbAuthorizations.accountDatabaseQueries,
-            mapper = DbAuthorizationMapper(),
+            mapper = DbAuthorizationMapper(credentialsStorage),
+            credentialsStorage = credentialsStorage,
         )
     }
 }

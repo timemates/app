@@ -34,6 +34,8 @@ dependencies {
     commonMainApi(projects.navigation)
     commonMainApi(projects.styleSystem)
 
+    commonMainApi(libs.timemates.credentials.manager)
+
     commonMainImplementation(projects.foundation.mvi)
     commonMainImplementation(projects.foundation.mvi.koinCompose)
 

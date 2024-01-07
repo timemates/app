@@ -71,4 +71,5 @@ dependencies {
     implementation(libs.androidx.compose.activity)
 
     implementation(projects.platforms.common)
+    implementation(libs.androidx.security.crypto.ktx)
 }

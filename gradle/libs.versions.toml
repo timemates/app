@@ -25,6 +25,8 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 material = "1.11.0"
+credentials = "1.0.0"
+securityCryptoKtx = "1.1.0-alpha06"
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -75,6 +77,8 @@ androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", ve
 
 timemates-sdk = { module = "io.timemates:sdk", version.ref = "timeMatesSdk" }
 timemates-engine-rsocket = { module = "io.timemates:rsocket-engine", version.ref = "timeMatesSdk" }
+timemates-credentials-manager = { module = "io.timemates.credentials:credentials-manager", version.ref = "credentials" }
+timemates-credentials-manager-android = { module = "io.timemates.credentials:credentials-manager-android", version.ref = "credentials" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
@@ -110,6 +114,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.5" }
 
 libres-compose = { module = "io.github.skeptick.libres:libres-compose", version.require = "1.2.2" }
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 
 [plugins]
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -1,6 +1,7 @@
 package io.timemates.app.authorization.data
 
 import io.timemates.app.authorization.data.database.AccountDatabaseQueries
+import io.timemates.credentials.CredentialsStorage
 import io.timemates.sdk.authorization.email.EmailAuthorizationApi
 import io.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
 import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
@@ -23,6 +24,7 @@ class AuthorizationsRepository(
     private val sessionsApi: AuthorizedSessionsApi,
     private val localQueries: AccountDatabaseQueries,
     private val mapper: DbAuthorizationMapper,
+    private val credentialsStorage: CredentialsStorage,
 ) : AuthorizationRepositoryContract {
     override suspend fun getCurrentAuthorization(): Authorization? {
         return localQueries.getCurrent().executeAsOneOrNull()
@@ -44,9 +46,7 @@ class AuthorizationsRepository(
                 val auth = it.authorization!!
                 localQueries.add(
                     userId = auth.userId.long,
-                    accessHashValue = auth.accessHash!!.value.string,
                     accessHashExpiresAt = auth.accessHash!!.expiresAt.toEpochMilliseconds(),
-                    refreshHashValue = auth.refreshHash!!.value.string,
                     refreshHashExpiresAt = auth.refreshHash!!.expiresAt.toEpochMilliseconds(),
                     generationTime = auth.generationTime.toEpochMilliseconds(),
                     metadataClientName = auth.metadata?.applicationName?.string,
@@ -54,6 +54,11 @@ class AuthorizationsRepository(
                     metadataClientVersion = auth.metadata?.clientVersion?.double ?: 1.0,
                     id = null,
                 )
+
+                val id = localQueries.getCurrent().executeAsOne().id
+
+                credentialsStorage.setString("access_hash_$id", auth.accessHash!!.value.string)
+                credentialsStorage.setString("refresh_hash_$id", auth.refreshHash!!.value.string)
             }
         }
     }
@@ -68,9 +73,7 @@ class AuthorizationsRepository(
                 with(result.authorization) {
                     localQueries.add(
                         null,
-                        accessHashValue = accessHash!!.value.string,
                         accessHashExpiresAt = accessHash!!.expiresAt.toEpochMilliseconds(),
-                        refreshHashValue = refreshHash!!.value.string,
                         refreshHashExpiresAt = refreshHash!!.expiresAt.toEpochMilliseconds(),
                         generationTime = generationTime.toEpochMilliseconds(),
                         metadataClientName = metadata?.applicationName?.string,
@@ -78,6 +81,11 @@ class AuthorizationsRepository(
                         metadataClientVersion = metadata?.clientVersion!!.double,
                         userId = userId.long,
                     )
+
+                    val id = localQueries.getCurrent().executeAsOne().id
+
+                    credentialsStorage.setString("access_hash_$id", accessHash!!.value.string)
+                    credentialsStorage.setString("refresh_hash_$id", refreshHash!!.value.string)
                 }
             }
 
