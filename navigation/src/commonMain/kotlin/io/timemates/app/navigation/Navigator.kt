@@ -14,7 +14,8 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigationSource
 import com.arkivanov.decompose.router.stack.childStack
-import com.arkivanov.essenty.parcelable.Parcelable
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.nullable
 
 val LocalComponentContext: ProvidableCompositionLocal<ComponentContext> =
     staticCompositionLocalOf { error("Root component context was not provided") }
@@ -25,7 +26,7 @@ fun ProvideComponentContext(componentContext: ComponentContext, content: @Compos
 }
 
 @Composable
-inline fun <reified C : Parcelable> ChildStack(
+inline fun <reified C : Screen> ChildStack(
     source: StackNavigationSource<C>,
     noinline initialStack: () -> List<C>,
     modifier: Modifier = Modifier,
@@ -66,11 +67,10 @@ fun <C : Any> ChildStack(
 }
 
 @Composable
-inline fun <reified C : Parcelable> rememberChildStack(
+inline fun <reified C : Screen> rememberChildStack(
     source: StackNavigationSource<C>,
     noinline initialStack: () -> List<C>,
     key: String = "DefaultChildStack",
-    handleBackButton: Boolean = false,
 ): State<ChildStack<C, ComponentContext>> {
     val componentContext = LocalComponentContext.current
 
@@ -78,9 +78,9 @@ inline fun <reified C : Parcelable> rememberChildStack(
         componentContext.childStack(
             source = source,
             initialStack = initialStack,
-            key = key,
-            handleBackButton = handleBackButton,
+            handleBackButton = true,
             childFactory = { _, childComponentContext -> childComponentContext },
+            serializer = Screen.serializer() as KSerializer<C>,
         )
     }.subscribeAsState()
 }
