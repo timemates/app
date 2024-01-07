@@ -61,7 +61,7 @@ fun TimeMatesAppEntry(
             is Screen.Startup -> StartupScreen(
                 stateMachine = stateMachine<StartupStateMachine>(),
                 navigateToAuth = { navigation.push(Screen.InitialAuthorizationScreen) },
-                navigateToHome = { navigation.push(Screen.TimersList) },
+                navigateToHome = { navigation.replaceAll(Screen.TimersList) },
             )
 
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
@@ -73,7 +73,7 @@ fun TimeMatesAppEntry(
                     navigation.replaceAll(Screen.StartAuthorization, Screen.NewAccountInfo(it))
                 },
                 navigateToHome = {
-                    navigation.push(Screen.TimersList)
+                    navigation.replaceAll(Screen.TimersList)
                 },
             )
 
@@ -123,7 +123,7 @@ fun TimeMatesAppEntry(
                     navigation.popTo(0)
                 },
                 navigateToHome = {
-                    navigation.push(Screen.TimersList)
+                    navigation.replaceAll(Screen.TimersList)
                 },
             )
 
