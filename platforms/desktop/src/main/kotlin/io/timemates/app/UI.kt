@@ -117,7 +117,6 @@ fun startUi(authorizationFailedChannel: Channel<UnauthorizedException>) {
                             window.isAlwaysOnTop = true
                             window.toFront()
                             window.requestFocus()
-                            window.isAlwaysOnTop = false
                         }
 
                         override fun windowDeactivated(e: WindowEvent?) {
