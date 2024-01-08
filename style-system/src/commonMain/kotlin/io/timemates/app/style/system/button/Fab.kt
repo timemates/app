@@ -26,7 +26,7 @@ fun FloatingActionButton(
 ) {
     androidx.compose.material3.FloatingActionButton(
         onClick = onClick,
-        modifier = modifier.size(48.dp),
+        modifier = modifier,
         interactionSource = interactionSource,
         shape = shape,
         containerColor = containerColor,

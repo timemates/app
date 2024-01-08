@@ -1,6 +1,7 @@
 package io.timemates.app.feature.common.startup
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import io.timemates.app.feature.common.startup.mvi.StartupEvent
 import io.timemates.app.foundation.mvi.EmptyState
 import io.timemates.app.foundation.mvi.StateMachine
 import io.timemates.app.style.system.Resources
+import io.timemates.app.style.system.theme.AppTheme
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 
@@ -35,9 +37,9 @@ fun StartupScreen(
         }
     }
 
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().background(AppTheme.colors.background), contentAlignment = Alignment.Center) {
         Image(
-            modifier = Modifier.size(64.dp),
+            modifier = Modifier.size(96.dp),
             painter = Resources.image.app_icon.painterResource(),
             contentDescription = null,
         )
