@@ -57,7 +57,6 @@ fun TimeMatesAppEntry(
         initialStack = { listOf(initialScreen) },
         animation = stackAnimation(fade() + scale()),
     ) { screen ->
-        println(screen)
         when (screen) {
             is Screen.Startup -> StartupScreen(
                 stateMachine = stateMachine<StartupStateMachine>(),

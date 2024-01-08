@@ -13,8 +13,6 @@ class TimersListMiddleware : Middleware<State, Effect> {
             }
 
             is Effect.NoMoreTimers -> {
-                println(state)
-                println("NO MORE ITEMS")
                 state.copy(hasMoreItems = false, isLoading = false)
             }
 

@@ -93,7 +93,7 @@ class TimerCreationReducer(
         coroutineScope: CoroutineScope,
     ) {
         coroutineScope.launch {
-            when (val result = timerCreationUseCase.execute(name, description, settings).also { println(it) }) {
+            when (val result = timerCreationUseCase.execute(name, description, settings)) {
                 is TimerCreationUseCase.Result.Failure ->
                     sendEffect(Effect.Failure(result.exception))
 

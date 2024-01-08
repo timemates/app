@@ -26,7 +26,6 @@ public abstract class StateMachine<TState : UiState, TEvent : UiEvent, TEffect :
     public val effects: ReceiveChannel<TEffect> by ::_effects
 
     private val sendEffect: (TEffect) -> Unit = { effect ->
-        println(effect)
         middlewares.forEach { middleware -> updateState { middleware.onEffect(effect, it) } }
         _effects.trySend(effect)
     }
