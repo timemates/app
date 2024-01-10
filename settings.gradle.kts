@@ -40,6 +40,7 @@ include(
     ":foundation:system-tray",
     ":foundation:shimmer-compose",
     ":foundation:time",
+    ":foundation:smart-value",
 )
 
 include(
