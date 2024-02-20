@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.cashapp.sqldelight)
 }
 android {
-    namespace = "io.timemates.app.data.database"
+    namespace = "org.timemates.app.data.database"
 }
 
 sqldelight {

@@ -16,7 +16,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        namespace = "io.timemates.app"
+        namespace = "org.timemates.app"
     }
 
     compileOptions {

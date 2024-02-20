@@ -11,6 +11,8 @@ plugins {
     alias(libs.plugins.compose.multiplatform) apply false
 }
 
+group = "org.timemates.app"
+
 allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {

@@ -26,5 +26,5 @@ dependencies {
 }
 
 android {
-    namespace = "io.timemates.app.mvi.compose"
+    namespace = "org.timemates.app.mvi.compose"
 }

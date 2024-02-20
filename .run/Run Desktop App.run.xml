@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run Desktop App" type="JetRunConfigurationType">
-    <option name="MAIN_CLASS_NAME" value="io.timemates.app.MainKt" />
+    <option name="MAIN_CLASS_NAME" value="org.timemates.app.MainKt" />
     <module name="timemates-app.platforms.desktop.main" />
     <shortenClasspath name="NONE" />
     <method v="2">

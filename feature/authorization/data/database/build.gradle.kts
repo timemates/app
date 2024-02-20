@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "io.timemates.app.authorization.data.database"
+    namespace = "org.timemates.app.authorization.data.database"
 }
 
 sqldelight {

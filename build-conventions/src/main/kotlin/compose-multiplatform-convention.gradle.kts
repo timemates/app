@@ -5,7 +5,7 @@ plugins {
 
 android {
     defaultConfig {
-        namespace = "io.timemates.app.ui"
+        namespace = "org.timemates.app.ui"
     }
 
     buildFeatures {
