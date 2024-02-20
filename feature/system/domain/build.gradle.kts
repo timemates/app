@@ -9,5 +9,5 @@ dependencies {
 }
 
 android {
-    namespace = "io.timemates.app.core"
+    namespace = "org.timemates.app.core"
 }

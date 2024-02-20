@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    namespace = "io.timemates.app.users.data.database"
+    namespace = "org.timemates.app.users.data.database"
 }
 
 sqldelight {
     databases {
         create("TimeMatesUsers") {
             generateAsync.set(true)
-            packageName.set("io.timemates.app.users.data.database")
+            packageName.set("org.timemates.app.users.data.database")
         }
     }
 }

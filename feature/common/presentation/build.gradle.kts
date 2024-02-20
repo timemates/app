@@ -24,5 +24,5 @@ dependencies {
 }
 
 android {
-    namespace = "io.timemates.app.core.ui"
+    namespace = "org.timemates.app.core.ui"
 }

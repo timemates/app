@@ -8,7 +8,7 @@ dependencies {
 }
 
 android {
-    namespace = "io.timemates.app.style.system"
+    namespace = "org.timemates.app.style.system"
 }
 
 libres {

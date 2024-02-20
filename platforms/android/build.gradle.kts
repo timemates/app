@@ -48,7 +48,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.jetpackComposeCompilerVersion.get()
     }
 
-    namespace = "io.timemates.app"
+    namespace = "org.timemates.app"
 }
 
 kotlin {

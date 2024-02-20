@@ -22,7 +22,7 @@ android {
         minSdk = libs.versions.android.min.get().toInt()
     }
 
-    namespace = "io.timemates.androidx.viewmodel"
+    namespace = "org.timemates.androidx.viewmodel"
 }
 
 dependencies {
