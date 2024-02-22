@@ -2,17 +2,16 @@ package org.timemates.app.timers.ui.timer_creation
 
 import io.mockk.every
 import io.mockk.mockk
+import io.timemates.sdk.common.constructor.createOrThrow
+import io.timemates.sdk.common.types.value.Count
+import kotlinx.coroutines.test.TestScope
+import org.junit.jupiter.api.Test
 import org.timemates.app.foundation.mvi.reduce
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationReducer
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent
 import org.timemates.app.users.usecases.TimerCreationUseCase
 import org.timemates.app.users.validation.TimerDescriptionValidator
 import org.timemates.app.users.validation.TimerNameValidator
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.test.TestScope
-import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -51,14 +50,14 @@ class TimerCreationReducerTest {
 
         // WHEN
         val result = reducer.reduce(
-            state = TimerCreationStateMachine.State(name = validName, description = validDescription),
-            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            state = TimerCreationScreenComponent.State(name = validName, description = validDescription),
+            event = TimerCreationScreenComponent.Event.OnDoneClicked,
             machineScope = scope,
         ) {}
 
         // THEN
         assertEquals(
-            expected = TimerCreationStateMachine.State(
+            expected = TimerCreationScreenComponent.State(
                 name = validName,
                 description = validDescription,
                 isNameSizeInvalid = false,
@@ -79,14 +78,14 @@ class TimerCreationReducerTest {
 
         // WHEN
         val result = reducer.reduce(
-            TimerCreationStateMachine.State(name = validName, description = validDescription),
-            TimerCreationStateMachine.Event.OnDoneClicked,
+            TimerCreationScreenComponent.State(name = validName, description = validDescription),
+            TimerCreationScreenComponent.Event.OnDoneClicked,
             scope,
         ) {}
 
         // THEN
         assertEquals(
-            expected = TimerCreationStateMachine.State(
+            expected = TimerCreationScreenComponent.State(
                 name = validName,
                 description = validDescription,
                 isNameSizeInvalid = false,
@@ -107,14 +106,14 @@ class TimerCreationReducerTest {
 
         // WHEN
         val result = reducer.reduce(
-            state = TimerCreationStateMachine.State(name = invalidName, description = validDescription),
-            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            state = TimerCreationScreenComponent.State(name = invalidName, description = validDescription),
+            event = TimerCreationScreenComponent.Event.OnDoneClicked,
             machineScope = scope,
         ) {}
 
         // THEN
         assertEquals(
-            expected = TimerCreationStateMachine.State(
+            expected = TimerCreationScreenComponent.State(
                 name = invalidName,
                 description = validDescription,
                 isNameSizeInvalid = true,
@@ -135,14 +134,14 @@ class TimerCreationReducerTest {
 
         // WHEN
         val result = reducer.reduce(
-            state = TimerCreationStateMachine.State(name = validName, description = invalidDescription),
-            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            state = TimerCreationScreenComponent.State(name = validName, description = invalidDescription),
+            event = TimerCreationScreenComponent.Event.OnDoneClicked,
             machineScope = scope,
         ) {}
 
         // THEN
         assertEquals(
-            expected = TimerCreationStateMachine.State(
+            expected = TimerCreationScreenComponent.State(
                 name = validName,
                 description = invalidDescription,
                 isNameSizeInvalid = false,
@@ -163,7 +162,7 @@ class TimerCreationReducerTest {
 
         // WHEN
         val result = reducer.reduce(
-            state = TimerCreationStateMachine.State(
+            state = TimerCreationScreenComponent.State(
                 name = validName,
                 description = validDescription,
                 workTime = workTime,
@@ -174,13 +173,13 @@ class TimerCreationReducerTest {
                 isEveryoneCanPause = isEveryoneCanPause,
                 isConfirmationRequired = isConfirmationRequired
             ),
-            event = TimerCreationStateMachine.Event.OnDoneClicked,
+            event = TimerCreationScreenComponent.Event.OnDoneClicked,
             machineScope = scope,
         ) {}
 
         // THEN
         assertEquals(
-            expected = TimerCreationStateMachine.State(
+            expected = TimerCreationScreenComponent.State(
                 name = validName,
                 description = validDescription,
                 workTime = workTime,

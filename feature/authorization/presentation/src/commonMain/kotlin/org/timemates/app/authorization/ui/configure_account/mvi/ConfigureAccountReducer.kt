@@ -1,19 +1,19 @@
 package org.timemates.app.authorization.ui.configure_account.mvi
 
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
-import org.timemates.app.authorization.usecases.CreateNewAccountUseCase
-import org.timemates.app.authorization.validation.UserDescriptionValidator
-import org.timemates.app.authorization.validation.UserNameValidator
-import org.timemates.app.foundation.mvi.Reducer
-import org.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Effect
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Event
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.State
+import org.timemates.app.authorization.usecases.CreateNewAccountUseCase
+import org.timemates.app.authorization.validation.UserDescriptionValidator
+import org.timemates.app.authorization.validation.UserNameValidator
+import org.timemates.app.foundation.mvi.Reducer
+import org.timemates.app.foundation.mvi.ReducerScope
 
 class ConfigureAccountReducer(
     private val verificationHash: VerificationHash,

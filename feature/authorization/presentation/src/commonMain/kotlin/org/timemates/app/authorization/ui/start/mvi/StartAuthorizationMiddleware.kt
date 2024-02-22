@@ -1,9 +1,8 @@
 package org.timemates.app.authorization.ui.start.mvi
 
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
 import org.timemates.app.foundation.mvi.Middleware
-import org.timemates.app.foundation.mvi.StateStore
 
 /**
  * A middleware responsible for handling effects in the Start Authorization screen.
@@ -20,7 +19,6 @@ class StartAuthorizationMiddleware : Middleware<State, Effect> {
      * it sets the loading state in the UI to false by updating the state.
      *
      * @param effect The effect to be handled.
-     * @param store The state store containing the current state.
      */
     override fun onEffect(effect: Effect, state: State): State {
         return when (effect) {

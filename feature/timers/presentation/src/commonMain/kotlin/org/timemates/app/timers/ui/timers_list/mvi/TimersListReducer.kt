@@ -1,17 +1,15 @@
 package org.timemates.app.timers.ui.timers_list.mvi
 
-import org.timemates.app.foundation.mvi.Reducer
-import org.timemates.app.foundation.mvi.ReducerScope
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Event
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
-import org.timemates.app.users.usecases.GetUserTimersUseCase
 import io.timemates.sdk.common.pagination.PagesIterator
 import io.timemates.sdk.timers.types.Timer
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.timemates.app.foundation.mvi.Reducer
+import org.timemates.app.foundation.mvi.ReducerScope
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Effect
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Event
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
+import org.timemates.app.users.usecases.GetUserTimersUseCase
 
 class TimersListReducer (
     private val getUserTimersUseCase: GetUserTimersUseCase,

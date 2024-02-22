@@ -25,29 +25,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Event
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import kotlinx.coroutines.channels.consumeEach
 
 @Composable
 fun StartAuthorizationScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
+    val state by mvi.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
 
     val strings = LocalStrings.current
 
     LaunchedEffect(true) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure -> {
                     effect.throwable.printStackTrace()
@@ -93,7 +93,7 @@ fun StartAuthorizationScreen(
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
                     value = state.email,
-                    onValueChange = { stateMachine.dispatchEvent(Event.EmailChange(it)) },
+                    onValueChange = { mvi.dispatchEvent(Event.EmailChange(it)) },
                     label = { Text(LocalStrings.current.email) },
                     isError = state.isEmailInvalid || state.isEmailLengthSizeInvalid,
                     supportingText = { if (supportText != null) Text(supportText) },
@@ -117,7 +117,7 @@ fun StartAuthorizationScreen(
                     enabled = !state.isLoading,
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
+                    onClick = { mvi.dispatchEvent(Event.OnStartClick) },
                     isLoading = state.isLoading
                 ) {
                     Text(text = LocalStrings.current.start)

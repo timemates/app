@@ -19,25 +19,25 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.StateMachine
+import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.State
+import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.button.Button
 import org.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.consumeEach
 
 @Composable
 fun InitialAuthorizationScreen(
-    stateMachine: StateMachine<EmptyState, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToStartAuthorization: () -> Unit,
 ) {
     val painter: Painter = Resources.image.initial_screen_image.painterResource()
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.NavigateToStart ->
                     navigateToStartAuthorization()
@@ -85,7 +85,7 @@ fun InitialAuthorizationScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = true,
-                onClick = { stateMachine.dispatchEvent(Event.OnStartClicked) },
+                onClick = { mvi.dispatchEvent(Event.OnStartClicked) },
             ) {
                 Text(LocalStrings.current.letsStart)
             }

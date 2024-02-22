@@ -12,33 +12,33 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
-import org.timemates.app.authorization.ui.afterstart.AfterStartScreen
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
-import org.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
-import org.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine
-import org.timemates.app.authorization.ui.initial_authorization.InitialAuthorizationScreen
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine
-import org.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine
-import org.timemates.app.authorization.ui.start.StartAuthorizationScreen
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
-import org.timemates.app.feature.common.startup.StartupScreen
-import org.timemates.app.feature.common.startup.mvi.StartupStateMachine
-import org.timemates.app.mvi.compose.stateMachine
-import org.timemates.app.timers.ui.settings.TimerSettingsScreen
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
-import org.timemates.app.timers.ui.timer_creation.TimerCreationScreen
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
-import org.timemates.app.timers.ui.timers_list.TimersListScreen
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import org.koin.core.parameter.parametersOf
+import org.timemates.app.authorization.ui.afterstart.AfterStartScreen
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent
+import org.timemates.app.authorization.ui.configure_account.ConfigureAccountScreen
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent
+import org.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent
+import org.timemates.app.authorization.ui.initial_authorization.InitialAuthorizationScreen
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent
+import org.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent
+import org.timemates.app.authorization.ui.start.StartAuthorizationScreen
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent
+import org.timemates.app.feature.common.startup.StartupScreen
+import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent
+import org.timemates.app.mvi.compose.koinMviComponent
+import org.timemates.app.timers.ui.settings.TimerSettingsScreen
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent
+import org.timemates.app.timers.ui.timer_creation.TimerCreationScreen
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent
+import org.timemates.app.timers.ui.timers_list.TimersListScreen
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent
 
 @Composable
 fun TimeMatesAppEntry(
@@ -52,6 +52,8 @@ fun TimeMatesAppEntry(
         }
     }
 
+    val componentContext = LocalComponentContext.current
+
     ChildStack(
         source = navigation,
         initialStack = { listOf(initialScreen) },
@@ -59,13 +61,15 @@ fun TimeMatesAppEntry(
     ) { screen ->
         when (screen) {
             is Screen.Startup -> StartupScreen(
-                stateMachine = stateMachine<StartupStateMachine>(),
+                mvi = koinMviComponent<StartupScreenMVIComponent> {
+                    parametersOf(componentContext)
+                },
                 navigateToAuth = { navigation.push(Screen.InitialAuthorizationScreen) },
                 navigateToHome = { navigation.replaceAll(Screen.TimersList) },
             )
 
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
-                stateMachine = stateMachine<ConfirmAuthorizationStateMachine> {
+                mvi = koinMviComponent<ConfirmAuthorizationScreenComponent> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = { navigation.pop() },
@@ -78,21 +82,21 @@ fun TimeMatesAppEntry(
             )
 
             Screen.InitialAuthorizationScreen -> InitialAuthorizationScreen(
-                stateMachine = stateMachine<InitialAuthorizationStateMachine>(),
+                mvi = koinMviComponent<InitialAuthorizationScreenComponent>(),
                 navigateToStartAuthorization = {
                     navigation.push(Screen.StartAuthorization)
                 },
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
-                stateMachine = stateMachine<StartAuthorizationStateMachine>(),
+                mvi = koinMviComponent<StartAuthorizationComponent>(),
                 onNavigateToConfirmation = {
                     navigation.push(Screen.AfterStart(it.string))
                 },
             )
 
             is Screen.AfterStart -> AfterStartScreen(
-                stateMachine = stateMachine<AfterStartStateMachine> {
+                mvi = koinMviComponent<AfterStartScreenComponent> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfirmation = {
@@ -104,7 +108,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccountInfo -> NewAccountInfoScreen(
-                stateMachine = stateMachine<NewAccountInfoStateMachine> {
+                mvi = koinMviComponent<NewAccountInfoScreenComponent> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfigure = {
@@ -116,7 +120,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.NewAccount -> ConfigureAccountScreen(
-                stateMachine = stateMachine<ConfigureAccountStateMachine> {
+                mvi = koinMviComponent<ConfigureAccountScreenComponent> {
                     parametersOf(VerificationHash.createOrThrow(screen.verificationHash))
                 },
                 onBack = {
@@ -128,7 +132,7 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.TimersList -> TimersListScreen(
-                stateMachine = stateMachine<TimersListStateMachine>(),
+                mvi = koinMviComponent<TimersListScreenComponent>(),
                 navigateToSetting = {
                     // TODO when settings page is ready
                 },
@@ -141,14 +145,14 @@ fun TimeMatesAppEntry(
             )
 
             is Screen.TimerCreation -> TimerCreationScreen(
-                stateMachine = stateMachine<TimerCreationStateMachine>(),
+                mvi = koinMviComponent<TimerCreationScreenComponent>(),
                 navigateToTimersScreen = {
                     navigation.pop()
                 },
             )
 
             is Screen.TimerSettings -> TimerSettingsScreen(
-                stateMachine = stateMachine<TimerSettingsStateMachine>(),
+                mvi = koinMviComponent<TimerSettingsScreenComponent>(),
                 navigateToTimersScreen = {
                     navigation.pop()
                 },

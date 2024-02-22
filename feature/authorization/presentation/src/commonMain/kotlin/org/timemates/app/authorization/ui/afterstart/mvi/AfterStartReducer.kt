@@ -1,14 +1,14 @@
 package org.timemates.app.authorization.ui.afterstart.mvi
 
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Effect
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Effect
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Event
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.State
 import org.timemates.app.foundation.mvi.Reducer
 import org.timemates.app.foundation.mvi.ReducerScope
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
 
-class AfterStartReducer(private val verificationHash: VerificationHash) : Reducer<EmptyState, Event, Effect> {
-    override fun ReducerScope<Effect>.reduce(state: EmptyState, event: Event): EmptyState {
+class AfterStartReducer(private val verificationHash: VerificationHash) : Reducer<State, Event, Effect> {
+    override fun ReducerScope<Effect>.reduce(state: State, event: Event): State {
         return when (event) {
             is Event.NextClicked -> {
                 sendEffect(Effect.NavigateToConfirmation(verificationHash))

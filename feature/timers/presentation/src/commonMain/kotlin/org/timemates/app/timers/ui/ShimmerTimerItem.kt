@@ -34,17 +34,17 @@ import androidx.compose.ui.unit.dp
 import org.timemates.app.style.system.theme.AppTheme
 
 @Composable
-fun PlaceholderTimerItem(){
+fun PlaceholderTimerItem() {
     OutlinedCard(
         modifier = Modifier.fillMaxWidth(),
         border = BorderStroke(1.dp, AppTheme.colors.secondary),
         colors = CardDefaults.outlinedCardColors(containerColor = AppTheme.colors.background),
-        ) {
+    ) {
         Row(
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column{
+            Column {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.4f)

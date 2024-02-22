@@ -2,19 +2,17 @@ package org.timemates.app.authorization.ui.configure_account
 
 import io.mockk.every
 import io.mockk.mockk
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import kotlinx.coroutines.test.TestScope
+import org.junit.jupiter.api.Test
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountReducer
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Event
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.State
 import org.timemates.app.authorization.usecases.CreateNewAccountUseCase
 import org.timemates.app.authorization.validation.UserDescriptionValidator
 import org.timemates.app.authorization.validation.UserNameValidator
 import org.timemates.app.foundation.mvi.reduce
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.test.TestScope
-import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ConfigureAccountReducerTest {
@@ -28,7 +26,7 @@ class ConfigureAccountReducerTest {
     private val invalidName = "ko"
     private val invalidDescription = ""
     private val coroutineScope = TestScope()
-    private val sendEffect: (ConfigureAccountStateMachine.Effect) -> Unit = mockk(relaxed = true)
+    private val sendEffect: (ConfigureAccountScreenComponent.Effect) -> Unit = mockk(relaxed = true)
 
     private val reducer = ConfigureAccountReducer(
         verificationHash,

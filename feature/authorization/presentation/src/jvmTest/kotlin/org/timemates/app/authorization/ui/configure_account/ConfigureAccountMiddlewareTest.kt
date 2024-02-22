@@ -1,27 +1,23 @@
 package org.timemates.app.authorization.ui.configure_account
 
-import io.mockk.every
 import io.mockk.mockk
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountMiddleware
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine
-import org.timemates.app.foundation.mvi.StateStore
 import io.timemates.sdk.authorization.sessions.types.Authorization
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountMiddleware
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.State
 
 class ConfigureAccountMiddlewareTest {
-    private val stateStore: StateStore<ConfigureAccountStateMachine.State> = mockk()
     private val middleware: ConfigureAccountMiddleware = ConfigureAccountMiddleware()
     private val authorization: Authorization = mockk()
 
     @Test
     fun `effects produced by network operations should remove loading status`() {
         // GIVEN
-        val effects = listOf(ConfigureAccountStateMachine.Effect.Failure(Exception()))
-        every { stateStore.state } returns MutableStateFlow(ConfigureAccountStateMachine.State(isLoading = true))
+        val effects = listOf(ConfigureAccountScreenComponent.Effect.Failure(Exception()))
 
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, State(isLoading = true)) }
             // THEN
             .forEach { (effect, state) ->
                 assert(!state.isLoading) {
@@ -34,13 +30,12 @@ class ConfigureAccountMiddlewareTest {
     fun `effects not produced by network operations should not remove loading status`() {
         // GIVEN
         val effects = listOf(
-            ConfigureAccountStateMachine.Effect.NavigateToStart,
-            ConfigureAccountStateMachine.Effect.NavigateToHomePage(authorization)
+            ConfigureAccountScreenComponent.Effect.NavigateToStart,
+            ConfigureAccountScreenComponent.Effect.NavigateToHomePage(authorization)
         )
-        every { stateStore.state } returns MutableStateFlow(ConfigureAccountStateMachine.State(isLoading = true))
 
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, State(isLoading = true)) }
             // THEN
             .forEach { (effect, state) ->
                 assert(state.isLoading) {

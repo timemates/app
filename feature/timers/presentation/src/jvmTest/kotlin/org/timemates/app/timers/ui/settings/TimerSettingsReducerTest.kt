@@ -2,19 +2,18 @@ package org.timemates.app.timers.ui.settings
 
 import io.mockk.every
 import io.mockk.mockk
-import org.timemates.app.foundation.mvi.reduce
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsReducer
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
-import org.timemates.app.users.usecases.TimerSettingsUseCase
-import org.timemates.app.users.validation.TimerDescriptionValidator
-import org.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.value.Count
 import io.timemates.sdk.timers.types.value.TimerId
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
+import org.timemates.app.foundation.mvi.reduce
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsReducer
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Event
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.State
+import org.timemates.app.users.usecases.TimerSettingsUseCase
+import org.timemates.app.users.validation.TimerDescriptionValidator
+import org.timemates.app.users.validation.TimerNameValidator
 import kotlin.test.assertEquals
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes

@@ -1,19 +1,19 @@
 package org.timemates.app.timers.ui.timer_creation.mvi
 
-import org.timemates.app.foundation.mvi.Reducer
-import org.timemates.app.foundation.mvi.ReducerScope
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Effect
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Event
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
-import org.timemates.app.users.usecases.TimerCreationUseCase
-import org.timemates.app.users.validation.TimerDescriptionValidator
-import org.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.timers.types.TimerSettings
 import io.timemates.sdk.timers.types.value.TimerDescription
 import io.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.timemates.app.foundation.mvi.Reducer
+import org.timemates.app.foundation.mvi.ReducerScope
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Effect
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Event
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.State
+import org.timemates.app.users.usecases.TimerCreationUseCase
+import org.timemates.app.users.validation.TimerDescriptionValidator
+import org.timemates.app.users.validation.TimerNameValidator
 
 class TimerCreationReducer(
     private val timerCreationUseCase: TimerCreationUseCase,

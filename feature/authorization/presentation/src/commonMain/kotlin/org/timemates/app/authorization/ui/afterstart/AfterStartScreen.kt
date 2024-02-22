@@ -22,32 +22,32 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.StateMachine
+import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Effect
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Event
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.State
+import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.Button
 import org.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.consumeEach
 
 @Composable
 fun AfterStartScreen(
-    stateMachine: StateMachine<EmptyState, Event, AfterStartStateMachine.Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
     val painter: Painter = Resources.image.confirm_authorization_info_image.painterResource()
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
-                is AfterStartStateMachine.Effect.NavigateToConfirmation ->
+                is Effect.NavigateToConfirmation ->
                     navigateToConfirmation(effect.verificationHash.string)
 
-                AfterStartStateMachine.Effect.OnChangeEmailClicked ->
+                Effect.OnChangeEmailClicked ->
                     navigateToStart()
             }
         }
@@ -58,7 +58,7 @@ fun AfterStartScreen(
             AppBar(
                 navigationIcon = {
                     IconButton(
-                        onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
+                        onClick = { mvi.dispatchEvent(Event.OnChangeEmailClicked) },
                     ) {
                         Icon(Icons.Rounded.ArrowBack, contentDescription = null)
                     }
@@ -106,7 +106,7 @@ fun AfterStartScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = false,
-                onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
+                onClick = { mvi.dispatchEvent(Event.OnChangeEmailClicked) },
             ) {
                 Text(LocalStrings.current.changeEmail)
             }
@@ -114,7 +114,7 @@ fun AfterStartScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = true,
-                onClick = { stateMachine.dispatchEvent(Event.NextClicked) },
+                onClick = { mvi.dispatchEvent(Event.NextClicked) },
             ) {
                 Text(LocalStrings.current.nextStep)
             }

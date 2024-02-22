@@ -1,22 +1,27 @@
-package org.timemates.app.timers.ui.settings.mvi
+package org.timemates.app.timers.ui.timer_creation.mvi
 
 import androidx.compose.runtime.Immutable
-import org.timemates.app.foundation.mvi.StateMachine
+import com.arkivanov.decompose.ComponentContext
+import io.timemates.sdk.common.constructor.createOrThrow
+import io.timemates.sdk.common.types.value.Count
+import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
 import org.timemates.app.foundation.mvi.UiState
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Effect
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
+import org.timemates.app.foundation.mvi.mviComponent
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Effect
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Event
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.State
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
-class TimerSettingsStateMachine(
-    reducer: TimerSettingsReducer,
-    middleware: TimerSettingsMiddleware,
-) : StateMachine<State, Event, Effect>(
+class TimerCreationScreenComponent(
+    componentContext: ComponentContext,
+    reducer: TimerCreationReducer,
+    middleware: TimerCreationMiddleware,
+) : MVIComponent<State, Event, Effect> by mviComponent(
+    componentContext = componentContext,
+    componentName = "TimerCreationScreen",
     initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
@@ -61,8 +66,6 @@ class TimerSettingsStateMachine(
 
     sealed class Effect : UiEffect {
         data class Failure(val throwable: Throwable) : Effect()
-
-        data object Success : Effect()
 
         data object NavigateToTimersScreen : Effect()
     }

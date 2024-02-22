@@ -3,15 +3,13 @@ package org.timemates.app.common.mvi.middleware
 import io.mockk.clearAllMocks
 import io.mockk.mockk
 import io.mockk.verify
-import org.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware.AuthorizationFailureEffect
-import org.timemates.app.feature.common.handler.OnAuthorizationFailedHandler
-import org.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware
-import org.timemates.app.foundation.mvi.StateStore
-import org.timemates.app.foundation.mvi.UiEffect
-import org.timemates.app.foundation.mvi.UiState
 import io.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import org.timemates.app.feature.common.handler.OnAuthorizationFailedHandler
+import org.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware
+import org.timemates.app.feature.common.middleware.AuthorizationFailureMiddleware.AuthorizationFailureEffect
+import org.timemates.app.foundation.mvi.UiEffect
+import org.timemates.app.foundation.mvi.UiState
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -46,7 +44,7 @@ class AuthorizationFailureMiddlewareTest {
         val effect = TestEffect.AuthorizationFailure(exception)
 
         // WHEN
-        middleware.onEffect(effect, createStateStore())
+        middleware.onEffect(effect, TestState.Initial)
 
         // THEN
         verify(exactly = 1) { onAuthorizationFailed.onFailed(exception) }
@@ -58,16 +56,9 @@ class AuthorizationFailureMiddlewareTest {
         val effect = TestEffect.AnyOther
 
         // WHEN
-        val result = middleware.onEffect(effect, createStateStore())
+        val result = middleware.onEffect(effect, TestState.Initial)
 
         // THEN
         assertEquals(expected = TestState.Initial, actual = result)
-    }
-
-    private fun createStateStore(): StateStore<TestState> {
-        return object : StateStore<TestState> {
-            override val state: StateFlow<TestState>
-                get() = stateFlow
-        }
     }
 }

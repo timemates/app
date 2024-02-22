@@ -1,24 +1,31 @@
 package org.timemates.app.authorization.ui.confirmation.mvi
 
 import androidx.compose.runtime.Immutable
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
-import org.timemates.app.foundation.mvi.StateMachine
+import com.arkivanov.decompose.ComponentContext
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import io.timemates.sdk.authorization.sessions.types.Authorization
+import kotlinx.serialization.Serializable
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
+import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
 import org.timemates.app.foundation.mvi.UiState
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.app.foundation.mvi.mviComponent
 
-class ConfirmAuthorizationStateMachine(
+class ConfirmAuthorizationScreenComponent(
+    componentContext: ComponentContext,
     reducer: ConfirmAuthorizationsReducer,
     middleware: ConfirmAuthorizationMiddleware,
-) : StateMachine<State, Event, Effect>(
+) : MVIComponent<State, Event, Effect> by mviComponent(
+    componentContext = componentContext,
+    componentName = "ConfirmAuthorizationComponent",
     initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
+    @Serializable
     @Immutable
     data class State(
         val code: String = "",

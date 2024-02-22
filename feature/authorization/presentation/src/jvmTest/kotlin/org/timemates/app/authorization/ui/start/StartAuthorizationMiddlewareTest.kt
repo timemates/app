@@ -1,31 +1,26 @@
 package org.timemates.app.authorization.ui.start
 
-import io.mockk.every
 import io.mockk.mockk
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
-import org.timemates.app.foundation.mvi.StateStore
-import org.timemates.app.foundation.random.nextString
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.common.constructor.createOrThrow
-import kotlinx.coroutines.flow.MutableStateFlow
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
+import org.timemates.app.foundation.random.nextString
 import kotlin.random.Random
 import kotlin.test.Test
 
 class StartAuthorizationMiddlewareTest {
-    private val stateStore: StateStore<State> = mockk()
     private val middleware: StartAuthorizationMiddleware = StartAuthorizationMiddleware()
 
     @Test
     fun `effects produced by network operations should remove loading status`() {
         // GIVEN
         val effects = listOf(Effect.TooManyAttempts, Effect.Failure(Exception()))
-        every { stateStore.state } returns MutableStateFlow(State(isLoading = true))
 
 
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, State(isLoading = true)) }
             // THEN
             .forEach { (effect, state) ->
                 assert(!state.isLoading) {
@@ -42,10 +37,9 @@ class StartAuthorizationMiddlewareTest {
                 VerificationHash.createOrThrow(Random.nextString(VerificationHash.SIZE))
             )
         )
-        every { stateStore.state } returns MutableStateFlow(State(isLoading = true))
 
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, State(isLoading = true)) }
             // THEN
             .forEach { (effect, state) ->
                 assert(!state.isLoading) {

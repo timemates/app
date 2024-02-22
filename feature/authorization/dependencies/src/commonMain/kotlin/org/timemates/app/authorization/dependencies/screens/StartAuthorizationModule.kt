@@ -1,17 +1,16 @@
 package org.timemates.app.authorization.dependencies.screens
 
-import org.timemates.app.authorization.dependencies.AuthorizationDataModule
-import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationReducer
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine
-import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
-import org.timemates.app.authorization.validation.EmailAddressValidator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.arkivanov.decompose.ComponentContext
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton
+import org.timemates.app.authorization.dependencies.AuthorizationDataModule
+import org.timemates.app.authorization.repositories.AuthorizationsRepository
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationReducer
+import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
+import org.timemates.app.authorization.validation.EmailAddressValidator
 
 @Module(includes = [AuthorizationDataModule::class])
 class StartAuthorizationModule {
@@ -37,11 +36,13 @@ class StartAuthorizationModule {
     fun middleware(): StartAuthorizationMiddleware = StartAuthorizationMiddleware()
 
     @Factory
-    fun stateMachine(
+    fun mviComponent(
+        componentContext: ComponentContext,
         reducer: StartAuthorizationReducer,
         middleware: StartAuthorizationMiddleware,
-    ): StartAuthorizationStateMachine {
-        return StartAuthorizationStateMachine(
+    ): StartAuthorizationComponent {
+        return StartAuthorizationComponent(
+            componentContext = componentContext,
             reducer = reducer,
             middleware = middleware,
         )

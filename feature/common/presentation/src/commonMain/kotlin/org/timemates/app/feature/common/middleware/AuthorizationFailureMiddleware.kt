@@ -2,7 +2,6 @@ package org.timemates.app.feature.common.middleware
 
 import org.timemates.app.feature.common.handler.OnAuthorizationFailedHandler
 import org.timemates.app.foundation.mvi.Middleware
-import org.timemates.app.foundation.mvi.StateStore
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiState
 import io.timemates.sdk.common.exceptions.UnauthorizedException

@@ -30,31 +30,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.compose.painterResource
 import io.github.skeptick.libres.compose.painterResource
+import io.timemates.sdk.timers.types.value.TimerId
+import kotlinx.coroutines.channels.consumeEach
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
+import org.timemates.app.style.system.button.FloatingActionButton
+import org.timemates.app.style.system.theme.AppTheme
 import org.timemates.app.timers.ui.PlaceholderTimerItem
 import org.timemates.app.timers.ui.TimerItem
-import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Event
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
-import org.timemates.app.style.system.button.FloatingActionButton
-import io.timemates.sdk.timers.types.value.TimerId
-import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Effect
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Event
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
 
 @Composable
 fun TimersListScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToSetting: () -> Unit,
     navigateToTimerCreationScreen: () -> Unit,
     navigateToTimer: (TimerId) -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
+    val state by mvi.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
     val timersListState = rememberLazyListState()
 
@@ -63,9 +62,9 @@ fun TimersListScreen(
     val strings = LocalStrings.current
 
     LaunchedEffect(true) {
-        stateMachine.dispatchEvent(Event.Load)
+        mvi.dispatchEvent(Event.Load)
 
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
@@ -75,10 +74,10 @@ fun TimersListScreen(
         }
     }
 
-    if(state.hasMoreItems) {
+    if (state.hasMoreItems) {
         LaunchedEffect(timersListState.layoutInfo.visibleItemsInfo.lastOrNull()) {
             if (timersListState.isScrolledToTheEnd()) {
-                stateMachine.dispatchEvent(Event.Load)
+                mvi.dispatchEvent(Event.Load)
             }
         }
     }
@@ -166,7 +165,7 @@ fun TimersListScreen(
     }
 }
 
-fun LazyListState.isScrolledToTheEnd() : Boolean {
+fun LazyListState.isScrolledToTheEnd(): Boolean {
     val lastItem = layoutInfo.visibleItemsInfo.lastOrNull()
     return lastItem == null || lastItem.size + lastItem.offset <= layoutInfo.viewportEndOffset
 }

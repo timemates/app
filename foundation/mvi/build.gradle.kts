@@ -1,5 +1,6 @@
 plugins {
     id(libs.plugins.configurations.multiplatform.library.get().pluginId)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -9,6 +10,6 @@ kotlin {
 }
 
 dependencies {
-    commonMainApi(projects.foundation.viewmodel)
     commonMainImplementation(libs.kotlinx.coroutines)
+    commonMainApi(libs.decompose)
 }

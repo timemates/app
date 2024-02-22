@@ -1,31 +1,43 @@
 package org.timemates.app.feature.common.startup.mvi
 
+import com.arkivanov.decompose.ComponentContext
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.State
 import org.timemates.app.feature.system.repositories.AuthRepository
-import org.timemates.app.foundation.mvi.EmptyState
+import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.ReducerScope
-import org.timemates.app.foundation.mvi.StateMachine
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
-import kotlinx.coroutines.launch
+import org.timemates.app.foundation.mvi.UiState
+import org.timemates.app.foundation.mvi.mviComponent
 import org.timemates.app.foundation.mvi.Reducer as MviReducer
 
 /**
  * The global app state machine. Responsible for checking whether user is authorized
  * and for a new updates (TODO).
  */
-class StartupStateMachine(
+class StartupScreenMVIComponent(
+    componentContext: ComponentContext,
     authRepository: AuthRepository,
-) : StateMachine<EmptyState, StartupEvent, StartupEffect>(
-    initState = EmptyState,
+) : MVIComponent<State, StartupEvent, StartupEffect> by mviComponent(
+    componentContext = componentContext,
+    componentName = "StartupScreen",
+    initState = State,
     reducer = Reducer(authRepository),
 ) {
+    @Serializable
+    data object State : UiState {
+        private fun readResolve(): Any = State
+    }
+
     class Reducer(
         private val authRepository: AuthRepository,
-    ) : MviReducer<EmptyState, StartupEvent, StartupEffect> {
+    ) : MviReducer<State, StartupEvent, StartupEffect> {
         override fun ReducerScope<StartupEffect>.reduce(
-            state: EmptyState,
+            state: State,
             event: StartupEvent,
-        ): EmptyState {
+        ): State {
             return when (event) {
                 StartupEvent.Started -> {
                     machineScope.launch {

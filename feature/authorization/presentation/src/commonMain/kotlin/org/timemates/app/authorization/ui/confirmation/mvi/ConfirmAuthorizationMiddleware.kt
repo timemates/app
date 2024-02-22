@@ -1,9 +1,8 @@
 package org.timemates.app.authorization.ui.confirmation.mvi
 
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
 import org.timemates.app.foundation.mvi.Middleware
-import org.timemates.app.foundation.mvi.StateStore
 
 /**
  * This middleware works with async operation effects and updates the state when necessary.

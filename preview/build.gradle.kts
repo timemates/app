@@ -42,6 +42,9 @@ dependencies {
     implementation(projects.localization)
     implementation(projects.localization.compose)
 
+    implementation(libs.decompose)
+    implementation(libs.decompose.jetbrains.compose)
+
     implementation(projects.feature.authorization.presentation)
     implementation(projects.feature.timers.presentation)
 }

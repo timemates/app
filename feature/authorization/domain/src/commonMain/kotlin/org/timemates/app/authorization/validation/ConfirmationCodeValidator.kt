@@ -1,9 +1,9 @@
 package org.timemates.app.authorization.validation
 
-import org.timemates.app.foundation.validation.Validator
-import org.timemates.app.foundation.validation.unknownValidationFailure
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 import io.timemates.sdk.common.constructor.CreationFailure
+import org.timemates.app.foundation.validation.Validator
+import org.timemates.app.foundation.validation.unknownValidationFailure
 
 /**
  * A validator for confirmation codes.
@@ -32,10 +32,10 @@ class ConfirmationCodeValidator : Validator<String, ConfirmationCodeValidator.Re
      * The possible validation results for a confirmation code.
      */
     sealed class Result {
-        object SizeIsInvalid : Result()
+        data object SizeIsInvalid : Result()
 
-        object PatternFailure : Result()
+        data object PatternFailure : Result()
 
-        object Success : Result()
+        data object Success : Result()
     }
 }

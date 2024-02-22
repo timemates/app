@@ -1,23 +1,30 @@
 package org.timemates.app.authorization.ui.start.mvi
 
 import androidx.compose.runtime.Immutable
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
-import org.timemates.app.foundation.mvi.StateMachine
+import com.arkivanov.decompose.ComponentContext
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import kotlinx.serialization.Serializable
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Event
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
 import org.timemates.app.foundation.mvi.UiState
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.app.foundation.mvi.mviComponent
 
-class StartAuthorizationStateMachine(
+class StartAuthorizationComponent(
+    componentContext: ComponentContext,
     reducer: StartAuthorizationReducer,
     middleware: StartAuthorizationMiddleware,
-) : StateMachine<State, Event, Effect>(
+) : MVIComponent<State, Event, Effect> by mviComponent(
+    componentContext = componentContext,
+    componentName = "StartAuthorizationComponent",
     initState = State(),
     reducer = reducer,
-    middlewares = listOf(middleware)
+    middlewares = listOf(middleware),
 ) {
+    @Serializable
     @Immutable
     data class State(
         val email: String = "",

@@ -1,28 +1,23 @@
 package org.timemates.app.timers.ui.timers_list
 
-import io.mockk.every
-import io.mockk.mockk
-import org.timemates.app.foundation.mvi.StateStore
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListMiddleware
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListMiddleware
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
 
 class TimersListMiddlewareTest {
-    private val stateStore: StateStore<TimersListStateMachine.State> = mockk()
     private val middleware: TimersListMiddleware = TimersListMiddleware()
 
     @Test
     fun `effects produced by network operations should remove loading status`() {
         // GIVEN
         val effects = listOf(
-            TimersListStateMachine.Effect.Failure(Exception()),
-            TimersListStateMachine.Effect.NoMoreTimers
+            TimersListScreenComponent.Effect.Failure(Exception()),
+            TimersListScreenComponent.Effect.NoMoreTimers
         )
-        every { stateStore.state } returns MutableStateFlow(TimersListStateMachine.State(isLoading = true))
 
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, State(isLoading = true)) }
             // THEN
             .forEach { (effect, state) ->
                 assert(!state.isLoading) {

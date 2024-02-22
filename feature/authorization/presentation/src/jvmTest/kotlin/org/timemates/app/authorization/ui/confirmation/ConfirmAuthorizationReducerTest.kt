@@ -2,26 +2,23 @@ package org.timemates.app.authorization.ui.confirmation
 
 import io.mockk.every
 import io.mockk.mockk
-import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
+import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import io.timemates.sdk.common.constructor.createOrThrow
+import kotlinx.coroutines.test.TestScope
+import org.junit.jupiter.api.Test
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationsReducer
 import org.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
 import org.timemates.app.authorization.validation.ConfirmationCodeValidator
 import org.timemates.app.foundation.mvi.reduce
 import org.timemates.app.foundation.random.nextString
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.constructor.createOrThrow
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.test.TestScope
-import org.junit.jupiter.api.Test
 import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class ConfirmAuthorizationReducerTest {
-    private val authorizationsRepository: AuthorizationsRepository = mockk()
     private val confirmationCodeValidator: ConfirmationCodeValidator = mockk()
     private val confirmEmailAuthorizationUseCase: ConfirmEmailAuthorizationUseCase = mockk()
     private val coroutineScope = TestScope()

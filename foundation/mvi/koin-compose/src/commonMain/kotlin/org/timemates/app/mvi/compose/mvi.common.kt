@@ -1,20 +1,22 @@
+@file:Suppress("USELESS_CAST")
+
 package org.timemates.app.mvi.compose
 
 import androidx.compose.runtime.Composable
-import org.timemates.app.foundation.mvi.StateMachine
+import org.koin.compose.LocalKoinScope
 import org.koin.core.parameter.ParametersDefinition
-
+import org.timemates.app.foundation.mvi.*
 
 /**
  * Creates and returns an instance of the specified state machine using the provided factory.
  *
  * @param TSM The reified type of the state machine.
- * @param TState The type of the state in the state machine.
- * @param TEvent The type of the events in the state machine.
- * @param TEffect The type of the effects in the state machine.
+ * @param factory The factory to create the state machine instance.
  * @return The created instance of the state machine.
  */
 @Composable
-expect inline fun <reified TSM : StateMachine<*, *, *>> stateMachine(
+inline fun <reified TSM : MVIComponent<*, *, *>> koinMviComponent(
     noinline parameters: ParametersDefinition? = null,
-): TSM
+): TSM {
+    return LocalKoinScope.current.getKoin().get<TSM>(parameters = parameters)
+}

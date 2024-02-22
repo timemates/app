@@ -1,19 +1,24 @@
 package org.timemates.app.timers.ui.timers_list.mvi
 
 import androidx.compose.runtime.Immutable
-import org.timemates.app.foundation.mvi.StateMachine
+import com.arkivanov.decompose.ComponentContext
+import io.timemates.sdk.timers.types.Timer
+import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
 import org.timemates.app.foundation.mvi.UiState
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Event
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
-import io.timemates.sdk.timers.types.Timer
+import org.timemates.app.foundation.mvi.mviComponent
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Effect
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Event
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
 
-class TimersListStateMachine(
+class TimersListScreenComponent(
+    componentContext: ComponentContext,
     reducer: TimersListReducer,
     middleware: TimersListMiddleware,
-) : StateMachine<State, Event, Effect>(
+) : MVIComponent<State, Event, Effect> by mviComponent(
+    componentName = "TimersListScreen",
+    componentContext = componentContext,
     initState = State(),
     reducer = reducer,
     middlewares = listOf(middleware),

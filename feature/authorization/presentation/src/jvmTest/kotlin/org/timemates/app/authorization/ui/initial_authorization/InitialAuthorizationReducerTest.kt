@@ -2,14 +2,13 @@ package org.timemates.app.authorization.ui.initial_authorization
 
 import io.mockk.mockk
 import io.mockk.verify
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationReducer
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.reduce
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationReducer
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent.State
+import org.timemates.app.foundation.mvi.reduce
 import kotlin.test.assertEquals
 
 class InitialAuthorizationReducerTest {
@@ -20,7 +19,7 @@ class InitialAuthorizationReducerTest {
     @Test
     fun `reducing event OnStartClicked event should not update the state`() {
         //GIVEN
-        val state: EmptyState = EmptyState
+        val state = State
         val event: Event.OnStartClicked = Event.OnStartClicked
 
         //WHEN

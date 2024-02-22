@@ -1,25 +1,19 @@
 package org.timemates.app.timers.ui.settings
 
-import io.mockk.every
-import io.mockk.mockk
-import org.timemates.app.foundation.mvi.StateStore
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsMiddleware
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsMiddleware
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent
 
 class TimerSettingsMiddlewareTest {
-    private val stateStore: StateStore<TimerSettingsStateMachine.State> = mockk()
     private val middleware: TimerSettingsMiddleware = TimerSettingsMiddleware()
 
     @Test
     fun `effects produced by network operations should remove loading status`() {
         //GIVEN
-        val effects = listOf(TimerSettingsStateMachine.Effect.Failure(Exception()))
-        every { stateStore.state } returns MutableStateFlow(TimerSettingsStateMachine.State(isLoading = true))
+        val effects = listOf(TimerSettingsScreenComponent.Effect.Failure(Exception()))
 
         //WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, stateStore) }
+        effects.map { effect -> effect to middleware.onEffect(effect, TimerSettingsScreenComponent.State(isLoading = true)) }
             //THEN
             .forEach { (effect, state) ->
                 assert(!state.isLoading) {

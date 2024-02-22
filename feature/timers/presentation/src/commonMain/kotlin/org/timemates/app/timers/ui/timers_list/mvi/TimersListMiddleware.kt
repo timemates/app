@@ -1,9 +1,8 @@
 package org.timemates.app.timers.ui.timers_list.mvi
 
 import org.timemates.app.foundation.mvi.Middleware
-import org.timemates.app.foundation.mvi.StateStore
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Effect
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
 
 class TimersListMiddleware : Middleware<State, Effect> {
     override fun onEffect(effect: Effect, state: State): State {

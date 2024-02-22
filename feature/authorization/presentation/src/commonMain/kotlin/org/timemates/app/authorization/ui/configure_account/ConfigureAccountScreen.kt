@@ -27,25 +27,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Effect
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.Event
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountStateMachine.State
-import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
-import org.timemates.app.localization.compose.LocalStrings
-import org.timemates.app.style.system.appbar.AppBar
-import org.timemates.app.style.system.button.ButtonWithProgress
 import io.timemates.sdk.users.profile.types.value.UserDescription
 import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Effect
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Event
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.State
+import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
+import org.timemates.app.foundation.mvi.MVI
+import org.timemates.app.localization.compose.LocalStrings
+import org.timemates.app.style.system.appbar.AppBar
+import org.timemates.app.style.system.button.ButtonWithProgress
 
 @Composable
 fun ConfigureAccountScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToHome: () -> Unit,
     onBack: () -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
+    val state by mvi.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
 
     val nameSize = remember(state.name) { state.name.length }
@@ -54,7 +54,7 @@ fun ConfigureAccountScreen(
     val strings = LocalStrings.current
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
@@ -96,7 +96,7 @@ fun ConfigureAccountScreen(
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = { Icon(Icons.Outlined.PersonOutline, contentDescription = null) },
                 value = state.name,
-                onValueChange = { stateMachine.dispatchEvent(Event.NameIsChanged(it)) },
+                onValueChange = { mvi.dispatchEvent(Event.NameIsChanged(it)) },
                 label = { Text(LocalStrings.current.yourName) },
                 isError = state.isNameSizeInvalid || nameSize > UserName.SIZE_RANGE.last,
                 singleLine = true,
@@ -118,7 +118,7 @@ fun ConfigureAccountScreen(
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.aboutYou,
-                onValueChange = { stateMachine.dispatchEvent(Event.DescriptionIsChanged(it)) },
+                onValueChange = { mvi.dispatchEvent(Event.DescriptionIsChanged(it)) },
                 label = { Text(LocalStrings.current.aboutYou) },
                 isError = state.isAboutYouSizeInvalid || aboutYouSize > UserDescription.SIZE_RANGE.last,
                 maxLines = 5,
@@ -150,7 +150,7 @@ fun ConfigureAccountScreen(
                 ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { stateMachine.dispatchEvent(Event.OnDoneClicked) },
+                    onClick = { mvi.dispatchEvent(Event.OnDoneClicked) },
                     enabled = !state.isLoading,
                     isLoading = state.isLoading
                 ) {

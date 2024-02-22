@@ -1,19 +1,13 @@
 package org.timemates.app.authorization.ui.confirmation
 
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationMiddleware
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
-import org.timemates.app.foundation.mvi.StateStore
-import kotlinx.coroutines.flow.MutableStateFlow
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ConfirmAuthorizationMiddlewareTest {
-
-    private val store: StateStore<State> = mockk(relaxed = true)
     private val middleware = ConfirmAuthorizationMiddleware()
 
     @Test
@@ -22,17 +16,14 @@ class ConfirmAuthorizationMiddlewareTest {
         val initialState = State(isLoading = true)
         val effect = Effect.Failure(RuntimeException("Authorization failed"))
 
-        every { store.state } returns MutableStateFlow(initialState)
-
         // WHEN
-        val newState = middleware.onEffect(effect, store)
+        val newState = middleware.onEffect(effect, initialState)
 
         // THEN
         assertEquals(
             expected = initialState.copy(isLoading = false),
             actual = newState
         )
-        verify { store.state }
     }
 
     @Test
@@ -41,17 +32,14 @@ class ConfirmAuthorizationMiddlewareTest {
         val initialState = State(isLoading = true)
         val effect = Effect.TooManyAttempts
 
-        every { store.state } returns MutableStateFlow(initialState)
-
         // WHEN
-        val newState = middleware.onEffect(effect, store)
+        val newState = middleware.onEffect(effect, initialState)
 
         // THEN
         assertEquals(
             expected = initialState.copy(isLoading = false),
             actual = newState
         )
-        verify { store.state }
     }
 
     @Test
@@ -63,10 +51,8 @@ class ConfirmAuthorizationMiddlewareTest {
             mockk<Effect.NavigateToHome>(),
         )
 
-        every { store.state } returns MutableStateFlow(initialState)
-
         // WHEN
-        effects.map { effect -> effect to middleware.onEffect(effect, store) }
+        effects.map { effect -> effect to middleware.onEffect(effect, initialState) }
             .forEach { (effect, state) ->
                 // THEN
                 assertEquals(

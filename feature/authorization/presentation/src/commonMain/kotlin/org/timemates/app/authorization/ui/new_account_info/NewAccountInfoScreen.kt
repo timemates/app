@@ -22,27 +22,27 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Effect
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.StateMachine
+import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Effect
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Event
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.State
+import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.Button
 import org.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.consumeEach
 
 @Composable
 fun NewAccountInfoScreen(
-    stateMachine: StateMachine<EmptyState, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToConfigure: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
     val painter: Painter = Resources.image.new_account_info_image.painterResource()
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.NavigateToAccountConfiguring ->
                     navigateToConfigure(effect.verificationHash.string)
@@ -58,7 +58,7 @@ fun NewAccountInfoScreen(
             AppBar(
                 navigationIcon = {
                     IconButton(
-                        onClick = { stateMachine.dispatchEvent(Event.OnBackClicked) },
+                        onClick = { mvi.dispatchEvent(Event.OnBackClicked) },
                     ) {
                         Icon(Icons.Rounded.ArrowBack, contentDescription = null)
                     }
@@ -106,7 +106,7 @@ fun NewAccountInfoScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = true,
-                onClick = { stateMachine.dispatchEvent(Event.NextClicked) },
+                onClick = { mvi.dispatchEvent(Event.NextClicked) },
             ) {
                 Text(LocalStrings.current.nextStep)
             }

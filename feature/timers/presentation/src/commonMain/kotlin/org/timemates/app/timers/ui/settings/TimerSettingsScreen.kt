@@ -32,30 +32,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
-import org.timemates.app.localization.compose.LocalStrings
-import org.timemates.app.style.system.appbar.AppBar
-import org.timemates.app.style.system.button.ButtonWithProgress
-import org.timemates.app.style.system.text_field.SizedOutlinedTextField
-import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Effect
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.common.types.value.Count
 import io.timemates.sdk.timers.types.value.TimerDescription
 import io.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
+import org.timemates.app.foundation.mvi.MVI
+import org.timemates.app.localization.compose.LocalStrings
+import org.timemates.app.style.system.appbar.AppBar
+import org.timemates.app.style.system.button.ButtonWithProgress
+import org.timemates.app.style.system.text_field.SizedOutlinedTextField
+import org.timemates.app.style.system.theme.AppTheme
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Effect
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Event
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.State
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.DurationUnit
 
 @Composable
 fun TimerSettingsScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Event, Effect>,
     navigateToTimersScreen: () -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
+    val state by mvi.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
 
     val nameSize = remember(state.name) { state.name.length }
@@ -64,7 +64,7 @@ fun TimerSettingsScreen(
     val strings = LocalStrings.current
 
     LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
+        mvi.effects.consumeEach { effect ->
             when (effect) {
                 is Effect.Failure ->
                     snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
@@ -107,7 +107,7 @@ fun TimerSettingsScreen(
             SizedOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.name,
-                onValueChange = { stateMachine.dispatchEvent(Event.NameIsChanged(it)) },
+                onValueChange = { mvi.dispatchEvent(Event.NameIsChanged(it)) },
                 label = { Text(LocalStrings.current.name) },
                 isError = state.isNameSizeInvalid || nameSize > TimerName.SIZE_RANGE.last,
                 singleLine = true,
@@ -124,7 +124,7 @@ fun TimerSettingsScreen(
             SizedOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.description,
-                onValueChange = { stateMachine.dispatchEvent(Event.DescriptionIsChanged(it)) },
+                onValueChange = { mvi.dispatchEvent(Event.DescriptionIsChanged(it)) },
                 label = { Text(LocalStrings.current.description) },
                 isError = state.isDescriptionSizeInvalid || descriptionSize > TimerDescription.SIZE_RANGE.last,
                 maxLines = 5,
@@ -154,7 +154,7 @@ fun TimerSettingsScreen(
                     modifier = Modifier
                         .weight(1f),
                     value = state.workTime.toInt(unit = DurationUnit.MINUTES).toString(),
-                    onValueChange = { stateMachine.dispatchEvent(Event.WorkTimeIsChanged(it.toInt().minutes)) },
+                    onValueChange = { mvi.dispatchEvent(Event.WorkTimeIsChanged(it.toInt().minutes)) },
                     label = { Text(LocalStrings.current.workTime) },
                     singleLine = true,
                     enabled = !state.isLoading,
@@ -167,7 +167,7 @@ fun TimerSettingsScreen(
                     modifier = Modifier
                         .weight(1f),
                     value = state.restTime.toInt(unit = DurationUnit.MINUTES).toString(),
-                    onValueChange = { stateMachine.dispatchEvent(Event.RestTimeIsChanged(it.toInt().minutes)) },
+                    onValueChange = { mvi.dispatchEvent(Event.RestTimeIsChanged(it.toInt().minutes)) },
                     label = { Text(LocalStrings.current.restTime) },
                     singleLine = true,
                     enabled = !state.isLoading,
@@ -182,7 +182,7 @@ fun TimerSettingsScreen(
             ) {
                 Checkbox(
                     checked = state.bigRestEnabled,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.BigRestModeIsChanged(!state.bigRestEnabled)) },
+                    onCheckedChange = { mvi.dispatchEvent(Event.BigRestModeIsChanged(!state.bigRestEnabled)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
                 )
@@ -202,7 +202,7 @@ fun TimerSettingsScreen(
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
                         value = state.bigRestPer.int.toString(),
-                        onValueChange = { stateMachine.dispatchEvent(Event.BigRestPerIsChanged(Count.createOrThrow(it.toInt()))) },
+                        onValueChange = { mvi.dispatchEvent(Event.BigRestPerIsChanged(Count.createOrThrow(it.toInt()))) },
                         label = { Text(LocalStrings.current.every) },
                         singleLine = true,
                         enabled = !state.isLoading,
@@ -211,7 +211,7 @@ fun TimerSettingsScreen(
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
                         value = state.bigRestTime.toInt(unit = DurationUnit.MINUTES).toString(),
-                        onValueChange = { stateMachine.dispatchEvent(Event.BigRestTimeIsChanged(it.toInt().minutes)) },
+                        onValueChange = { mvi.dispatchEvent(Event.BigRestTimeIsChanged(it.toInt().minutes)) },
                         label = { Text(LocalStrings.current.minutes) },
                         singleLine = true,
                         enabled = !state.isLoading,
@@ -234,7 +234,7 @@ fun TimerSettingsScreen(
             ) {
                 Checkbox(
                     checked = state.isEveryoneCanPause,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.TimerPauseControlAccessIsChanged(!state.isEveryoneCanPause)) },
+                    onCheckedChange = { mvi.dispatchEvent(Event.TimerPauseControlAccessIsChanged(!state.isEveryoneCanPause)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
                 )
@@ -251,7 +251,7 @@ fun TimerSettingsScreen(
             ) {
                 Checkbox(
                     checked = state.isConfirmationRequired,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.ConfirmationRequirementChanged(!state.isConfirmationRequired)) },
+                    onCheckedChange = { mvi.dispatchEvent(Event.ConfirmationRequirementChanged(!state.isConfirmationRequired)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
                 )
@@ -278,7 +278,7 @@ fun TimerSettingsScreen(
                 ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { stateMachine.dispatchEvent(Event.OnDoneClicked) },
+                    onClick = { mvi.dispatchEvent(Event.OnDoneClicked) },
                     enabled = !state.isLoading,
                     isLoading = state.isLoading
                 ) {

@@ -1,13 +1,5 @@
 package org.timemates.app.timers.ui.settings.mvi
 
-import org.timemates.app.foundation.mvi.Reducer
-import org.timemates.app.foundation.mvi.ReducerScope
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Effect
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.Event
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsStateMachine.State
-import org.timemates.app.users.usecases.TimerSettingsUseCase
-import org.timemates.app.users.validation.TimerDescriptionValidator
-import org.timemates.app.users.validation.TimerNameValidator
 import io.timemates.sdk.common.constructor.createOrThrow
 import io.timemates.sdk.timers.types.TimerSettings
 import io.timemates.sdk.timers.types.value.TimerDescription
@@ -15,6 +7,14 @@ import io.timemates.sdk.timers.types.value.TimerId
 import io.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.timemates.app.foundation.mvi.Reducer
+import org.timemates.app.foundation.mvi.ReducerScope
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Effect
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Event
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.State
+import org.timemates.app.users.usecases.TimerSettingsUseCase
+import org.timemates.app.users.validation.TimerDescriptionValidator
+import org.timemates.app.users.validation.TimerNameValidator
 
 
 class TimerSettingsReducer(

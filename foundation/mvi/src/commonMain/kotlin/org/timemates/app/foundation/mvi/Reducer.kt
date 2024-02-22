@@ -16,11 +16,6 @@ public interface Reducer<TState : UiState, TEvent : UiEvent, TEffect : UiEffect>
      *
      * @param state The current state of the UI.
      * @param event The event to be processed.
-     * @param sendEffect The function to send effects to the UI.
-     *                   Call `sendEffect(effect)` to send an effect to be handled by the UI.
-     *                   The effect will be delivered asynchronously.
-     *                   Note: Ensure proper handling and validation of effects to avoid issues like
-     *                   infinite loops or unexpected behaviors.
      * @return The new state after processing the event.
      */
     public fun ReducerScope<TEffect>.reduce(
@@ -41,8 +36,12 @@ public fun <TState : UiState, TEvent : UiEvent, TEffect : UiEffect> Reducer<TSta
 /**
  * Reducer's Scope with additional functionality and information.
  *
- * @param sendEffect sends effect to the UI. It also can be received by a [Middleware].
- * @param machineScope CoroutineScope that is linked to the StateMachine.
+ * @param sendEffect The function to send effects to the UI.
+ *                   Call `sendEffect(effect)` to send an effect to be handled by the UI.
+ *                   The effect will be delivered asynchronously.
+ *                   Note: Ensure proper handling and validation of effects to avoid issues like
+ *                   infinite loops or unexpected behaviors.
+ * @param machineScope CoroutineScope that is linked to the mvi.
  */
 public data class ReducerScope<TEffect : UiEffect>(
     val sendEffect: (TEffect) -> Unit,

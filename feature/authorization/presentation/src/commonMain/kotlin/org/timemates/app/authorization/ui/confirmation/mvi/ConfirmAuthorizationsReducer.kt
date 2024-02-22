@@ -1,17 +1,17 @@
 package org.timemates.app.authorization.ui.confirmation.mvi
 
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationStateMachine.State
-import org.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
-import org.timemates.app.authorization.validation.ConfirmationCodeValidator
-import org.timemates.app.foundation.mvi.Reducer
-import org.timemates.app.foundation.mvi.ReducerScope
 import io.timemates.sdk.authorization.email.types.value.VerificationHash
 import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
 import io.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
+import org.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
+import org.timemates.app.authorization.validation.ConfirmationCodeValidator
+import org.timemates.app.foundation.mvi.Reducer
+import org.timemates.app.foundation.mvi.ReducerScope
 
 class ConfirmAuthorizationsReducer(
     private val verificationHash: VerificationHash,

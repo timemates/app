@@ -1,18 +1,17 @@
 package org.timemates.app.timers.dependencies.screens
 
+import com.arkivanov.decompose.ComponentContext
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Singleton
 import org.timemates.app.timers.dependencies.TimersDataModule
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationMiddleware
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationReducer
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent
 import org.timemates.app.users.repositories.TimersRepository
 import org.timemates.app.users.usecases.TimerCreationUseCase
 import org.timemates.app.users.validation.TimerDescriptionValidator
 import org.timemates.app.users.validation.TimerNameValidator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Module
-import org.koin.core.annotation.Singleton
 
 @Module(includes = [TimersDataModule::class])
 class TimerCreationModule {
@@ -33,12 +32,14 @@ class TimerCreationModule {
 
     @Factory
     fun stateMachine(
+        componentContext: ComponentContext,
         timerCreationUseCase: TimerCreationUseCase,
         timerNameValidator: TimerNameValidator,
         timerDescriptionValidator: TimerDescriptionValidator,
         middleware: TimerCreationMiddleware,
-    ): TimerCreationStateMachine {
-        return TimerCreationStateMachine(
+    ): TimerCreationScreenComponent {
+        return TimerCreationScreenComponent(
+            componentContext = componentContext,
             reducer = TimerCreationReducer(
                 timerCreationUseCase = timerCreationUseCase,
                 timerNameValidator = timerNameValidator,
