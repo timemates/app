@@ -1,9 +1,9 @@
 package org.timemates.app.authorization.ui.configure_account.mvi
 
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Effect

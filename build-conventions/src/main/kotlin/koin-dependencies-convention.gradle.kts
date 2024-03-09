@@ -6,8 +6,9 @@ plugins {
 version = "SNAPSHOT"
 
 val koinVersion = "3.5.3"
-val koinAnnotationsVersion = "1.3.0"
+val koinAnnotationsVersion = "1.3.1"
 
+//noinspection UseTomlInstead
 dependencies {
     commonMainImplementation("io.insert-koin:koin-core:$koinVersion")
     commonMainImplementation("io.insert-koin:koin-annotations:$koinAnnotationsVersion")

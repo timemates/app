@@ -1,7 +1,7 @@
 package org.timemates.app.timers.dependencies.screens
 
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.timers.types.value.TimerId
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton

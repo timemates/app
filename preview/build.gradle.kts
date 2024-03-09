@@ -33,14 +33,14 @@ dependencies {
     implementation(libs.timemates.sdk)
     implementation(libs.kotlinx.datetime)
 
-    implementation(projects.styleSystem)
+    implementation(projects.core.styleSystem)
 
     debugImplementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.preview)
     implementation(libs.androidx.compose.material3)
 
-    implementation(projects.localization)
-    implementation(projects.localization.compose)
+    implementation(projects.core.localization)
+    implementation(projects.core.localization.compose)
 
     implementation(libs.decompose)
     implementation(libs.decompose.jetbrains.compose)

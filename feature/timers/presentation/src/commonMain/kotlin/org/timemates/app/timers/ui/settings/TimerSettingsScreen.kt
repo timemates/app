@@ -32,10 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerName
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.types.value.Count
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.channels.consumeEach
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.foundation.mvi.MVI

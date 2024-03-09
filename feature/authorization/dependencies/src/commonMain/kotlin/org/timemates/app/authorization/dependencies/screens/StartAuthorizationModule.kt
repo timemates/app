@@ -6,7 +6,7 @@ import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton
 import org.timemates.app.authorization.dependencies.AuthorizationDataModule
 import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent
 import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
 import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationReducer
 import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
@@ -40,8 +40,8 @@ class StartAuthorizationModule {
         componentContext: ComponentContext,
         reducer: StartAuthorizationReducer,
         middleware: StartAuthorizationMiddleware,
-    ): StartAuthorizationComponent {
-        return StartAuthorizationComponent(
+    ): StartAuthorizationScreenComponent {
+        return StartAuthorizationScreenComponent(
             componentContext = componentContext,
             reducer = reducer,
             middleware = middleware,

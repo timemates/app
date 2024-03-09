@@ -2,8 +2,9 @@ package org.timemates.app.timers.ui.timer_creation.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
+import kotlinx.serialization.Serializable
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.types.value.Count
 import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
@@ -27,13 +28,14 @@ class TimerCreationScreenComponent(
     middlewares = listOf(middleware),
 ) {
     @Immutable
+    @Serializable
     data class State(
         val name: String = "",
         val description: String = "",
         val workTime: Duration = 25.minutes,
         val restTime: Duration = 5.minutes,
         val bigRestEnabled: Boolean = true,
-        val bigRestPer: Count = Count.createOrThrow(4),
+        val bigRestPer: Int = 4,
         val bigRestTime: Duration = 10.minutes,
         val isEveryoneCanPause: Boolean = false,
         val isConfirmationRequired: Boolean = true,
@@ -53,7 +55,7 @@ class TimerCreationScreenComponent(
 
         data class BigRestModeIsChanged(val bigRestEnabled: Boolean) : Event()
 
-        data class BigRestPerIsChanged(val bigRestPer: Count) : Event()
+        data class BigRestPerIsChanged(val bigRestPer: Int) : Event()
 
         data class BigRestTimeIsChanged(val bigRestTime: Duration) : Event()
 

@@ -1,22 +1,22 @@
 package org.timemates.app.authorization.data
 
 import org.timemates.app.authorization.data.database.AccountDatabaseQueries
-import io.timemates.credentials.CredentialsStorage
-import io.timemates.sdk.authorization.email.EmailAuthorizationApi
-import io.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
-import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.authorization.sessions.types.value.ApplicationName
-import io.timemates.sdk.authorization.sessions.types.value.ClientIpAddress
-import io.timemates.sdk.authorization.sessions.types.value.ClientVersion
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.exceptions.UnsupportedException
-import io.timemates.sdk.users.profile.types.value.EmailAddress
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.credentials.CredentialsStorage
+import org.timemates.sdk.authorization.email.EmailAuthorizationApi
+import org.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
+import org.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.AuthorizedSessionsApi
+import org.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.sessions.types.value.ApplicationName
+import org.timemates.sdk.authorization.sessions.types.value.ClientIpAddress
+import org.timemates.sdk.authorization.sessions.types.value.ClientVersion
+import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.exceptions.UnsupportedException
+import org.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 import org.timemates.app.authorization.repositories.AuthorizationsRepository as AuthorizationRepositoryContract
 
 class AuthorizationsRepository(

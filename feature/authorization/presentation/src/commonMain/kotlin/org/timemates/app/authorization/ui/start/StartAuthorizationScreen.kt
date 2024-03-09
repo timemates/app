@@ -25,11 +25,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.channels.consumeEach
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.State
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.foundation.mvi.MVI
 import org.timemates.app.localization.compose.LocalStrings

@@ -1,10 +1,9 @@
 package org.timemates.app.authorization.ui.start
 
-import io.mockk.mockk
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.constructor.createOrThrow
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.State
 import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationMiddleware
 import org.timemates.app.foundation.random.nextString
 import kotlin.random.Random

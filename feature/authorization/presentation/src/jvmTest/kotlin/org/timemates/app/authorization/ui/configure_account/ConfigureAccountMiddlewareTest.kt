@@ -1,7 +1,7 @@
 package org.timemates.app.authorization.ui.configure_account
 
 import io.mockk.mockk
-import io.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.sessions.types.Authorization
 import org.junit.jupiter.api.Test
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountMiddleware
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent

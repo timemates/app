@@ -26,5 +26,5 @@ dependencies {
     commonMainImplementation(projects.feature.users.domain)
     commonMainImplementation(projects.feature.users.data.database)
     commonMainImplementation(projects.feature.users.presentation)
-    commonMainImplementation(projects.feature.common.domain)
+    commonMainImplementation(projects.core.ui)
 }

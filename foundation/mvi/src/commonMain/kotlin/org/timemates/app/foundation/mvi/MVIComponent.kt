@@ -36,12 +36,13 @@ public inline fun <reified TState : UiState, TEvent : UiEvent, TEffect : UiEffec
     initState: TState,
     reducer: Reducer<TState, TEvent, TEffect>,
     middlewares: List<Middleware<TState, TEffect>> = emptyList(),
+    stateSerializer: KSerializer<TState> = serializer(),
 ): MVIComponent<TState, TEvent, TEffect> {
     return MVIComponent(
         componentContext = componentContext,
         componentName = componentName,
         initState = initState,
-        stateSerializer = serializer(),
+        stateSerializer = stateSerializer,
         reducer = reducer,
         middlewares = middlewares,
     )
@@ -95,7 +96,10 @@ private class MVIComponentImpl<TState : UiState, TEvent : UiEvent, TEffect : UiE
     private val coroutineScope: CoroutineScope = coroutineScope(Dispatchers.Main + SupervisorJob())
 
     init {
-        componentContext.stateKeeper.register(componentName, stateSerializer, _state::value)
+        if(!componentContext.stateKeeper.isRegistered(componentName))
+            componentContext.stateKeeper.register(componentName, stateSerializer) {
+                _state.value
+            }
     }
 
     /**
@@ -106,7 +110,7 @@ private class MVIComponentImpl<TState : UiState, TEvent : UiEvent, TEffect : UiE
     /**
      * Represents the channel for emitting UI effects.
      */
-    override val effects: ReceiveChannel<TEffect> by ::_effects
+    override val effects: ReceiveChannel<TEffect> get() = _effects
 
     private val sendEffect: (TEffect) -> Unit = { effect ->
         middlewares.forEach { middleware -> updateState { middleware.onEffect(effect, it) } }

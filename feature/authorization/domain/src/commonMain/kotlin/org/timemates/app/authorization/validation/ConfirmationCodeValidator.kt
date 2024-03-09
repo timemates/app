@@ -1,7 +1,7 @@
 package org.timemates.app.authorization.validation
 
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.common.constructor.CreationFailure
+import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import org.timemates.sdk.common.constructor.CreationFailure
 import org.timemates.app.foundation.validation.Validator
 import org.timemates.app.foundation.validation.unknownValidationFailure
 

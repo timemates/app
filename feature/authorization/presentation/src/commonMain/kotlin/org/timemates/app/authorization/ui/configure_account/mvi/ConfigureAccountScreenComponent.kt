@@ -2,7 +2,7 @@ package org.timemates.app.authorization.ui.configure_account.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.sessions.types.Authorization
 import kotlinx.serialization.Serializable
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Effect
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Event

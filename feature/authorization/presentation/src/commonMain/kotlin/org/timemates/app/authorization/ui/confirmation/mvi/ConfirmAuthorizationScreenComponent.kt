@@ -2,8 +2,8 @@ package org.timemates.app.authorization.ui.confirmation.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.types.Authorization
 import kotlinx.serialization.Serializable
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Event

@@ -1,8 +1,8 @@
 package org.timemates.app.authorization.ui.confirmation.mvi
 
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import org.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect

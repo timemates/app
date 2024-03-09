@@ -1,8 +1,8 @@
 package org.timemates.app.users.usecases
 
 import org.timemates.app.users.repositories.TimersRepository
-import io.timemates.sdk.timers.types.Timer
-import io.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.timers.types.Timer
+import org.timemates.sdk.timers.types.value.TimerId
 
 class GetTimerUseCase(
     private val timers: TimersRepository,

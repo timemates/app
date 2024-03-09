@@ -22,5 +22,5 @@ dependencies {
     commonMainImplementation(projects.feature.timers.domain)
     commonMainImplementation(projects.feature.timers.data)
     commonMainImplementation(projects.feature.timers.presentation)
-    commonMainImplementation(projects.feature.common.domain)
+    commonMainImplementation(projects.core.ui)
 }

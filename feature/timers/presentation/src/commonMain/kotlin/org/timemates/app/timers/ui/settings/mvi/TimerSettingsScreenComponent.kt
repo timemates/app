@@ -2,8 +2,8 @@ package org.timemates.app.timers.ui.settings.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.types.value.Count
 import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent

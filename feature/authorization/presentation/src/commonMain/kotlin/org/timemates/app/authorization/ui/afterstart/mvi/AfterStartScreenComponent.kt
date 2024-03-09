@@ -1,7 +1,8 @@
 package org.timemates.app.authorization.ui.afterstart.mvi
 
+import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.serialization.Serializable
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Effect
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Event
@@ -22,10 +23,10 @@ class AfterStartScreenComponent(
     reducer = reducer,
     middlewares = emptyList(),
 ) {
+    @Immutable
     @Serializable
     data object State : UiState {
         private fun readResolve(): Any = State
-
     }
 
     sealed class Effect : UiEffect {

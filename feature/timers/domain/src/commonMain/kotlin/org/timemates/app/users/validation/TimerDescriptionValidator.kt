@@ -3,8 +3,8 @@ package org.timemates.app.users.validation
 import org.timemates.app.foundation.validation.Validator
 import org.timemates.app.foundation.validation.unknownValidationFailure
 import org.timemates.app.users.validation.TimerDescriptionValidator.Result
-import io.timemates.sdk.common.constructor.CreationFailure
-import io.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.common.constructor.CreationFailure
+import org.timemates.sdk.timers.types.value.TimerDescription
 
 class TimerDescriptionValidator : Validator<String, Result> {
 

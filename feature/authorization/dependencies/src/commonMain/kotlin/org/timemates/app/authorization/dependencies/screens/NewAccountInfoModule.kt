@@ -1,7 +1,7 @@
 package org.timemates.app.authorization.dependencies.screens
 
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.timemates.app.authorization.dependencies.AuthorizationDataModule

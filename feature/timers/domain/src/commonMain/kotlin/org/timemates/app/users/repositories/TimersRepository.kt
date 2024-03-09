@@ -1,17 +1,17 @@
 package org.timemates.app.users.repositories
 
-import io.timemates.sdk.common.pagination.PageToken
-import io.timemates.sdk.common.pagination.PagesIterator
-import io.timemates.sdk.common.types.Empty
-import io.timemates.sdk.common.types.value.Count
-import io.timemates.sdk.timers.members.invites.types.Invite
-import io.timemates.sdk.timers.members.invites.types.value.InviteCode
-import io.timemates.sdk.timers.types.Timer
-import io.timemates.sdk.timers.types.TimerSettings
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerId
-import io.timemates.sdk.timers.types.value.TimerName
-import io.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.common.pagination.PageToken
+import org.timemates.sdk.common.pagination.PagesIterator
+import org.timemates.sdk.common.types.Empty
+import org.timemates.sdk.common.types.value.Count
+import org.timemates.sdk.timers.members.invites.types.Invite
+import org.timemates.sdk.timers.members.invites.types.value.InviteCode
+import org.timemates.sdk.timers.types.Timer
+import org.timemates.sdk.timers.types.TimerSettings
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.timers.types.value.TimerName
+import org.timemates.sdk.users.profile.types.value.UserId
 import kotlinx.coroutines.flow.Flow
 
 interface TimersRepository {

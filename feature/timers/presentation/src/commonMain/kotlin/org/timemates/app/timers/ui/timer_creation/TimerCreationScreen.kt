@@ -16,7 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -35,10 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.channels.consumeEach
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.foundation.mvi.MVI
@@ -50,6 +46,8 @@ import org.timemates.app.style.system.theme.AppTheme
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Effect
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Event
 import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.State
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerName
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.DurationUnit
 
@@ -147,7 +145,7 @@ fun TimerCreationScreen(
                 enabled = !state.isLoading,
             )
 
-            Divider(
+            HorizontalDivider(
                 color = AppTheme.colors.secondary,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -199,12 +197,13 @@ fun TimerCreationScreen(
                     onCheckedChange = { mvi.dispatchEvent(Event.BigRestModeIsChanged(!state.bigRestEnabled)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.advancedRestSettingsDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if(!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 
@@ -215,8 +214,8 @@ fun TimerCreationScreen(
                 ) {
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
-                        value = state.bigRestPer.int.toString(),
-                        onValueChange = { mvi.dispatchEvent(Event.BigRestPerIsChanged(Count.createOrThrow(it.toInt()))) },
+                        value = state.bigRestPer.toString(),
+                        onValueChange = { mvi.dispatchEvent(Event.BigRestPerIsChanged(it.toInt())) },
                         label = { Text(LocalStrings.current.every) },
                         singleLine = true,
                         enabled = !state.isLoading,
@@ -235,7 +234,7 @@ fun TimerCreationScreen(
 
             Spacer(modifier = Modifier.padding(8.dp))
 
-            Divider(
+            HorizontalDivider(
                 color = AppTheme.colors.secondary,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -251,12 +250,13 @@ fun TimerCreationScreen(
                     onCheckedChange = { mvi.dispatchEvent(Event.TimerPauseControlAccessIsChanged(!state.isEveryoneCanPause)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.publicManageTimerStateDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if(!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 
@@ -268,12 +268,13 @@ fun TimerCreationScreen(
                     onCheckedChange = { mvi.dispatchEvent(Event.ConfirmationRequirementChanged(!state.isConfirmationRequired)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.confirmationRequiredDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if(!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 

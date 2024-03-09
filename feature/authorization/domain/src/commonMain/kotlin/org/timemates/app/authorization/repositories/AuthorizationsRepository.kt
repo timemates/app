@@ -1,13 +1,13 @@
 package org.timemates.app.authorization.repositories
 
-import io.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
-import io.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.users.profile.types.value.EmailAddress
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.authorization.email.requests.ConfigureNewAccountRequest
+import org.timemates.sdk.authorization.email.requests.ConfirmAuthorizationRequest
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import org.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 
 /**
  * Interface defining the contract for an authorization repository.

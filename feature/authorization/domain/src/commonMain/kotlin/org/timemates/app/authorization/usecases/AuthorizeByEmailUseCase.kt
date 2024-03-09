@@ -1,9 +1,9 @@
 package org.timemates.app.authorization.usecases
 
 import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.exceptions.TooManyRequestsException
-import io.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.common.exceptions.TooManyRequestsException
+import org.timemates.sdk.users.profile.types.value.EmailAddress
 
 class AuthorizeByEmailUseCase(
     private val authorizationsRepository: AuthorizationsRepository,

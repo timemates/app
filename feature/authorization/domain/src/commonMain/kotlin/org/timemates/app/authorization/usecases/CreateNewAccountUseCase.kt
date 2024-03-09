@@ -1,10 +1,10 @@
 package org.timemates.app.authorization.usecases
 
 import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 
 class CreateNewAccountUseCase(
     private val authorizationsRepository: AuthorizationsRepository,

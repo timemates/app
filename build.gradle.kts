@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -16,7 +17,7 @@ group = "org.timemates.app"
 allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "19"
+            freeCompilerArgs = listOf("-Xskip-prerelease-check")
         }
     }
 }

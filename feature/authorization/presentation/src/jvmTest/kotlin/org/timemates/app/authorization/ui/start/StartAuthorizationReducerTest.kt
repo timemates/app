@@ -3,8 +3,8 @@ package org.timemates.app.authorization.ui.start
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.TestScope
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.State
 import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationReducer
 import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import org.timemates.app.authorization.validation.EmailAddressValidator

@@ -1,12 +1,12 @@
 package org.timemates.app.authorization.ui.start.mvi
 
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.users.profile.types.value.EmailAddress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Event
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.State
 import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import org.timemates.app.authorization.validation.EmailAddressValidator
 import org.timemates.app.foundation.mvi.Reducer

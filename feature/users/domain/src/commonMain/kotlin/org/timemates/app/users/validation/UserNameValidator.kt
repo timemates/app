@@ -3,8 +3,8 @@ package org.timemates.app.users.validation
 import org.timemates.app.foundation.validation.Validator
 import org.timemates.app.foundation.validation.unknownValidationFailure
 import org.timemates.app.users.validation.UserNameValidator.Result
-import io.timemates.sdk.common.constructor.CreationFailure
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.common.constructor.CreationFailure
+import org.timemates.sdk.users.profile.types.value.UserName
 
 class UserNameValidator : Validator<String, Result> {
     override fun validate(input: String): Result {

@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import io.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.timers.types.value.TimerId
 import kotlinx.coroutines.channels.consumeEach
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.foundation.mvi.MVI
@@ -51,7 +51,7 @@ fun TimersListScreen(
     mvi: MVI<State, Event, Effect>,
     navigateToSetting: () -> Unit,
     navigateToTimerCreationScreen: () -> Unit,
-    navigateToTimer: (TimerId) -> Unit,
+    navigateToTimer: (Long) -> Unit,
 ) {
     val state by mvi.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }

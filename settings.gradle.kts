@@ -9,11 +9,11 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         mavenCentral()
         google()
-        maven("https://maven.timemates.io")
+        maven("https://maven.timemates.org/releases")
+        maven("https://maven.timemates.org/dev")
     }
 }
 
@@ -22,12 +22,12 @@ rootProject.name = "timemates-app"
 includeBuild("build-conventions")
 
 include(
-    ":localization",
-    ":localization:compose",
+    ":core:localization",
+    ":core:localization:compose",
 )
 
 include(
-    ":style-system",
+    ":core:style-system",
 )
 
 include(
@@ -44,7 +44,7 @@ include(
 )
 
 include(
-    ":navigation",
+    ":core:navigation",
 )
 
 include(
@@ -52,21 +52,21 @@ include(
 )
 
 include(
-    ":platforms:desktop",
-    ":platforms:android",
-    ":platforms:common",
+    ":platform:desktop",
+    ":platform:android",
+    ":platform:common",
 )
 
 include(
-    ":feature:common:domain",
-    ":feature:common:presentation",
+    ":core:types:serializable",
+    ":core:ui",
 )
 
 include(
-    ":feature:system:domain",
-    ":feature:system:presentation",
-    ":feature:system:adapters",
-    ":feature:system:dependencies",
+    ":feature:splash:domain",
+    ":feature:splash:presentation",
+    ":feature:splash:adapters",
+    ":feature:splash:dependencies",
 )
 
 include(

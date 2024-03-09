@@ -1,7 +1,7 @@
 package org.timemates.app.timers.ui.timers_list.mvi
 
-import io.timemates.sdk.common.pagination.PagesIterator
-import io.timemates.sdk.timers.types.Timer
+import org.timemates.sdk.common.pagination.PagesIterator
+import org.timemates.sdk.timers.types.Timer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.foundation.mvi.Reducer

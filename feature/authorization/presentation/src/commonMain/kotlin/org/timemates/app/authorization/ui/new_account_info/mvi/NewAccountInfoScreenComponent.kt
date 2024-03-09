@@ -1,7 +1,7 @@
 package org.timemates.app.authorization.ui.new_account_info.mvi
 
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.serialization.Serializable
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Effect
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Event

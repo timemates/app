@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,23 +25,24 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.timemates.app.localization.compose.LocalStrings
-import org.timemates.app.style.system.theme.AppTheme
-import io.timemates.sdk.timers.types.Timer
-import io.timemates.sdk.timers.types.Timer.State.ConfirmationWaiting
-import io.timemates.sdk.timers.types.Timer.State.Inactive
-import io.timemates.sdk.timers.types.Timer.State.Paused
-import io.timemates.sdk.timers.types.Timer.State.Rest
-import io.timemates.sdk.timers.types.Timer.State.Running
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
+import org.timemates.app.core.types.serializable.SerializableTimer
+import org.timemates.app.core.types.serializable.SerializableTimer.State.ConfirmationWaiting
+import org.timemates.app.core.types.serializable.SerializableTimer.State.Inactive
+import org.timemates.app.core.types.serializable.SerializableTimer.State.Paused
+import org.timemates.app.core.types.serializable.SerializableTimer.State.Rest
+import org.timemates.app.core.types.serializable.SerializableTimer.State.Running
+import org.timemates.app.feature.common.providable.LocalTimeProvider
+import org.timemates.app.localization.compose.LocalStrings
+import org.timemates.app.style.system.theme.AppTheme
 
 @Composable
 fun TimerItem(
-    timer: Timer,
+    timer: SerializableTimer,
     onClick: () -> Unit,
 ) {
     OutlinedCard(
@@ -63,7 +64,7 @@ fun TimerItem(
                     modifier = Modifier,
                 ) {
                     Text(
-                        text = timer.name.string,
+                        text = timer.name,
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium,
                     )
@@ -82,7 +83,7 @@ fun TimerItem(
                 modifier = Modifier.padding(12.dp),
             ) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowForward,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "Navigate To Timer",
                     modifier = Modifier
                         .align(Alignment.CenterEnd),
@@ -95,17 +96,18 @@ fun TimerItem(
 
 @Stable
 @Composable
-private fun timerItemSubtext(timer: Timer): String {
+private fun timerItemSubtext(timer: SerializableTimer): String {
     return when(timer.state) {
-        is Running, is Rest  -> LocalStrings.current.runningTimerDescription(timer.membersCount.int)
+        is Running, is Rest -> LocalStrings.current.runningTimerDescription(timer.membersCount)
         is Paused, is Inactive -> LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
         is ConfirmationWaiting -> LocalStrings.current.confirmationWaitingTimerDescription
     }
 }
 
+@Composable
 @Stable
 private fun daysSinceInactive(pausedInstant: Instant): Int {
-    val currentInstant = Clock.System.now()
+    val currentInstant = LocalTimeProvider.current.provide()
     return (currentInstant.toLocalDateTime(TimeZone.UTC).date.minus(pausedInstant.toLocalDateTime(TimeZone.UTC).date)).days
 }
 

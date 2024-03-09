@@ -1,11 +1,11 @@
 package org.timemates.app.authorization.usecases
 
 import org.timemates.app.authorization.repositories.AuthorizationsRepository
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import io.timemates.sdk.common.exceptions.InvalidArgumentException
-import io.timemates.sdk.common.exceptions.TooManyRequestsException
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
+import org.timemates.sdk.common.exceptions.InvalidArgumentException
+import org.timemates.sdk.common.exceptions.TooManyRequestsException
 
 class ConfirmEmailAuthorizationUseCase(
     private val authorizations: AuthorizationsRepository,

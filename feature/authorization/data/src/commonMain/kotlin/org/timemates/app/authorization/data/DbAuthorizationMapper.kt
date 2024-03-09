@@ -1,11 +1,11 @@
 package org.timemates.app.authorization.data
 
-import io.timemates.credentials.CredentialsStorage
-import io.timemates.sdk.authorization.sessions.types.Authorization
-import io.timemates.sdk.authorization.types.value.HashValue
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.exceptions.UnauthorizedException
-import io.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.credentials.CredentialsStorage
+import org.timemates.sdk.authorization.sessions.types.Authorization
+import org.timemates.sdk.authorization.types.value.HashValue
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.exceptions.UnauthorizedException
+import org.timemates.sdk.users.profile.types.value.UserId
 import kotlinx.datetime.Instant
 import org.timemates.app.authorization.data.database.Authorization as DbAuthorization
 

@@ -1,9 +1,9 @@
 package org.timemates.app.timers.dependencies
 
 import org.timemates.app.users.repositories.TimersRepository
-import io.timemates.sdk.common.engine.TimeMatesRequestsEngine
-import io.timemates.sdk.common.providers.AccessHashProvider
-import io.timemates.sdk.timers.TimersApi
+import org.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import org.timemates.sdk.common.providers.AccessHashProvider
+import org.timemates.sdk.timers.TimersApi
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.timemates.app.timers.data.TimersRepository as TimersRepositoryImpl

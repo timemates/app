@@ -27,8 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.channels.consumeEach
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Effect
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Event

@@ -2,9 +2,9 @@ package org.timemates.app.timers.ui.settings
 
 import io.mockk.every
 import io.mockk.mockk
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
-import io.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.types.value.Count
+import org.timemates.sdk.timers.types.value.TimerId
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
 import org.timemates.app.foundation.mvi.reduce

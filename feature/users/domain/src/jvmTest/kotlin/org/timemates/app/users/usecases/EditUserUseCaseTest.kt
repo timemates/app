@@ -4,11 +4,11 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import org.timemates.app.users.repositories.AuthorizationsRepository
 import org.timemates.app.users.repositories.UsersRepository
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.Empty
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserId
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.types.Empty
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals

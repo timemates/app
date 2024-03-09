@@ -2,7 +2,7 @@ package org.timemates.app.authorization.ui.configure_account
 
 import io.mockk.every
 import io.mockk.mockk
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import kotlinx.coroutines.test.TestScope
 import org.junit.jupiter.api.Test
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountReducer

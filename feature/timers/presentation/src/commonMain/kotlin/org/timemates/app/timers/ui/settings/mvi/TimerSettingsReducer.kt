@@ -1,10 +1,10 @@
 package org.timemates.app.timers.ui.settings.mvi
 
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.timers.types.TimerSettings
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerId
-import io.timemates.sdk.timers.types.value.TimerName
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.timers.types.TimerSettings
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerId
+import org.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.foundation.mvi.Reducer

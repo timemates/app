@@ -2,8 +2,8 @@ package org.timemates.app.authorization.ui.new_account_info.mvi
 
 import io.mockk.mockk
 import io.mockk.verify
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.common.constructor.createOrThrow
 import kotlinx.coroutines.test.TestScope
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Event
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.State

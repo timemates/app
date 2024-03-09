@@ -1,6 +1,6 @@
 package org.timemates.app.users.repositories
 
-import io.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.users.profile.types.value.UserId
 
 interface AuthorizationsRepository {
     /**

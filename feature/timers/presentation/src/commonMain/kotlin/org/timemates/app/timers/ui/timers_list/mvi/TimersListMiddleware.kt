@@ -1,8 +1,10 @@
 package org.timemates.app.timers.ui.timers_list.mvi
 
+import org.timemates.app.core.types.serializable.serializable
 import org.timemates.app.foundation.mvi.Middleware
 import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Effect
 import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
+import org.timemates.sdk.timers.types.Timer
 
 class TimersListMiddleware : Middleware<State, Effect> {
     override fun onEffect(effect: Effect, state: State): State {
@@ -16,7 +18,10 @@ class TimersListMiddleware : Middleware<State, Effect> {
             }
 
             is Effect.LoadTimers -> {
-                state.copy(timersList = (state.timersList + effect.timersList).distinct())
+                state.copy(
+                    timersList = (state.timersList + effect.timersList.map { it.serializable() })
+                        .distinct()
+                )
             }
         }
     }

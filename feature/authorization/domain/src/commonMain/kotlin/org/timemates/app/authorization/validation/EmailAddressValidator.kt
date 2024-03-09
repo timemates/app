@@ -2,8 +2,8 @@ package org.timemates.app.authorization.validation
 
 import org.timemates.app.foundation.validation.Validator
 import org.timemates.app.foundation.validation.unknownValidationFailure
-import io.timemates.sdk.common.constructor.CreationFailure
-import io.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.common.constructor.CreationFailure
+import org.timemates.sdk.users.profile.types.value.EmailAddress
 
 /**
  * A validator for email addresses.

@@ -4,10 +4,10 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import org.timemates.app.authorization.repositories.AuthorizationsRepository
 import org.timemates.app.foundation.random.nextString
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.exceptions.TooManyRequestsException
-import io.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.exceptions.TooManyRequestsException
+import org.timemates.sdk.users.profile.types.value.EmailAddress
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 import kotlin.test.Test

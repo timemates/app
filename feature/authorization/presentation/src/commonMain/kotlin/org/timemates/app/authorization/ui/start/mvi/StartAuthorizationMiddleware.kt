@@ -1,7 +1,7 @@
 package org.timemates.app.authorization.ui.start.mvi
 
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.Effect
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent.State
 import org.timemates.app.foundation.mvi.Middleware
 
 /**

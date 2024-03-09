@@ -1,9 +1,9 @@
 package org.timemates.app.timers.ui.timer_creation.mvi
 
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.timers.types.TimerSettings
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerName
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.timers.types.TimerSettings
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.foundation.mvi.Reducer
@@ -14,6 +14,7 @@ import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenCompone
 import org.timemates.app.users.usecases.TimerCreationUseCase
 import org.timemates.app.users.validation.TimerDescriptionValidator
 import org.timemates.app.users.validation.TimerNameValidator
+import org.timemates.sdk.common.types.value.Count
 
 class TimerCreationReducer(
     private val timerCreationUseCase: TimerCreationUseCase,
@@ -45,7 +46,7 @@ class TimerCreationReducer(
                         state.restTime,
                         state.bigRestTime,
                         state.bigRestEnabled,
-                        state.bigRestPer,
+                        Count.createOrThrow(state.bigRestPer),
                         state.isEveryoneCanPause,
                         state.isConfirmationRequired,
                     ),

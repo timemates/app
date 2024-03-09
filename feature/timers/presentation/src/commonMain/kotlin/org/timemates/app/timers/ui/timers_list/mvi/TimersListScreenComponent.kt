@@ -2,7 +2,10 @@ package org.timemates.app.timers.ui.timers_list.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import io.timemates.sdk.timers.types.Timer
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
+import org.timemates.app.core.types.serializable.SerializableTimer
+import org.timemates.sdk.timers.types.Timer
 import org.timemates.app.foundation.mvi.MVIComponent
 import org.timemates.app.foundation.mvi.UiEffect
 import org.timemates.app.foundation.mvi.UiEvent
@@ -23,9 +26,10 @@ class TimersListScreenComponent(
     reducer = reducer,
     middlewares = listOf(middleware),
 ) {
+    @Serializable
     @Immutable
     data class State(
-        val timersList: List<Timer> = emptyList(),
+        val timersList: List<SerializableTimer> = emptyList(),
         val hasMoreItems: Boolean = true,
         val isLoading: Boolean = false,
         val isError: Boolean = false,
