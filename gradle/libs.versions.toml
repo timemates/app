@@ -20,7 +20,7 @@ jetpackComposeCompilerVersion = "1.5.6"
 jetbrainsCompose = "1.6.0"
 material = "1.11.0"
 
-timeMatesSdk = "dev-5eadfbcdd8bbc5fe4b7073b2b3bd06361fa2a4e8"
+timeMatesSdk = "dev-2e6f1991053b561042f0f4ff10b82592f46137fb"
 
 ksp = "1.9.22-1.0.17"
 flowmvi = "2.5.0-alpha02"
