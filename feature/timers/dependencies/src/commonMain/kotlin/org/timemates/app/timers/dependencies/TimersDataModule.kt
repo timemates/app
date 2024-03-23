@@ -1,22 +1,23 @@
 package org.timemates.app.timers.dependencies
 
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Singleton
 import org.timemates.app.users.repositories.TimersRepository
 import org.timemates.sdk.common.engine.TimeMatesRequestsEngine
 import org.timemates.sdk.common.providers.AccessHashProvider
 import org.timemates.sdk.timers.TimersApi
-import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Module
 import org.timemates.app.timers.data.TimersRepository as TimersRepositoryImpl
 
 @Module
 class TimersDataModule {
-    @Factory
+    @Singleton
     fun timersApi(
-        grpcEngine: TimeMatesRequestsEngine,
+        engine: TimeMatesRequestsEngine,
         tokenProvider: AccessHashProvider,
-    ): TimersApi = TimersApi(grpcEngine, tokenProvider)
+    ): TimersApi = TimersApi(engine, tokenProvider)
 
-    @Factory
+    @Singleton
     fun timersRepository(
         timersApi: TimersApi,
     ): TimersRepository = TimersRepositoryImpl(

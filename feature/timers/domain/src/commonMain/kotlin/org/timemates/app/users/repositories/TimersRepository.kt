@@ -1,5 +1,7 @@
 package org.timemates.app.users.repositories
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import org.timemates.sdk.common.pagination.PageToken
 import org.timemates.sdk.common.pagination.PagesIterator
 import org.timemates.sdk.common.types.Empty
@@ -12,10 +14,11 @@ import org.timemates.sdk.timers.types.value.TimerDescription
 import org.timemates.sdk.timers.types.value.TimerId
 import org.timemates.sdk.timers.types.value.TimerName
 import org.timemates.sdk.users.profile.types.value.UserId
-import kotlinx.coroutines.flow.Flow
 
 interface TimersRepository {
     suspend fun getUserTimers(pageToken: PageToken? = null): PagesIterator<Timer>
+
+    fun getTimersUpdates(): SharedFlow<TimerUpdateAction>
 
     suspend fun getTimer(id: TimerId): Result<Timer>
 
@@ -43,4 +46,12 @@ interface TimersRepository {
         newDescription: TimerDescription? = null,
         settings: TimerSettings.Patch? = null,
     ): Result<Empty>
+
+    sealed interface TimerUpdateAction {
+        data class Deleted(val timerId: TimerId) : TimerUpdateAction
+
+        data class Updated(val timer: Timer) : TimerUpdateAction
+
+        data class Added(val timer: Timer) : TimerUpdateAction
+    }
 }

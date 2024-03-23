@@ -1,5 +1,13 @@
 package org.timemates.app.timers.data
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.timemates.app.users.repositories.TimersRepository.TimerUpdateAction
 import org.timemates.sdk.common.pagination.PageToken
 import org.timemates.sdk.common.pagination.PagesIterator
 import org.timemates.sdk.common.types.Empty
@@ -18,7 +26,6 @@ import org.timemates.sdk.timers.types.value.TimerDescription
 import org.timemates.sdk.timers.types.value.TimerId
 import org.timemates.sdk.timers.types.value.TimerName
 import org.timemates.sdk.users.profile.types.value.UserId
-import kotlinx.coroutines.flow.Flow
 import org.timemates.app.users.repositories.TimersRepository as TimersRepositoryContract
 
 class TimersRepository(
@@ -27,8 +34,14 @@ class TimersRepository(
     private val timersSessionsApi: TimersSessionsApi,
     private val timerMembersApi: TimerMembersApi,
 ) : TimersRepositoryContract {
+    private val timerUpdates = MutableSharedFlow<TimerUpdateAction>(replay = Int.MAX_VALUE, extraBufferCapacity = Int.MAX_VALUE)
+
     override suspend fun getUserTimers(pageToken: PageToken?): PagesIterator<Timer> {
         return timersApi.getUserTimersPages(pageToken)
+    }
+
+    override fun getTimersUpdates(): SharedFlow<TimerUpdateAction> {
+        return timerUpdates
     }
 
     override suspend fun getTimer(id: TimerId): Result<Timer> {
@@ -48,7 +61,9 @@ class TimersRepository(
     }
 
     override suspend fun createTimer(name: TimerName, description: TimerDescription, settings: TimerSettings): Result<TimerId> {
-        return timersApi.createTimer(name, description, settings)
+        return timersApi.createTimer(name, description, settings).onSuccess {
+            timerUpdates.emit(TimerUpdateAction.Added(getTimer(it).getOrNull() ?: return@onSuccess))
+        }
     }
 
     override suspend fun kickMember(timerId: TimerId, userId: UserId): Result<Empty> {
@@ -60,10 +75,19 @@ class TimersRepository(
     }
 
     override suspend fun removeTimer(timerId: TimerId): Result<Empty> {
-        return timersApi.removeTimer(timerId)
+        return timersApi.removeTimer(timerId).onSuccess {
+            timerUpdates.emit(TimerUpdateAction.Deleted(timerId))
+        }
     }
 
     override suspend fun editTimer(timerId: TimerId, newName: TimerName?, newDescription: TimerDescription?, settings: TimerSettings.Patch?): Result<Empty> {
-        return timersApi.editTimer(timerId, newName, newDescription, settings)
+        return timersApi.editTimer(timerId, newName, newDescription, settings).onSuccess {
+            timerUpdates.emit(
+                TimerUpdateAction.Updated(
+                    // todo get from the local storage
+                    getTimer(timerId).getOrNull() ?: return@onSuccess
+                )
+            )
+        }
     }
 }
