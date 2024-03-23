@@ -2,37 +2,25 @@ package org.timemates.app.common
 
 import app.cash.sqldelight.async.coroutines.awaitCreate
 import app.cash.sqldelight.db.SqlDriver
-import org.timemates.api.rsocket.RSocketTimeMatesRequestsEngine
-import org.timemates.app.authorization.dependencies.AuthorizationDataModule
-import org.timemates.app.authorization.dependencies.screens.AfterStartModule
-import org.timemates.app.authorization.dependencies.screens.ConfigureAccountModule
-import org.timemates.app.authorization.dependencies.screens.ConfirmAuthorizationModule
-import org.timemates.app.authorization.dependencies.screens.InitialAuthorizationModule
-import org.timemates.app.authorization.dependencies.screens.NewAccountInfoModule
-import org.timemates.app.authorization.dependencies.screens.StartAuthorizationModule
-import org.timemates.app.feature.splash.dependencies.SplashDataModule
-import org.timemates.app.feature.splash.dependencies.screens.StartupModule
-import org.timemates.app.foundation.time.TimeProvider
-import org.timemates.app.timers.dependencies.screens.TimerCreationModule
-import org.timemates.app.timers.dependencies.screens.TimerSettingsModule
-import org.timemates.app.timers.dependencies.screens.TimersListModule
-import org.timemates.credentials.CredentialsStorage
 import io.timemates.data.database.TimeMatesAuthorizations
-import org.timemates.sdk.common.engine.TimeMatesRequestsEngine
-import org.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import org.koin.core.context.startKoin
-import org.koin.ksp.generated.module
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
+import org.koin.ksp.generated.module
+import org.timemates.api.rsocket.RSocketTimeMatesRequestsEngine
 import org.timemates.app.authorization.dependencies.AuthorizationModule
 import org.timemates.app.feature.common.failures.OnAuthorizationFailedHandler
 import org.timemates.app.feature.splash.dependencies.SplashModule
+import org.timemates.app.foundation.time.TimeProvider
 import org.timemates.app.timers.dependencies.TimersModule
 import org.timemates.app.users.dependencies.UsersModule
+import org.timemates.credentials.CredentialsStorage
+import org.timemates.sdk.common.engine.TimeMatesRequestsEngine
+import org.timemates.sdk.common.exceptions.UnauthorizedException
 
 /**
  * Initializes the application dependencies using Koin.
@@ -65,7 +53,6 @@ fun initializeAppDependencies(
         val appModule = module {
             single<TimeMatesRequestsEngine> {
                 RSocketTimeMatesRequestsEngine(
-                    endpoint = "ws://localhost:8181/rsocket",
                     coroutineScope = CoroutineScope(Dispatchers.IO),
                 )
             }

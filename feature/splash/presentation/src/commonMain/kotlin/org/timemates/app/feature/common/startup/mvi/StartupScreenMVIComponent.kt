@@ -1,6 +1,7 @@
 package org.timemates.app.feature.common.startup.mvi
 
 import com.arkivanov.decompose.ComponentContext
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.Action
 import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.Intent
 import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.State
@@ -20,7 +21,7 @@ import pro.respawn.flowmvi.plugins.init
 class StartupScreenMVIComponent(
     componentContext: ComponentContext,
     authRepository: AuthRepository,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
 
     override val store: Store<State, Intent, Action> = retainedStore(initial = State) {
         init {

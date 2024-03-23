@@ -4,6 +4,8 @@ plugins {
 }
 
 dependencies {
+    commonMainImplementation(projects.core.ui)
+
     commonMainImplementation(libs.timemates.sdk)
     commonMainApi(libs.decompose)
     commonMainApi(libs.decompose.jetbrains.compose)

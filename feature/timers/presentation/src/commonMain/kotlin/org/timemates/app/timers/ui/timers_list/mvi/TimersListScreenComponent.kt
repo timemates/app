@@ -7,6 +7,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Action
 import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Intent
 import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.State
@@ -30,7 +31,7 @@ class TimersListScreenComponent(
     componentContext: ComponentContext,
     private val getUserTimersUseCase: GetUserTimersUseCase,
     private val timersRepository: TimersRepository,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
 
     override val store: Store<State, Intent, Action> = retainedStore(initial = State(isLoading = true)) {
         recover { exception ->

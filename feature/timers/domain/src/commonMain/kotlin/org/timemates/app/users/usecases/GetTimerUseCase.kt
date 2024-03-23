@@ -16,7 +16,7 @@ class GetTimerUseCase(
     sealed class Result {
         data class Success(val timer: Timer) : Result()
 
-        object NotFound : Result()
+        data object NotFound : Result()
 
         data class Failure(val exception: Throwable) : Result()
     }
