@@ -14,6 +14,8 @@ import com.arkivanov.decompose.defaultComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import org.timemates.app.feature.common.providable.LocalTimeProvider
+import org.timemates.app.foundation.time.SystemUTCTimeProvider
 import org.timemates.app.navigation.LocalComponentContext
 import org.timemates.app.navigation.Screen
 import org.timemates.app.navigation.TimeMatesAppEntry
@@ -37,11 +39,14 @@ class AppActivity : ComponentActivity() {
                 }
             }
 
-            CompositionLocalProvider(LocalComponentContext provides componentContent) {
+            CompositionLocalProvider(
+                LocalComponentContext provides componentContent,
+                LocalTimeProvider provides SystemUTCTimeProvider(),
+            ) {
                 AppTheme {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        systemUiController.setSystemBarsColor(AppTheme.colors.background)
+                    systemUiController.setSystemBarsColor(AppTheme.colors.background)
 
+                    Box(modifier = Modifier.fillMaxSize()) {
                         TimeMatesAppEntry(
                             navigation = navigation,
                             navigateToAuthorization = TimeMatesApplication.onAuthFailedChannel,
