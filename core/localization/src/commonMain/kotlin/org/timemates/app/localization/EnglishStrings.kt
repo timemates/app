@@ -1,11 +1,5 @@
 package org.timemates.app.localization
 
-import org.timemates.sdk.authorization.sessions.types.value.ConfirmationCode
-import org.timemates.sdk.timers.types.value.TimerDescription
-import org.timemates.sdk.timers.types.value.TimerName
-import org.timemates.sdk.users.profile.types.value.UserDescription
-import org.timemates.sdk.users.profile.types.value.UserName
-
 object EnglishStrings : Strings {
     override val appName: String = "TimeMates"
     override val start: String = "Start"
@@ -23,7 +17,7 @@ object EnglishStrings : Strings {
     override val changeEmail: String = "Change email"
     override val emailSizeIsInvalid: String = "Email address size should be in range of 5 and 200 symbols"
     override val emailIsInvalid: String = "Email address is invalid."
-    override val codeSizeIsInvalid: String = "Code size should be ${ConfirmationCode.SIZE} symbols length"
+    override val codeSizeIsInvalid: String = "Code size should be 0 symbols length"
     override val codeIsInvalid: String = "Confirmation code should consist only from [a-Z] and [0-9]"
     override val unknownFailure: String = "Unknown failure happened"
     override val confirmationAttemptFailed: String = "Confirmation code is invalid. Recheck and try again."
@@ -34,9 +28,9 @@ object EnglishStrings : Strings {
     override val configureNewAccountDescription: String = "Welcome to TimeMates! Let’s start our journey by configuring your profile details."
     override val aboutYou: String = "About you"
     override val yourName: String = "Your name"
-    override val nameSizeIsInvalid: String = "Name size should be in range of ${UserName.SIZE_RANGE.first} to ${UserName.SIZE_RANGE.last} symbols."
+    override val nameSizeIsInvalid: String = "Name size should be in range of 0 to 0 symbols."
     override val nameIsInvalid: String = "Name consists from illegal characters."
-    override val aboutYouSizeIsInvalid: String = "User description should be in range of ${UserDescription.SIZE_RANGE.first} and ${UserDescription.SIZE_RANGE.last} symbols."
+    override val aboutYouSizeIsInvalid: String = "User description should be in range of 0 and 0 symbols."
     override val timerSettings: String = "Edit timer"
     override val description: String = "Description"
     override val name: String = "Name"
@@ -47,8 +41,8 @@ object EnglishStrings : Strings {
     override val advancedRestSettingsDescription: String = "Enable big rest time (extended rest every X rounds)."
     override val publicManageTimerStateDescription: String = "Everyone can manage timer state"
     override val confirmationRequiredDescription: String = "Always require confirmation before round start"
-    override val timerNameSizeIsInvalid: String = "Name size should be in range of ${TimerName.SIZE_RANGE.first} to ${TimerName.SIZE_RANGE.last} symbols."
-    override val timerDescriptionSizeIsInvalid: String = "Timer description should be in range of ${TimerDescription.SIZE_RANGE.first} and ${TimerDescription.SIZE_RANGE.last} symbols."
+    override val timerNameSizeIsInvalid: String = "Name size should be in range of 0 to 0 symbols."
+    override val timerDescriptionSizeIsInvalid: String = "Timer description should be in range of 0 and 0 symbols."
     override val save: String = "Save"
     override val welcome: String = "Welcome to TimeMates"
     override val welcomeDescription: String = "Unlock Your Productivity: Seamlessly Organize Tasks, Collaborate Effortlessly, and Achieve your Goals."
@@ -59,21 +53,25 @@ object EnglishStrings : Strings {
     override val alreadyExists: String = "It already exists or functionality isn't supposed to be used twice."
     override val invalidArgument: String = "Invalid input information."
     override val notFound: String = "Entity is not found."
-    override val unauthorized: String = "Your authorized was whether terminated or expired, please relogin."
+    override val unauthorized: String = "Your authorization is whether terminated or expired, please relogin."
     override val unavailable: String = "Service is not available at the moment, please try again later."
     override val unsupported: String = "This functionality is not yet supported."
     override val fieldCannotBeEmpty: String = "This field cannot be empty."
 
-    override fun minValueFailure(min: Int): String {
+    override fun minValueFailure(min: Number): String {
         return "Minimal value is the $min."
     }
 
-    override fun sizeExactFailure(size: Int): String {
+    override fun lengthExactFailure(size: Int): String {
         return "Length should be exactly $size."
     }
 
-    override fun sizeRangeFailure(range: IntRange): String {
-        return "Length should be in a range of ${range.first} to ${range.last}"
+    override fun lengthRangeFailure(range: IntRange): String {
+        return "Length should be in a range of ${range.first} to ${range.last}."
+    }
+
+    override fun valueRangeFailure(first: Number, last: Number): String {
+        return "Value range should be in frame from $first to $last."
     }
 
     override val patternFailure: String = "The value does not follow the correct format."

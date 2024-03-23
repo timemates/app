@@ -1,7 +1,9 @@
 package org.timemates.app.localization
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 
+@Immutable
 interface Strings {
     val appName: String
 
@@ -108,13 +110,16 @@ interface Strings {
     val fieldCannotBeEmpty: String
 
     @Stable
-    fun minValueFailure(min: Int): String
+    fun minValueFailure(min: Number): String
 
     @Stable
-    fun sizeExactFailure(size: Int): String
+    fun lengthExactFailure(size: Int): String
 
     @Stable
-    fun sizeRangeFailure(range: IntRange): String
+    fun lengthRangeFailure(range: IntRange): String
+
+    @Stable
+    fun valueRangeFailure(first: Number, last: Number): String
 
     val patternFailure: String
 
