@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Action
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Intent
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.State
+import org.timemates.app.feature.common.MVI
 import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import pro.respawn.flowmvi.api.Container
 import pro.respawn.flowmvi.api.MVIAction
@@ -15,7 +16,7 @@ import pro.respawn.flowmvi.plugins.reduce
 class NewAccountInfoScreenComponent(
     componentContext: ComponentContext,
     private val verificationHash: VerificationHash,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
     override val store = retainedStore(initial = State) {
         reduce { intent ->
             when (intent) {

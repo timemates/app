@@ -26,8 +26,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Action
-import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.Intent
+import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.feature.common.isInvalid
@@ -40,7 +40,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun ConfigureAccountScreen(
-    mvi: ConfigureAccountScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToHome: () -> Unit,
     onBack: () -> Unit,
 ) {

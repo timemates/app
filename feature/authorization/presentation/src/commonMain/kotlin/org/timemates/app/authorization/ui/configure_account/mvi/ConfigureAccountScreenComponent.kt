@@ -8,6 +8,7 @@ import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccount
 import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccountScreenComponent.State
 import org.timemates.app.authorization.usecases.CreateNewAccountUseCase
 import org.timemates.app.feature.common.Input
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.input
 import org.timemates.app.feature.common.isValid
 import org.timemates.sdk.authorization.email.types.value.VerificationHash
@@ -29,7 +30,7 @@ class ConfigureAccountScreenComponent(
     componentContext: ComponentContext,
     private val verificationHash: VerificationHash,
     private val createNewAccountUseCase: CreateNewAccountUseCase,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
 
     override val store: Store<State, Intent, Action> = retainedStore(initial = State()) {
         recover { exception ->

@@ -22,8 +22,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Action
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Intent
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
@@ -33,7 +33,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun AfterStartScreen(
-    mvi: AfterStartScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {

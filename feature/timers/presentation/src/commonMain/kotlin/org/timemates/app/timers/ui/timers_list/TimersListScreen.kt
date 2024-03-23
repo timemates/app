@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.appbar.AppBar
@@ -35,14 +36,12 @@ import org.timemates.app.style.system.button.FloatingActionButton
 import org.timemates.app.style.system.theme.AppTheme
 import org.timemates.app.timers.ui.PlaceholderTimerItem
 import org.timemates.app.timers.ui.TimerItem
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Action
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.Intent
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.*
 import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun TimersListScreen(
-    mvi: TimersListScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToSetting: () -> Unit,
     navigateToTimerCreationScreen: () -> Unit,
     navigateToTimer: (Long) -> Unit,

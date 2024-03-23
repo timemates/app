@@ -38,4 +38,6 @@ dependencies {
 
     implementation(projects.feature.authorization.presentation)
     implementation(projects.feature.timers.presentation)
+
+    implementation(libs.decompose.jetbrains.compose)
 }

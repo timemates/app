@@ -5,6 +5,7 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.timemates.app.feature.common.Input
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.input
 import org.timemates.app.feature.common.isValid
 import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Action
@@ -33,7 +34,7 @@ class TimerSettingsScreenComponent(
     componentContext: ComponentContext,
     private val timerId: TimerId,
     private val timerSettingsUseCase: TimerSettingsUseCase,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
     override val store: Store<State, Intent, Action> = retainedStore(initial = State()) {
         recover { exception ->
             action(Action.ShowFailure(exception))

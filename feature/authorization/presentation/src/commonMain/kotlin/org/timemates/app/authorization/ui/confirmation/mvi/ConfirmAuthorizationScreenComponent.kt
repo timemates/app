@@ -9,6 +9,7 @@ import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationS
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
 import org.timemates.app.authorization.usecases.ConfirmEmailAuthorizationUseCase
 import org.timemates.app.feature.common.Input
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.input
 import org.timemates.app.feature.common.isValid
 import org.timemates.sdk.authorization.email.types.value.VerificationHash
@@ -30,7 +31,7 @@ class ConfirmAuthorizationScreenComponent(
     componentContext: ComponentContext,
     private val verificationHash: VerificationHash,
     private val confirmEmailAuthorizationUseCase: ConfirmEmailAuthorizationUseCase,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
 
     override val store: Store<State, Intent, Action> = retainedStore(initial = State()) {
         recover { exception ->

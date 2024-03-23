@@ -47,9 +47,9 @@ include(
     ":core:navigation",
 )
 
-//include(
-//    ":preview",
-//)
+include(
+    ":preview",
+)
 
 include(
     ":platform:desktop",

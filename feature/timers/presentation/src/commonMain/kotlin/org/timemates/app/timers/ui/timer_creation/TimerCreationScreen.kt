@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.feature.common.isInvalid
@@ -41,9 +42,7 @@ import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
 import org.timemates.app.style.system.text_field.SizedOutlinedTextField
 import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Action
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.Intent
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.*
 import org.timemates.sdk.timers.types.value.TimerDescription
 import org.timemates.sdk.timers.types.value.TimerName
 import pro.respawn.flowmvi.essenty.compose.subscribe
@@ -53,7 +52,7 @@ import kotlin.time.DurationUnit
 
 @Composable
 fun TimerCreationScreen(
-    mvi: TimerCreationScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToTimersScreen: () -> Unit,
 ) {
     val strings = LocalStrings.current

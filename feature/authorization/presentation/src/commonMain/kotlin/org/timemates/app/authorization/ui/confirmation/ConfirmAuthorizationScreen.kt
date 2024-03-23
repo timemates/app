@@ -22,9 +22,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Action
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Intent
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.localization.compose.LocalStrings
@@ -34,7 +35,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun ConfirmAuthorizationScreen(
-    mvi: ConfirmAuthorizationScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     onBack: () -> Unit,
     navigateToConfiguring: (String) -> Unit,
     navigateToHome: () -> Unit,

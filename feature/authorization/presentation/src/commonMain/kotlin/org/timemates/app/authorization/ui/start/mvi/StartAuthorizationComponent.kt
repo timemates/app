@@ -8,6 +8,7 @@ import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.
 import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.State
 import org.timemates.app.authorization.usecases.AuthorizeByEmailUseCase
 import org.timemates.app.feature.common.Input
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.input
 import org.timemates.app.feature.common.isValid
 import org.timemates.sdk.authorization.email.types.value.VerificationHash
@@ -27,7 +28,7 @@ import pro.respawn.flowmvi.plugins.reduce
 class StartAuthorizationComponent(
     componentContext: ComponentContext,
     private val authorizeByEmail: AuthorizeByEmailUseCase,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
     override val store: Store<State, Intent, Action> = retainedStore(initial = State()) {
         recover { exception ->
             emit(Action.Failure(exception))

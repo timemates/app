@@ -22,9 +22,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Action
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.Intent
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
@@ -34,7 +33,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun NewAccountInfoScreen(
-    mvi: NewAccountInfoScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToConfigure: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {

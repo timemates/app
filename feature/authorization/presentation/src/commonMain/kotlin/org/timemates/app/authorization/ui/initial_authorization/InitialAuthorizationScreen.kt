@@ -19,9 +19,10 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent
 import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.Action
 import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.Intent
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.State
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.button.Button
@@ -30,7 +31,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun InitialAuthorizationScreen(
-    mvi: InitialAuthorizationComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToStartAuthorization: () -> Unit,
 ) {
     val painter: Painter = Resources.image.initial_screen_image.painterResource()

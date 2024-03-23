@@ -23,9 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Action
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.Intent
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.feature.common.isInvalid
@@ -37,7 +36,7 @@ import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun StartAuthorizationScreen(
-    mvi: StartAuthorizationComponent,
+    mvi: MVI<State, Intent, Action>,
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
     val snackbarData = remember { SnackbarHostState() }

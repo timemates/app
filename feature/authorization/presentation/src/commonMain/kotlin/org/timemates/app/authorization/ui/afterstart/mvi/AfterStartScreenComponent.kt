@@ -5,8 +5,8 @@ import com.arkivanov.decompose.ComponentContext
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Action
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Intent
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.State
+import org.timemates.app.feature.common.MVI
 import org.timemates.sdk.authorization.email.types.value.VerificationHash
-import pro.respawn.flowmvi.api.Container
 import pro.respawn.flowmvi.api.MVIAction
 import pro.respawn.flowmvi.api.MVIIntent
 import pro.respawn.flowmvi.api.MVIState
@@ -17,7 +17,7 @@ import pro.respawn.flowmvi.plugins.reduce
 class AfterStartScreenComponent(
     componentContext: ComponentContext,
     private val verificationHash: VerificationHash,
-) : ComponentContext by componentContext, Container<State, Intent, Action> {
+) : ComponentContext by componentContext, MVI<State, Intent, Action> {
 
     override val store: Store<State, Intent, Action> = retainedStore(initial = State) {
         reduce { intent ->

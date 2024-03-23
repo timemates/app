@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
 import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.feature.common.isInvalid
@@ -38,9 +39,7 @@ import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
 import org.timemates.app.style.system.text_field.SizedOutlinedTextField
 import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Action
-import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.Intent
+import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent.*
 import org.timemates.sdk.common.constructor.createOrThrow
 import org.timemates.sdk.common.types.value.Count
 import org.timemates.sdk.timers.types.value.TimerDescription
@@ -51,7 +50,7 @@ import kotlin.time.DurationUnit
 
 @Composable
 fun TimerSettingsScreen(
-    mvi: TimerSettingsScreenComponent,
+    mvi: MVI<State, Intent, Action>,
     navigateToTimersScreen: () -> Unit,
 ) {
     val snackbarData = remember { SnackbarHostState() }
