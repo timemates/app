@@ -8,14 +8,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.StackAnimation
-import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.arkivanov.decompose.extensions.compose.stack.animation.StackAnimation
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import com.arkivanov.decompose.router.children.NavigationSource
 import com.arkivanov.decompose.router.stack.ChildStack
-import com.arkivanov.decompose.router.stack.StackNavigationSource
+import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.nullable
 
 val LocalComponentContext: ProvidableCompositionLocal<ComponentContext> =
     staticCompositionLocalOf { error("Root component context was not provided") }
@@ -27,7 +27,7 @@ fun ProvideComponentContext(componentContext: ComponentContext, content: @Compos
 
 @Composable
 inline fun <reified C : Screen> ChildStack(
-    source: StackNavigationSource<C>,
+    source: NavigationSource<StackNavigation.Event<C>>,
     noinline initialStack: () -> List<C>,
     modifier: Modifier = Modifier,
     key: String = "DefaultChildStack",
@@ -66,7 +66,7 @@ fun <C : Any> ChildStack(
 
 @Composable
 inline fun <reified C : Screen> rememberChildStack(
-    source: StackNavigationSource<C>,
+    source: NavigationSource<StackNavigation.Event<C>>,
     noinline initialStack: () -> List<C>,
     key: String = "DefaultChildStack",
 ): State<ChildStack<C, ComponentContext>> {

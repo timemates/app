@@ -37,7 +37,7 @@ fun Button(
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
-        modifier = modifier.height(42.dp),
+        modifier = modifier,
         enabled = enabled,
         shape = MaterialTheme.shapes.small,
         colors = colors,

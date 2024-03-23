@@ -1,12 +1,12 @@
 package org.timemates.app
 
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import kotlinx.coroutines.channels.Channel
 import org.timemates.app.common.initializeAppDependencies
 import org.timemates.app.foundation.time.SystemUTCTimeProvider
+import org.timemates.app.storage.AppDirectory
 import org.timemates.credentials.DesktopCredentialsStorage
 import org.timemates.sdk.common.exceptions.UnauthorizedException
-import kotlinx.coroutines.channels.Channel
-import org.timemates.app.storage.AppDirectory
 import kotlin.io.path.pathString
 
 fun main() {
