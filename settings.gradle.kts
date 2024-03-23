@@ -9,6 +9,8 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.PREFER_PROJECT
+
     repositories {
         mavenCentral()
         google()
@@ -31,8 +33,6 @@ include(
 )
 
 include(
-    ":foundation:mvi",
-    ":foundation:mvi:koin-compose",
     ":foundation:viewmodel",
     ":foundation:random",
     ":foundation:validation",
