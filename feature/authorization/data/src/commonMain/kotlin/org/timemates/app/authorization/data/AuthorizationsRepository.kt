@@ -37,7 +37,7 @@ class AuthorizationsRepository(
     }
 
     override suspend fun authorize(emailAddress: EmailAddress): Result<VerificationHash> {
-        return emailAuthApi.authorize(emailAddress, Authorization.Metadata(appName, appVersion, ClientIpAddress.createOrThrow("UNDEFINED")))
+        return emailAuthApi.authorize(emailAddress, Authorization.Metadata(appName, appVersion, ClientIpAddress.factory.createOrThrow("UNDEFINED")))
     }
 
     override suspend fun confirm(verificationHash: VerificationHash, code: ConfirmationCode): Result<ConfirmAuthorizationRequest.Result> {
@@ -94,5 +94,5 @@ class AuthorizationsRepository(
 
 }
 
-private val appName = ApplicationName.createOrThrow("TimeMates App")
-private val appVersion = ClientVersion.createOrThrow(1.0)
+private val appName = ApplicationName.factory.createOrThrow("TimeMates App")
+private val appVersion = ClientVersion.factory.createOrThrow(1.0)

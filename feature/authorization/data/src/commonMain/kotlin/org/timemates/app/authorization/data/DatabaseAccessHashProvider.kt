@@ -15,7 +15,7 @@ class DatabaseAccessHashProvider(
         // TODO cache in memory
         return localQueries.getCurrent().executeAsOneOrNull()
             ?.let {
-                AccessHash.createOrThrow(
+                AccessHash.factory.createOrThrow(
                     credentialsStorage.getString("access_hash_${it.id}")
                         ?: throw UnauthorizedException("Authorization wasn't saved to system credentials.")
                 )

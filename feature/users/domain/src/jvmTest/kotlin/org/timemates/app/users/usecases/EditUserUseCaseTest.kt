@@ -2,6 +2,7 @@ package org.timemates.app.users.usecases
 
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.timemates.app.users.repositories.AuthorizationsRepository
 import org.timemates.app.users.repositories.UsersRepository
 import org.timemates.sdk.common.constructor.createOrThrow
@@ -9,7 +10,6 @@ import org.timemates.sdk.common.types.Empty
 import org.timemates.sdk.users.profile.types.value.UserDescription
 import org.timemates.sdk.users.profile.types.value.UserId
 import org.timemates.sdk.users.profile.types.value.UserName
-import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,9 +22,9 @@ class EditUserUseCaseTest {
     @Test
     fun `execute with valid name and description should return Success result`() {
         // GIVEN
-        val userId = UserId.createOrThrow(0)
-        val name = UserName.createOrThrow("John Doe")
-        val description = UserDescription.createOrThrow("Some description")
+        val userId = UserId.factory.createOrThrow(0)
+        val name = UserName.factory.createOrThrow("John Doe")
+        val description = UserDescription.factory.createOrThrow("Some description")
         coEvery { authorizations.getMe() } returns Result.success(userId)
         coEvery { repository.editUser(name, description) } returns Result.success(Empty)
 
@@ -38,7 +38,7 @@ class EditUserUseCaseTest {
     @Test
     fun `execute with editUser() failure should return Failure result`() {
         // GIVEN
-        val userId = UserId.createOrThrow(1)
+        val userId = UserId.factory.createOrThrow(1)
         val exception = Exception("Failed to edit user")
         coEvery { authorizations.getMe() } returns Result.success(userId)
         coEvery { repository.editUser(null, null) } returns Result.failure(exception)
