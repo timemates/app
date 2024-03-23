@@ -27,13 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.timemates.sdk)
-    implementation(libs.kotlinx.datetime)
-
-    implementation(projects.core.styleSystem)
+    implementation(projects.core.ui)
 
     debugImplementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.preview)
@@ -41,9 +35,6 @@ dependencies {
 
     implementation(projects.core.localization)
     implementation(projects.core.localization.compose)
-
-    implementation(libs.decompose)
-    implementation(libs.decompose.jetbrains.compose)
 
     implementation(projects.feature.authorization.presentation)
     implementation(projects.feature.timers.presentation)

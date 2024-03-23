@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -77,4 +79,9 @@ dependencies {
 
     implementation(projects.platform.common)
     implementation(libs.androidx.security.crypto.ktx)
+
+    implementation(libs.essenty.instanceKeeper)
+    implementation(libs.essenty.lifecycle)
+
+    implementation(libs.androidx.lifecycle)
 }

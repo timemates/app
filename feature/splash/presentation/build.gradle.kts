@@ -6,8 +6,6 @@ plugins {
 
 dependencies {
     commonMainApi(projects.core.styleSystem)
-    commonMainApi(projects.foundation.mvi)
-    commonMainApi(projects.foundation.mvi.koinCompose)
     commonMainApi(projects.feature.splash.domain)
 
     commonMainImplementation(libs.kotlinx.coroutines)
@@ -15,6 +13,8 @@ dependencies {
     commonMainApi(compose.materialIconsExtended)
 
     commonMainApi(libs.koin.core)
+
+    commonMainImplementation(projects.core.ui)
 
     commonMainApi(projects.core.localization)
     commonMainApi(projects.core.localization.compose)

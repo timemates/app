@@ -18,52 +18,45 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.channels.consumeEach
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Effect
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Event
-import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.State
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Action
+import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent.Intent
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.MVI
+import org.timemates.app.feature.common.getFailuresIfPresent
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun ConfirmAuthorizationScreen(
-    mvi: MVI<State, Event, Effect>,
+    mvi: ConfirmAuthorizationScreenComponent,
     onBack: () -> Unit,
     navigateToConfiguring: (String) -> Unit,
     navigateToHome: () -> Unit,
 ) {
-    val state by mvi.state.collectAsState()
-    val snackbarData = remember { SnackbarHostState() }
-
     val strings = LocalStrings.current
+    val snackbarData = remember { SnackbarHostState() }
+    val state by mvi.subscribe { action ->
+        when (action) {
+            is Action.Failure ->
+                snackbarData.showSnackbar(message = action.throwable.getDefaultDisplayMessage(strings))
 
-    LaunchedEffect(Unit) {
-        mvi.effects.consumeEach { effect ->
-            when (effect) {
-                is Effect.Failure ->
-                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
+            is Action.NavigateToCreateAccount ->
+                navigateToConfiguring(action.verificationHash.string)
 
-                is Effect.NavigateToCreateAccount ->
-                    navigateToConfiguring(effect.verificationHash.string)
+            is Action.NavigateToHome ->
+                navigateToHome()
 
-                is Effect.NavigateToHome ->
-                    navigateToHome()
+            Action.TooManyAttempts ->
+                snackbarData.showSnackbar(message = strings.tooManyAttempts)
 
-                Effect.TooManyAttempts ->
-                    snackbarData.showSnackbar(message = strings.tooManyAttempts)
-
-                Effect.AttemptIsFailed ->
-                    snackbarData.showSnackbar(message = strings.confirmationAttemptFailed)
-            }
+            Action.AttemptIsFailed ->
+                snackbarData.showSnackbar(message = strings.confirmationAttemptFailed)
         }
     }
 
@@ -81,20 +74,16 @@ fun ConfirmAuthorizationScreen(
             )
         },
     ) { rootPaddings ->
-        val supportText = when {
-            state.isCodeInvalid -> LocalStrings.current.codeIsInvalid
-            state.isCodeSizeInvalid -> LocalStrings.current.codeSizeIsInvalid
-            else -> null
-        }
+        val supportText = state.code.getFailuresIfPresent(strings)
 
         Column(modifier = Modifier.fillMaxHeight().padding(rootPaddings).padding(16.dp)) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = null) },
-                value = state.code,
-                onValueChange = { mvi.dispatchEvent(Event.CodeChange(it)) },
+                value = state.code.value,
+                onValueChange = { mvi.store.intent(Intent.CodeChange(it)) },
                 label = { Text(LocalStrings.current.confirmation) },
-                isError = state.isCodeInvalid || state.isCodeSizeInvalid,
+                isError = supportText != null,
                 supportingText = { if (supportText != null) Text(supportText) },
                 enabled = !state.isLoading,
             )
@@ -114,8 +103,8 @@ fun ConfirmAuthorizationScreen(
                 ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { mvi.dispatchEvent(Event.OnConfirmClicked) },
-                    enabled = !state.isLoading,
+                    onClick = { mvi.store.intent(Intent.OnConfirmClicked) },
+                    enabled = !state.isLoading && state.canSendRequest,
                     isLoading = state.isLoading
                 ) {
                     Text(text = LocalStrings.current.nextStep)

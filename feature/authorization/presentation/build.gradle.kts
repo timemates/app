@@ -7,7 +7,6 @@ plugins {
 dependencies {
     commonMainImplementation(projects.core.ui)
     commonMainImplementation(libs.timemates.sdk)
-    commonMainApi(projects.foundation.mvi)
     commonMainImplementation(projects.feature.authorization.domain)
 
     commonMainImplementation(projects.core.styleSystem)

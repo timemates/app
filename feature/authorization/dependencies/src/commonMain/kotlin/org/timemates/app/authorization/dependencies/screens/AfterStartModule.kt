@@ -1,12 +1,11 @@
 package org.timemates.app.authorization.dependencies.screens
 
 import com.arkivanov.decompose.ComponentContext
-import org.timemates.sdk.authorization.email.types.value.VerificationHash
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.timemates.app.authorization.dependencies.AuthorizationDataModule
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartReducer
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 
 @Module(includes = [AuthorizationDataModule::class])
 class AfterStartModule {
@@ -16,10 +15,8 @@ class AfterStartModule {
         verificationHash: VerificationHash,
     ): AfterStartScreenComponent {
         return AfterStartScreenComponent(
-            componentContext,
-            reducer = AfterStartReducer(
-                verificationHash = verificationHash
-            ),
+            componentContext = componentContext,
+            verificationHash = verificationHash,
         )
     }
 }

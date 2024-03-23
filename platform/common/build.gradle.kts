@@ -36,8 +36,5 @@ dependencies {
 
     commonMainApi(libs.timemates.credentials.manager)
 
-    commonMainImplementation(projects.foundation.mvi)
-    commonMainImplementation(projects.foundation.mvi.koinCompose)
-
     commonMainImplementation(projects.feature.authorization.domain)
 }

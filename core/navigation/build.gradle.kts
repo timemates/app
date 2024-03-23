@@ -8,10 +8,9 @@ dependencies {
     commonMainApi(libs.decompose)
     commonMainApi(libs.decompose.jetbrains.compose)
     commonMainImplementation(libs.koin.core)
+    commonMainImplementation(libs.koin.compose)
 
     commonMainImplementation(projects.core.styleSystem)
-    commonMainImplementation(projects.foundation.mvi)
-    commonMainImplementation(projects.foundation.mvi.koinCompose)
 
     commonMainImplementation(libs.kotlinx.coroutines)
 

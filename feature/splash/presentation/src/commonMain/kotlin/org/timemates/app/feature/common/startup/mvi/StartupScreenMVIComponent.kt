@@ -1,17 +1,17 @@
 package org.timemates.app.feature.common.startup.mvi
 
 import com.arkivanov.decompose.ComponentContext
-import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
+import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.Action
+import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.Intent
 import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.State
 import org.timemates.app.feature.splash.repositories.AuthRepository
-import org.timemates.app.foundation.mvi.MVIComponent
-import org.timemates.app.foundation.mvi.ReducerScope
-import org.timemates.app.foundation.mvi.UiEffect
-import org.timemates.app.foundation.mvi.UiEvent
-import org.timemates.app.foundation.mvi.UiState
-import org.timemates.app.foundation.mvi.mviComponent
-import org.timemates.app.foundation.mvi.Reducer as MviReducer
+import pro.respawn.flowmvi.api.Container
+import pro.respawn.flowmvi.api.MVIAction
+import pro.respawn.flowmvi.api.MVIIntent
+import pro.respawn.flowmvi.api.MVIState
+import pro.respawn.flowmvi.api.Store
+import pro.respawn.flowmvi.essenty.dsl.retainedStore
+import pro.respawn.flowmvi.plugins.init
 
 /**
  * The global app state machine. Responsible for checking whether user is authorized
@@ -20,56 +20,32 @@ import org.timemates.app.foundation.mvi.Reducer as MviReducer
 class StartupScreenMVIComponent(
     componentContext: ComponentContext,
     authRepository: AuthRepository,
-) : MVIComponent<State, StartupEvent, StartupEffect> by mviComponent(
-    componentContext = componentContext,
-    componentName = "StartupScreen",
-    initState = State,
-    reducer = Reducer(authRepository),
-) {
-    @Serializable
-    data object State : UiState {
-        private fun readResolve(): Any = State
-    }
+) : ComponentContext by componentContext, Container<State, Intent, Action> {
 
-    class Reducer(
-        private val authRepository: AuthRepository,
-    ) : MviReducer<State, StartupEvent, StartupEffect> {
-        override fun ReducerScope<StartupEffect>.reduce(
-            state: State,
-            event: StartupEvent,
-        ): State {
-            return when (event) {
-                StartupEvent.Started -> {
-                    machineScope.launch {
-                        if (authRepository.isAuthorized())
-                            sendEffect(StartupEffect.Authorized)
-                        else sendEffect(StartupEffect.Unauthorized)
-                    }
-
-                    state
-                }
-            }
+    override val store: Store<State, Intent, Action> = retainedStore(initial = State) {
+        init {
+            if (authRepository.isAuthorized())
+                action(Action.GoToMainScreen)
+            else action(Action.GoToAuthorization)
         }
     }
+
+    data object State : MVIState
+
+    sealed class Intent : MVIIntent
+
+    sealed class Action : MVIAction {
+        /**
+         * Indicates that user is not authorized and should be moved to the
+         * authorization screen.
+         */
+        data object GoToAuthorization : Action()
+
+        /**
+         * Indicates that user is authorized and should be moved to the
+         * home screen.
+         */
+        data object GoToMainScreen : Action()
+    }
 }
 
-sealed class StartupEvent : UiEvent {
-    /**
-     * Indicates that app is started.
-     */
-    data object Started : StartupEvent()
-}
-
-sealed class StartupEffect : UiEffect {
-    /**
-     * Indicates that user is not authorized and should be moved to the
-     * authorization screen.
-     */
-    data object Unauthorized : StartupEffect()
-
-    /**
-     * Indicates that user is authorized and should be moved to the
-     * home screen.
-     */
-    data object Authorized : StartupEffect()
-}

@@ -1,14 +1,14 @@
 package org.timemates.app.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import com.arkivanov.decompose.childContext
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import androidx.compose.ui.Modifier
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.stack.animation.plus
+import com.arkivanov.decompose.extensions.compose.stack.animation.scale
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
@@ -24,14 +24,13 @@ import org.timemates.app.authorization.ui.configure_account.mvi.ConfigureAccount
 import org.timemates.app.authorization.ui.confirmation.ConfirmAuthorizationScreen
 import org.timemates.app.authorization.ui.confirmation.mvi.ConfirmAuthorizationScreenComponent
 import org.timemates.app.authorization.ui.initial_authorization.InitialAuthorizationScreen
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationScreenComponent
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent
 import org.timemates.app.authorization.ui.new_account_info.NewAccountInfoScreen
 import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent
 import org.timemates.app.authorization.ui.start.StartAuthorizationScreen
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationScreenComponent
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent
 import org.timemates.app.feature.common.startup.StartupScreen
 import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent
-import org.timemates.app.mvi.compose.koinMviComponent
 import org.timemates.app.timers.ui.settings.TimerSettingsScreen
 import org.timemates.app.timers.ui.settings.mvi.TimerSettingsScreenComponent
 import org.timemates.app.timers.ui.timer_creation.TimerCreationScreen
@@ -55,6 +54,7 @@ fun TimeMatesAppEntry(
     }
 
     ChildStack(
+        modifier = Modifier.fillMaxSize(),
         source = navigation,
         initialStack = { listOf(initialScreen) },
         animation = stackAnimation(fade() + scale()),
@@ -72,7 +72,7 @@ fun TimeMatesAppEntry(
 
             is Screen.ConfirmAuthorization -> ConfirmAuthorizationScreen(
                 mvi = koinMviComponent<ConfirmAuthorizationScreenComponent> {
-                    parametersOf(componentContext, VerificationHash.createOrThrow(screen.verificationHash))
+                    parametersOf(componentContext, VerificationHash.factory.createOrThrow(screen.verificationHash))
                 },
                 onBack = { navigation.pop() },
                 navigateToConfiguring = {
@@ -84,7 +84,7 @@ fun TimeMatesAppEntry(
             )
 
             Screen.InitialAuthorizationScreen -> InitialAuthorizationScreen(
-                mvi = koinMviComponent<InitialAuthorizationScreenComponent> {
+                mvi = koinMviComponent<InitialAuthorizationComponent> {
                     parametersOf(
                         componentContext,
                     )
@@ -95,7 +95,7 @@ fun TimeMatesAppEntry(
             )
 
             Screen.StartAuthorization -> StartAuthorizationScreen(
-                mvi = koinMviComponent<StartAuthorizationScreenComponent> {
+                mvi = koinMviComponent<StartAuthorizationComponent> {
                     parametersOf(componentContext)
                 },
                 onNavigateToConfirmation = {
@@ -105,7 +105,7 @@ fun TimeMatesAppEntry(
 
             is Screen.AfterStart -> AfterStartScreen(
                 mvi = koinMviComponent<AfterStartScreenComponent> {
-                    parametersOf(componentContext, VerificationHash.createOrThrow(screen.verificationHash))
+                    parametersOf(componentContext, VerificationHash.factory.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfirmation = {
                     navigation.push(Screen.ConfirmAuthorization(screen.verificationHash))
@@ -117,7 +117,7 @@ fun TimeMatesAppEntry(
 
             is Screen.NewAccountInfo -> NewAccountInfoScreen(
                 mvi = koinMviComponent<NewAccountInfoScreenComponent> {
-                    parametersOf(componentContext, VerificationHash.createOrThrow(screen.verificationHash))
+                    parametersOf(componentContext, VerificationHash.factory.createOrThrow(screen.verificationHash))
                 },
                 navigateToConfigure = {
                     navigation.push(Screen.NewAccount(screen.verificationHash))
@@ -129,7 +129,7 @@ fun TimeMatesAppEntry(
 
             is Screen.NewAccount -> ConfigureAccountScreen(
                 mvi = koinMviComponent<ConfigureAccountScreenComponent> {
-                    parametersOf(componentContext, VerificationHash.createOrThrow(screen.verificationHash))
+                    parametersOf(componentContext, VerificationHash.factory.createOrThrow(screen.verificationHash))
                 },
                 onBack = {
                     navigation.popTo(0)

@@ -5,33 +5,28 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import kotlinx.coroutines.channels.consumeEach
-import org.timemates.app.feature.common.startup.mvi.StartupEffect
-import org.timemates.app.feature.common.startup.mvi.StartupEvent
-import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent.State
-import org.timemates.app.foundation.mvi.MVI
+import org.timemates.app.feature.common.startup.mvi.StartupScreenMVIComponent
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.theme.AppTheme
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun StartupScreen(
-    mvi: MVI<State, StartupEvent, StartupEffect>,
+    mvi: StartupScreenMVIComponent,
     navigateToAuth: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
-    LaunchedEffect(true) {
-        mvi.dispatchEvent(StartupEvent.Started)
-        mvi.effects.consumeEach { effect ->
-            when (effect) {
-                StartupEffect.Authorized -> navigateToHome()
-                StartupEffect.Unauthorized -> navigateToAuth()
-            }
+    @Suppress("UNUSED_VARIABLE")
+    val state = mvi.subscribe { action ->
+        when (action) {
+            StartupScreenMVIComponent.Action.GoToAuthorization -> navigateToAuth()
+            StartupScreenMVIComponent.Action.GoToMainScreen -> navigateToHome()
         }
     }
 

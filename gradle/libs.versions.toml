@@ -23,7 +23,7 @@ material = "1.11.0"
 timeMatesSdk = "dev-2e6f1991053b561042f0f4ff10b82592f46137fb"
 
 ksp = "1.9.22-1.0.17"
-flowmvi = "2.5.0-alpha02"
+flowmvi = "2.5.0-alpha06"
 
 
 # Koin
@@ -40,6 +40,8 @@ securityCryptoKtx = "1.1.0-alpha06"
 # Build constants
 android-target = "34"
 android-min = "24"
+
+essenty = "1.3.0"
 
 [libraries]
 # KotlinX libraries
@@ -141,6 +143,10 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.5" }
+
+## Essenty
+essenty-instanceKeeper = { module = "com.arkivanov.essenty:instance-keeper", version.ref = "essenty" }
+essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 
 # FlowMVI
 flowmvi-core = { module = "pro.respawn.flowmvi:core", version.ref = "flowmvi" }

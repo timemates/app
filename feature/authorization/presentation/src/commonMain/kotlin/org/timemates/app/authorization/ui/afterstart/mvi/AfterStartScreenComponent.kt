@@ -2,42 +2,44 @@ package org.timemates.app.authorization.ui.afterstart.mvi
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
-import org.timemates.sdk.authorization.email.types.value.VerificationHash
-import kotlinx.serialization.Serializable
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Effect
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Event
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Action
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.Intent
 import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.State
-import org.timemates.app.foundation.mvi.MVIComponent
-import org.timemates.app.foundation.mvi.UiEffect
-import org.timemates.app.foundation.mvi.UiEvent
-import org.timemates.app.foundation.mvi.UiState
-import org.timemates.app.foundation.mvi.mviComponent
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import pro.respawn.flowmvi.api.Container
+import pro.respawn.flowmvi.api.MVIAction
+import pro.respawn.flowmvi.api.MVIIntent
+import pro.respawn.flowmvi.api.MVIState
+import pro.respawn.flowmvi.api.Store
+import pro.respawn.flowmvi.essenty.dsl.retainedStore
+import pro.respawn.flowmvi.plugins.reduce
 
 class AfterStartScreenComponent(
     componentContext: ComponentContext,
-    reducer: AfterStartReducer,
-) : MVIComponent<State, Event, Effect> by mviComponent(
-    componentName = "AfterStartComponent",
-    componentContext = componentContext,
-    initState = State,
-    reducer = reducer,
-    middlewares = emptyList(),
-) {
+    private val verificationHash: VerificationHash,
+) : ComponentContext by componentContext, Container<State, Intent, Action> {
+
+    override val store: Store<State, Intent, Action> = retainedStore(initial = State) {
+        reduce { intent ->
+            when (intent) {
+                Intent.NextClicked -> action(Action.NavigateToConfirmation(verificationHash))
+                Intent.OnChangeEmailClicked -> action(Action.OnChangeEmailClicked)
+            }
+        }
+    }
+
     @Immutable
-    @Serializable
-    data object State : UiState {
-        private fun readResolve(): Any = State
+    data object State : MVIState
+
+    sealed class Action : MVIAction {
+        data class NavigateToConfirmation(val verificationHash: VerificationHash) : Action()
+
+        data object OnChangeEmailClicked : Action()
     }
 
-    sealed class Effect : UiEffect {
-        data class NavigateToConfirmation(val verificationHash: VerificationHash) : Effect()
+    sealed class Intent : MVIIntent {
+        data object NextClicked : Intent()
 
-        data object OnChangeEmailClicked : Effect()
-    }
-
-    sealed class Event : UiEvent {
-        data object NextClicked : Event()
-
-        data object OnChangeEmailClicked : Event()
+        data object OnChangeEmailClicked : Intent()
     }
 }
