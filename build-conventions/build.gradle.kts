@@ -13,6 +13,7 @@ kotlin {
 }
 
 dependencies {
+    api(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
     api(libs.kotlin.plugin)
     api(libs.android.gradle.plugin)
     api(libs.compose.multiplatform.plugin)

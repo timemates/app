@@ -1,6 +1,5 @@
 package org.timemates.app.timers.dependencies
 
-import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Singleton
 import org.timemates.app.users.repositories.TimersRepository
