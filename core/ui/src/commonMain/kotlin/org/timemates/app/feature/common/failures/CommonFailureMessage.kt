@@ -2,7 +2,6 @@ package org.timemates.app.feature.common.failures
 
 import androidx.compose.runtime.Stable
 import org.timemates.app.localization.Strings
-import org.timemates.sdk.common.constructor.CreationFailure
 import org.timemates.sdk.common.exceptions.AlreadyExistsException
 import org.timemates.sdk.common.exceptions.InvalidArgumentException
 import org.timemates.sdk.common.exceptions.NotFoundException
@@ -32,7 +31,6 @@ fun Throwable.getDefaultDisplayMessage(strings: Strings): String {
         is UnauthorizedException -> strings.unauthorized
         is UnavailableException -> strings.unavailable
         is UnsupportedException -> strings.unsupported
-        is CreationFailure -> getCommonDisplayMessage(strings)
         else -> strings.internalError(message)
     }
 }

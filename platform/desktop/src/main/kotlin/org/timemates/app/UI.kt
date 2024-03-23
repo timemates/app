@@ -20,14 +20,12 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
+import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
 import kotlinx.coroutines.channels.Channel
 import org.timemates.app.common.App
 import org.timemates.app.foundation.time.SystemUTCTimeProvider
-import org.timemates.app.storage.AppDirectory
-import org.timemates.app.storage.FileParcelableContainer
 import org.timemates.app.style.system.theme.AppTheme
 import org.timemates.sdk.common.exceptions.UnauthorizedException
 import java.awt.event.WindowEvent
@@ -37,9 +35,7 @@ import javax.swing.SwingUtilities
 @OptIn(ExperimentalDecomposeApi::class)
 fun startUi(authorizationFailedChannel: Channel<UnauthorizedException>) {
     val lifecycle = LifecycleRegistry()
-    val stateKeeper = StateKeeperDispatcher(
-        FileParcelableContainer(AppDirectory.resolve("saved_state.dat"))
-    )
+    val stateKeeper = StateKeeperDispatcher()
     val rootComponentContext = DefaultComponentContext(
         lifecycle = lifecycle,
         stateKeeper = stateKeeper,

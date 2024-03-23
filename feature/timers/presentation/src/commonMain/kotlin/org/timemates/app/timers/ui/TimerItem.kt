@@ -25,24 +25,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
-import org.timemates.app.core.types.serializable.SerializableTimer
-import org.timemates.app.core.types.serializable.SerializableTimer.State.ConfirmationWaiting
-import org.timemates.app.core.types.serializable.SerializableTimer.State.Inactive
-import org.timemates.app.core.types.serializable.SerializableTimer.State.Paused
-import org.timemates.app.core.types.serializable.SerializableTimer.State.Rest
-import org.timemates.app.core.types.serializable.SerializableTimer.State.Running
 import org.timemates.app.feature.common.providable.LocalTimeProvider
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.theme.AppTheme
+import org.timemates.sdk.timers.types.Timer
 
 @Composable
 fun TimerItem(
-    timer: SerializableTimer,
+    timer: Timer,
     onClick: () -> Unit,
 ) {
     OutlinedCard(
@@ -64,13 +58,13 @@ fun TimerItem(
                     modifier = Modifier,
                 ) {
                     Text(
-                        text = timer.name,
+                        text = timer.name.string,
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium,
                     )
                     OnlineIndicator(
                         modifier = Modifier.padding(3.dp),
-                        isOnline = timer.state is Running,
+                        isOnline = timer.state is Timer.State.Running,
                     )
                 }
                 Text(
@@ -96,11 +90,15 @@ fun TimerItem(
 
 @Stable
 @Composable
-private fun timerItemSubtext(timer: SerializableTimer): String {
-    return when(timer.state) {
-        is Running, is Rest -> LocalStrings.current.runningTimerDescription(timer.membersCount)
-        is Paused, is Inactive -> LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
-        is ConfirmationWaiting -> LocalStrings.current.confirmationWaitingTimerDescription
+private fun timerItemSubtext(timer: Timer): String {
+    return when (timer.state) {
+        is Timer.State.Running, is Timer.State.Rest ->
+            LocalStrings.current.runningTimerDescription(timer.membersCount.int)
+
+        is Timer.State.Paused, is Timer.State.Inactive ->
+            LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
+
+        is Timer.State.ConfirmationWaiting -> LocalStrings.current.confirmationWaitingTimerDescription
     }
 }
 
