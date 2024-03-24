@@ -1,3 +1,5 @@
+import org.gradle.accessors.dm.LibrariesForLibs
+
 plugins {
     id("multiplatform-library-convention")
     id("com.google.devtools.ksp")
@@ -5,16 +7,10 @@ plugins {
 
 version = "SNAPSHOT"
 
-val koinVersion = "3.5.3"
-val koinAnnotationsVersion = "1.3.0"
+val libs = the<LibrariesForLibs>()
 
 dependencies {
-    commonMainImplementation("io.insert-koin:koin-core:$koinVersion")
-    commonMainImplementation("io.insert-koin:koin-annotations:$koinAnnotationsVersion")
-
-    val kspCompiler = "io.insert-koin:koin-ksp-compiler:$koinAnnotationsVersion"
-
-    add("kspCommonMainMetadata", kspCompiler)
-    add("kspJvm", kspCompiler)
-    add("kspAndroid", kspCompiler)
+    commonMainImplementation(libs.koin.core)
+    commonMainImplementation(libs.koin.annotations)
+    ksp(libs.koin.ksp.compiler)
 }

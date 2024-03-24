@@ -22,63 +22,45 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.compose.painterResource
-import io.github.skeptick.libres.compose.painterResource
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
 import org.timemates.app.localization.compose.LocalStrings
-import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
+import org.timemates.app.style.system.button.FloatingActionButton
+import org.timemates.app.style.system.theme.AppTheme
 import org.timemates.app.timers.ui.PlaceholderTimerItem
 import org.timemates.app.timers.ui.TimerItem
-import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Effect
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.Event
-import org.timemates.app.timers.ui.timers_list.mvi.TimersListStateMachine.State
-import org.timemates.app.style.system.button.FloatingActionButton
-import io.timemates.sdk.timers.types.value.TimerId
-import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.timers.ui.timers_list.mvi.TimersListScreenComponent.*
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun TimersListScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Intent, Action>,
     navigateToSetting: () -> Unit,
     navigateToTimerCreationScreen: () -> Unit,
-    navigateToTimer: (TimerId) -> Unit,
+    navigateToTimer: (Long) -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
-    val timersListState = rememberLazyListState()
-
-    val painter: Painter = Resources.image.empty_list_image.painterResource()
-
     val strings = LocalStrings.current
 
-    LaunchedEffect(true) {
-        stateMachine.dispatchEvent(Event.Load)
-
-        stateMachine.effects.consumeEach { effect ->
-            when (effect) {
-                is Effect.Failure ->
-                    snackbarData.showSnackbar(message = effect.throwable.getDefaultDisplayMessage(strings))
-
-                else -> {}
-            }
+    val state by mvi.subscribe { action ->
+        when (action) {
+            is Action.Failure ->
+                snackbarData.showSnackbar(message = action.throwable.getDefaultDisplayMessage(strings))
         }
     }
+    val timersListState = rememberLazyListState()
 
-    if(state.hasMoreItems) {
+    if (state.hasMoreItems) {
         LaunchedEffect(timersListState.layoutInfo.visibleItemsInfo.lastOrNull()) {
             if (timersListState.isScrolledToTheEnd()) {
-                stateMachine.dispatchEvent(Event.Load)
+                mvi.store.intent(Intent.Load)
             }
         }
     }
@@ -147,7 +129,7 @@ fun TimersListScreen(
                     items(state.timersList) { timer ->
                         TimerItem(
                             timer = timer,
-                            onClick = { navigateToTimer(timer.timerId) }
+                            onClick = { navigateToTimer(timer.timerId.long) }
                         )
                     }
 
@@ -166,7 +148,7 @@ fun TimersListScreen(
     }
 }
 
-fun LazyListState.isScrolledToTheEnd() : Boolean {
+fun LazyListState.isScrolledToTheEnd(): Boolean {
     val lastItem = layoutInfo.visibleItemsInfo.lastOrNull()
     return lastItem == null || lastItem.size + lastItem.offset <= layoutInfo.viewportEndOffset
 }

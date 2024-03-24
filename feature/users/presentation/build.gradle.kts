@@ -4,10 +4,9 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(projects.feature.common.presentation)
+    commonMainImplementation(projects.core.ui)
     commonMainImplementation(libs.timemates.sdk)
-    commonMainImplementation(projects.foundation.mvi)
-    commonMainImplementation(projects.styleSystem)
+    commonMainImplementation(projects.core.styleSystem)
     commonMainImplementation(projects.feature.users.domain)
 
     commonTestImplementation(projects.foundation.random)

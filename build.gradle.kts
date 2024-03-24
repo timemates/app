@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.ksp) apply false
@@ -16,7 +17,22 @@ group = "org.timemates.app"
 allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "19"
+            freeCompilerArgs += listOf("-Xskip-prerelease-check")
+
+            val composeReportsDir = "compose_reports"
+
+            freeCompilerArgs += listOf(
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=$rootDir/stability-config.txt"
+            )
+            freeCompilerArgs += listOf(
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+                    project.layout.buildDirectory.get().dir(composeReportsDir).asFile.absolutePath,
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+                    project.layout.buildDirectory.get().dir(composeReportsDir).asFile.absolutePath,
+            )
         }
     }
 }

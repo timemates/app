@@ -8,48 +8,42 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.Button
 import org.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.consumeEach
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun AfterStartScreen(
-    stateMachine: StateMachine<EmptyState, Event, AfterStartStateMachine.Effect>,
+    mvi: MVI<State, Intent, Action>,
     navigateToConfirmation: (String) -> Unit,
     navigateToStart: () -> Unit,
 ) {
     val painter: Painter = Resources.image.confirm_authorization_info_image.painterResource()
 
-    LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
-            when (effect) {
-                is AfterStartStateMachine.Effect.NavigateToConfirmation ->
-                    navigateToConfirmation(effect.verificationHash.string)
-
-                AfterStartStateMachine.Effect.OnChangeEmailClicked ->
-                    navigateToStart()
-            }
+    @Suppress("UNUSED_VARIABLE")
+    val state = mvi.subscribe { action ->
+        when (action) {
+            is Action.NavigateToConfirmation -> navigateToConfirmation(action.verificationHash.string)
+            Action.OnChangeEmailClicked -> navigateToStart()
         }
     }
 
@@ -58,9 +52,9 @@ fun AfterStartScreen(
             AppBar(
                 navigationIcon = {
                     IconButton(
-                        onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
+                        onClick = { mvi.store.intent(Intent.OnChangeEmailClicked) },
                     ) {
-                        Icon(Icons.Rounded.ArrowBack, contentDescription = null)
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null)
                     }
                 },
                 title = LocalStrings.current.appName,
@@ -106,7 +100,7 @@ fun AfterStartScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = false,
-                onClick = { stateMachine.dispatchEvent(Event.OnChangeEmailClicked) },
+                onClick = { mvi.store.intent(Intent.OnChangeEmailClicked) },
             ) {
                 Text(LocalStrings.current.changeEmail)
             }
@@ -114,7 +108,7 @@ fun AfterStartScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = true,
-                onClick = { stateMachine.dispatchEvent(Event.NextClicked) },
+                onClick = { mvi.store.intent(Intent.NextClicked) },
             ) {
                 Text(LocalStrings.current.nextStep)
             }

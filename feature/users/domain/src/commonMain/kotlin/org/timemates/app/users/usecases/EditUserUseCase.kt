@@ -2,8 +2,8 @@ package org.timemates.app.users.usecases
 
 import org.timemates.app.users.repositories.AuthorizationsRepository
 import org.timemates.app.users.repositories.UsersRepository
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserName
 
 /**
  * Use case class for editing a user's information.

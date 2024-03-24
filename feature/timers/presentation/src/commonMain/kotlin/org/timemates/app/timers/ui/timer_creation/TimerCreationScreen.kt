@@ -13,10 +13,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -26,8 +26,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,51 +33,45 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.feature.common.getFailuresIfPresent
+import org.timemates.app.feature.common.isInvalid
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
 import org.timemates.app.style.system.text_field.SizedOutlinedTextField
 import org.timemates.app.style.system.theme.AppTheme
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Effect
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.Event
-import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationStateMachine.State
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.types.value.Count
-import io.timemates.sdk.timers.types.value.TimerDescription
-import io.timemates.sdk.timers.types.value.TimerName
-import kotlinx.coroutines.channels.consumeEach
+import org.timemates.app.timers.ui.timer_creation.mvi.TimerCreationScreenComponent.*
+import org.timemates.sdk.timers.types.value.TimerDescription
+import org.timemates.sdk.timers.types.value.TimerName
+import pro.respawn.flowmvi.essenty.compose.subscribe
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.DurationUnit
 
 
 @Composable
 fun TimerCreationScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Intent, Action>,
     navigateToTimersScreen: () -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
-    val snackbarData = remember { SnackbarHostState() }
-
-    val nameSize = remember(state.name) { state.name.length }
-    val descriptionSize = remember(state.description) { state.description.length }
-
     val strings = LocalStrings.current
+    val snackBarData = remember { SnackbarHostState() }
 
-    LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
-            when (effect) {
-                is Effect.Failure ->
-                    snackbarData.showSnackbar(
-                        message = effect.throwable.getDefaultDisplayMessage(strings)
-                    )
+    val state by mvi.subscribe { action ->
+        when (action) {
+            is Action.ShowFailure ->
+                snackBarData.showSnackbar(
+                    message = action.throwable.getDefaultDisplayMessage(strings)
+                )
 
-                Effect.NavigateToTimersScreen ->
-                    navigateToTimersScreen()
-            }
+            Action.NavigateToTimersScreen ->
+                navigateToTimersScreen()
         }
     }
+
+    val nameSize = remember(state.name) { state.name.value.length }
+    val descriptionSize = remember(state.description) { state.description.value.length }
 
     Scaffold(
         topBar = {
@@ -89,21 +81,14 @@ fun TimerCreationScreen(
                     IconButton(
                         onClick = { navigateToTimersScreen() },
                     ) {
-                        Icon(Icons.Rounded.ArrowBack, contentDescription = null)
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null)
                     }
                 },
             )
         }
     ) { rootPaddings ->
-
-        val nameSupportText = when {
-            state.isNameSizeInvalid -> LocalStrings.current.timerNameSizeIsInvalid
-            else -> null
-        }
-        val descriptionYouSupportText = when {
-            state.isDescriptionSizeInvalid -> LocalStrings.current.timerDescriptionSizeIsInvalid
-            else -> null
-        }
+        val nameSupportText = state.name.getFailuresIfPresent(strings)
+        val descriptionYouSupportText = state.description.getFailuresIfPresent(strings)
 
         Column(
             modifier = Modifier.fillMaxSize()
@@ -116,38 +101,38 @@ fun TimerCreationScreen(
 
             SizedOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = state.name,
-                onValueChange = { stateMachine.dispatchEvent(Event.NameIsChanged(it)) },
+                value = state.name.value,
+                onValueChange = { mvi.store.intent(Intent.NameIsChanged(it)) },
                 label = { Text(LocalStrings.current.name) },
-                isError = state.isNameSizeInvalid || nameSize > TimerName.SIZE_RANGE.last,
+                isError = state.name.isInvalid() || nameSize > TimerName.LENGTH_RANGE.last,
                 singleLine = true,
                 supportingText = {
                     if (nameSupportText != null) {
                         Text(nameSupportText)
                     }
                 },
-                size = IntRange(nameSize, TimerName.SIZE_RANGE.last),
+                size = IntRange(nameSize, TimerName.LENGTH_RANGE.last),
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
             )
 
             SizedOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = state.description,
-                onValueChange = { stateMachine.dispatchEvent(Event.DescriptionIsChanged(it)) },
+                value = state.description.value,
+                onValueChange = { mvi.store.intent(Intent.DescriptionIsChanged(it)) },
                 label = { Text(LocalStrings.current.description) },
-                isError = state.isDescriptionSizeInvalid || descriptionSize > TimerDescription.SIZE_RANGE.last,
+                isError = state.description.isInvalid() || descriptionSize > TimerDescription.LENGTH_RANGE.last,
                 maxLines = 5,
                 supportingText = {
                     if (descriptionYouSupportText != null) {
                         Text(descriptionYouSupportText)
                     }
                 },
-                size = IntRange(descriptionSize, TimerDescription.SIZE_RANGE.last),
+                size = IntRange(descriptionSize, TimerDescription.LENGTH_RANGE.last),
                 enabled = !state.isLoading,
             )
 
-            Divider(
+            HorizontalDivider(
                 color = AppTheme.colors.secondary,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -165,8 +150,8 @@ fun TimerCreationScreen(
                         .weight(1f),
                     value = state.workTime.toInt(unit = DurationUnit.MINUTES).toString(),
                     onValueChange = {
-                        stateMachine.dispatchEvent(
-                            Event.WorkTimeIsChanged(it.toIntOrNull()?.minutes ?: state.workTime)
+                        mvi.store.intent(
+                            Intent.WorkTimeIsChanged(it.toIntOrNull()?.minutes ?: state.workTime)
                         )
                     },
                     label = { Text(LocalStrings.current.workTime) },
@@ -181,7 +166,7 @@ fun TimerCreationScreen(
                     modifier = Modifier
                         .weight(1f),
                     value = state.restTime.toInt(unit = DurationUnit.MINUTES).toString(),
-                    onValueChange = { stateMachine.dispatchEvent(Event.RestTimeIsChanged(it.toInt().minutes)) },
+                    onValueChange = { mvi.store.intent(Intent.RestTimeIsChanged(it.toInt().minutes)) },
                     label = { Text(LocalStrings.current.restTime) },
                     singleLine = true,
                     enabled = !state.isLoading,
@@ -196,15 +181,16 @@ fun TimerCreationScreen(
             ) {
                 Checkbox(
                     checked = state.bigRestEnabled,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.BigRestModeIsChanged(!state.bigRestEnabled)) },
+                    onCheckedChange = { mvi.store.intent(Intent.BigRestModeIsChanged(!state.bigRestEnabled)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.advancedRestSettingsDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if (!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 
@@ -215,8 +201,8 @@ fun TimerCreationScreen(
                 ) {
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
-                        value = state.bigRestPer.int.toString(),
-                        onValueChange = { stateMachine.dispatchEvent(Event.BigRestPerIsChanged(Count.createOrThrow(it.toInt()))) },
+                        value = state.bigRestPer.value.toString(),
+                        onValueChange = { mvi.store.intent(Intent.BigRestPerIsChanged(it.toInt())) },
                         label = { Text(LocalStrings.current.every) },
                         singleLine = true,
                         enabled = !state.isLoading,
@@ -225,7 +211,7 @@ fun TimerCreationScreen(
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
                         value = state.bigRestTime.toInt(unit = DurationUnit.MINUTES).toString(),
-                        onValueChange = { stateMachine.dispatchEvent(Event.BigRestTimeIsChanged(it.toInt().minutes)) },
+                        onValueChange = { mvi.store.intent(Intent.BigRestTimeIsChanged(it.toInt().minutes)) },
                         label = { Text(LocalStrings.current.minutes) },
                         singleLine = true,
                         enabled = !state.isLoading,
@@ -235,7 +221,7 @@ fun TimerCreationScreen(
 
             Spacer(modifier = Modifier.padding(8.dp))
 
-            Divider(
+            HorizontalDivider(
                 color = AppTheme.colors.secondary,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -248,15 +234,16 @@ fun TimerCreationScreen(
             ) {
                 Checkbox(
                     checked = state.isEveryoneCanPause,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.TimerPauseControlAccessIsChanged(!state.isEveryoneCanPause)) },
+                    onCheckedChange = { mvi.store.intent(Intent.TimerPauseControlAccessIsChanged(!state.isEveryoneCanPause)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.publicManageTimerStateDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if (!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 
@@ -265,15 +252,16 @@ fun TimerCreationScreen(
             ) {
                 Checkbox(
                     checked = state.isConfirmationRequired,
-                    onCheckedChange = { stateMachine.dispatchEvent(Event.ConfirmationRequirementChanged(!state.isConfirmationRequired)) },
+                    onCheckedChange = { mvi.store.intent(Intent.ConfirmationRequirementChanged(!state.isConfirmationRequired)) },
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.primary),
+                    enabled = !state.isLoading,
                 )
 
                 Text(
                     text = LocalStrings.current.confirmationRequiredDescription,
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    color = AppTheme.colors.primary,
+                    color = if (!state.isLoading) AppTheme.colors.primary else AppTheme.colors.secondary,
                 )
             }
 
@@ -284,7 +272,7 @@ fun TimerCreationScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 SnackbarHost(
-                    hostState = snackbarData
+                    hostState = snackBarData
                 ) {
                     Snackbar(it)
                 }
@@ -292,8 +280,8 @@ fun TimerCreationScreen(
                 ButtonWithProgress(
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { stateMachine.dispatchEvent(Event.OnDoneClicked) },
-                    enabled = !state.isLoading,
+                    onClick = { mvi.store.intent(Intent.OnDoneClicked) },
+                    enabled = !state.isLoading && state.canAddMoreTimers,
                     isLoading = state.isLoading
                 ) {
                     Text(LocalStrings.current.save)

@@ -24,7 +24,7 @@ dependencies {
     commonMainImplementation(projects.feature.authorization.data)
     commonMainImplementation(projects.feature.authorization.data.database)
 
-    commonMainImplementation(projects.feature.common.domain)
+    commonMainImplementation(projects.core.ui)
 
     commonMainImplementation(libs.timemates.credentials.manager)
 }

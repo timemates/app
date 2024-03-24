@@ -1,22 +1,22 @@
 package org.timemates.app.authorization.dependencies.screens
 
-import org.timemates.app.authorization.dependencies.AuthorizationDataModule
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartReducer
-import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartStateMachine
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import com.arkivanov.decompose.ComponentContext
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
+import org.timemates.app.authorization.dependencies.AuthorizationDataModule
+import org.timemates.app.authorization.ui.afterstart.mvi.AfterStartScreenComponent
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 
 @Module(includes = [AuthorizationDataModule::class])
 class AfterStartModule {
     @Factory
-    fun stateMachine(
+    fun mviComponent(
+        componentContext: ComponentContext,
         verificationHash: VerificationHash,
-    ): AfterStartStateMachine {
-        return AfterStartStateMachine(
-            reducer = AfterStartReducer(
-                verificationHash = verificationHash
-            ),
+    ): AfterStartScreenComponent {
+        return AfterStartScreenComponent(
+            componentContext = componentContext,
+            verificationHash = verificationHash,
         )
     }
 }

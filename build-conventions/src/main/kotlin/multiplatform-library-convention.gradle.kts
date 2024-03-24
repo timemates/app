@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
@@ -25,3 +27,8 @@ android {
     }
 }
 
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "19"
+    }
+}

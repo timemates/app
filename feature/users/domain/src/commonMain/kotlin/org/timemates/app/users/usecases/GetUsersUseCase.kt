@@ -1,9 +1,9 @@
 package org.timemates.app.users.usecases
 
 import org.timemates.app.users.repositories.UsersRepository
-import io.timemates.sdk.common.exceptions.NotFoundException
-import io.timemates.sdk.users.profile.types.User
-import io.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.common.exceptions.NotFoundException
+import org.timemates.sdk.users.profile.types.User
+import org.timemates.sdk.users.profile.types.value.UserId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

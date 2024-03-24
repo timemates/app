@@ -1,22 +1,22 @@
 package org.timemates.app.authorization.dependencies.screens
 
-import org.timemates.app.authorization.dependencies.AuthorizationDataModule
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoReducer
-import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoStateMachine
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
+import com.arkivanov.decompose.ComponentContext
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
+import org.timemates.app.authorization.dependencies.AuthorizationDataModule
+import org.timemates.app.authorization.ui.new_account_info.mvi.NewAccountInfoScreenComponent
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
 
 @Module(includes = [AuthorizationDataModule::class])
 class NewAccountInfoModule {
     @Factory
-    fun stateMachine(
+    fun mviComponent(
+        componentContext: ComponentContext,
         verificationHash: VerificationHash,
-    ): NewAccountInfoStateMachine {
-        return NewAccountInfoStateMachine(
-            reducer = NewAccountInfoReducer(
-                verificationHash = verificationHash
-            ),
+    ): NewAccountInfoScreenComponent {
+        return NewAccountInfoScreenComponent(
+            componentContext = componentContext,
+            verificationHash = verificationHash,
         )
     }
 }

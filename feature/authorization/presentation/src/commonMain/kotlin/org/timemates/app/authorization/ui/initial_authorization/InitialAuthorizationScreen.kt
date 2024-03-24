@@ -12,36 +12,35 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.skeptick.libres.compose.painterResource
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationStateMachine.Event
-import org.timemates.app.foundation.mvi.EmptyState
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.Action
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.Intent
+import org.timemates.app.authorization.ui.initial_authorization.mvi.InitialAuthorizationComponent.State
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.Resources
 import org.timemates.app.style.system.button.Button
 import org.timemates.app.style.system.theme.AppTheme
-import kotlinx.coroutines.channels.consumeEach
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun InitialAuthorizationScreen(
-    stateMachine: StateMachine<EmptyState, Event, Effect>,
+    mvi: MVI<State, Intent, Action>,
     navigateToStartAuthorization: () -> Unit,
 ) {
     val painter: Painter = Resources.image.initial_screen_image.painterResource()
 
-    LaunchedEffect(Unit) {
-        stateMachine.effects.consumeEach { effect ->
-            when (effect) {
-                is Effect.NavigateToStart ->
-                    navigateToStartAuthorization()
-            }
+    @Suppress("UNUSED_VARIABLE")
+    val state by mvi.subscribe { effect ->
+        when (effect) {
+            is Action.NavigateToStart ->
+                navigateToStartAuthorization()
         }
     }
 
@@ -85,7 +84,7 @@ fun InitialAuthorizationScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 primary = true,
-                onClick = { stateMachine.dispatchEvent(Event.OnStartClicked) },
+                onClick = { mvi.store.intent(Intent.OnStartClicked) },
             ) {
                 Text(LocalStrings.current.letsStart)
             }

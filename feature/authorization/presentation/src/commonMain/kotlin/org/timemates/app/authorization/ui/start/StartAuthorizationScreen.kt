@@ -18,58 +18,54 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Effect
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.Event
-import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationStateMachine.State
+import org.timemates.app.authorization.ui.start.mvi.StartAuthorizationComponent.*
+import org.timemates.app.feature.common.MVI
 import org.timemates.app.feature.common.failures.getDefaultDisplayMessage
-import org.timemates.app.foundation.mvi.StateMachine
+import org.timemates.app.feature.common.getFailuresIfPresent
+import org.timemates.app.feature.common.isInvalid
 import org.timemates.app.localization.compose.LocalStrings
 import org.timemates.app.style.system.appbar.AppBar
 import org.timemates.app.style.system.button.ButtonWithProgress
-import io.timemates.sdk.authorization.email.types.value.VerificationHash
-import kotlinx.coroutines.channels.consumeEach
+import org.timemates.sdk.authorization.email.types.value.VerificationHash
+import pro.respawn.flowmvi.essenty.compose.subscribe
 
 @Composable
 fun StartAuthorizationScreen(
-    stateMachine: StateMachine<State, Event, Effect>,
+    mvi: MVI<State, Intent, Action>,
     onNavigateToConfirmation: (VerificationHash) -> Unit,
 ) {
-    val state by stateMachine.state.collectAsState()
     val snackbarData = remember { SnackbarHostState() }
-
     val strings = LocalStrings.current
 
-    LaunchedEffect(true) {
-        stateMachine.effects.consumeEach { effect ->
-            when (effect) {
-                is Effect.Failure -> {
-                    effect.throwable.printStackTrace()
+    val state by mvi.subscribe { action ->
+        when (action) {
+            is Action.Failure -> {
+                action.throwable.printStackTrace()
 
-                    snackbarData.showSnackbar(
-                        message = effect.throwable.getDefaultDisplayMessage(strings),
-                        actionLabel = strings.dismiss,
-                        duration = SnackbarDuration.Long,
-                    )
-                }
+                snackbarData.showSnackbar(
+                    message = action.throwable.getDefaultDisplayMessage(strings),
+                    actionLabel = strings.dismiss,
+                    duration = SnackbarDuration.Long,
+                )
+            }
 
-                is Effect.NavigateToConfirmation -> onNavigateToConfirmation(effect.verificationHash)
-                Effect.TooManyAttempts -> {
-                    snackbarData.showSnackbar(
-                        message = strings.tooManyAttempts,
-                        actionLabel = strings.dismiss,
-                        duration = SnackbarDuration.Long,
-                    )
-                }
+            is Action.NavigateToConfirmation -> onNavigateToConfirmation(action.verificationHash)
+
+            Action.TooManyAttempts -> {
+                snackbarData.showSnackbar(
+                    message = strings.tooManyAttempts,
+                    actionLabel = strings.dismiss,
+                    duration = SnackbarDuration.Long,
+                )
             }
         }
     }
+
     Scaffold(
         topBar = {
             AppBar(
@@ -83,19 +79,15 @@ fun StartAuthorizationScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val supportText = when {
-                    state.isEmailInvalid -> LocalStrings.current.emailIsInvalid
-                    state.isEmailLengthSizeInvalid -> LocalStrings.current.emailSizeIsInvalid
-                    else -> null
-                }
+                val supportText = state.email.getFailuresIfPresent(strings)
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
-                    value = state.email,
-                    onValueChange = { stateMachine.dispatchEvent(Event.EmailChange(it)) },
+                    value = state.email.value,
+                    onValueChange = { mvi.store.intent(Intent.EmailChange(it)) },
                     label = { Text(LocalStrings.current.email) },
-                    isError = state.isEmailInvalid || state.isEmailLengthSizeInvalid,
+                    isError = state.email.isInvalid(),
                     supportingText = { if (supportText != null) Text(supportText) },
                     enabled = !state.isLoading,
                     singleLine = true,
@@ -117,7 +109,7 @@ fun StartAuthorizationScreen(
                     enabled = !state.isLoading,
                     primary = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { stateMachine.dispatchEvent(Event.OnStartClick) },
+                    onClick = { mvi.store.intent(Intent.OnStartClick) },
                     isLoading = state.isLoading
                 ) {
                     Text(text = LocalStrings.current.start)

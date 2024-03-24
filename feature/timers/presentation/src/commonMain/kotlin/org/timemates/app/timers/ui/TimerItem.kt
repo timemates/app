@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,19 +25,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.timemates.app.localization.compose.LocalStrings
-import org.timemates.app.style.system.theme.AppTheme
-import io.timemates.sdk.timers.types.Timer
-import io.timemates.sdk.timers.types.Timer.State.ConfirmationWaiting
-import io.timemates.sdk.timers.types.Timer.State.Inactive
-import io.timemates.sdk.timers.types.Timer.State.Paused
-import io.timemates.sdk.timers.types.Timer.State.Rest
-import io.timemates.sdk.timers.types.Timer.State.Running
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
+import org.timemates.app.feature.common.providable.LocalTimeProvider
+import org.timemates.app.localization.compose.LocalStrings
+import org.timemates.app.style.system.theme.AppTheme
+import org.timemates.sdk.timers.types.Timer
 
 @Composable
 fun TimerItem(
@@ -69,7 +64,7 @@ fun TimerItem(
                     )
                     OnlineIndicator(
                         modifier = Modifier.padding(3.dp),
-                        isOnline = timer.state is Running,
+                        isOnline = timer.state is Timer.State.Running,
                     )
                 }
                 Text(
@@ -82,7 +77,7 @@ fun TimerItem(
                 modifier = Modifier.padding(12.dp),
             ) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowForward,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "Navigate To Timer",
                     modifier = Modifier
                         .align(Alignment.CenterEnd),
@@ -96,16 +91,21 @@ fun TimerItem(
 @Stable
 @Composable
 private fun timerItemSubtext(timer: Timer): String {
-    return when(timer.state) {
-        is Running, is Rest  -> LocalStrings.current.runningTimerDescription(timer.membersCount.int)
-        is Paused, is Inactive -> LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
-        is ConfirmationWaiting -> LocalStrings.current.confirmationWaitingTimerDescription
+    return when (timer.state) {
+        is Timer.State.Running, is Timer.State.Rest ->
+            LocalStrings.current.runningTimerDescription(timer.membersCount.int)
+
+        is Timer.State.Paused, is Timer.State.Inactive ->
+            LocalStrings.current.inactiveTimerDescription(daysSinceInactive(timer.state.publishTime))
+
+        is Timer.State.ConfirmationWaiting -> LocalStrings.current.confirmationWaitingTimerDescription
     }
 }
 
+@Composable
 @Stable
 private fun daysSinceInactive(pausedInstant: Instant): Int {
-    val currentInstant = Clock.System.now()
+    val currentInstant = LocalTimeProvider.current.provide()
     return (currentInstant.toLocalDateTime(TimeZone.UTC).date.minus(pausedInstant.toLocalDateTime(TimeZone.UTC).date)).days
 }
 

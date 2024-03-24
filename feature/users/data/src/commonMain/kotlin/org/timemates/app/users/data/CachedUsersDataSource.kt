@@ -1,16 +1,16 @@
 package org.timemates.app.users.data
 
-import org.timemates.app.users.data.database.CachedUsersQueries
-import io.timemates.sdk.common.constructor.createOrNull
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.users.profile.types.Avatar
-import io.timemates.sdk.users.profile.types.User
-import io.timemates.sdk.users.profile.types.value.EmailAddress
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserId
-import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.timemates.app.users.data.database.CachedUsersQueries
+import org.timemates.sdk.common.constructor.createOrNull
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.users.profile.types.Avatar
+import org.timemates.sdk.users.profile.types.User
+import org.timemates.sdk.users.profile.types.value.EmailAddress
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.users.profile.types.value.UserName
 
 class CachedUsersDataSource(
     private val cachedUsersQueries: CachedUsersQueries,
@@ -42,10 +42,10 @@ class CachedUsersDataSource(
         val user = withContext(Dispatchers.IO) { cachedUsersQueries.get(id.long).executeAsOneOrNull() }
             ?: return null
 
-        val name = UserName.createOrNull(user.name) ?: return null
-        val description = UserDescription.createOrNull(user.description) ?: return null
-        val avatar = user.gravatarId?.let { Avatar.GravatarId.createOrThrow(it) }
-        val emailAddress = user.emailAddress?.let { emailAddress -> EmailAddress.createOrNull(emailAddress) }
+        val name = UserName.factory.createOrNull(user.name) ?: return null
+        val description = UserDescription.factory.createOrNull(user.description) ?: return null
+        val avatar = user.gravatarId?.let { Avatar.GravatarId.factory.createOrThrow(it) }
+        val emailAddress = user.emailAddress?.let { emailAddress -> EmailAddress.factory.createOrNull(emailAddress) }
 
         return User(
             id = id,

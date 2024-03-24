@@ -2,16 +2,16 @@ package org.timemates.app.users.usecases
 
 import io.mockk.coEvery
 import io.mockk.mockk
-import org.timemates.app.users.repositories.UsersRepository
-import io.timemates.sdk.common.constructor.createOrThrow
-import io.timemates.sdk.common.exceptions.NotFoundException
-import io.timemates.sdk.users.profile.types.User
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserId
-import io.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.timemates.app.users.repositories.UsersRepository
+import org.timemates.sdk.common.constructor.createOrThrow
+import org.timemates.sdk.common.exceptions.NotFoundException
+import org.timemates.sdk.users.profile.types.User
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.users.profile.types.value.UserName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -23,11 +23,11 @@ class GetUserUseCaseTest {
     @Test
     fun `execute with valid userId should return Success result`(): Unit = runTest {
         // GIVEN
-        val userId = UserId.createOrThrow(1)
+        val userId = UserId.factory.createOrThrow(1)
         val user = User(
             id = userId,
-            name = UserName.createOrThrow("John"),
-            description = UserDescription.createOrThrow("Description"),
+            name = UserName.factory.createOrThrow("John"),
+            description = UserDescription.factory.createOrThrow("Description"),
             avatar = null,
             emailAddress = null,
         )
@@ -46,7 +46,7 @@ class GetUserUseCaseTest {
     @Test
     fun `execute with NotFoundException should return NotFound result`(): Unit = runTest {
         // GIVEN
-        val userId = UserId.createOrThrow(1)
+        val userId = UserId.factory.createOrThrow(1)
         coEvery { repository.getUser(userId) } returns flowOf(Result.failure(NotFoundException("User not found")))
 
         // WHEN
@@ -63,7 +63,7 @@ class GetUserUseCaseTest {
     @Test
     fun `execute with other exceptions should return Failure result`(): Unit = runTest {
         // GIVEN
-        val userId = UserId.createOrThrow(1)
+        val userId = UserId.factory.createOrThrow(1)
         val exception = Exception("Failed to retrieve user")
         coEvery { repository.getUser(userId) } returns flowOf(Result.failure(exception))
 

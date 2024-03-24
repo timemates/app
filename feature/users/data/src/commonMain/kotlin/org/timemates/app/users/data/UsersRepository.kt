@@ -1,23 +1,23 @@
 package org.timemates.app.users.data
 
-import org.timemates.app.foundation.time.TimeProvider
-import io.timemates.sdk.common.types.Empty
-import io.timemates.sdk.users.UserApi
-import io.timemates.sdk.users.profile.types.User
-import io.timemates.sdk.users.profile.types.value.UserDescription
-import io.timemates.sdk.users.profile.types.value.UserId
-import io.timemates.sdk.users.profile.types.value.UserName
+import org.timemates.sdk.common.types.Empty
+import org.timemates.sdk.users.UserApi
+import org.timemates.sdk.users.profile.types.User
+import org.timemates.sdk.users.profile.types.value.UserDescription
+import org.timemates.sdk.users.profile.types.value.UserId
+import org.timemates.sdk.users.profile.types.value.UserName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import org.timemates.app.foundation.time.TimeProvider
 import org.timemates.app.users.repositories.UsersRepository as UserRepositoryContract
 
 class UsersRepository(
     private val userApi: UserApi,
     private val cachedUsersDataSource: CachedUsersDataSource,
     private val timeProvider: TimeProvider,
-    private val coroutineScope: CoroutineScope,
+    coroutineScope: CoroutineScope,
 ) : UserRepositoryContract {
 
     init {
