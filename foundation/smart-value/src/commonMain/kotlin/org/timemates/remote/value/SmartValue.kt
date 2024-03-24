@@ -64,3 +64,7 @@ public interface SmartValue<T> {
         }
     }
 }
+
+public fun <T, R> SmartValue<T>.map(transform: suspend (T?) -> R?): SmartValue<R> {
+    return MappingSmartValue(this, transform)
+}
