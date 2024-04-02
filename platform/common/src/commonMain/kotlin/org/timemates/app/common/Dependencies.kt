@@ -3,6 +3,7 @@ package org.timemates.app.common
 import app.cash.sqldelight.async.coroutines.awaitCreate
 import app.cash.sqldelight.db.SqlDriver
 import io.timemates.data.database.TimeMatesAuthorizations
+import io.timemates.data.database.TimeMatesTimers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -39,6 +40,7 @@ fun initializeAppDependencies(
     onAuthFailed: Channel<UnauthorizedException>,
     authDriver: SqlDriver,
     usersDriver: SqlDriver,
+    timersDriver: SqlDriver,
     credentialsStorage: CredentialsStorage,
 ) {
     runBlocking {
@@ -46,6 +48,7 @@ fun initializeAppDependencies(
         // according to the already existing table
         try {
             TimeMatesAuthorizations.Schema.awaitCreate(authDriver)
+            TimeMatesTimers.Schema.awaitCreate(timersDriver)
         } catch (_: Exception) {}
     }
 
@@ -62,6 +65,9 @@ fun initializeAppDependencies(
             }
             single<SqlDriver>(qualifier("users")) {
                 usersDriver
+            }
+            single<SqlDriver>(qualifier("timers")) {
+                timersDriver
             }
 
             single<TimeProvider> {

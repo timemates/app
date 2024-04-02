@@ -1,0 +1,42 @@
+import org.timemates.app.timers.data.db.StateType;
+
+CREATE TABLE DbTimerState (
+    timerId INTEGER NOT NULL PRIMARY KEY UNIQUE,
+    endsAt INTEGER NOT NULL,
+    publishTime INTEGER NOT NULL,
+    type TEXT AS StateType NOT NULL,
+    lastUpdateTime INTEGER NOT NULL
+);
+
+set:
+INSERT OR REPLACE INTO DbTimerState (timerId, endsAt, publishTime, type, lastUpdateTime) VALUES ?;
+
+remove:
+DELETE FROM DbTimerState WHERE timerId = ?;
+
+removeAll:
+DELETE FROM DbTimerState WHERE timerId IN ?;
+
+getList:
+SELECT * FROM DbTimerState WHERE timerId IN ?;
+
+get:
+SELECT * FROM DbTimerState WHERE timerId = ?;
+
+getBefore:
+SELECT * FROM DbTimerState WHERE publishTime < ?;
+
+getAfter:
+SELECT * FROM DbTimerState WHERE publishTime > ?;
+
+getInTimeRange:
+SELECT * FROM DbTimerState WHERE publishTime > :after AND publishTime < :before;
+
+getWithOffset:
+SELECT * FROM DbTimerState INNER JOIN DbTimer ON DbTimer.id = timerId ORDER BY publishTime DESC LIMIT :limit OFFSET :offset;
+
+count:
+SELECT count(*) FROM DbTimerState;
+
+deleteAll:
+DELETE FROM DbTimerState WHERE 1;

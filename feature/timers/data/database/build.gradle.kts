@@ -8,7 +8,7 @@ android {
 
 sqldelight {
     databases {
-        create("TimeMatesUsers") {
+        create("TimeMatesTimers") {
             generateAsync.set(true)
             packageName.set("io.timemates.data.database")
         }

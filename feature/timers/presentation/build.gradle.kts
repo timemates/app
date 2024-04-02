@@ -17,5 +17,7 @@ dependencies {
 
     commonMainImplementation(libs.kotlinx.datetime)
     commonMainImplementation(projects.foundation.time)
+
+    commonMainImplementation(libs.cashapp.paging.compose)
 }
 

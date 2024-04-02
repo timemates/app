@@ -1,0 +1,39 @@
+import kotlin.Boolean;
+import kotlin.Int;
+
+CREATE TABLE DbTimer (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    ownerId INTEGER NOT NULL,
+    membersCount INTEGER AS Int NOT NULL,
+    workTimeInSeconds INTEGER NOT NULL,
+    restTimeInSeconds INTEGER NOT NULL,
+    bigRestTimeInSeconds INTEGER NOT NULL,
+    bigRestPer INTEGER AS Int NOT NULL,
+    isBigRestEnabled INTEGER AS Boolean NOT NULL,
+    isEveryoneCanPause INTEGER AS Boolean NOT NULL,
+    isConfirmationRequired INTEGER AS Boolean NOT NULL,
+    lastUpdateTime INTEGER NOT NULL
+);
+
+add:
+INSERT OR REPLACE INTO DbTimer (id, name, description, ownerId, membersCount, workTimeInSeconds, restTimeInSeconds, bigRestTimeInSeconds, isBigRestEnabled, bigRestPer, isEveryoneCanPause, isConfirmationRequired, lastUpdateTime) VALUES ?;
+
+remove:
+DELETE FROM DbTimer WHERE id = ?;
+
+removeAll:
+DELETE FROM DbTimer WHERE id IN ?;
+
+get:
+SELECT * FROM DbTimer WHERE id = ?;
+
+getList:
+SELECT * FROM DbTimer WHERE id IN ?;
+
+getAll:
+SELECT * FROM DbTimer;
+
+deleteAll:
+DELETE FROM DbTimer WHERE 1;

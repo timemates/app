@@ -11,6 +11,7 @@ import org.timemates.app.foundation.time.SystemUTCTimeProvider
 import org.timemates.app.users.data.database.TimeMatesUsers
 import org.timemates.credentials.CredentialsStorage
 import io.timemates.data.database.TimeMatesAuthorizations
+import io.timemates.data.database.TimeMatesTimers
 import org.timemates.sdk.common.exceptions.UnauthorizedException
 import kotlinx.coroutines.channels.Channel
 
@@ -22,9 +23,10 @@ class TimeMatesApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        val (authDriver, usersDriver) = listOf(
+        val (authDriver, usersDriver, timersDriver) = listOf(
             "authorization" to TimeMatesAuthorizations.Schema,
             "users" to TimeMatesUsers.Schema,
+            "timers" to TimeMatesTimers.Schema,
         ).map { (name, schema) ->
             AndroidSqliteDriver(
                 schema = schema.synchronous(),
@@ -40,6 +42,7 @@ class TimeMatesApplication : MultiDexApplication() {
             onAuthFailedChannel,
             authDriver,
             usersDriver,
+            timersDriver,
             credentialsStorage,
         )
     }

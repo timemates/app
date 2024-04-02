@@ -89,6 +89,9 @@ androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.require = "2.7.0" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.require = "1.7.0-alpha03" }
 
+cashapp-paging = { module = "app.cash.paging:paging-common", version.require = "3.3.0-alpha02-0.5.1" }
+cashapp-paging-compose = { module = "app.cash.paging:paging-compose-common", version.require = "3.3.0-alpha02-0.5.1" }
+
 # TimeMates SDK
 timemates-sdk = { module = "org.timemates.sdk:sdk", version.ref = "timeMatesSdk" }
 timemates-engine-rsocket = { module = "org.timemates.sdk:rsocket-engine", version.ref = "timeMatesSdk" }
@@ -127,6 +130,8 @@ moko-resources-compose = { module = "dev.icerock.moko:resources-compose", versio
 sqldelight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.require = "2.0.0-rc02" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-paging = { module = "app.cash.sqldelight:androidx-paging3-extensions", version.ref = "sqldelight" }
 
 # Android Multidex
 android-multidex = { module = "androidx.multidex:multidex", version.require = "2.0.1" }

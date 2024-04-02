@@ -1,42 +1,28 @@
 package org.timemates.app.users.repositories
 
+import app.cash.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharedFlow
+import org.timemates.remote.value.list.LazyListContainer
 import org.timemates.sdk.common.pagination.PageToken
-import org.timemates.sdk.common.pagination.PagesIterator
 import org.timemates.sdk.common.types.Empty
-import org.timemates.sdk.common.types.value.Count
-import org.timemates.sdk.timers.members.invites.types.Invite
-import org.timemates.sdk.timers.members.invites.types.value.InviteCode
 import org.timemates.sdk.timers.types.Timer
 import org.timemates.sdk.timers.types.TimerSettings
 import org.timemates.sdk.timers.types.value.TimerDescription
 import org.timemates.sdk.timers.types.value.TimerId
 import org.timemates.sdk.timers.types.value.TimerName
-import org.timemates.sdk.users.profile.types.value.UserId
 
 interface TimersRepository {
-    suspend fun getUserTimers(pageToken: PageToken? = null): PagesIterator<Timer>
+    fun getUserTimers(pageToken: PageToken? = null): Flow<PagingData<Timer>>
 
-    fun getTimersUpdates(): SharedFlow<TimerUpdateAction>
-
-    suspend fun getTimer(id: TimerId): Result<Timer>
+    suspend fun getTimer(id: TimerId): Flow<Timer>
 
     suspend fun getTimerState(id: TimerId): Result<Flow<Timer.State>>
-
-    suspend fun getInvites(timerId: TimerId, pageToken: PageToken? = null): PagesIterator<Invite>
-
-    suspend fun createInvite(timerId: TimerId, maxUsersToJoin: Count): Result<InviteCode>
 
     suspend fun createTimer(
         name: TimerName,
         description: TimerDescription,
         settings: TimerSettings,
     ): Result<TimerId>
-
-    suspend fun kickMember(timerId: TimerId, userId: UserId): Result<Empty>
-
-    suspend fun removeInvite(timerId: TimerId, inviteCode: InviteCode): Result<Empty>
 
     suspend fun removeTimer(timerId: TimerId): Result<Empty>
 
@@ -46,12 +32,4 @@ interface TimersRepository {
         newDescription: TimerDescription? = null,
         settings: TimerSettings.Patch? = null,
     ): Result<Empty>
-
-    sealed interface TimerUpdateAction {
-        data class Deleted(val timerId: TimerId) : TimerUpdateAction
-
-        data class Updated(val timer: Timer) : TimerUpdateAction
-
-        data class Added(val timer: Timer) : TimerUpdateAction
-    }
 }

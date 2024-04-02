@@ -22,6 +22,7 @@ fun main() {
         authorizationFailedChannel,
         driver,
         driver,
+        driver,
         DesktopCredentialsStorage(),
     )
     startUi(authorizationFailedChannel)

@@ -1,0 +1,17 @@
+import kotlin.Int;
+
+CREATE TABLE DbInvite (
+    timerId INTEGER NOT NULL PRIMARY KEY,
+    code TEXT NOT NULL,
+    count INTEGER AS Int NOT NULL,
+    creationTime INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM DbInvite;
+
+addOrReplace:
+INSERT OR REPLACE INTO DbInvite (timerId, code, code, count, creationTime) VALUES ?;
+
+remove:
+DELETE FROM DbInvite WHERE timerId = ? AND code = ?;

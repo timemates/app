@@ -27,6 +27,7 @@ dependencies {
     commonMainImplementation(projects.feature.users.dependencies)
 
     commonMainImplementation(projects.feature.authorization.data.database)
+    commonMainImplementation(projects.feature.timers.data.database)
 
     jvmMainApi(libs.sqldelight.jvm.driver)
     androidMainApi(libs.sqldelight.android.driver)

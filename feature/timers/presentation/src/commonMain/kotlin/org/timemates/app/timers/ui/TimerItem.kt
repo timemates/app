@@ -36,12 +36,14 @@ import org.timemates.sdk.timers.types.Timer
 
 @Composable
 fun TimerItem(
+    modifier: Modifier = Modifier,
     timer: Timer,
     onClick: () -> Unit,
 ) {
     OutlinedCard(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .then(modifier),
         border = BorderStroke(1.dp, AppTheme.colors.secondary),
         colors = CardDefaults.outlinedCardColors(containerColor = AppTheme.colors.background),
     ) {
