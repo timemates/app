@@ -39,14 +39,14 @@ jobs:
       - name: Set up Gradle
         uses: gradle/wrapper-validation-action@v2
 
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: java-kotlin
           dependency-caching: true
+
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
