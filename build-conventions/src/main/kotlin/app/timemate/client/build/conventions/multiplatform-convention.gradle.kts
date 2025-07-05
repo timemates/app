@@ -8,9 +8,9 @@ plugins {
 
 kotlin {
     jvm()
-
-    if (OperatingSystem.current().isMacOsX)
-        iosArm64()
+    js {
+        browser()
+    }
 
     jvmToolchain(11)
 
