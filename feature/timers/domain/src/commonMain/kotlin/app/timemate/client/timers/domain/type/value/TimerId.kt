@@ -5,7 +5,6 @@ import kotlin.jvm.JvmInline
 import com.y9vad9.ktiny.kotlidator.factory
 import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
 
-
 @JvmInline
 value class TimerId private constructor(
     val long: Long,

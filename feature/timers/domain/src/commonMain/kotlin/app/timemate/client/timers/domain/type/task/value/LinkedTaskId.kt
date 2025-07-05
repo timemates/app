@@ -1,4 +1,4 @@
-package app.timemate.client.tasks.domain.type.value
+package app.timemate.client.timers.domain.type.task.value
 
 import com.y9vad9.ktiny.kotlidator.ValueFactory
 import kotlin.jvm.JvmInline
@@ -11,9 +11,9 @@ value class LinkedTaskId private constructor(
     val long: Long,
 ) {
     companion object {
-        val factory: ValueFactory<TaskId, Long> = factory(
+        val factory: ValueFactory<LinkedTaskId, Long> = factory(
             rules = listOf(MinValueValidationRule(0)),
-            constructor = { TaskId(it) },
+            constructor = { LinkedTaskId(it) },
         )
     }
 }

@@ -1,9 +1,12 @@
 package app.timemate.client.timers.domain.type.settings
 
-import app.timemate.client.timers.domain.type.settings.value.*
+import app.timemate.client.timers.domain.type.settings.value.PomodoroConfirmationTimeoutTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroFocusTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroLongBreakTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroPreparationTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroShortBreakTime
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCount
 import com.y9vad9.ktiny.kotlidator.createOrThrow
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -12,12 +15,13 @@ data class PomodoroTimerSettings(
 
     val pomodoroShortBreakTime: PomodoroShortBreakTime = PomodoroShortBreakTime.factory.createOrThrow(5.minutes),
     val longBreakTime: PomodoroLongBreakTime = PomodoroLongBreakTime.factory.createOrThrow(10.minutes),
-    val longBreakPer: PomodoroShortBreaksCount = PomodoroShortBreaksCount.factory.createOrThrow(4),
+    val longBreakPer: PomodoroShortBreaksCount = PomodoroShortBreaksCount.DEFAULT_LONG_BREAK_AFTER,
     val isLongBreakEnabled: Boolean = true,
 
     val isPreparationStateEnabled: Boolean = false,
     val preparationTime: PomodoroPreparationTime = PomodoroPreparationTime.factory.createOrThrow(10.seconds),
 
     val requiresConfirmationBeforeStart: Boolean = false,
-    val confirmationTimeoutTime: PomodoroConfirmationTimeoutTime = PomodoroConfirmationTimeoutTime.factory.createOrThrow(30.seconds),
+    val confirmationTimeoutTime: PomodoroConfirmationTimeoutTime = PomodoroConfirmationTimeoutTime.factory
+        .createOrThrow(30.seconds),
 )

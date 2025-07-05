@@ -1,16 +1,25 @@
 package app.timemate.client.timers.domain.test.type.state
 
 import app.timemate.client.timers.domain.type.settings.PomodoroTimerSettings
-import app.timemate.client.timers.domain.type.settings.value.*
+import app.timemate.client.timers.domain.type.settings.value.PomodoroConfirmationTimeoutTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroFocusTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroLongBreakTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroPreparationTime
+import app.timemate.client.timers.domain.type.settings.value.PomodoroShortBreakTime
 import app.timemate.client.timers.domain.type.state.PomodoroTimerState
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCount
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCountSinceBreakReset
 import com.y9vad9.ktiny.kotlidator.createOrThrow
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Instant
 
 class PomodoroTimerStateTest {
+    // it's okay here to have a long list of parameters – it's a testing method
+    @Suppress("detekt.LongParameterList", "SameParameterValue")
     private fun createSettings(
         isLongBreakEnabled: Boolean,
         longBreakPer: Int,
@@ -30,19 +39,15 @@ class PomodoroTimerStateTest {
             longBreakTime = PomodoroLongBreakTime.factory.createOrThrow(longBreakDurationMinutes.minutes),
             requiresConfirmationBeforeStart = requiresConfirmationBeforeStart,
             isPreparationStateEnabled = isPreparationStateEnabled,
-            confirmationTimeoutTime = PomodoroConfirmationTimeoutTime.factory.createOrThrow(confirmationTimeoutMinutes.minutes),
+            confirmationTimeoutTime = PomodoroConfirmationTimeoutTime.factory
+                .createOrThrow(confirmationTimeoutMinutes.minutes),
             preparationTime = PomodoroPreparationTime.factory.createOrThrow(preparationDurationMinutes.minutes),
         )
     }
 
     // A simple ShortBreaksCountSinceBreakReset with a GIVEN count
     private fun shortBreakCountSinceReset(count: Int): PomodoroShortBreaksCountSinceBreakReset {
-        val mockTime = Instant.parse("2025-06-03T10:00:00Z")
-        val list = List(count) {
-            PomodoroTimerState.ShortBreak(mockTime, mockTime)
-        }
-
-        return PomodoroShortBreaksCountSinceBreakReset.from(list)
+        return PomodoroShortBreaksCountSinceBreakReset.factory.createOrThrow(count)
     }
 
     @Test
@@ -69,7 +74,10 @@ class PomodoroTimerStateTest {
         }
 
         // THEN
-        assertContains(exception.message!!, "New state cannot be past current")
+        assertContains(
+            charSequence = exception.message!!,
+            other = "New state cannot be past current",
+        )
     }
 
 
@@ -87,7 +95,7 @@ class PomodoroTimerStateTest {
             requiresConfirmationBeforeStart = false,
             isPreparationStateEnabled = false,
             confirmationTimeoutMinutes = 1,
-            preparationDurationMinutes = 2
+            preparationDurationMinutes = 2,
         )
         val at = startTime + 5.minutes
 
@@ -97,7 +105,7 @@ class PomodoroTimerStateTest {
         // THEN
         assertEquals(inactive.copy(endTime = at), transition.updatedOldState)
         assertEquals(
-            PomodoroTimerState.Focus(at, at + settings.pomodoroFocusTime),
+            PomodoroTimerState.Focus(at, at + settings.pomodoroFocusTime.duration),
             transition.nextState,
         )
     }
@@ -127,7 +135,7 @@ class PomodoroTimerStateTest {
         // THEN
         assertIs<PomodoroTimerState.ShortBreak>(next)
         assertEquals(focus.endTime, next.startTime)
-        assertEquals(focus.endTime + settings.pomodoroShortBreakTime, next.endTime)
+        assertEquals(focus.endTime + settings.pomodoroShortBreakTime.duration, next.endTime)
     }
 
     @Test

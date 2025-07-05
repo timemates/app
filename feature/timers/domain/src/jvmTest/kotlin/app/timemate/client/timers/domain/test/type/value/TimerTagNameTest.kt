@@ -3,10 +3,13 @@ package app.timemate.client.timers.domain.test.type.value
 import app.timemate.client.timers.domain.type.tag.value.TimerTagName
 
 import com.y9vad9.ktiny.kotlidator.rule.StringLengthRangeValidationRule
-import kotlin.test.*
 import com.y9vad9.ktiny.kotlidator.ValidationException
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertTrue
 
-class TimerTagNameTests {
+class TimerTagNameTest {
 
     // GIVEN a TimerTagName factory with 1..50 length constraint
     private val factory = TimerTagName.factory

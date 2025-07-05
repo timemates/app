@@ -2,9 +2,12 @@ package app.timemate.client.timers.domain.test.type.value
 
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCount
 import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertTrue
 
-class PomodoroShortBreaksCountTests {
+class PomodoroShortBreaksCountTest {
 
     @Test
     fun `should create value when input is equal to minimum`() {
@@ -44,7 +47,7 @@ class PomodoroShortBreaksCountTests {
         assertTrue(result.isFailure)
         val exception = result.exceptionOrNull()
         assertIs<com.y9vad9.ktiny.kotlidator.ValidationException>(exception)
-        assertIs<MinValueValidationRule.Failure>(exception.failure)
+        assertIs<MinValueValidationRule.Failure<*>>(exception.failure)
     }
 
     @Test
@@ -75,7 +78,7 @@ class PomodoroShortBreaksCountTests {
             assertTrue(result.isFailure)
             val exception = result.exceptionOrNull()
             assertIs<com.y9vad9.ktiny.kotlidator.ValidationException>(exception)
-            assertIs<MinValueValidationRule.Failure>(exception.failure)
+            assertIs<MinValueValidationRule.Failure<*>>(exception.failure)
         }
     }
 }

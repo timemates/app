@@ -1,6 +1,6 @@
 package app.timemate.client.timers.domain.test.type.value
 
-import app.timemate.client.core.domain.type.value.TimerName
+import app.timemate.client.timers.domain.type.value.TimerName
 import com.y9vad9.ktiny.kotlidator.ValidationException
 
 import com.y9vad9.ktiny.kotlidator.rule.StringLengthRangeValidationRule

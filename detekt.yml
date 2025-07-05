@@ -1,0 +1,13 @@
+rules:
+  style:
+    # We want to make it forbidden to use other test packages, because `kotlin.test`
+    # itself is very flexible to switch between engines. In addition, just not to miss
+    # sudden import of a non-kotlin-test library in tests.
+    ForbiddenImport:
+      active: true
+      imports:
+        - "org.junit.*"
+        - "org.junit.jupiter.*"
+      messages:
+        "org.junit.*": "Usage of JUnit is forbidden; please use kotlin.test instead."
+        "org.junit.jupiter.*": "Usage of JUnit Jupiter is forbidden; please use kotlin.test instead."
