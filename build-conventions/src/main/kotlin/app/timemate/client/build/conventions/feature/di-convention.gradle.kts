@@ -1,6 +1,7 @@
 package app.timemate.client.build.conventions.feature
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     id("app.cash.sqldelight")
@@ -23,4 +24,10 @@ ksp {
 
 kotlin.sourceSets.all {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+
+tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if(name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
