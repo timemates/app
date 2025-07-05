@@ -14,5 +14,7 @@ val libs = the<LibrariesForLibs>()
 dependencies {
     commonMainImplementation(libs.koin.core)
     commonMainImplementation(libs.koin.annotations)
-    ksp(libs.koin.ksp.compiler)
+    "kspCommonMainMetadata"(libs.koin.ksp.compiler)
+    "kspJvm"(libs.koin.ksp.compiler)
+    "kspIosArm64"(libs.koin.ksp.compiler)
 }
