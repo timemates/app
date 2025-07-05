@@ -1,12 +1,17 @@
 package app.timemate.client.build.conventions
 
+import org.gradle.internal.os.OperatingSystem
+
 plugins {
     kotlin("multiplatform")
 }
 
 kotlin {
     jvm()
-    iosArm64()
+
+    if (OperatingSystem.current().isMacOsX)
+        iosArm64()
+
     jvmToolchain(11)
 
     sourceSets {
