@@ -1,28 +1,37 @@
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Kotlin_Icon_2021.svg/2048px-Kotlin_Icon_2021.svg.png" width=24 height=24 /> Kotlin Project Template
-Project Template for convenient project setup using [convention plugins](https://docs.gradle.org/current/samples/sample_convention_plugins.html#compiling_convention_plugins)
-and [version catalogs](https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog).
+![Latest GitHub release](https://img.shields.io/github/v/release/timemates/app?include_prereleases)
+![GitHub](https://img.shields.io/github/license/timemates/app)
+![GitHub issues](https://img.shields.io/github/issues/timemates/app)
 
-## Motivation
-Every time I create a new project, I do a lot of routine work, so this repository should decrease amount of this work.
+# TimeMates App
 
-## Initializing
-- `settings.gradle.kts`: Set your root project name
-- `gradle/libs.versions.toml`: Add your dependencies
+TimeMates is a multiplatform productivity application built with Kotlin, Compose, Coroutines, and RSocket (via [rsproto](https://github.com/timemates/rsproto)). The application supports team and individual productivity by providing customizable timers, task management, note-taking, and integration capabilities.
 
-> **Note** <br>
-> [TYPESAFE_PROJECT_ACCESSORS](https://docs.gradle.org/current/userguide/declaring_dependencies.html#sec:type-safe-project-accessors)
-> are enabled by default. If you don't need this feature, remove it from `settings.gradle.kts`.
+## Features
 
-## Builtins
-### Build conventions
-This template also provides some useful [build conventions](build-conventions/src/main/kotlin).
+- Customizable timers
+    - Create timers tailored to different tasks
+    - Track time efficiently and meet deadlines
+- Task management
+    - Add, track, and manage tasks (TODO lists)
+    - Reference tasks directly within timers
+- Focus Dividend timer
+    - Earn time credits for productive use
+- Data synchronization
+    - Local-first data storage for offline usage
+    - Optional sync server for multi-device synchronization and shared timers
 
-#### How to use
-Example of `build.gradle.kts` usage:
-```kotlin
-plugins {
-    id(libs.plugins.conventions.jvm.get().pluginId)
-    // or
-    id("jvm-convention")
-}
-```
+## Project Status
+
+The project is actively under development. Progress and roadmap updates are available on [our project board](https://github.com/orgs/timemates/projects/7).
+
+## Contributing
+
+We welcome contributions from the community. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute to this project, including the Developer Certificate of Origin (DCO) requirements, code standards, and the contribution workflow.
+
+## Code of Conduct
+
+This project adheres to a [Code of Conduct](./CODE_OF_CONDUCT.md). By participating, you agree to uphold the standards described therein.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
