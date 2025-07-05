@@ -36,4 +36,4 @@ jobs:
           java-version: '17'
 
       - name: Run Tests
-        run: ./gradlew test --no-daemon
+        run: ./gradlew jvmTest --no-daemon
