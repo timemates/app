@@ -15,15 +15,12 @@ dependencies {
     commonMainImplementation(libs.koin.core)
     commonMainImplementation(libs.koin.annotations)
     "kspCommonMainMetadata"(libs.koin.ksp.compiler)
-    "kspJvm"(libs.koin.ksp.compiler)
-
-    listOf("kspIosArm64", "kspIosX64", "kspIosSimulatorArm64").forEach { configName ->
-        configurations.findByName(configName)?.let {
-            dependencies.add(configName, libs.koin.ksp.compiler)
-        }
-    }
 }
 
 ksp {
     allWarningsAsErrors = true
+}
+
+kotlin.sourceSets.all {
+    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
 }
