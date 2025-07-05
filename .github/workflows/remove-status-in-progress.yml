@@ -41,7 +41,7 @@ jobs:
 
             if (issue) {
               const issue_number = issue.number;
-              await github.issues.removeLabel({
+              await github.rest.issues.removeLabel({
                 owner,
                 repo,
                 issue_number,
@@ -50,7 +50,7 @@ jobs:
               console.log(`Removed label "${labelToRemove}" from issue #${issue_number}`);
             } else if (pull_request) {
               const pr_number = pull_request.number;
-              await github.issues.removeLabel({
+              await github.rest.issues.removeLabel({
                 owner,
                 repo,
                 issue_number: pr_number,
