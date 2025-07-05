@@ -1,0 +1,34 @@
+title: "Feature: <short summary>"
+labels:
+  - type:feature
+  - status:triage
+name: "Feature Request"
+description: "Suggest a new feature or improvement."
+body:
+  - type: markdown
+    attributes:
+      value: "Please check if a similar feature request already exists before submitting."
+  - type: input
+    id: summary
+    attributes:
+      label: "Short Summary"
+      placeholder: "e.g. Add recurring tasks support"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Detailed Description"
+      placeholder: "Explain what the feature should do and why it matters."
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Scope"
+      options:
+        - feature:core
+        - feature:tasks
+        - feature:timers
+    validations:
+      required: true

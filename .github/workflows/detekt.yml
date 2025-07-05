@@ -1,5 +1,8 @@
 name: Detekt Analysis
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
