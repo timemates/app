@@ -1,5 +1,9 @@
 name: CodeQL Analysis
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   push:
     branches:
@@ -20,6 +24,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
+        distribution: 'adoptopenjdk'
 
     - name: Set up Gradle
       uses: gradle/wrapper-validation-action@v2
