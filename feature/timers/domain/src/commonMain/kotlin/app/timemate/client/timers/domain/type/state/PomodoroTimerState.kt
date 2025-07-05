@@ -14,7 +14,7 @@ sealed interface PomodoroTimerState : TimerState {
         override val endTime: Instant = Instant.DISTANT_FUTURE,
     ) : PomodoroTimerState {
         fun start(at: Instant, settings: PomodoroTimerSettings): TimerStateTransition<Inactive, Focus> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
             return TimerStateTransition(
                 Inactive(startTime, at),
                 Focus(at, at + settings.pomodoroFocusTime.duration),
@@ -62,7 +62,7 @@ sealed interface PomodoroTimerState : TimerState {
             settings: PomodoroTimerSettings,
             at: Instant,
         ): TimerStateTransition<Paused, PomodoroTimerState> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
 
             val oldStateUpdate = copy(endTime = at)
 
@@ -81,7 +81,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<ShortBreak, Paused> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -99,7 +99,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<LongBreak, Paused> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -120,7 +120,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun pause(at: Instant): TimerStateTransition<Preparation, Paused> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -141,7 +141,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<AwaitsConfirmation, Paused> {
-            check(at < startTime) { "New state cannot be past current." }
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),

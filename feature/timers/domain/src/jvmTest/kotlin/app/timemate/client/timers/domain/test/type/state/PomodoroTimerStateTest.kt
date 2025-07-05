@@ -1,3 +1,4 @@
+@file:Suppress("detekt.LongMethod")
 package app.timemate.client.timers.domain.test.type.state
 
 import app.timemate.client.timers.domain.type.settings.PomodoroTimerSettings
@@ -14,6 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Instant
 
@@ -103,10 +105,13 @@ class PomodoroTimerStateTest {
         val transition = inactive.start(at, settings)
 
         // THEN
-        assertEquals(inactive.copy(endTime = at), transition.updatedOldState)
         assertEquals(
-            PomodoroTimerState.Focus(at, at + settings.pomodoroFocusTime.duration),
-            transition.nextState,
+            expected = inactive.copy(endTime = at),
+            actual = transition.updatedOldState,
+        )
+        assertEquals(
+            expected = PomodoroTimerState.Focus(at, at + settings.pomodoroFocusTime.duration),
+            actual = transition.nextState,
         )
     }
 
@@ -134,8 +139,14 @@ class PomodoroTimerStateTest {
 
         // THEN
         assertIs<PomodoroTimerState.ShortBreak>(next)
-        assertEquals(focus.endTime, next.startTime)
-        assertEquals(focus.endTime + settings.pomodoroShortBreakTime.duration, next.endTime)
+        assertEquals<Instant>(
+            expected = focus.endTime,
+            actual = next.startTime,
+        )
+        assertEquals<Instant>(
+            expected = focus.endTime + settings.pomodoroShortBreakTime.duration,
+            actual = next.endTime,
+        )
     }
 
     @Test
@@ -162,8 +173,14 @@ class PomodoroTimerStateTest {
 
         // THEN
         assertIs<PomodoroTimerState.ShortBreak>(next)
-        assertEquals(focus.endTime, next.startTime)
-        assertEquals(focus.endTime + settings.pomodoroShortBreakTime.duration, next.endTime)
+        assertEquals<Instant>(
+            expected = focus.endTime,
+            actual = next.startTime,
+        )
+        assertEquals<Instant>(
+            expected = focus.endTime + settings.pomodoroShortBreakTime.duration,
+            actual = next.endTime,
+        )
     }
 
     @Test
@@ -181,7 +198,7 @@ class PomodoroTimerStateTest {
             requiresConfirmationBeforeStart = false,
             isPreparationStateEnabled = false,
             confirmationTimeoutMinutes = 1,
-            preparationDurationMinutes = 2
+            preparationDurationMinutes = 2,
         )
         val shortBreaksCount = shortBreakCountSinceReset(2)
 
@@ -190,8 +207,14 @@ class PomodoroTimerStateTest {
 
         // THEN
         assertIs<PomodoroTimerState.LongBreak>(next)
-        assertEquals(focus.endTime, next.startTime)
-        assertEquals(focus.endTime + settings.longBreakTime.duration, next.endTime)
+        assertEquals<Instant>(
+            expected = focus.endTime,
+            actual = next.startTime,
+        )
+        assertEquals<Instant>(
+            expected = focus.endTime + settings.longBreakTime.duration,
+            actual = next.endTime,
+        )
     }
 
     @Test
@@ -206,8 +229,14 @@ class PomodoroTimerStateTest {
         val transition = focus.pause(at)
 
         // THEN
-        assertEquals(PomodoroTimerState.Focus(startTime, at), transition.updatedOldState)
-        assertEquals(PomodoroTimerState.Paused(at), transition.nextState)
+        assertEquals(
+            expected = PomodoroTimerState.Focus(startTime, at),
+            actual = transition.updatedOldState,
+        )
+        assertEquals(
+            expected = PomodoroTimerState.Paused(at),
+            actual = transition.nextState,
+        )
     }
 
     @Test
@@ -220,8 +249,14 @@ class PomodoroTimerStateTest {
         val next = paused.onExpiration()
 
         // THEN
-        assertEquals(paused.endTime, startTime + 25.minutes)
-        assertEquals(next.endTime, Instant.DISTANT_FUTURE) // default for Inactive
+        assertEquals(
+            expected = paused.endTime,
+            actual = startTime + 25.minutes,
+        )
+        assertEquals(
+            expected = next.endTime,
+            actual = Instant.DISTANT_FUTURE
+        )
     }
 
     @Test
@@ -271,14 +306,23 @@ class PomodoroTimerStateTest {
         val transition = paused.resume(settings, at)
 
         // THEN
-        assertEquals(paused.startTime, startTime)
-        assertEquals(PomodoroTimerState.Paused(startTime, at), transition.updatedOldState)
+        assertEquals(expected = paused.startTime, actual = startTime)
+        assertEquals(
+            expected = PomodoroTimerState.Paused(startTime, at),
+            actual = transition.updatedOldState,
+        )
         assertIs<PomodoroTimerState.AwaitsConfirmation>(transition.nextState)
 
         val updatedOldState = transition.updatedOldState
-        val nextState = transition.nextState as PomodoroTimerState.AwaitsConfirmation
-        assertEquals(updatedOldState.endTime, nextState.startTime)
-        assertEquals(updatedOldState.endTime + settings.confirmationTimeoutTime.duration, nextState.endTime)
+        val nextState = transition.nextState
+        assertEquals<Instant>(
+            expected = updatedOldState.endTime,
+            actual = nextState.startTime,
+        )
+        assertEquals<Instant>(
+            expected = updatedOldState.endTime + settings.confirmationTimeoutTime.duration,
+            actual = nextState.endTime,
+        )
     }
 
     @Test
@@ -296,21 +340,30 @@ class PomodoroTimerStateTest {
             requiresConfirmationBeforeStart = false,
             isPreparationStateEnabled = true,
             confirmationTimeoutMinutes = 2,
-            preparationDurationMinutes = 3
+            preparationDurationMinutes = 3,
         )
 
         // WHEN
         val transition = paused.resume(settings, at)
 
         // THEN
-        assertEquals(startTime, paused.startTime)
-        assertEquals(PomodoroTimerState.Paused(startTime, at), transition.updatedOldState)
+        assertEquals(expected = startTime, actual = paused.startTime)
+        assertEquals(
+            expected = PomodoroTimerState.Paused(startTime, at),
+            actual = transition.updatedOldState,
+        )
         assertIs<PomodoroTimerState.Preparation>(transition.nextState)
 
         val oldUpdatedState = transition.updatedOldState
-        val nextState = transition.nextState as PomodoroTimerState.Preparation
-        assertEquals(oldUpdatedState.endTime, nextState.startTime)
-        assertEquals(oldUpdatedState.endTime + settings.preparationTime.duration, nextState.endTime)
+        val nextState = transition.nextState
+        assertEquals<Instant>(
+            expected = oldUpdatedState.endTime,
+            actual = nextState.startTime,
+        )
+        assertEquals<Instant>(
+            expected = oldUpdatedState.endTime + settings.preparationTime.duration,
+            actual = nextState.endTime,
+        )
     }
 
     @Test
@@ -328,20 +381,29 @@ class PomodoroTimerStateTest {
             requiresConfirmationBeforeStart = false,
             isPreparationStateEnabled = false,
             confirmationTimeoutMinutes = 2,
-            preparationDurationMinutes = 3
+            preparationDurationMinutes = 3,
         )
 
         // WHEN
         val transition = paused.resume(settings, at)
 
         // THEN
-        assertEquals(PomodoroTimerState.Paused(startTime, at), transition.updatedOldState)
+        assertEquals(
+            expected = PomodoroTimerState.Paused(startTime, at),
+            actual = transition.updatedOldState,
+        )
         assertIs<PomodoroTimerState.Focus>(transition.nextState)
 
         val oldUpdatedState = transition.updatedOldState
-        val nextState = transition.nextState as PomodoroTimerState.Focus
-        assertEquals(oldUpdatedState.endTime, nextState.startTime)
-        assertEquals(oldUpdatedState.endTime + settings.pomodoroFocusTime.duration, nextState.endTime)
+        val nextState = transition.nextState
+        assertEquals<Instant>(
+            expected = oldUpdatedState.endTime,
+            actual = nextState.startTime,
+        )
+        assertEquals<Instant>(
+            expected = oldUpdatedState.endTime + settings.pomodoroFocusTime.duration,
+            actual = nextState.endTime,
+        )
     }
 
     @Test
@@ -366,8 +428,14 @@ class PomodoroTimerStateTest {
         val nextConfirm = shortBreak.onExpiration(settingsConfirm)
         // THEN
         assertIs<PomodoroTimerState.AwaitsConfirmation>(nextConfirm)
-        assertEquals(shortBreak.endTime, nextConfirm.startTime)
-        assertEquals(shortBreak.endTime + settingsConfirm.confirmationTimeoutTime.duration, nextConfirm.endTime)
+        assertEquals<Instant>(
+            expected = shortBreak.endTime,
+            actual = nextConfirm.startTime,
+        )
+        assertEquals<Instant>(
+            expected = shortBreak.endTime + settingsConfirm.confirmationTimeoutTime.duration,
+            actual = nextConfirm.endTime,
+        )
 
         // -- PomodoroTimerState.ShortBreak -> isPreparationStateEnabled = true
         // GIVEN
@@ -386,8 +454,8 @@ class PomodoroTimerStateTest {
         val nextPrep = shortBreak.onExpiration(settingsPrep)
         // THEN
         assertIs<PomodoroTimerState.Preparation>(nextPrep)
-        assertEquals(shortBreak.endTime, nextPrep.startTime)
-        assertEquals(shortBreak.endTime + settingsPrep.preparationTime.duration, nextPrep.endTime)
+        assertEquals<Instant>(shortBreak.endTime, nextPrep.startTime)
+        assertEquals<Instant>(shortBreak.endTime + settingsPrep.preparationTime.duration, nextPrep.endTime)
 
         // -- PomodoroTimerState.ShortBreak -> default to Focus
         // GIVEN
@@ -406,8 +474,14 @@ class PomodoroTimerStateTest {
         val nextFocus = shortBreak.onExpiration(settingsFocus)
         // THEN
         assertIs<PomodoroTimerState.Focus>(nextFocus)
-        assertEquals(shortBreak.endTime, nextFocus.startTime)
-        assertEquals(shortBreak.endTime + settingsFocus.pomodoroFocusTime.duration, nextFocus.endTime)
+        assertEquals<Instant>(
+            expected = shortBreak.endTime,
+            actual = nextFocus.startTime,
+        )
+        assertEquals<Instant>(
+            expected = shortBreak.endTime + settingsFocus.pomodoroFocusTime.duration,
+            actual = nextFocus.endTime,
+        )
     }
 
     @Test
@@ -432,8 +506,14 @@ class PomodoroTimerStateTest {
         // WHEN
         val transition = shortBreak.terminate(at)
         // THEN
-        assertEquals(PomodoroTimerState.ShortBreak(startTime, at), transition.updatedOldState)
-        assertEquals(PomodoroTimerState.Paused(at), transition.nextState)
+        assertEquals(
+            expected = PomodoroTimerState.ShortBreak(startTime, at),
+            actual = transition.updatedOldState,
+        )
+        assertEquals(
+            expected = PomodoroTimerState.Paused(at),
+            actual = transition.nextState,
+        )
     }
 
     @Test
@@ -458,8 +538,11 @@ class PomodoroTimerStateTest {
         val nextConfirm = longBreak.onExpiration(settingsConfirm)
         // THEN
         assertIs<PomodoroTimerState.AwaitsConfirmation>(nextConfirm)
-        assertEquals(longBreak.endTime, nextConfirm.startTime)
-        assertEquals(longBreak.endTime + settingsConfirm.confirmationTimeoutTime.duration, nextConfirm.endTime)
+        assertEquals<Instant>(expected = longBreak.endTime, actual = nextConfirm.startTime)
+        assertEquals<Instant>(
+            expected = longBreak.endTime + settingsConfirm.confirmationTimeoutTime.duration,
+            actual = nextConfirm.endTime,
+        )
 
         // -- PomodoroTimerState.LongBreak -> isPreparationStateEnabled = true
         // GIVEN
@@ -478,8 +561,14 @@ class PomodoroTimerStateTest {
         val nextPrep = longBreak.onExpiration(settingsPrep)
         // THEN
         assertIs<PomodoroTimerState.Preparation>(nextPrep)
-        assertEquals(longBreak.endTime, nextPrep.startTime)
-        assertEquals(longBreak.endTime + settingsPrep.preparationTime.duration, nextPrep.endTime)
+        assertEquals<Instant>(
+            expected = longBreak.endTime,
+            actual = nextPrep.startTime,
+        )
+        assertEquals<Instant>(
+            expected = longBreak.endTime + settingsPrep.preparationTime.duration,
+            actual = nextPrep.endTime,
+        )
 
         // -- PomodoroTimerState.LongBreak -> default to Focus
         // GIVEN
@@ -498,8 +587,14 @@ class PomodoroTimerStateTest {
         val nextFocus = longBreak.onExpiration(settingsFocus)
         // THEN
         assertIs<PomodoroTimerState.Focus>(nextFocus)
-        assertEquals(longBreak.endTime, nextFocus.startTime)
-        assertEquals(longBreak.endTime + settingsFocus.pomodoroFocusTime.duration, nextFocus.endTime)
+        assertEquals<Instant>(
+            expected = longBreak.endTime,
+            actual = nextFocus.startTime,
+        )
+        assertEquals<Instant>(
+            expected = longBreak.endTime + settingsFocus.pomodoroFocusTime.duration,
+            actual = nextFocus.endTime,
+        )
     }
 
     @Test
@@ -549,8 +644,14 @@ class PomodoroTimerStateTest {
         val next = preparation.onExpiration(settings)
         // THEN
         assertIs<PomodoroTimerState.Focus>(next)
-        assertEquals(preparation.endTime, next.startTime)
-        assertEquals(preparation.endTime + settings.pomodoroFocusTime.duration, next.endTime)
+        assertEquals<Instant>(
+            expected = preparation.endTime,
+            actual = next.startTime,
+        )
+        assertEquals<Instant>(
+            expected = preparation.endTime + settings.pomodoroFocusTime.duration,
+            actual = next.endTime,
+        )
     }
 
     @Test
@@ -575,7 +676,13 @@ class PomodoroTimerStateTest {
         // WHEN
         val transition = preparation.pause(at)
         // THEN
-        assertEquals(PomodoroTimerState.Preparation(startTime, at), transition.updatedOldState)
-        assertEquals(PomodoroTimerState.Paused(at), transition.nextState)
+        assertEquals(
+            expected = PomodoroTimerState.Preparation(startTime, at),
+            actual = transition.updatedOldState,
+        )
+        assertEquals(
+            expected = PomodoroTimerState.Paused(at),
+            actual = transition.nextState,
+        )
     }
 }

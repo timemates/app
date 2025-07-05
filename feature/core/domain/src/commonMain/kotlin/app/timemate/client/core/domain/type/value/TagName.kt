@@ -3,7 +3,7 @@ package app.timemate.client.core.domain.type.value
 import com.y9vad9.ktiny.kotlidator.ValueFactory
 import com.y9vad9.ktiny.kotlidator.factory
 import com.y9vad9.ktiny.kotlidator.rule.StringLengthRangeValidationRule
-
+import kotlin.jvm.JvmInline
 
 @JvmInline
 value class TagName private constructor(

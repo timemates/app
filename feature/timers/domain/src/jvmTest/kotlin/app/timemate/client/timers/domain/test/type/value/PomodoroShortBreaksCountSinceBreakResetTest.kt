@@ -1,6 +1,7 @@
 package app.timemate.client.timers.domain.test.type.value
 
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCountSinceBreakReset
+import com.y9vad9.ktiny.kotlidator.ValidationException
 import com.y9vad9.ktiny.kotlidator.createOrThrow
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,13 +28,9 @@ class PomodoroShortBreaksCountSinceBreakResetTest {
         val invalidValue = -1
 
         // WHEN & THEN
-        val exception = assertFailsWith<IllegalArgumentException> {
+        assertFailsWith<ValidationException> {
             PomodoroShortBreaksCountSinceBreakReset.Companion.factory.createOrThrow(invalidValue)
         }
-        assertTrue(
-            exception.message?.contains("MinValueValidationRule") == true,
-            "Exception message should mention validation rule"
-        )
     }
 
     @Test
