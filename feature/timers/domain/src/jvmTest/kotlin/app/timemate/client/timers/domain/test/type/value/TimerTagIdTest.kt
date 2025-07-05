@@ -2,10 +2,14 @@ package app.timemate.client.timers.domain.test.type.value
 
 import app.timemate.client.timers.domain.type.tag.value.TimerTagId
 import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
-import kotlin.test.*
 import com.y9vad9.ktiny.kotlidator.ValidationException
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
-class TimerTagIdTests {
+class TimerTagIdTest {
     @Test
     fun `should fail when value is less than MIN_VALUE`() {
         // GIVEN a value less than the allowed minimum

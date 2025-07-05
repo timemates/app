@@ -16,10 +16,11 @@ kotlin {
 }
 
 dependencies {
-    api(libs.classpath.kotlin.plugin)
-    api(libs.classpath.sqldelight.plugin)
-    api(libs.classpath.compose.plugin)
-    api(libs.classpath.compose.compiler.plugin)
-    api(libs.classpath.ksp.plugin)
+    api(libs.pluginClasspath.kotlin)
+    api(libs.pluginClasspath.sqldelight)
+    api(libs.pluginClasspath.compose)
+    api(libs.pluginClasspath.compose.compiler)
+    api(libs.pluginClasspath.ksp)
+    api(libs.pluginClasspath.detekt)
     api(files((libs).javaClass.superclass.protectionDomain.codeSource.location))
 }

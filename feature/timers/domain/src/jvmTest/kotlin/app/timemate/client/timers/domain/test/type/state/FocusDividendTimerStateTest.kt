@@ -1,7 +1,10 @@
 package app.timemate.client.timers.domain.test.type.state
 
 import app.timemate.client.timers.domain.type.state.FocusDividendTimerState
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 import kotlin.time.Instant
 
 class FocusDividendTimerStateTest {

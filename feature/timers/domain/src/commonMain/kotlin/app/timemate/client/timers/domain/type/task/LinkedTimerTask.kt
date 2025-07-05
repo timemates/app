@@ -1,7 +1,7 @@
-package app.timemate.client.timers.domain.type.external
+package app.timemate.client.timers.domain.type.task
 
-import app.timemate.client.tasks.domain.type.value.LinkedTaskId
-import app.timemate.client.tasks.domain.type.value.LinkedTaskName
+import app.timemate.client.timers.domain.type.task.value.LinkedTaskId
+import app.timemate.client.timers.domain.type.task.value.LinkedTaskName
 import kotlin.time.Instant
 
 class LinkedTimerTask(

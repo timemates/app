@@ -16,9 +16,9 @@ value class TaskStatusId private constructor(
             constructor = { TaskStatusId(it) },
         )
 
-        val PLANED: TaskStatusId = TaskStatusId(-3)
-        val IN_PROGRESS: TaskStatusId = TaskStatusId(-2)
-        val PAUSED: TaskStatusId = TaskStatusId(-1)
-        val DONE: TaskStatusId = TaskStatusId(0)
+        val PLANED: TaskStatusId = TaskStatusId(-4)
+        val IN_PROGRESS: TaskStatusId = TaskStatusId(-3)
+        val PAUSED: TaskStatusId = TaskStatusId(-2)
+        val DONE: TaskStatusId = TaskStatusId(-1)
     }
 }

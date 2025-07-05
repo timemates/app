@@ -13,10 +13,8 @@ sealed interface PomodoroTimerState : TimerState {
         override val startTime: Instant,
         override val endTime: Instant = Instant.DISTANT_FUTURE,
     ) : PomodoroTimerState {
-
         fun start(at: Instant, settings: PomodoroTimerSettings): TimerStateTransition<Inactive, Focus> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
             return TimerStateTransition(
                 Inactive(startTime, at),
                 Focus(at, at + settings.pomodoroFocusTime.duration),
@@ -64,8 +62,7 @@ sealed interface PomodoroTimerState : TimerState {
             settings: PomodoroTimerSettings,
             at: Instant,
         ): TimerStateTransition<Paused, PomodoroTimerState> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
 
             val oldStateUpdate = copy(endTime = at)
 
@@ -84,8 +81,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<ShortBreak, Paused> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -103,8 +99,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<LongBreak, Paused> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -118,15 +113,14 @@ sealed interface PomodoroTimerState : TimerState {
      */
     data class Preparation(
         override val startTime: Instant,
-        override val endTime: Instant
+        override val endTime: Instant,
     ) : PomodoroTimerState {
         fun onExpiration(settings: PomodoroTimerSettings): PomodoroTimerState {
             return Focus(endTime, endTime + settings.pomodoroFocusTime.duration)
         }
 
         fun pause(at: Instant): TimerStateTransition<Preparation, Paused> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -137,7 +131,7 @@ sealed interface PomodoroTimerState : TimerState {
 
     data class AwaitsConfirmation(
         override val startTime: Instant,
-        override val endTime: Instant
+        override val endTime: Instant,
     ) : PomodoroTimerState {
         fun onExpiration(settings: PomodoroTimerSettings): PomodoroTimerState {
             if (settings.isPreparationStateEnabled)
@@ -147,8 +141,7 @@ sealed interface PomodoroTimerState : TimerState {
         }
 
         fun terminate(at: Instant): TimerStateTransition<AwaitsConfirmation, Paused> {
-            if (at < startTime)
-                throw IllegalStateException("New state cannot be past current.")
+            check(at > startTime) { "New state cannot be past current." }
 
             return TimerStateTransition(
                 updatedOldState = copy(endTime = at),
@@ -160,13 +153,15 @@ sealed interface PomodoroTimerState : TimerState {
 
 private fun nextConfirmationOrPreparationOrFocusState(
     settings: PomodoroTimerSettings,
-    from: Instant
+    from: Instant,
 ): PomodoroTimerState {
     return when {
         settings.requiresConfirmationBeforeStart ->
             PomodoroTimerState.AwaitsConfirmation(from, from + settings.confirmationTimeoutTime.duration)
+
         settings.isPreparationStateEnabled ->
             PomodoroTimerState.Preparation(from, from + settings.preparationTime.duration)
+
         else -> PomodoroTimerState.Focus(from, from + settings.pomodoroFocusTime.duration)
     }
 }

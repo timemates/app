@@ -1,9 +1,8 @@
-package app.timemate.client.tasks.domain.type.value
+package app.timemate.client.timers.domain.type.task.value
 
 import com.y9vad9.ktiny.kotlidator.ValueFactory
 import kotlin.jvm.JvmInline
 import com.y9vad9.ktiny.kotlidator.factory
-import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
 import com.y9vad9.ktiny.kotlidator.rule.StringLengthRangeValidationRule
 
 
