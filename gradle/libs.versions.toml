@@ -3,8 +3,6 @@ kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
 ktor = "3.1.2"
-jupiter = "5.4.0"
-exposed = "0.41.1"
 android-gradle-plugin = "8.9.1"
 android-compose-version = "1.7.1"
 compose = "1.8.1"
@@ -23,7 +21,6 @@ compose-markdown = "0.33.0"
 androidx-appcompat = "1.7.0"
 okio = "3.9.1"
 essenty = "2.5.0"
-konsist = "0.17.3"
 detekt = "1.23.8"
 detekt-compose = "0.4.22"
 
@@ -41,13 +38,8 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 # ───────────────────────────────────────────────────────────────────────────────
 # Ktor Libraries
 # ───────────────────────────────────────────────────────────────────────────────
-ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
-ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
-ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
-ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
-ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
-ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
-ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # ───────────────────────────────────────────────────────────────────────────────
@@ -55,7 +47,6 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 # ───────────────────────────────────────────────────────────────────────────────
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # ───────────────────────────────────────────────────────────────────────────────
@@ -67,8 +58,6 @@ sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", versi
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.require = "3.49.1.0" }
-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 h2-database = { module = "com.h2database:h2", version.require = "2.2.224" }
 
 # ───────────────────────────────────────────────────────────────────────────────
@@ -137,9 +126,6 @@ mordant-markdown = { module = "com.github.ajalt.mordant:mordant-markdown", versi
 # Misc / Core Libraries
 # ───────────────────────────────────────────────────────────────────────────────
 squareup-okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
-logback-classic = { module = "ch.qos.logback:logback-classic", version.require = "1.3.5" }
-simple-java-mail = { module = "org.simplejavamail:simple-java-mail", version.require = "8.3.1" }
-cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require = "0.9.0" }
 
 # ───────────────────────────────────────────────────────────────────────────────
 # AndroidX
@@ -215,4 +201,7 @@ graalvm-native = { id = "org.graalvm.buildtools.native", version.ref = "graalvm"
 # ───────────────────────────────────────────────────────────────────────────────
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
+# ───────────────────────────────────────────────────────────────────────────────
+# Code Quality
+# ───────────────────────────────────────────────────────────────────────────────
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
