@@ -1,0 +1,48 @@
+title: "Bug: <short description>"
+labels:
+  - type:bug
+  - status:triage
+name: "Bug Report"
+description: "Report a reproducible bug or issue."
+body:
+  - type: markdown
+    attributes:
+      value: "Please verify the bug doesn't already exist before submitting."
+  - type: input
+    id: summary
+    attributes:
+      label: "Bug Summary"
+      placeholder: "e.g. Timer does not start after reset"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Provide clear steps and include expected and actual behavior."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "Affected Version / Commit"
+      placeholder: "e.g. v1.2.0 or commit 9c1d09d"
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: "Environment"
+      placeholder: "OS, Java/Kotlin version, device, etc."
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority Level"
+      options:
+        - priority:low
+        - priority:medium
+        - priority:high
+    validations:
+      required: false

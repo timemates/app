@@ -1,0 +1,14 @@
+title: "Maintenance: <task description>"
+labels:
+  - type:maintenance
+  - status:triage
+name: "Maintenance Task"
+description: "Routine upkeep: refactoring, upgrading dependencies, internal tooling, etc."
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: "Describe the maintenance work"
+      placeholder: "Refactor sync logic into dedicated service, upgrade Ktor to 2.3.4, etc."
+    validations:
+      required: true

@@ -1,0 +1,57 @@
+name: Remove 'status:in-progress' Label on Close
+
+on:
+  issues:
+    types: [closed]
+  pull_request:
+    types: [closed]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  remove-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove 'status:in-progress' label
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const labelToRemove = 'status:in-progress';
+            const labels = context.payload.issue ? context.payload.issue.labels : context.payload.pull_request.labels;
+
+            if (!labels) {
+              console.log('No labels found.');
+              return;
+            }
+
+            const hasLabel = labels.some(label => label.name === labelToRemove);
+            if (!hasLabel) {
+              console.log(`Label "${labelToRemove}" not present.`);
+              return;
+            }
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            if (context.payload.issue) {
+              const issue_number = context.payload.issue.number;
+              await github.issues.removeLabel({
+                owner,
+                repo,
+                issue_number,
+                name: labelToRemove
+              });
+              console.log(`Removed label "${labelToRemove}" from issue #${issue_number}`);
+            } else if (context.payload.pull_request) {
+              const pr_number = context.payload.pull_request.number;
+              await github.issues.removeLabel({
+                owner,
+                repo,
+                issue_number: pr_number,
+                name: labelToRemove
+              });
+              console.log(`Removed label "${labelToRemove}" from PR #${pr_number}`);
+            }

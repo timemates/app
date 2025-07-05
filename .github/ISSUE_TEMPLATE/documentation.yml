@@ -1,0 +1,14 @@
+title: "Docs: <area needing improvement>"
+labels:
+  - type:documentation
+  - status:triage
+name: "Documentation Issue"
+description: "Report unclear, missing, or incorrect documentation."
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: "Describe the documentation problem"
+      placeholder: "The README does not explain how to run tests."
+    validations:
+      required: true
