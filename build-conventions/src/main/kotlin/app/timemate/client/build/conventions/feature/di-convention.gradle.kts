@@ -16,5 +16,7 @@ dependencies {
     commonMainImplementation(libs.koin.annotations)
     "kspCommonMainMetadata"(libs.koin.ksp.compiler)
     "kspJvm"(libs.koin.ksp.compiler)
-    "kspIosArm64"(libs.koin.ksp.compiler)
+
+    if (kotlin.targets.findByName("iosArm64") != null)
+        "kspIosArm64"(libs.koin.ksp.compiler)
 }
