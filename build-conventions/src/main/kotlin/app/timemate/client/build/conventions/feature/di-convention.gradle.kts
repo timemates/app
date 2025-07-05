@@ -17,6 +17,13 @@ dependencies {
     "kspCommonMainMetadata"(libs.koin.ksp.compiler)
     "kspJvm"(libs.koin.ksp.compiler)
 
-    if (kotlin.targets.findByName("iosArm64") != null)
-        "kspIosArm64"(libs.koin.ksp.compiler)
+    listOf("kspIosArm64", "kspIosX64", "kspIosSimulatorArm64").forEach { configName ->
+        configurations.findByName(configName)?.let {
+            dependencies.add(configName, libs.koin.ksp.compiler)
+        }
+    }
+}
+
+ksp {
+    allWarningsAsErrors = true
 }
