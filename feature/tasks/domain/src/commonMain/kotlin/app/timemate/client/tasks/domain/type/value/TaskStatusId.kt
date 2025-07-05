@@ -5,14 +5,13 @@ import kotlin.jvm.JvmInline
 import com.y9vad9.ktiny.kotlidator.factory
 import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
 
-
 @JvmInline
 value class TaskStatusId private constructor(
     val long: Long,
 ) {
     companion object {
         val factory: ValueFactory<TaskStatusId, Long> = factory(
-            rules = listOf(MinValueValidationRule(-3)),
+            rules = listOf(MinValueValidationRule(-4)),
             constructor = { TaskStatusId(it) },
         )
 
