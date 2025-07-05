@@ -9,12 +9,10 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
-        google()
         mavenCentral()
+        google()
         maven("https://jitpack.io")
-        maven("https://maven.y9vad9.com")
     }
 }
 
