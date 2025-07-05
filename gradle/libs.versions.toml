@@ -153,7 +153,6 @@ graalvm-metadata = { module = "org.graalvm.buildtools:graalvm-reachability-metad
 # Tools / Utilities
 # ───────────────────────────────────────────────────────────────────────────────
 y9vad9-ktiny-kotlidator = { module = "com.y9vad9.ktiny:kotlidator", version.require = "0.0.3" }
-lemonappdev-konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
 
 # ───────────────────────────────────────────────────────────────────────────────
 # Detekt
