@@ -23,8 +23,8 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
+        distribution: 'corretto'
         java-version: '17'
-        distribution: 'adoptopenjdk'
 
     - name: Set up Gradle
       uses: gradle/wrapper-validation-action@v2
