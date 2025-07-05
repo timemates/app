@@ -4,7 +4,7 @@
 
 # TimeMates App
 
-TimeMates is a multiplatform productivity application built with Kotlin, Compose, Coroutines, and RSocket (via [rsproto](https://github.com/timemates/rsproto)). The application supports team and individual productivity by providing customizable timers, task management, note-taking, and integration capabilities.
+TimeMates is a multiplatform productivity application built with Kotlin, Compose, Coroutines, and RSocket (via [rrpc](https://github.com/timemates/rrpc-kotlin)). The application supports team and individual productivity by providing customizable timers, task management, note-taking, and integration capabilities.
 
 ## Features
 
