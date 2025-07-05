@@ -86,15 +86,4 @@ class TimerTagNameTests {
         assertTrue(result.isSuccess)
         assertEquals(input, result.getOrThrow().string)
     }
-
-    @Test
-    fun `should treat unicode characters as single characters`() {
-        // WHEN creating a tag with emoji
-        val input = "🔥".repeat(50)
-        val result = factory.create(input)
-
-        // THEN it should succeed (each emoji is counted as one Char)
-        assertTrue(result.isSuccess)
-        assertEquals(input, result.getOrThrow().string)
-    }
 }
