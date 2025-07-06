@@ -9,7 +9,6 @@ import com.y9vad9.ktiny.kotlidator.createOrThrow
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.time.Duration
 import kotlin.time.Instant
 
 class TaskTest {
@@ -85,7 +84,7 @@ class TaskTest {
             description = baseDescription,
             creationTime = creationTime,
             dueTime = dueTime,
-            status = TaskStatus.Builtin.Planed
+            status = TaskStatus.Builtin.Planned
         )
         val currentTime = Instant.parse("2024-01-01T12:00:00Z")
 
@@ -105,7 +104,7 @@ class TaskTest {
             description = baseDescription,
             creationTime = creationTime,
             dueTime = dueTime,
-            status = TaskStatus.Builtin.Planed
+            status = TaskStatus.Builtin.Planned
         )
         val currentTime = Instant.parse("2024-01-03T00:00:00Z")
 
@@ -125,7 +124,7 @@ class TaskTest {
             description = baseDescription,
             creationTime = creationTime,
             dueTime = dueTime,
-            status = TaskStatus.Builtin.Planed
+            status = TaskStatus.Builtin.Planned
         )
         val currentTime = Instant.parse("2024-01-03T00:00:00Z")
 
@@ -163,13 +162,13 @@ class TaskTest {
             id = baseId,
             name = baseName,
             description = baseDescription,
-            status = TaskStatus.Builtin.Planed,
+            status = TaskStatus.Builtin.Planned,
             creationTime = creationTime,
             dueTime = dueTime
         )
 
         // WHEN
-        val result = task.markAs(TaskStatus.Builtin.Planed)
+        val result = task.markAs(TaskStatus.Builtin.Planned)
 
         // THEN
         assertEquals(task, result)
@@ -183,7 +182,7 @@ class TaskTest {
             id = baseId,
             name = baseName,
             description = baseDescription,
-            status = TaskStatus.Builtin.Planed,
+            status = TaskStatus.Builtin.Planned,
             creationTime = creationTime,
             dueTime = dueTime
         )
@@ -204,7 +203,7 @@ class TaskTest {
             id = baseId,
             name = baseName,
             description = baseDescription,
-            status = TaskStatus.Builtin.Planed,
+            status = TaskStatus.Builtin.Planned,
             creationTime = creationTime,
             dueTime = dueTime
         )

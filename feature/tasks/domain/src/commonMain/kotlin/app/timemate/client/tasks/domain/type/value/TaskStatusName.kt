@@ -3,7 +3,6 @@ package app.timemate.client.tasks.domain.type.value
 import com.y9vad9.ktiny.kotlidator.ValueFactory
 import kotlin.jvm.JvmInline
 import com.y9vad9.ktiny.kotlidator.factory
-import com.y9vad9.ktiny.kotlidator.rule.MinValueValidationRule
 import com.y9vad9.ktiny.kotlidator.rule.StringLengthRangeValidationRule
 
 /**
@@ -31,7 +30,7 @@ value class TaskStatusName private constructor(
         val LENGTH_RANGE: IntRange = MIN_LENGTH..MAX_LENGTH
 
         /** Built-in status name representing a planned task. */
-        val PLANED: TaskStatusName = TaskStatusName("Planed")
+        val PLANNED: TaskStatusName = TaskStatusName("Planed")
 
         /** Built-in status name representing a task in progress. */
         val IN_PROGRESS: TaskStatusName = TaskStatusName("In Progress")
@@ -48,7 +47,7 @@ value class TaskStatusName private constructor(
          * Used internally to detect name collisions with custom status names.
          */
         val BUILTIN_NAMES: List<TaskStatusName> = listOf(
-            PLANED, IN_PROGRESS, PAUSED, DONE,
+            PLANNED, IN_PROGRESS, PAUSED, DONE,
         )
 
         /**

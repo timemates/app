@@ -35,7 +35,7 @@ sealed interface TaskStatus {
         @Throws(IllegalArgumentException::class)
         fun from(id: TaskStatusId, name: TaskStatusName): TaskStatus {
             return when (id) {
-                TaskStatusId.PLANED -> Builtin.Planed
+                TaskStatusId.PLANNED -> Builtin.Planned
                 TaskStatusId.IN_PROGRESS -> Builtin.InProgress
                 TaskStatusId.PAUSED -> Builtin.Paused
                 TaskStatusId.DONE -> Builtin.Done
@@ -51,9 +51,9 @@ sealed interface TaskStatus {
      */
     sealed interface Builtin : TaskStatus {
         /** Status for a task that is scheduled but not yet started. */
-        data object Planed : Builtin {
-            override val id: TaskStatusId = TaskStatusId.PLANED
-            override val name: TaskStatusName = TaskStatusName.PLANED
+        data object Planned : Builtin {
+            override val id: TaskStatusId = TaskStatusId.PLANNED
+            override val name: TaskStatusName = TaskStatusName.PLANNED
         }
 
         /** Status for a task that is actively being worked on. */
@@ -123,15 +123,15 @@ fun TaskStatus.isCustom(): Boolean {
 }
 
 /**
- * Returns `true` if this status is [TaskStatus.Builtin.Planed].
+ * Returns `true` if this status is [TaskStatus.Builtin.Planned].
  *
  * Enables smart casting if needed, though type is final.
  */
 fun TaskStatus.isPlanned(): Boolean {
     contract {
-        returns(true) implies (this@isPlanned is TaskStatus.Builtin.Planed)
+        returns(true) implies (this@isPlanned is TaskStatus.Builtin.Planned)
     }
-    return this === TaskStatus.Builtin.Planed
+    return this === TaskStatus.Builtin.Planned
 }
 
 /**

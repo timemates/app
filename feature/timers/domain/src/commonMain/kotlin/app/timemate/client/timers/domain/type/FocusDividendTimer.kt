@@ -54,9 +54,10 @@ data class FocusDividendTimer(
     /**
      * Removes the linked task from this timer.
      *
-     * @throws IllegalStateException if no task is currently linked.
+     * @throws IllegalArgumentException if no task is currently linked.
      * @return A new [FocusDividendTimer] with no linked task.
      */
+    @Throws(IllegalArgumentException::class)
     fun unlinkTask(): FocusDividendTimer {
         require(linkedTask != null) { "Timer has no linked task" }
         return copy(linkedTask = null)

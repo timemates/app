@@ -15,13 +15,13 @@ value class TaskStatusId private constructor(
             constructor = { TaskStatusId(it) },
         )
 
-        val PLANED: TaskStatusId = TaskStatusId(-4)
+        val PLANNED: TaskStatusId = TaskStatusId(-4)
         val IN_PROGRESS: TaskStatusId = TaskStatusId(-3)
         val PAUSED: TaskStatusId = TaskStatusId(-2)
         val DONE: TaskStatusId = TaskStatusId(-1)
 
         val BUILTIN_IDS: List<TaskStatusId> = listOf(
-            PLANED, IN_PROGRESS, PAUSED, DONE,
+            PLANNED, IN_PROGRESS, PAUSED, DONE,
         )
     }
 

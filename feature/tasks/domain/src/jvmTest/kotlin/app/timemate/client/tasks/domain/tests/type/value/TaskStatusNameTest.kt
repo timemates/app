@@ -49,7 +49,7 @@ class TaskStatusNameTest {
     fun `isBuiltin returns true for built-in status names (case insensitive)`() {
         // GIVEN
         val builtInNames = listOf(
-            TaskStatusName.PLANED,
+            TaskStatusName.PLANNED,
             TaskStatusName.IN_PROGRESS,
             TaskStatusName.PAUSED,
             TaskStatusName.DONE
@@ -79,7 +79,7 @@ class TaskStatusNameTest {
     fun `isNotBuiltin returns true only for non built-in status name`() {
         // GIVEN
         val customName = "SomethingElse"
-        val builtIn = TaskStatusName.PLANED
+        val builtIn = TaskStatusName.PLANNED
         val custom = TaskStatusName.factory.createOrThrow(customName)
 
         // WHEN / THEN

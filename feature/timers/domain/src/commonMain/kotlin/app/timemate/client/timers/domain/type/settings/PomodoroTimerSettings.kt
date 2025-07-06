@@ -17,8 +17,8 @@ import kotlin.time.Duration.Companion.seconds
  * including focus/break durations, long break strategies, preparation phases, and confirmation behavior.
  *
  * Each setting is validated on construction to ensure the constraints hold:
- * - If preparation is enabled, the preparation time must be greater than 3 seconds.
- * - If confirmation is required, the timeout must be greater than 3 seconds.
+ * - If preparation is enabled, the preparation time must be greater than 5 seconds.
+ * - If confirmation is required, the timeout must be greater than 5 seconds.
  * - If long breaks are enabled:
  *   - The long break duration must be longer than the short break.
  *   - The number of short breaks before a long break must be > 1.

@@ -25,7 +25,7 @@ class TaskStatusTest {
     fun `from returns builtin instances for all builtin ids`() {
         // GIVEN all builtin ids and their corresponding names
         val builtinData = listOf(
-            Triple(TaskStatusId.PLANED, TaskStatusName.PLANED, TaskStatus.Builtin.Planed::class),
+            Triple(TaskStatusId.PLANNED, TaskStatusName.PLANNED, TaskStatus.Builtin.Planned::class),
             Triple(TaskStatusId.IN_PROGRESS, TaskStatusName.IN_PROGRESS, TaskStatus.Builtin.InProgress::class),
             Triple(TaskStatusId.PAUSED, TaskStatusName.PAUSED, TaskStatus.Builtin.Paused::class),
             Triple(TaskStatusId.DONE, TaskStatusName.DONE, TaskStatus.Builtin.Done::class),
@@ -43,7 +43,7 @@ class TaskStatusTest {
 
             // Also verify the per-variant checks
             when (status) {
-                is TaskStatus.Builtin.Planed -> assertTrue(status.isPlanned())
+                is TaskStatus.Builtin.Planned -> assertTrue(status.isPlanned())
                 is TaskStatus.Builtin.InProgress -> assertTrue(status.isInProgress())
                 is TaskStatus.Builtin.Paused -> assertTrue(status.isPaused())
                 is TaskStatus.Builtin.Done -> assertTrue(status.isDone())
@@ -70,7 +70,7 @@ class TaskStatusTest {
     @Test
     fun `Custom constructor throws if id is builtin`() {
         // GIVEN a builtin id with custom name
-        val id = TaskStatusId.PLANED
+        val id = TaskStatusId.PLANNED
         val name = customName
 
         // WHEN / THEN
@@ -83,7 +83,7 @@ class TaskStatusTest {
     fun `Custom constructor throws if name is builtin`() {
         // GIVEN a custom id with builtin name
         val id = customId
-        val name = TaskStatusName.PLANED
+        val name = TaskStatusName.PLANNED
 
         // WHEN / THEN
         assertFailsWith<IllegalArgumentException> {
@@ -95,7 +95,7 @@ class TaskStatusTest {
     fun `isBuiltin returns true for builtin statuses`() {
         // GIVEN builtin statuses
         val statuses = listOf(
-            TaskStatus.Builtin.Planed,
+            TaskStatus.Builtin.Planned,
             TaskStatus.Builtin.InProgress,
             TaskStatus.Builtin.Paused,
             TaskStatus.Builtin.Done,
@@ -124,7 +124,7 @@ class TaskStatusTest {
     @Test
     fun `specific isX() functions correctly identify builtin statuses`() {
         // GIVEN each builtin status
-        val planed = TaskStatus.Builtin.Planed
+        val planed = TaskStatus.Builtin.Planned
         val inProgress = TaskStatus.Builtin.InProgress
         val paused = TaskStatus.Builtin.Paused
         val done = TaskStatus.Builtin.Done

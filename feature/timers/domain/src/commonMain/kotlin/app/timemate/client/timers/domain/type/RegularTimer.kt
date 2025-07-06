@@ -59,9 +59,10 @@ data class RegularTimer(
     /**
      * Removes the association with the currently linked task.
      *
-     * @throws IllegalStateException if there is no task currently linked.
+     * @throws IllegalArgumentException if there is no task currently linked.
      * @return A new instance of [RegularTimer] with [linkedTask] set to `null`.
      */
+    @Throws(IllegalArgumentException::class)
     fun unlinkTask(): RegularTimer {
         require(linkedTask != null) { "Timer has no linked task" }
         return copy(linkedTask = null)

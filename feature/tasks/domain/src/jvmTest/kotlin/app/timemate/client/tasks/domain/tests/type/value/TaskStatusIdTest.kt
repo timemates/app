@@ -37,7 +37,7 @@ class TaskStatusIdTest {
     @Test
     fun `predefined constants have expected values`() {
         // GIVEN / WHEN / THEN
-        assertEquals(-4L, TaskStatusId.PLANED.long)
+        assertEquals(-4L, TaskStatusId.PLANNED.long)
         assertEquals(-3L, TaskStatusId.IN_PROGRESS.long)
         assertEquals(-2L, TaskStatusId.PAUSED.long)
         assertEquals(-1L, TaskStatusId.DONE.long)
@@ -47,7 +47,7 @@ class TaskStatusIdTest {
     fun `isBuiltin returns true for built-in TaskStatusIds`() {
         // GIVEN
         val builtIns = listOf(
-            TaskStatusId.PLANED,
+            TaskStatusId.PLANNED,
             TaskStatusId.IN_PROGRESS,
             TaskStatusId.PAUSED,
             TaskStatusId.DONE
@@ -80,7 +80,7 @@ class TaskStatusIdTest {
     @Test
     fun `isNotBuiltin returns false for built-in TaskStatusId`() {
         // GIVEN
-        val builtIn = TaskStatusId.PLANED
+        val builtIn = TaskStatusId.PLANNED
 
         // WHEN / THEN
         assertFalse(builtIn.isNotBuiltin())

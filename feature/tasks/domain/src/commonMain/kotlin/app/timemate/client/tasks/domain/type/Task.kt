@@ -12,7 +12,7 @@ import kotlin.time.Instant
  * @property id Unique identifier of the task.
  * @property name Name of the task.
  * @property description Detailed description of the task.
- * @property status Current status of the task. Defaults to [TaskStatus.Builtin.Planed].
+ * @property status Current status of the task. Defaults to [TaskStatus.Builtin.Planned].
  * @property creationTime The time when the task was created.
  * @property dueTime The deadline by which the task should be completed.
  *
@@ -22,7 +22,7 @@ data class Task @Throws(IllegalArgumentException::class) constructor(
     val id: TaskId,
     val name: TaskName,
     val description: TaskDescription,
-    val status: TaskStatus = TaskStatus.Builtin.Planed,
+    val status: TaskStatus = TaskStatus.Builtin.Planned,
     val creationTime: Instant,
     val dueTime: Instant,
 ) {
@@ -37,8 +37,9 @@ data class Task @Throws(IllegalArgumentException::class) constructor(
      *
      * @param currentTime The current time to compare against.
      * @return Duration until the task's due time.
-     * @throws IllegalStateException if the task is already overdue at [currentTime].
+     * @throws IllegalArgumentException if the task is already overdue at [currentTime].
      */
+    @Throws(IllegalArgumentException::class)
     fun dueIn(currentTime: Instant): Duration {
         require(isDue(currentTime)) { "Task should not be overdue." }
         return dueTime - currentTime

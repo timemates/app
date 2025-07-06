@@ -62,9 +62,10 @@ data class PomodoroTimer(
     /**
      * Returns a copy of this timer with the current [linkedTask] removed.
      *
-     * @throws IllegalStateException if no task is currently linked to this timer.
+     * @throws IllegalArgumentException if no task is currently linked to this timer.
      * @return A new [PomodoroTimer] instance with the task unlinked.
      */
+    @Throws(IllegalArgumentException::class)
     fun unlinkTask(): PomodoroTimer {
         require(linkedTask != null) { "Timer has no linked task" }
         return copy(linkedTask = null)
