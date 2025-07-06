@@ -11,7 +11,8 @@ class TagNameTest {
     @Test
     fun `valid TagName is created from valid string`() {
         // GIVEN
-        val validString = "Valid Tag"
+        val validLength = (TagName.MIN_LENGTH..TagName.MAX_LENGTH).random()
+        val validString = "a".repeat(validLength)
 
         // WHEN
         val tagName = TagName.factory.createOrThrow(validString)
@@ -23,11 +24,11 @@ class TagNameTest {
     @Test
     fun `creation fails for less than required minimal length`() {
         // GIVEN
-        val emptyString = "a".repeat(TagName.MIN_LENGTH - 1)
+        val string = "a".repeat(TagName.MIN_LENGTH - 1)
 
         // WHEN / THEN
         assertFailsWith<ValidationException> {
-            TagName.factory.createOrThrow(emptyString)
+            TagName.factory.createOrThrow(string)
         }
     }
 

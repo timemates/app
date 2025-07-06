@@ -43,4 +43,16 @@ class TagIdTest {
         // THEN
         assertEquals(zero, tagId.long)
     }
+
+    @Test
+    fun `creation succeeds for Long MAX_VALUE`() {
+        // GIVEN
+        val maxValue = Long.MAX_VALUE
+
+        // WHEN
+        val tagId = TagId.factory.createOrThrow(maxValue)
+
+        // THEN
+        assertEquals(maxValue, tagId.long)
+    }
 }
