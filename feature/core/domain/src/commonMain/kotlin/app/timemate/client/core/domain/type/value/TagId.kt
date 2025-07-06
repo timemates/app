@@ -13,7 +13,7 @@ value class TagId private constructor(
     companion object {
         val factory: ValueFactory<TagId, Long> = factory(
             rules = listOf(MinValueValidationRule(0)),
-            constructor = { TagId(it) },
+            constructor = ::TagId,
         )
     }
 }

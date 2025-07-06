@@ -12,7 +12,7 @@ value class TagName private constructor(
     companion object {
         val factory: ValueFactory<TagName, String> = factory(
             rules = listOf(StringLengthRangeValidationRule(1..50)),
-            constructor = { TagName(it) },
+            constructor = ::TagName,
         )
     }
 }
