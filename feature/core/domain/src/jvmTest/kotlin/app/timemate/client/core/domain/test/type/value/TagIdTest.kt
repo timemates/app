@@ -10,7 +10,7 @@ import kotlin.test.assertFailsWith
 
 class TagIdTest {
     private companion object {
-        private const val MIN_ID_VALUE: Long = 0L
+        private const val MIN_ID_VALUE: Long = TagId.MINIMAL_VALUE
     }
 
     @Test

@@ -9,7 +9,7 @@ import kotlin.test.assertFailsWith
 
 class TagNameTest {
     private companion object {
-        const val MAX_LENGTH = 50
+        val MAX_LENGTH = TagName.lengthRange.last
     }
 
     @Test
