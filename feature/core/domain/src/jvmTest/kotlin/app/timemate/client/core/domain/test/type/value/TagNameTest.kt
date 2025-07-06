@@ -42,4 +42,28 @@ class TagNameTest {
             TagName.factory.createOrThrow(tooLongString)
         }
     }
+
+    @Test
+    fun `creation succeeds for string with minimum length`() {
+        // GIVEN
+        val minLengthString = "a"
+
+        // WHEN
+        val tagName = TagName.factory.createOrThrow(minLengthString)
+
+        // THEN
+        assertEquals(minLengthString, tagName.string)
+    }
+
+    @Test
+    fun `creation succeeds for string with maximum length`() {
+        // GIVEN
+        val maxLengthString = "a".repeat(50)
+
+        // WHEN
+        val tagName = TagName.factory.createOrThrow(maxLengthString)
+
+        // THEN
+        assertEquals(maxLengthString, tagName.string)
+    }
 }
