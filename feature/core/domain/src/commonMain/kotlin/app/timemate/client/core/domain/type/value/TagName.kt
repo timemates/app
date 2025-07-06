@@ -10,8 +10,10 @@ value class TagName private constructor(
     val string: String,
 ) {
     companion object {
+        val lengthRange: IntRange = 1..50
+
         val factory: ValueFactory<TagName, String> = factory(
-            rules = listOf(StringLengthRangeValidationRule(1..50)),
+            rules = listOf(StringLengthRangeValidationRule(lengthRange)),
             constructor = ::TagName,
         )
     }

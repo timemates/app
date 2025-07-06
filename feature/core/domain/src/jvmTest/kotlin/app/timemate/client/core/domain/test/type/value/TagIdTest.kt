@@ -3,16 +3,20 @@ package app.timemate.client.core.domain.test.type.value
 import app.timemate.client.core.domain.type.value.TagId
 import com.y9vad9.ktiny.kotlidator.ValidationException
 import com.y9vad9.ktiny.kotlidator.createOrThrow
+import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TagIdTest {
+    private companion object {
+        private const val MIN_ID_VALUE: Long = 0L
+    }
 
     @Test
     fun `valid TagId is created from valid long`() {
         // GIVEN
-        val validLong = 123L
+        val validLong = Random.nextLong(MIN_ID_VALUE, Long.MAX_VALUE)
 
         // WHEN
         val tagId = TagId.factory.createOrThrow(validLong)
@@ -24,7 +28,7 @@ class TagIdTest {
     @Test
     fun `creation fails for negative long`() {
         // GIVEN
-        val negativeLong = -1L
+        val negativeLong = MIN_ID_VALUE - 1
 
         // WHEN / THEN
         assertFailsWith<ValidationException> {
@@ -35,7 +39,7 @@ class TagIdTest {
     @Test
     fun `creation succeeds for zero`() {
         // GIVEN
-        val zero = 0L
+        val zero = MIN_ID_VALUE
 
         // WHEN
         val tagId = TagId.factory.createOrThrow(zero)

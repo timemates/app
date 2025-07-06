@@ -8,6 +8,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TagNameTest {
+    private companion object {
+        const val MAX_LENGTH = 50
+    }
 
     @Test
     fun `valid TagName is created from valid string`() {
@@ -58,7 +61,7 @@ class TagNameTest {
     @Test
     fun `creation succeeds for string with maximum length`() {
         // GIVEN
-        val maxLengthString = "a".repeat(50)
+        val maxLengthString = "a".repeat(MAX_LENGTH)
 
         // WHEN
         val tagName = TagName.factory.createOrThrow(maxLengthString)
