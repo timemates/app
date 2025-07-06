@@ -21,9 +21,9 @@ class TagNameTest {
     }
 
     @Test
-    fun `creation fails for empty string`() {
+    fun `creation fails for less than required minimal length`() {
         // GIVEN
-        val emptyString = ""
+        val emptyString = "a".repeat(TagName.MIN_LENGTH - 1)
 
         // WHEN / THEN
         assertFailsWith<ValidationException> {
@@ -45,7 +45,7 @@ class TagNameTest {
     @Test
     fun `creation succeeds for string with minimum length`() {
         // GIVEN
-        val minLengthString = "a"
+        val minLengthString = "a".repeat(TagName.MIN_LENGTH)
 
         // WHEN
         val tagName = TagName.factory.createOrThrow(minLengthString)
