@@ -34,7 +34,7 @@ class TagNameTest {
     @Test
     fun `creation fails for string longer than maximum allowed length`() {
         // GIVEN
-        val tooLongString = "a".repeat(TagName.lengthRange.last + 1)
+        val tooLongString = "a".repeat(TagName.RANGE.last + 1)
 
         // WHEN / THEN
         assertFailsWith<ValidationException> {
@@ -57,7 +57,7 @@ class TagNameTest {
     @Test
     fun `creation succeeds for string with maximum length`() {
         // GIVEN
-        val maxLengthString = "a".repeat(TagName.lengthRange.last)
+        val maxLengthString = "a".repeat(TagName.RANGE.last)
 
         // WHEN
         val tagName = TagName.factory.createOrThrow(maxLengthString)
