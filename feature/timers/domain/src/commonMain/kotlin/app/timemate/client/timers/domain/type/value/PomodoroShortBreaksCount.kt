@@ -16,7 +16,5 @@ value class PomodoroShortBreaksCount private constructor(
             rules = listOf(MinValueValidationRule(MIN_VALUE)),
             constructor = { PomodoroShortBreaksCount(it) },
         )
-
-        val DEFAULT_LONG_BREAK_AFTER = PomodoroShortBreaksCount(4)
     }
 }

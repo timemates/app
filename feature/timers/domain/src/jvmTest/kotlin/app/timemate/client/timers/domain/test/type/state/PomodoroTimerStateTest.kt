@@ -2,13 +2,13 @@
 package app.timemate.client.timers.domain.test.type.state
 
 import app.timemate.client.timers.domain.type.settings.PomodoroTimerSettings
+import app.timemate.client.timers.domain.type.settings.value.PomodoroLongBreakPerShortBreaksCount
 import app.timemate.client.timers.domain.type.settings.value.PomodoroConfirmationTimeoutTime
 import app.timemate.client.timers.domain.type.settings.value.PomodoroFocusTime
 import app.timemate.client.timers.domain.type.settings.value.PomodoroLongBreakTime
 import app.timemate.client.timers.domain.type.settings.value.PomodoroPreparationTime
 import app.timemate.client.timers.domain.type.settings.value.PomodoroShortBreakTime
 import app.timemate.client.timers.domain.type.state.PomodoroTimerState
-import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCount
 import app.timemate.client.timers.domain.type.value.PomodoroShortBreaksCountSinceBreakReset
 import com.y9vad9.ktiny.kotlidator.createOrThrow
 import kotlin.test.Test
@@ -35,7 +35,7 @@ class PomodoroTimerStateTest {
     ): PomodoroTimerSettings {
         return PomodoroTimerSettings(
             isLongBreakEnabled = isLongBreakEnabled,
-            longBreakPer = PomodoroShortBreaksCount.factory.createOrThrow(longBreakPer),
+            longBreakPer = PomodoroLongBreakPerShortBreaksCount.factory.createOrThrow(longBreakPer),
             pomodoroFocusTime = PomodoroFocusTime.factory.createOrThrow(focusTimeMinutes.minutes),
             pomodoroShortBreakTime = PomodoroShortBreakTime.factory.createOrThrow(shortBreakDurationMinutes.minutes),
             longBreakTime = PomodoroLongBreakTime.factory.createOrThrow(longBreakDurationMinutes.minutes),
@@ -59,7 +59,7 @@ class PomodoroTimerStateTest {
         val inactive = PomodoroTimerState.Inactive(startTime)
         val settings = createSettings(
             isLongBreakEnabled = true,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -90,7 +90,7 @@ class PomodoroTimerStateTest {
         val inactive = PomodoroTimerState.Inactive(startTime)
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 20,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -123,7 +123,7 @@ class PomodoroTimerStateTest {
         val focus = PomodoroTimerState.Focus(startTime, endTime)
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -267,7 +267,7 @@ class PomodoroTimerStateTest {
         val invalidAt = startTime - 1.minutes
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -292,7 +292,7 @@ class PomodoroTimerStateTest {
         val at = startTime + 1.minutes
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -333,7 +333,7 @@ class PomodoroTimerStateTest {
         val at = startTime + 1.minutes
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -374,7 +374,7 @@ class PomodoroTimerStateTest {
         val at = startTime + 1.minutes
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 30,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -415,7 +415,7 @@ class PomodoroTimerStateTest {
         val shortBreak = PomodoroTimerState.ShortBreak(startTime, endTime)
         val settingsConfirm = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -441,7 +441,7 @@ class PomodoroTimerStateTest {
         // GIVEN
         val settingsPrep = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -461,7 +461,7 @@ class PomodoroTimerStateTest {
         // GIVEN
         val settingsFocus = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 20,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -525,7 +525,7 @@ class PomodoroTimerStateTest {
         val longBreak = PomodoroTimerState.LongBreak(startTime, endTime)
         val settingsConfirm = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -548,7 +548,7 @@ class PomodoroTimerStateTest {
         // GIVEN
         val settingsPrep = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 25,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -574,7 +574,7 @@ class PomodoroTimerStateTest {
         // GIVEN
         val settingsFocus = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 30,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,
@@ -631,7 +631,7 @@ class PomodoroTimerStateTest {
         val preparation = PomodoroTimerState.Preparation(startTime, startTime + duration)
         val settings = createSettings(
             isLongBreakEnabled = false,
-            longBreakPer = 1,
+            longBreakPer = 2,
             focusTimeMinutes = 20,
             shortBreakDurationMinutes = 5,
             longBreakDurationMinutes = 15,

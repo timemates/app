@@ -19,5 +19,12 @@ value class TaskStatusId private constructor(
         val IN_PROGRESS: TaskStatusId = TaskStatusId(-3)
         val PAUSED: TaskStatusId = TaskStatusId(-2)
         val DONE: TaskStatusId = TaskStatusId(-1)
+
+        val BUILTIN_IDS: List<TaskStatusId> = listOf(
+            PLANED, IN_PROGRESS, PAUSED, DONE,
+        )
     }
+
+    fun isNotBuiltin(): Boolean = this !in BUILTIN_IDS
+    fun isBuiltin(): Boolean = !isNotBuiltin()
 }

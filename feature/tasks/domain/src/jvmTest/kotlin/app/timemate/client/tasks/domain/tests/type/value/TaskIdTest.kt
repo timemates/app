@@ -1,4 +1,4 @@
-package app.timemate.client.tasks.domain.tests.type
+package app.timemate.client.tasks.domain.tests.type.value
 
 import app.timemate.client.tasks.domain.type.value.TaskId
 import com.y9vad9.ktiny.kotlidator.ValidationException

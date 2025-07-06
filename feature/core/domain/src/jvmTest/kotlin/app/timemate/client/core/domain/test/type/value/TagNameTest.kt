@@ -11,7 +11,7 @@ class TagNameTest {
     @Test
     fun `valid TagName is created from valid string`() {
         // GIVEN
-        val validLength = (TagName.MIN_LENGTH..TagName.MAX_LENGTH).random()
+        val validLength = TagName.LENGTH_RANGE.random()
         val validString = "a".repeat(validLength)
 
         // WHEN

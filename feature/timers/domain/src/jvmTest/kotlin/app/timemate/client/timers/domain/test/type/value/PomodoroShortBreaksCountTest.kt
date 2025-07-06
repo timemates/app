@@ -60,8 +60,14 @@ class PomodoroShortBreaksCountTest {
 
         // THEN each should succeed and match original value
         results.forEachIndexed { index, result ->
-            assertTrue(result.isSuccess)
-            assertEquals(rawValues[index], result.getOrThrow().int)
+            assertTrue(
+                actual = result.isSuccess,
+                message = "Expected to be valid"
+            )
+            assertEquals(
+                expected = rawValues[index], actual = result.getOrThrow().int,
+                message = "Expected value to be equal to the one with which value object was created."
+            )
         }
     }
 

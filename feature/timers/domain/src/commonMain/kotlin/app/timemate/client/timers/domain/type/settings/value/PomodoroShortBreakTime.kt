@@ -7,14 +7,20 @@ import kotlin.jvm.JvmInline
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 @JvmInline
 value class PomodoroShortBreakTime private constructor(
     val duration: Duration
 ) {
-    companion object Companion {
+    companion object {
+        val MIN_TIME: Duration = 1.minutes
+        val MAX_TIME: Duration = 20.minutes
+
+        val TIME_RANGE: ClosedRange<Duration> = MIN_TIME..MAX_TIME
+
         val factory: ValueFactory<PomodoroShortBreakTime, Duration> = factory(
-            rules = listOf(DurationFrameValidation(1.minutes..20.minutes)),
+            rules = listOf(DurationFrameValidation(TIME_RANGE)),
             constructor = ::PomodoroShortBreakTime,
         )
     }

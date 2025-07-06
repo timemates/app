@@ -23,6 +23,7 @@ okio = "3.10.2"
 essenty = "2.5.0"
 detekt = "1.23.8"
 detekt-compose = "0.4.22"
+kover = "0.9.1"
 
 [libraries]
 # ───────────────────────────────────────────────────────────────────────────────
@@ -143,6 +144,7 @@ pluginClasspath-compose = { module = "org.jetbrains.compose:org.jetbrains.compos
 pluginClasspath-compose-compiler = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
 pluginClasspath-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 pluginClasspath-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+pluginClasspath-kover = { module = "org.jetbrains.kotlinx.kover:org.jetbrains.kotlinx.kover.gradle.plugin", version.ref = "kover" }
 
 # ───────────────────────────────────────────────────────────────────────────────
 # GraalVM

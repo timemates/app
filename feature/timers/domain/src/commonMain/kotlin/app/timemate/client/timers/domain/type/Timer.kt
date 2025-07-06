@@ -11,5 +11,5 @@ sealed interface Timer {
     val name: TimerName
     val creationTime: Instant
     val state: TimerState
-    val linkedTask: LinkedTimerTask
+    val linkedTask: LinkedTimerTask?
 }
