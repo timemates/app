@@ -9,14 +9,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TagIdTest {
-    private companion object {
-        private const val MIN_ID_VALUE: Long = TagId.MINIMAL_VALUE
-    }
-
     @Test
     fun `valid TagId is created from valid long`() {
         // GIVEN
-        val validLong = Random.nextLong(MIN_ID_VALUE, Long.MAX_VALUE)
+        val validLong = Random.nextLong(TagId.MINIMAL_VALUE, Long.MAX_VALUE)
 
         // WHEN
         val tagId = TagId.factory.createOrThrow(validLong)
@@ -28,7 +24,7 @@ class TagIdTest {
     @Test
     fun `creation fails for negative long`() {
         // GIVEN
-        val negativeLong = MIN_ID_VALUE - 1
+        val negativeLong = TagId.MINIMAL_VALUE - 1
 
         // WHEN / THEN
         assertFailsWith<ValidationException> {
@@ -39,7 +35,7 @@ class TagIdTest {
     @Test
     fun `creation succeeds for zero`() {
         // GIVEN
-        val zero = MIN_ID_VALUE
+        val zero = TagId.MINIMAL_VALUE
 
         // WHEN
         val tagId = TagId.factory.createOrThrow(zero)
