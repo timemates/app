@@ -12,9 +12,14 @@ import kotlin.time.Duration.Companion.seconds
 value class PomodoroPreparationTime private constructor(
     val duration: Duration
 ) {
-    companion object Companion {
+    companion object {
+        val MIN_TIME: Duration = 5.seconds
+        val MAX_TIME: Duration = 5.minutes
+
+        val TIME_RANGE: ClosedRange<Duration> = MIN_TIME..MAX_TIME
+
         val factory: ValueFactory<PomodoroPreparationTime, Duration> = factory(
-            rules = listOf(DurationFrameValidation(5.seconds..5.minutes)),
+            rules = listOf(DurationFrameValidation(TIME_RANGE)),
             constructor = ::PomodoroPreparationTime,
         )
     }

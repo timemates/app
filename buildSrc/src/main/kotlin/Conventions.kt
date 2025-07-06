@@ -31,6 +31,11 @@ class ConventionNamespace internal constructor(
     /** Convention plugins used for feature modules (e.g., DI, Compose, Domain). */
     val feature: FeatureNamespace = FeatureNamespace(),
 
+    /**
+     * Convention plugin to enable kover in the module with default settings.
+     */
+    val kover: String = "app.timemate.client.build.conventions.kover-convention",
+
     /** Convention plugins used in Kotlin Multiplatform projects. */
     val multiplatform: MultiplatformNamespace = MultiplatformNamespace()
 )

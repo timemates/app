@@ -13,10 +13,10 @@ value class TagName private constructor(
         const val MIN_LENGTH: Int = 1
         const val MAX_LENGTH: Int = 50
 
-        val RANGE: IntRange = MIN_LENGTH..MAX_LENGTH
+        val LENGTH_RANGE: IntRange = MIN_LENGTH..MAX_LENGTH
 
         val factory: ValueFactory<TagName, String> = factory(
-            rules = listOf(StringLengthRangeValidationRule(RANGE)),
+            rules = listOf(StringLengthRangeValidationRule(LENGTH_RANGE)),
             constructor = ::TagName,
         )
     }
