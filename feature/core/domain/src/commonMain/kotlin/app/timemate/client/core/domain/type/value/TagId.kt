@@ -11,9 +11,11 @@ value class TagId private constructor(
     val long: Long,
 ) {
     companion object {
+        const val MINIMAL_VALUE = 0L
+
         val factory: ValueFactory<TagId, Long> = factory(
-            rules = listOf(MinValueValidationRule(0)),
-            constructor = { TagId(it) },
+            rules = listOf(MinValueValidationRule(MINIMAL_VALUE)),
+            constructor = ::TagId,
         )
     }
 }
