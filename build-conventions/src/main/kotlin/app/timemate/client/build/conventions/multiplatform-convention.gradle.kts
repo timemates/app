@@ -6,7 +6,10 @@ plugins {
 
 kotlin {
     jvm()
-    iosArm64()
+    js {
+        browser()
+    }
+
     jvmToolchain(11)
 
     sourceSets {
